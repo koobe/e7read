@@ -26,6 +26,7 @@ class Content {
 	String coverUrl
 	
 	Boolean hasPicture
+	Boolean isDelete
 
     Date dateCreated
     Date lastUpdated

@@ -1,6 +1,9 @@
 package kgl
 
 import static org.springframework.http.HttpStatus.*
+
+import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
+
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
@@ -75,6 +78,7 @@ class ContentController {
         }
 
         contentInstance.hasPicture = contentInstance.images?true:false
+		contentInstance.isDelete = false
 
         contentInstance.user = springSecurityService.currentUser
         contentInstance.originalTemplate = OriginalTemplate.findByName("default")
@@ -168,7 +172,12 @@ class ContentController {
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def renderContentsHTML() {
 				
-		def contentList = Content.list(max: params.max, offset: params.offset, sort:'lastUpdated', order:'desc')
+		def criteria = Content.createCriteria()
+		def contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
+			eq("isDelete", false)
+		}
+		
+		// def contentList = Content.list(max: params.max, offset: params.offset, sort:'lastUpdated', order:'desc')
 		def contentSize = contentList.size()
 		Random r = new Random()
 		def currIdx = 0
@@ -252,9 +261,15 @@ class ContentController {
 	def personal() {		
 	}
 	
-	def renderPersonalContentsHTML(User user) {
+	def renderPersonalContentsHTML() {
 		
-		def contentList = Content.findAllByUser(springSecurityService.currentUser, [max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc"]);
+		def criteria = Content.createCriteria()
+		def contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
+			eq("user", springSecurityService.currentUser)
+			eq("isDelete", false)
+		}
+		
+		// def contentList = Content.findAllByUser(springSecurityService.currentUser, [max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc"]);
 		def contentSize = contentList.size()
 		
 		def currItem = 1
@@ -262,28 +277,56 @@ class ContentController {
 		
 		contentList.each { content ->
 			
-			if (currItem.mod(2) != 0) {
-				render '<div class="row rowmargin">'
-				hasEndDiv = false
-			}
+//			if (currItem.mod(2) != 0) {
+//				render '<div class="row rowmargin">'
+//				hasEndDiv = false
+//			}
 			
-			render template: "contents_col", model:[content:content, span:6, object_template:'content_object_personal']
+			// render template: "contents_col", model:[content:content, span:6, object_template:'content_object_personal']
+			render template: "content_object_personal", bean:content
 			
-			if (currItem.mod(2) == 0) {
-				render "</div>"
-				hasEndDiv = true
-			}
+//			if (currItem.mod(2) == 0) {
+//				render "</div>"
+//				hasEndDiv = true
+//			}
 			
 			currItem++
 		}
 		
-		if (contentSize != 0 && !hasEndDiv) {
-			render "</div>"
-		}
+//		if (contentSize != 0 && !hasEndDiv) {
+//			render "</div>"
+//		}
 		
 		if (contentSize == 0) {
 			render ""
 		}
+	}
+	
+	def updateTitle() {
+		
+		def contentId = params.contentid
+		def title = params.title
+		
+		if (contentId != null) {
+			def content = Content.get(contentId)
+			content.cropTitle = title;
+			content.save flush:true
+		}
+		
+		render ""
+	}
+	
+	def disableContent() {
+		
+		def contentId = params.contentid
+		
+		if (contentId != null) {
+			def content = Content.get(contentId)
+			content.isDelete = true;
+			content.save flush:true
+		}
+		
+		render ""
 	}
 
     @Secured(["ROLE_ADMIN"])

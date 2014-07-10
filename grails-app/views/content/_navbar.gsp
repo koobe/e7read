@@ -15,6 +15,8 @@
       <ul class="nav navbar-nav">
       	<li class=""><a href="/">Home</a></li>
       	<li class="active"><a href="">My Contents</a></li>
+      	<li class=""><a href="/content/create"><i class="fa fa-plus"></i>Create</a></li>
+      	
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">

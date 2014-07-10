@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Area</title>
+    <meta charset="utf-8">
+    <link href="../content/shared/styles/examples-offline.css" rel="stylesheet">
+    <link href="../../styles/kendo.common.min.css" rel="stylesheet">
+    <link href="../../styles/kendo.rtl.min.css" rel="stylesheet">
+    <link href="../../styles/kendo.default.min.css" rel="stylesheet">
+    <link href="../../styles/kendo.dataviz.min.css" rel="stylesheet">
+    <link href="../../styles/kendo.dataviz.default.min.css" rel="stylesheet">
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/kendo.all.min.js"></script>
+    <script src="../content/shared/js/console.js"></script>
+    <script>
+        
+    </script>
+    
+    
+</head>
+<body>
+    
+        <a class="offline-button" href="../index.html">Back</a>
+    
+    <div id="example">
+    <div id="draggable"></div>
+    <div id="droptarget" class="k-widget k-header"><div class="test1 k-widget k-header">Start dragging.</div><div class="test2 k-widget k-header">Start dragging.</div></div>
+
+    <script>
+        function draggableOnDragStart(e) {
+            $("#draggable").addClass("hollow");
+
+            $("#droptarget").html("<div class='test1 k-widget k-header'>(Drop here)</div><div class='test2 k-widget k-header'>(Drop here)</div>");
+        }
+
+        function droptargetOnDragEnter(e) {
+            $(e.dropTarget).text("Now you can drop it.");
+        }
+
+        function droptargetOnDragLeave(e) {
+            $(e.dropTarget).text("(Drop here)");
+        }
+
+        function droptargetOnDrop(e) {
+            $(e.dropTarget).text("You did great!");
+            $("#draggable").removeClass("hollow");
+        }
+
+        function draggableOnDragEnd(e) {
+            var draggable = $("#draggable");
+
+            if (!draggable.data("kendoDraggable").dropped) {
+                // drag ended outside of any droptarget
+                $("#droptarget").html("<div class='test1 k-widget k-header'>(Try again)</div><div class='test2 k-widget k-header'>(Try again)</div>");
+            }
+
+            draggable.removeClass("hollow");
+        }
+
+        $(document).ready(function() {
+            $("#draggable").kendoDraggable({
+                hint: function() {
+                    return $("#draggable").clone();
+                },
+                dragstart: draggableOnDragStart,
+                dragend: draggableOnDragEnd
+            });
+
+            $("#droptarget").kendoDropTargetArea({
+                filter: ".test1, .test2",
+                dragenter: droptargetOnDragEnter,
+                dragleave: droptargetOnDragLeave,
+                drop: droptargetOnDrop
+            });
+        });
+    </script>
+
+    <style scoped>
+        #droptarget,
+        .test1, .test2
+        {
+            height: 198px;
+            font-size: 18px;
+            border-radius: 37px;
+            text-align: center;
+            line-height: 198px;
+            margin: 0 0 30px 215px;
+            cursor: default;
+            vertical-align: middle;
+        }
+
+        .test1, .test2
+        {
+            vertical-align: middle;
+            display: inline-block;
+            width: 220px;
+            height: 100px;
+            line-height: 100px;
+            margin: 0 10px 0;
+        }
+
+        *+html .test1,
+        *+html .test2
+        {
+            margin-top: 50px;
+            display: inline;
+            zoom: 1;
+        }
+
+        #example
+        {
+            background: url(../content/web/dragdrop/drag-clue.png) no-repeat 130px 80px;
+        }
+
+        #exampleTitle
+        {
+            color: #000;
+        }
+        #draggable 
+        {
+            top: 60px;    
+        }
+    </style>
+</div>
+
+
+    
+    
+</body>
+</html>

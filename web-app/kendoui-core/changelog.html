@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Changelog for Kendo UI v2014.1.416</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font: .75em/1.5 Tahoma, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            font-size: normal;
+        }
+
+        h2 {
+            font-size: 2em;
+            font-weight: normal;
+
+            margin: 1.2em 0 .3em;
+            padding-bottom: .2em;
+        }
+
+        #page {
+            width: 50em;
+            margin: 0 auto 2em;
+            border-radius: 0 0 1em 1em;
+            box-shadow: 0 0 10px #ccc;
+            padding: 1em 2em 2em;
+        }
+
+        .poBoxIcon {
+            float: left;
+            font-size: 2em;
+            margin: 1.2em .5em 0 0;
+        }
+
+        .poTopLine {
+            border-top: 2px solid #e1e1e1;
+            margin: 17px 0 40px 0;
+        }
+    </style>
+
+    <base href="http://www.telerik.com/support/whats-new/kendo-ui-web/release-history">
+</head>
+<body>
+    <div id="page">
+        <h1 class="title">Release notes for Kendo UI v2014.1.416</h1>
+
+        <h1>Components</h1>
+        <div class="tClear poTopLine">
+            <div class="poBoxIconText">
+                <p><strong>What's new</strong></p><ul><li>Scroller improved behavior on orientation change / resize</li><li>Funnel chart should not render segments for null/undefined, and should render segment and label when value is 0</li><li>Apply primary button styles to popups with a default action</li></ul>
+                <p><strong>What's fixed</strong></p><ul><li>kendo.stripWhitespace breaks SPA View in IE7/8</li><li>kendo.stripWhitespace breaks SPA View in IE7/8</li><li>reverse slide view transitions are broken (visible in the view transitions demo)</li><li>View is incorrectly sized in mobile safari, when app is first run in landscape mode</li><li>Grid Toolbar does not inherit the proper theme text color</li><li>View loses its view parameters when navigating back in a splitview</li><li>view init event is called before the view is in the DOM when displayed with showIn</li><li>Layout#showIn does not work when selector is pointing to the layout root element</li><li>View with multiple root elements has each element wrapped</li><li>Cannot unbind event attached via the 'one' method.</li><li>Hover styles ignored by old IE versions due to combining CSS2 and CSS3 selectors</li><li>layout.showIn does not trigger view show event</li></ul>
+            </div>
+        </div>
+
+
+        <div class="tClear poTopLine">
+            <h2>ActionSheet</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>popover arrow is positioned incorrectly when opener is close to edge </li><li>The type option is missing from the MVC wrapper.</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Calendar</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Widget does not preserve options.dates when setOptions method is used</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>ColorPicker</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Widget does not persist tabindex after disable/enable</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>ComboBox</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Cascading widget selects the first item on filter</li><li>Re-focus on ComboBox input when tabing out and server filtering request ends</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DataSource</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Grand total are not calculated correctly during local data virtualization</li><li>Average aggregate should ignore Null values</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DatePicker</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Widget is not able to select 1/1/1970 when timezone is UTC</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DateTimePicker</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Widget is not able to select 1/1/1970 when timezone is UTC</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Drawer</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Drawer can't be open from tabstrip item</li><li>view flash quickly before being animated</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DropDownList</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Gap between the input and the popup</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Globalization</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>kendo.toString does not pad milliseconds when format a Date object</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>HierarchicalDataSource</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Request type is not passed to the HierarchicalDataSource children parameterMap function</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>MVVM</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>set with composite path binds to the change event of the value twice</li><li>Widget does not update ViewModel correctly on tag remove in IE8</li><li>Widgets does not clear its value when bound to a non-existing MVVM field</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>MaskedTextBox</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>In IE10 when tabbed to a widget with no value, the cursor is placed at the end of the line</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Menu</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Option popupCollision can\t be set declaratively</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>MobileTabStrip</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Drawer can't be open from tabstrip item</li><li>TabStrip throws an error when included in ModalView</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>ModalView</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>ModalView with data-modal="false" does not fire close event</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>MultiSelect</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Widget with autoBind:false makes two requests on first filter </li><li>Widget does not update ViewModel correctly on tag remove in IE8</li><li>Cannot select address bar in IE when widget is focused</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Notification</h2>
+            <p><strong>What's new</strong></p><ul><li>Add data-role="alert" to Notifications</li></ul>
+            <p><strong>What's fixed</strong></p><ul><li>Default Notification template wraps in IE11</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>PopOver</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>popover arrow is positioned incorrectly when opener is close to edge </li><li>When popover is open, tapping on the background triggers native scrolling </li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Router</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>routeMissing preventDefault does not work as expected in IE 10</li></ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Sortable</h2>
+            
+            <p><strong>What's fixed</strong></p><ul><li>Move event is not fired on Chrome for Android</li><li>Placeholder is misplaced in cases when sortable container contains filtered items</li><li>Inputs inside sortable elements cannot be focused with a mouse click</li></ul>
+        </div>
+    </div>
+</body>
+</html>

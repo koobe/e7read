@@ -1,0 +1,53 @@
+.hovercontent {
+	padding: 5px;
+	border: 1px solid #fff;
+}
+
+.hovercontent:hover {
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow:2px 2px 2px 1px rgba(0,0,0,.075);
+	transition: border-color ease-in-out .10s,box-shadow ease-in-out .1s;
+}
+
+.maincontainer {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.editing-title:focus {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	transition: border-color ease-in-out .10s;
+}
+
+.resetmargin {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.item-editing-menu {
+	background: rgba(0,0,0,0.5);
+	width: auto;
+	height: auto;
+	padding: 5px;
+	position: absolute;
+	bottom: 5px;
+	right: 20px;
+	color: #fff;
+	display: none;
+}
+
+.private-div {
+	background: rgba(0,0,0,0.5);
+    width: auto;
+    height: 45px;
+    padding: 5px;
+    position: absolute;
+    bottom: 5px;
+    top: 5px;
+    color: #fff;
+}

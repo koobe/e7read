@@ -8,6 +8,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
+import org.codenarc.rule.braces.ElseBlockBracesAstVisitor;
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 @Secured(["ROLE_USER"])
@@ -79,6 +80,7 @@ class ContentController {
 
         contentInstance.hasPicture = contentInstance.images?true:false
 		contentInstance.isDelete = false
+		contentInstance.isPrivate = false
 
         contentInstance.user = springSecurityService.currentUser
         contentInstance.originalTemplate = OriginalTemplate.findByName("default")
@@ -175,6 +177,7 @@ class ContentController {
 		def criteria = Content.createCriteria()
 		def contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
 			eq("isDelete", false)
+			eq("isPrivate", false)
 		}
 		
 		// def contentList = Content.list(max: params.max, offset: params.offset, sort:'lastUpdated', order:'desc')
@@ -311,6 +314,7 @@ class ContentController {
 			def content = Content.get(contentId)
 			content.cropTitle = title;
 			content.save flush:true
+			render g.formatDate(date: content.lastUpdated, type: "datetime", style: "LONG", timeStyle: "SHORT")
 		}
 		
 		render ""
@@ -324,6 +328,26 @@ class ContentController {
 			def content = Content.get(contentId)
 			content.isDelete = true;
 			content.save flush:true
+		}
+		
+		render ""
+	}
+	
+	def switchPrivacy() {
+		
+		def contentId = params.contentid
+		
+		if (contentId != null) {
+			def content = Content.get(contentId)
+			
+			if (content.isPrivate) {
+				content.isPrivate = false
+			} else {
+				content.isPrivate = true
+			}
+			
+			content.save flush:true
+			render template: "content_elements_personal", bean:content
 		}
 		
 		render ""

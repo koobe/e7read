@@ -61,6 +61,9 @@ grails.project.dependency.resolution = {
 
         // AWS ...
         runtime 'com.amazonaws:aws-java-sdk:1.7.12'
+
+        // jsoup
+        runtime 'org.jsoup:jsoup:1.7.3'
     }
 
     plugins {

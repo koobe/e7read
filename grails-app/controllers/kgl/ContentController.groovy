@@ -1,5 +1,7 @@
 package kgl
 
+import org.jsoup.Jsoup
+
 import static org.springframework.http.HttpStatus.*
 
 import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
@@ -33,11 +35,28 @@ class ContentController {
 
     def embed(Content contentInstance) {
 
+        def fullText = contentInstance.fullText?.replace("\r", "")
 
-        def texts = contentInstance.fullText?.split('\n\n')
-        
+        def texts = fullText?.split("\n\n")
 
-        render contentInstance.originalTemplate.html
+        def doc = Jsoup.parse(contentInstance.originalTemplate?.html)
+
+        int index = 0
+
+        println texts.length
+
+        texts.each {
+            text ->
+
+                doc.select(".text-segment[data-index=${index}]").html(text)
+
+                index ++
+        }
+
+
+        def result = doc.html()
+
+        render contentType: 'text/html', text: result
 //        render contentInstance.fullText
     }
 

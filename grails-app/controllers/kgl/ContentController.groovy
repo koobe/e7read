@@ -31,6 +31,16 @@ class ContentController {
         respond contentInstance
     }
 
+    def embed(Content contentInstance) {
+
+
+        def texts = contentInstance.fullText?.split('\n\n')
+        
+
+        render contentInstance.originalTemplate.html
+//        render contentInstance.fullText
+    }
+
     def create() {
         respond new Content(params)
     }

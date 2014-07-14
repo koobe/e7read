@@ -1,6 +1,8 @@
 package kgl
 
-
+import grails.converters.JSON
+import grails.converters.XML
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -99,6 +101,21 @@ class OriginalTemplateController {
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
+        }
+    }
+
+    @Secured(["ROLE_ADMIN"])
+    def debug() {
+        withFormat {
+            html {
+                render OriginalTemplate.findByName('default').html
+            }
+            json {
+                render OriginalTemplate.list() as JSON
+            }
+            xml {
+                render OriginalTemplate.list() as XML
+            }
         }
     }
 }

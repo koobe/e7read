@@ -29,18 +29,6 @@ class DatabaseBootStrap {
             UserRole.create(user1, role3)
         }
 
-        // Create Original Template
-
-        if (OriginalTemplate.count() == 0) {
-            def template1 = new OriginalTemplate()
-            template1.name = "default"
-            template1.html = "<p>text</p>"
-            template1.group = "A"
-            template1.mediaCount = 2
-            template1.textCount = 2
-            template1.save flush: true
-        }
-
     }
     def destroy = {
     }

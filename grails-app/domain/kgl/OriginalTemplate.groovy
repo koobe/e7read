@@ -26,7 +26,7 @@ class OriginalTemplate {
     static constraints = {
 		textCount blank: false
 		mediaCount blank: false
-		html blank: false
+		html maxSize: 1024 * 1024, blank: false
     }
 	
 	static mapping = {

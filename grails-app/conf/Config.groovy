@@ -108,13 +108,13 @@ log4j.main = {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
 
-//
-//    appenders {
-//        //console name: 'stdout'
-//        console name: "stdout", threshold: org.apache.log4j.Level.INFO
-//    }
-//
-//    info 'grails.app'
+
+    appenders {
+        //console name: 'stdout'
+        console name: "stdout", threshold: org.apache.log4j.Level.INFO
+    }
+
+    info 'grails.app'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -129,6 +129,7 @@ log4j.main = {
            'net.sf.ehcache.hibernate'
 
     debug   'com.the6hours', 'grails.app.taglib.com.the6hours'
+
     //debug   'org.springframework.security'
     debug   'grails.app.controllers', 'grails.app.domain', 'grails.app.services'
 }

@@ -48,7 +48,9 @@ class ContentController {
         texts.each {
             text ->
 
-                doc.select(".text-segment[data-index=${index}]").html(text)
+                //println text
+
+                doc.select(".text-segment[data-index=${index}]").html(text?.encodeAsHTML())
 
                 index ++
         }

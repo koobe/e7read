@@ -13,7 +13,7 @@
         	<div class="content-editing-title">Post Content</div>
         	<div id="content-editing-textarea" class="content-editing-textarea form-control" placeholder="Write something here..." contenteditable="true"></div>
         	
-        	<g:uploadForm id="uploadImageForm" name="uploadImageForm" action="uploadImage" style="display:none;">
+        	<g:uploadForm class="uploadImageForm" name="uploadImageForm" action="uploadImage" style="display: none;">
         		<input id="uploadImageInput" type="file" accept="image/*" name="file" />
         	</g:uploadForm>
         	
@@ -21,7 +21,7 @@
         		<div class="picture-cell">
         			<div class="picture-add" ><span class="fa fa-file-image-o" style="font-size:large;"></span></div>
         		</div>
-        		<div class="text-uppercase" style="display: table-row;">TIP: Delete uploaded image by touch.</div>
+        		<!-- <div class="text-uppercase" style="display: table-row;">TIP: Delete uploaded image by touch.</div>  -->
         	</div>
         	
         	<div class="button-block">

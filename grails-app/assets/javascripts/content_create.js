@@ -38,17 +38,15 @@ function prepareFilesAndTriggerSubmit() {
 function ajaxUploadFile() {
 	currItem++;
 	var uploadId = 'ajax-upload-display-' + new Date().getTime();
-	$('#uploadImageForm').ajaxSubmit({
-		cache: false,
-        contentType: false,
-        processData: false,
-		beforeSubmit: function(){startUpload(uploadId);},
-		success: function(responseText, statusText, xhr, $form){showResponse(responseText, statusText, xhr, $form, uploadId);},
-		error: function(xhr, status, errMsg) {
-			$('#' + uploadId).remove();
-			currItem--;
-		}
+	$('.uploadImageForm').ajaxSubmit({
+		beforeSend: function(){ startUpload(uploadId); },
+		success: function(responseText, statusText, xhr, $form){ showResponse(responseText, statusText, xhr, $form, uploadId); },
+		error: function(xhr, status, errMsg) { $('#' + uploadId).remove(); currItem--; },
+		uploadProgress: function(event, position, total, percentComplete) {
+	        var percentVal = percentComplete + '%';
+	    }
 	});
+//	$('.uploadImageForm').submit();
 	controlUploader();
 }
 

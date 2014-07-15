@@ -12,6 +12,8 @@ class TemplateBootStrap {
 
         def templates = grailsApplication.getParentContext().getResource("classpath:resources/templates").file
 
+        log.info "Import all HTML templates"
+
         templates.eachFileMatch(~/.*\.html/, {
             template ->
                 def baseName = template.name.replace(".html", "")
@@ -25,6 +27,29 @@ class TemplateBootStrap {
                 ot.group = 'A'
                 ot.mediaCount = 2
                 ot.textCount = 2
+                ot.type = OriginalTemplateType.HTML
+
+                log.info "Save ${ot.html.bytes.length} bytes."
+
+                ot.save flush: true
+        })
+
+        log.info "Import all GSP templates"
+
+        templates.eachFileMatch(~/.*\.gsp/, {
+            template ->
+                def baseName = template.name.replace(".gsp", "")
+
+                log.info "OriginalTemplate.findOrCreateByName(${baseName})"
+
+                def ot = OriginalTemplate.findOrCreateByName(baseName)
+
+                ot.name = baseName
+                ot.html = template.getText('UTF-8')
+                ot.group = 'A'
+                ot.mediaCount = 2
+                ot.textCount = 2
+                ot.type = OriginalTemplateType.GSP
 
                 log.info "Save ${ot.html.bytes.length} bytes."
 

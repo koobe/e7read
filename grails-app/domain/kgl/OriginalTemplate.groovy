@@ -1,6 +1,9 @@
 package kgl
 
-import org.springframework.aop.TrueClassFilter;
+public enum OriginalTemplateType {
+    HTML,
+    GSP
+}
 
 /**
  *
@@ -20,6 +23,8 @@ class OriginalTemplate {
 	String group
 	
 	String html
+
+    OriginalTemplateType type
 
 	static hasMany = [templateSegment: TemplateSegment]
 	

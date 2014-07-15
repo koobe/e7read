@@ -15,7 +15,7 @@ class Content {
     /**
      * Store all images upload by user
      */
-    static hasMany = [images: S3File]
+    static hasMany = [images: S3File, textSegments: TextSegment]
 
     User user
 	OriginalTemplate originalTemplate

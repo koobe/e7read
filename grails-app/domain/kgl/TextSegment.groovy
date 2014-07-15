@@ -4,10 +4,10 @@ class TextSegment {
 	
 	Content content
 	
-	String elementId
+	String dataIndex
 	String text
 
     static constraints = {
-		elementId blank: false
+		dataIndex blank: false
     }
 }

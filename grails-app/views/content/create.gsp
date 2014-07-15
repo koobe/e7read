@@ -4,9 +4,31 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'content.label', default: 'Content')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<asset:stylesheet src="content_create.css"/>
+		<asset:javascript src="content_create.js"/>
+		<asset:javascript src="jquery.form.min.js"/>
 	</head>
 	<body>
-        <div class="container" role="main">
+        <div class="">
+        	<div class="content-editing-title">Post Content</div>
+        	<div id="content-editing-textarea" class="content-editing-textarea form-control" placeholder="Write something here..." contenteditable="true"></div>
+        	
+        	<g:uploadForm id="uploadImageForm" name="uploadImageForm" action="uploadImage" style="display:none;">
+        		<input id="uploadImageInput" type="file" accept="image/*" name="file" />
+        	</g:uploadForm>
+        	
+        	<div id="PictureContainer" class="content-editing-picture">
+        		<div class="picture-cell">
+        			<div class="picture-add" ><span class="fa fa-plus" style="font-size:large;"></span></div>
+        		</div>
+        		<div class="text-uppercase" style="display: table-row;">TIP: Delete uploaded image by touch.</div>
+        	</div>
+        	
+        	<div class="button-block">
+        		<g:link class="btn btn-default button-ele" uri="javascript:history.back()" >Cancel</g:link>
+	        	<g:link class="btn btn-primary btn-block button-ele" uri="javascript: postContent();">Post</g:link>
+            </div>
+            
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
@@ -17,38 +39,6 @@
                     </g:eachError>
                 </ul>
             </g:hasErrors>
-            <g:uploadForm role="form" url="[resource:contentInstance, action:'save']" >
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <textarea class="form-control" name="fullText" rows="15" placeholder="請輸入文字內容...">${contentInstance.cropText}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group text-right">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div style="padding: 50px 0; text-align: center; background: #dadada; border-radius: 5px">
-                                <b>上傳圖片</b>
-                                <br/>
-                                <br/>
-                                <input type="file" accept="image/*" name="imageFiles" capture="camera" multiple style="display: inline-block" />
-                            </div>
-                            <!--<input class="form-control" name="coverUrl" placeholder="圖片網址..." value="${contentInstance.coverUrl}" />-->
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <g:submitButton name="create" class="btn btn-primary btn-block save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                        </div>
-                        <div class="col-xs-6">
-                            <g:link uri="javascript:history.back()" class="btn btn-default btn-block ">Cancel</g:link>
-                        </div>
-                    </div>
-                </div>
-            </g:uploadForm>
         </div>
 	</body>
 </html>

@@ -383,6 +383,84 @@ class ContentController {
 		
 		render ""
 	}
+	
+	def uploadImage() {
+		List<CommonsMultipartFile> imageFiles = params.list("file")
+		imageFiles.each { imageFile ->
+			if (!imageFile.isEmpty()) {
+				def s3file = new S3File();
+				s3file.owner = springSecurityService.currentUser
+				s3file.file = imageFile
+				s3file.isPublic = true
+				s3file.remark = 'USER-UPLOAD-IMAGE'
+				
+				s3Service.upload(s3file, imageFile.inputStream)
+				
+				log.info s3file.id
+
+				s3file.save flush: true
+				
+				log.info s3file.id
+				log.info s3file.objectKey
+				log.info s3file.url
+				
+				render s3file as JSON
+//				render(contentType:"text/json") {
+//					s3file
+//				}
+			}
+		}
+		
+		render ""
+	}
+	
+	@Transactional
+	def postContent() {
+		
+		log.info 's3fileid: ' + params.s3fileId
+		log.info 'content text: ' + params.contentText
+		
+		//TODO do segmentation
+		def contentText = params.contentText? params.contentText.replace("<div>"," ").replace("</div>"," "): ""
+		contentText = contentText.replace("<br>"," ")
+		contentText = contentText.replace("<p>"," ").replace("</p>"," ")
+		
+		log.info 'clear text: ' + contentText
+		
+		def contentInstance = new Content()
+		contentInstance.images = []
+		
+		def s3fileIds = params.s3fileId.tokenize(",");
+		s3fileIds.each { s3fileId ->
+			def s3Image = S3File.get(s3fileId)
+			contentInstance.images << s3Image
+		}
+		
+		contentInstance.cropTitle = contentText.take(30)
+		contentInstance.cropText = contentText
+		contentInstance.fullText = contentText
+		
+		log.info 'full text: ' + contentInstance.fullText
+
+		if (contentInstance.images) {
+			contentInstance.coverUrl = contentInstance.images.first().unsecuredUrl
+		}
+
+		contentInstance.hasPicture = contentInstance.images? true: false
+		contentInstance.isDelete = false
+		contentInstance.isPrivate = false
+
+		contentInstance.user = springSecurityService.currentUser
+		contentInstance.originalTemplate = OriginalTemplate.findByName("default")
+
+		contentInstance.validate()
+		log.info 'save content'
+		contentInstance.save flush: true
+		
+		log.info contentInstance.errors
+		
+		render ""
+	}
 
     @Secured(["ROLE_ADMIN"])
     def debug() {

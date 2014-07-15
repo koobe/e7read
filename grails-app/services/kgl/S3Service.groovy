@@ -1,10 +1,15 @@
 package kgl
 
+import java.util.logging.Logger;
+
 import com.amazonaws.auth.BasicAWSCredentials
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.CannedAccessControlList
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
+
 import grails.transaction.Transactional
 import grails.util.Environment
 
@@ -19,6 +24,7 @@ class S3Service {
     String secretKey
     String bucket
     BasicAWSCredentials credentials
+	AmazonS3 s3client;
 
     @PostConstruct
     void initialize() {
@@ -26,6 +32,7 @@ class S3Service {
         secretKey = grailsApplication.config.aws.credentials.secretKey
         bucket = grailsApplication.config.aws.s3.bucket
         credentials = new BasicAWSCredentials(accessKey, secretKey)
+		s3client = new AmazonS3Client(credentials);
     }
 
     boolean doesBucketExist() {
@@ -33,7 +40,7 @@ class S3Service {
     }
 
     boolean doesBucketExist(bucket) {
-        getClient().doesBucketExist(bucket)
+        s3client.doesBucketExist(bucket)
     }
 
     void createBucket() {
@@ -42,11 +49,11 @@ class S3Service {
 
     void createBucket(bucket) {
         log.info "Create S3 bucket: ${bucket}"
-        getClient().createBucket(bucket)
+        s3client.createBucket(bucket)
     }
 
     def upload(S3File s3file, InputStream inputStream) {
-
+		
         log.info "Upload S3File ${s3file.originalFilename} (Content-Type: ${s3file.contentType}, Content-Length: ${s3file.contentLength} bytes)"
 
         if (!s3file.bucket) {
@@ -67,21 +74,14 @@ class S3Service {
         def request = new PutObjectRequest(s3file.bucket, s3file.objectKey, inputStream, metadata)
 
         if (s3file.isPublic) {
-            log.info "Make Public"
-            // TODO: Set ACL to public
-
             request.setCannedAcl(CannedAccessControlList.PublicRead)
         }
 
-        def result = getClient().putObject(request)
-
-        s3file.url = getClient().getUrl(s3file.bucket, s3file.objectKey)
-        s3file.resourceUrl = getClient().getResourceUrl(s3file.bucket, s3file.objectKey)
-
+		// put object to s3
+        def result = s3client.putObject(request)
+		
+        s3file.url = s3client.getUrl(s3file.bucket, s3file.objectKey).toString().replaceFirst("https://", "http://")
+        s3file.resourceUrl = s3file.url
         s3file.hasBeenUploaded = true
-    }
-
-    def getClient() {
-        new AmazonS3Client(credentials)
     }
 }

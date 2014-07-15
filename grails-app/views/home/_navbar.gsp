@@ -15,6 +15,14 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="">Home</a></li>
+        <li class="active"><a href="#">My Contents</a></li>
+      	<li class="">
+            <a href="/content/create">
+                <i class="fa fa-plus"></i>
+                Create
+            </a>
+        </li>
+        <!-- 
         <li><a href="#contact">Movie</a></li>
 		<li><a href="#contact">Music</a></li>
 		<li><a href="#contact">Sports</a></li>
@@ -29,7 +37,7 @@
 				<li><a href="#contact">Art</a></li>
 				<li><a href="#contact">Games</a></li>
 			</ul>
-		</li>
+		</li> -->
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">

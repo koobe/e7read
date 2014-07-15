@@ -5,6 +5,7 @@ import org.jsoup.Jsoup
 import static org.springframework.http.HttpStatus.*
 
 import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
+import java.lang.invoke.ForceInline;
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
@@ -417,30 +418,58 @@ class ContentController {
 	@Transactional
 	def postContent() {
 		
-		log.info 's3fileid: ' + params.s3fileId
-		log.info 'content text: ' + params.contentText
+		log.info 'The id list of files: ' + params.s3fileId
+		log.info 'User input text: ' + params.contentText
 		
-		//TODO do segmentation
-		def contentText = params.contentText? params.contentText.replace("<div>"," ").replace("</div>"," "): ""
-		contentText = contentText.replace("<br>"," ")
-		contentText = contentText.replace("<p>"," ").replace("</p>"," ")
+		// parse content as xml
+		def contentXml = "<root>" + params.contentText + "</root>"
+		contentXml = contentXml.replace("<br>", "<br/>")
+		log.info 'Mock xml: ' + contentXml
+		def contentDom = new XmlParser().parseText(contentXml)
 		
-		log.info 'clear text: ' + contentText
-		
+		// new content instance for persistence
 		def contentInstance = new Content()
 		contentInstance.images = []
+		contentInstance.textSegments = []
 		
-		def s3fileIds = params.s3fileId.tokenize(",");
-		s3fileIds.each { s3fileId ->
+		def fullText = ''
+		def dataIdx = 0
+		def firstSegment
+		contentDom.children().each { node ->
+			
+			String segment;
+			if (node instanceof String) {
+				segment = node;
+			} else if (node instanceof Node) {
+				segment = node.text()
+			} else {
+				log.warn 'Unknow node type: ' + node;
+				return
+			}
+			
+			if (segment.trim() == '') {
+				return
+			}
+			
+			def textSegment = new TextSegment(content: contentInstance, dataIndex: dataIdx, text: segment);
+			//TODO chose one segment for cropText
+			firstSegment = segment;
+			contentInstance.textSegments << textSegment
+			dataIdx++
+			fullText+= segment + "\n"
+		}
+		
+		//TODO use PictureSegment
+		// set content image files
+		def fileidList = params.s3fileId.tokenize(",");
+		fileidList.each { s3fileId ->
 			def s3Image = S3File.get(s3fileId)
 			contentInstance.images << s3Image
 		}
 		
-		contentInstance.cropTitle = contentText.take(30)
-		contentInstance.cropText = contentText
-		contentInstance.fullText = contentText
-		
-		log.info 'full text: ' + contentInstance.fullText
+		contentInstance.cropTitle = fullText.split(",|\\.|;|，|。").first()
+		contentInstance.cropText = firstSegment.take(200);
+		contentInstance.fullText = fullText
 
 		if (contentInstance.images) {
 			contentInstance.coverUrl = contentInstance.images.first().unsecuredUrl
@@ -453,11 +482,10 @@ class ContentController {
 		contentInstance.user = springSecurityService.currentUser
 		contentInstance.originalTemplate = OriginalTemplate.findByName("default")
 
-		contentInstance.validate()
-		log.info 'save content'
-		contentInstance.save flush: true
+//		contentInstance.validate()
+//		log.info contentInstance.errors
 		
-		log.info contentInstance.errors
+		contentInstance.save(flush: true)
 		
 		render ""
 	}

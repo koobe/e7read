@@ -11,7 +11,7 @@
 	        <i class="fa fa-user"></i>
 	        <!-- <sec:loggedInUserInfo field="fullName"/> -->
 	    </g:link>
-	    <g:link uri="/j_spring_security_logout" class="btn btn-default">
+	    <g:link uri="javascript: confirmLogout();" class="btn btn-default">
 	        <i class="fa fa-sign-out"></i> <!-- Logout -->
 	    </g:link>
 	</div>

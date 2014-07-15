@@ -18,3 +18,10 @@ if (typeof jQuery !== 'undefined') {
 		});
 	})(jQuery);
 }
+
+function confirmLogout() {
+	var r = confirm('Logout?');
+	if (r) {
+		window.location.replace("/j_spring_security_logout");
+	}
+}

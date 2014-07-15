@@ -22,7 +22,7 @@
 	        <i class="fa fa-sign-in"></i> <!-- Sign-in -->
 	    </g:link>
 	    <oauth:connect provider="facebook" id="facebook-connect-link" class="btn btn-default">
-	        <i class="fa fa-facebook"></i>
+	        <i class="fa fa-facebook-square"></i>
 	        <!-- Sign-in with Facebook -->
 	    </oauth:connect>
 	</div>

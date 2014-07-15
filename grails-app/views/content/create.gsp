@@ -19,7 +19,7 @@
         	
         	<div id="PictureContainer" class="content-editing-picture">
         		<div class="picture-cell">
-        			<div class="picture-add" ><span class="fa fa-plus" style="font-size:large;"></span></div>
+        			<div class="picture-add" ><span class="fa fa-file-image-o" style="font-size:large;"></span></div>
         		</div>
         		<div class="text-uppercase" style="display: table-row;">TIP: Delete uploaded image by touch.</div>
         	</div>

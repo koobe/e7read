@@ -99,7 +99,7 @@ function refreshUpdated(obj, data) {
 }
 
 function deleteContent(contentid) {
-	var r = confirm('Want to delete?');
+	var r = confirm('Are you sure to delete?');
 	if (r == true) {
 		$.ajax({
 			type:'POST',
@@ -112,7 +112,7 @@ function deleteContent(contentid) {
 }
 
 function switchPrivacy(contentid) {
-	var r = confirm('Switch privacy?');
+	var r = confirm('Are you sure?');
 	if (r == true) {
 		$.ajax({
 			type:'POST',

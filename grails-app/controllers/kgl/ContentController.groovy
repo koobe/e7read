@@ -18,6 +18,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 @Transactional(readOnly = true)
 class ContentController {
 
+	def grailsApplication
     def springSecurityService
     def s3Service
 
@@ -422,10 +423,15 @@ class ContentController {
 		log.info 'User input text: ' + params.contentText
 		
 		// parse content as xml
-		def contentXml = "<root>" + params.contentText + "</root>"
-		contentXml = contentXml.replace("<br>", "<br/>")
+		def contentXml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "' + grailsApplication.config.grails.serverURL + '/assets/xhtml1-transitional.dtd">' +
+			"<html>" + params.contentText + "</html>"
+			
+		contentXml = contentXml.replaceAll("<br[^>]*>", "<br/>")
 		log.info 'Mock xml: ' + contentXml
-		def contentDom = new XmlParser().parseText(contentXml)
+		
+		def parser = new XmlParser()
+		parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+		def contentDom = parser.parseText(contentXml)
 		
 		// new content instance for persistence
 		def contentInstance = new Content()

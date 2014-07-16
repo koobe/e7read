@@ -1,6 +1,6 @@
 package kgl
 
-public enum OriginalTemplateType {
+public enum OriginalTemplateRenderType {
     HTML,
     GSP
 }
@@ -24,7 +24,7 @@ class OriginalTemplate {
 	
 	String html
 
-    OriginalTemplateType type
+    OriginalTemplateRenderType renderType
 
 	static hasMany = [templateSegment: TemplateSegment]
 	

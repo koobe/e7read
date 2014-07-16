@@ -168,8 +168,8 @@ oauth {
     providers {
         facebook {
             //api = org.scribe.builder.api.FacebookApi
-            key = System.getenv('OAUTH_FACEBOOK_KEY')
-            secret = System.getenv('OAUTH_FACEBOOK_SECRET')
+            key = System.getenv('OAUTH_FACEBOOK_KEY')?:System.getProperty('OAUTH_FACEBOOK_KEY')
+            secret = System.getenv('OAUTH_FACEBOOK_SECRET')?:System.getProperty('OAUTH_FACEBOOK_SECRET')
             successUri = '/facebook/success'
             //failureUri = '/oauth/facebook/error'
             //callback = "http://dev.e7read.com:8080/oauth/facebook/callback"
@@ -183,8 +183,8 @@ grails.plugins.twitterbootstrap.fixtaglib = true
 
 aws {
     credentials {
-        accessKey = System.getenv('AWS_ACCESS_KEY_ID')
-        secretKey = System.getenv('AWS_SECRET_ACCESS_KEY')
+        accessKey = System.getenv('AWS_ACCESS_KEY_ID')?:System.getProperty('AWS_ACCESS_KEY_ID')
+        secretKey = System.getenv('AWS_SECRET_ACCESS_KEY')?:System.getProperty('AWS_SECRET_KEY')
     }
     s3 {
         bucket = "s3.e7read.com"

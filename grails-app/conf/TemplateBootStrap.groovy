@@ -27,7 +27,7 @@ class TemplateBootStrap {
                 ot.group = 'A'
                 ot.mediaCount = 2
                 ot.textCount = 2
-                ot.type = OriginalTemplateType.HTML
+                ot.renderType = OriginalTemplateRenderType.HTML
 
                 log.info "Save ${ot.html.bytes.length} bytes."
 
@@ -49,7 +49,7 @@ class TemplateBootStrap {
                 ot.group = 'A'
                 ot.mediaCount = 2
                 ot.textCount = 2
-                ot.type = OriginalTemplateType.GSP
+                ot.renderType = OriginalTemplateRenderType.GSP
 
                 log.info "Save ${ot.html.bytes.length} bytes."
 

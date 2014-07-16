@@ -21,10 +21,10 @@ class TemplateService {
             return null
         }
 
-        if (content.originalTemplate.type == OriginalTemplateType.HTML) {
+        if (content.originalTemplate.renderType == OriginalTemplateRenderType.HTML) {
             return renderInJsoup(content)
         }
-        else if (content.originalTemplate.type == OriginalTemplateType.GSP) {
+        else if (content.originalTemplate.renderType == OriginalTemplateRenderType.GSP) {
             return renderInGSP(content)
         }
     }

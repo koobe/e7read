@@ -37,10 +37,10 @@ class Content {
     }
 
     static constraints = {
-        fullText maxLength: 1024 * 1024, maxSize: 2000
+        fullText maxSize: 1024 * 1024
 
-        cropTitle nullable: true, maxLength: 1024
-		cropText nullable: true, maxLength: 64 * 1024
+        cropTitle nullable: true, maxSize: 1024
+		cropText nullable: true, maxSize: 512 * 1024
 		coverUrl nullable: true
     }
 }

@@ -1,24 +1,18 @@
 package kgl
 
-import org.jsoup.Jsoup
-
-import static org.springframework.http.HttpStatus.*
-
-import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
-import java.lang.invoke.ForceInline;
-
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
-
-import org.codenarc.rule.braces.ElseBlockBracesAstVisitor;
 import org.springframework.web.multipart.commons.CommonsMultipartFile
+
+import static org.springframework.http.HttpStatus.*
 
 @Secured(["ROLE_USER"])
 @Transactional(readOnly = true)
 class ContentController {
 
     def springSecurityService
+    def templateService
     def s3Service
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -30,36 +24,15 @@ class ContentController {
         respond datas, model:[contentInstanceCount: Content.count()]
     }
 
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def show(Content contentInstance) {
         respond contentInstance
     }
 
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def embed(Content contentInstance) {
 
-        def fullText = contentInstance.fullText?.replace("\r", "")
-
-        def texts = fullText?.split("\n\n")
-
-        def doc = Jsoup.parse(contentInstance.originalTemplate?.html)
-
-        int index = 0
-
-        println texts.length
-
-        texts.each {
-            text ->
-
-                //println text
-
-                doc.select(".text-segment[data-index=${index}]").html(text?.encodeAsHTML())
-
-                index ++
-        }
-
-
-        def result = doc.html()
-
-        render contentType: 'text/html', text: result
+        render contentType: 'text/html', text: templateService.render(contentInstance)
 //        render contentInstance.fullText
     }
 

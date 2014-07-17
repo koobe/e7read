@@ -13,18 +13,18 @@ class TemplateService {
 
         if (!content) {
             log.warn "Could not render a null(or empty) content."
-            return null
+            return ""
         }
 
-        if (!content.originalTemplate) {
+        if (!content.template) {
             log.warn "Content ${content.id} has no original template."
-            return null
+            return ""
         }
 
-        if (content.originalTemplate.renderType == OriginalTemplateRenderType.HTML) {
+        if (content.template.renderType == OriginalTemplateRenderType.HTML) {
             return renderInJsoup(content)
         }
-        else if (content.originalTemplate.renderType == OriginalTemplateRenderType.GSP) {
+        else if (content.template.renderType == OriginalTemplateRenderType.GSP) {
             return renderInGSP(content)
         }
     }
@@ -34,7 +34,7 @@ class TemplateService {
 
         def texts = fullText?.split("\n\n")
 
-        def doc = Jsoup.parse(content.originalTemplate?.html)
+        def doc = Jsoup.parse(content.template?.html)
 
         int index = 0
 
@@ -68,7 +68,7 @@ class TemplateService {
         def writer = new StringWriter()
 
         groovyPagesTemplateEngine
-                .createTemplate(content.originalTemplate?.html, 'output')?.make([title: 'test title 1', textSegment: textSegment])?.writeTo(writer)
+                .createTemplate(content.template?.html, 'output')?.make([title: 'test title 1', textSegment: textSegment])?.writeTo(writer)
 
         return writer.toString()
     }

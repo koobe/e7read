@@ -32,9 +32,8 @@ class ContentController {
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def embed(Content contentInstance) {
-
         render contentType: 'text/html', text: templateService.render(contentInstance)
-//        render contentInstance.fullText
+//        render contentInstance.fullText.replaceAll("\n\n", "<br/><br/>")
     }
 
     def create() {

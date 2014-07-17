@@ -4,17 +4,20 @@ class TextSegment {
 	
 	String id
 	
-	Content content
-	
 	String dataIndex
 	String text
+	
+	static belongsTo = [
+		content: Content,
+	]
 	
 	static mapping = {
 		id generator: 'uuid'
 	}
 
     static constraints = {
+		id maxSize: 32
 		dataIndex blank: false
-		text type: 'text'
+		text maxSize: 8000
     }
 }

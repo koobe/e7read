@@ -371,18 +371,13 @@ class ContentController {
 				
 				s3Service.upload(s3file, imageFile.inputStream)
 				
-				log.info s3file.id
-
 				s3file.save flush: true
 				
-				log.info s3file.id
-				log.info s3file.objectKey
-				log.info s3file.url
+				log.info 'S3File id: ' + s3file.id
+				log.info 'S3File object key: ' + s3file.objectKey
+				log.info 'S3File url: ' + s3file.url
 				
 				render s3file as JSON
-//				render(contentType:"text/json") {
-//					s3file
-//				}
 			}
 		}
 		
@@ -408,12 +403,13 @@ class ContentController {
 		
 		// new content instance for persistence
 		def contentInstance = new Content()
-		contentInstance.images = []
 		contentInstance.textSegments = []
+		contentInstance.pictureSegment = []
 		
 		def fullText = ''
 		def dataIdx = 0
-		def firstSegment
+		def cropSegment
+		def maxLength = 0
 		contentDom.children().each { node ->
 			
 			String segment;
@@ -426,43 +422,57 @@ class ContentController {
 				return
 			}
 			
-			if (segment.trim() == '') {
+			// log.info 'segment data: ' + segment
+			segment = segment.replaceAll("&nbsp;", " ");
+			segment = segment.replaceAll(String.valueOf((char) 160), " ")
+			
+			// break if no data
+			segment = segment.trim()
+			if (segment == "") {
 				return
 			}
+			// log.info 'after trim segment data: ' + segment
+
+			if (segment.length() > maxLength) {
+				cropSegment = segment.trim();
+				maxLength = segment.length()
+			}
 			
-			def textSegment = new TextSegment(content: contentInstance, dataIndex: dataIdx, text: segment);
-			//TODO chose one segment for cropText
-			firstSegment = segment;
+			def textSegment = new TextSegment(content: contentInstance, dataIndex: dataIdx, text: segment.trim());
 			contentInstance.textSegments << textSegment
+			fullText+= segment.trim() + "\n\n"
 			dataIdx++
-			fullText+= segment + "\n"
 		}
 		
-		//TODO use PictureSegment
-		// set content image files
+		// Set image files for content
 		def fileidList = params.s3fileId.tokenize(",");
+		dataIdx = 0
 		fileidList.each { s3fileId ->
-			def s3Image = S3File.get(s3fileId)
-			contentInstance.images << s3Image
+			def s3ImageFile = S3File.get(s3fileId)
+			def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
+			contentInstance.pictureSegment << pictureSegment
+			// log.info 'Picture segment added. {' + pictureSegment + '}'
+			dataIdx++
 		}
 		
 		contentInstance.cropTitle = fullText.split(",|\\.|;|，|。").first()
-		contentInstance.cropText = firstSegment.take(200);
+		contentInstance.cropText = cropSegment
 		contentInstance.fullText = fullText
 
-		if (contentInstance.images) {
-			contentInstance.coverUrl = contentInstance.images.first().unsecuredUrl
+		if (contentInstance.pictureSegment) {
+			contentInstance.coverUrl = contentInstance.pictureSegment.first().thumbnailUrl? contentInstance.pictureSegment.first().thumbnailUrl: contentInstance.pictureSegment.first().originalUrl
 		}
 
-		contentInstance.hasPicture = contentInstance.images? true: false
+		contentInstance.hasPicture = contentInstance.pictureSegment? true: false
 		contentInstance.isDelete = false
 		contentInstance.isPrivate = false
 
 		contentInstance.user = springSecurityService.currentUser
-		contentInstance.originalTemplate = OriginalTemplate.findByName("default")
+		//TODO apply a template
+//		contentInstance.originalTemplate = OriginalTemplate.findByName("default")
 
-//		contentInstance.validate()
-//		log.info contentInstance.errors
+		contentInstance.validate()
+		log.info contentInstance.errors
 		
 		contentInstance.save(flush: true)
 		

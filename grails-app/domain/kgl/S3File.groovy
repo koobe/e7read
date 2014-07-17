@@ -53,6 +53,7 @@ class S3File {
     }
 
     static constraints = {
+		id maxSize: 32
         //attachDomain nullable: true, empty: true
         //attachId nullable: true, empty: true
     }

@@ -94,7 +94,6 @@ function postContent() {
 	$.ajax({
 		url: '/content/postContent',
 		type:'POST',
-		// contentType: 'application/json',
 		data: {
 			s3fileId: s3fileids, 
 			contentText: $('#content-editing-textarea').html()
@@ -102,4 +101,11 @@ function postContent() {
 		success:function(data,textStatus){window.location.replace("/content/personal");},
 		error:function(XMLHttpRequest,textStatus,errorThrown){alert('error');}
 	});
+}
+
+function cancelPost() {
+	var r = confirm('Discard post?');
+	if (r) {
+		history.back()
+	}
 }

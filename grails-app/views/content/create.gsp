@@ -25,8 +25,8 @@
         	</div>
         	
         	<div class="button-block">
-        		<g:link class="btn btn-default button-ele" uri="javascript:history.back()" >Cancel</g:link>
-	        	<g:link class="btn btn-primary btn-block button-ele" uri="javascript: postContent();">Post</g:link>
+        		<g:link class="btn btn-default button-ele" uri="javascript:cancelPost();" >Cancel</g:link>
+	        	<g:link id="button-post" class="btn btn-primary btn-block button-ele" uri="javascript: postContent();">Post</g:link>
             </div>
             
             <g:if test="${flash.message}">

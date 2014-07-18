@@ -28,12 +28,19 @@ class ContentController {
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def show(Content contentInstance) {
 //        respond contentInstance
-		
+
+        if (!contentInstance) {
+            notFound()
+            return
+        }
+
 		//TODO FOR TEST
-		[pictureSegments: contentInstance.pictureSegment, 
-		 textSegments: contentInstance.textSegments,
-		 title: contentInstance.cropTitle,
-		 id: contentInstance.id]
+		[
+                pictureSegments: contentInstance.pictureSegment,
+                textSegments: contentInstance.textSegments,
+                title: contentInstance.cropTitle,
+                id: contentInstance.id
+        ]
     }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])

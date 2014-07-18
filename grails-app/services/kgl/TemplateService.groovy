@@ -9,7 +9,7 @@ class TemplateService {
 
     GroovyPagesTemplateEngine groovyPagesTemplateEngine
 
-    def render(Content content) {
+    String render(Content content) {
 
         if (!content) {
             log.warn "Could not render a null(or empty) content."

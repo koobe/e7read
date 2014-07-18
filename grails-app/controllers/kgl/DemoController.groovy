@@ -3,6 +3,7 @@ package kgl
 import grails.plugin.springsecurity.annotation.Secured
 
 import java.util.zip.GZIPInputStream
+import java.util.zip.ZipException
 
 @Secured(["ROLE_USER"])
 class DemoController {
@@ -29,9 +30,24 @@ class DemoController {
         log.info "Import RSS Feeds from the URL: ${url}"
 
         def rssUrl = new URL('http://www.nasa.gov/rss/dyn/image_of_the_day.rss')
-        def rssText = new GZIPInputStream(rssUrl.newInputStream(requestProperties:['Accept-Encoding': 'gzip,deflate'])).text
+
+
+        def rssText
+
+        try {
+            rssText = new GZIPInputStream(rssUrl.newInputStream(requestProperties:['Accept-Encoding': 'gzip,deflate'])).text
+        }
+        catch (ZipException) {
+            rssText = rssUrl.getText('UTF-8')
+        }
 
         def rss = new XmlSlurper().parseText(rssText)
+
+        def defaultTemplate = OriginalTemplate.findByName('default')
+
+        if (!defaultTemplate) {
+            log.warn "Missing default template."
+        }
 
         def count = 0
 
@@ -44,7 +60,7 @@ class DemoController {
                 def content = new Content(
                         fullText: it.description.text(),
                         user: springSecurityService.currentUser,
-                        originalTemplate: OriginalTemplate.findByName('default'),
+                        template: defaultTemplate,
                         cropText: it.description.text(),
                         cropTitle: it.title.text(),
                         coverUrl: it.enclosure.'@url'.text(),
@@ -53,14 +69,25 @@ class DemoController {
                         isDelete: false
                 )
 
-                content.validate()
-                log.info(content.errors)
+                if (content.validate()) {
 
-                count += content.save(flush: true)?1:0
+                    content.save(flush: true)
+
+                    count ++
+                }
+                else {
+                    log.warn content.errors
+                }
             }
         }
 
-        flash.message = "Successful imported ${count} contents."
+        if (count > 0) {
+            flash.message = "Successful imported ${count} contents."
+        }
+        else {
+            flash.message = "No any changes could be import."
+        }
         redirect action: 'rss'
+
     }
 }

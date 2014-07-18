@@ -3,10 +3,30 @@
 <head>
     <meta name="layout" content="main"/>
     <title>One-Picture Template</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css" media="screen">
+        @import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+        @import url(http://fonts.googleapis.com/earlyaccess/cwtexhei.css);
+        h1 {
+            font-family: 'cwTeXHei', serif;
+        }
+        .fangsong {
+            font-family: 'cwTeXFangSong', serif;
+        }
     </style>
 </head>
 <body>
-<img class="picture-segment" data-index="0" src="/images/empty.png" alt="picture" style="max-width: 100%; max-height: 100%" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="picture-segment img-responsive" data-index="0" src="/images/empty.png" alt="picture" />
+        </div>
+        <div class="col-md-6">
+            <h1 class="crop-title" contentEditable="true">這是標題</h1>
+            <p class="text-segment fangsong" data-index="0" contentEditable="true">這是內文。</p>
+        </div>
+    </div>
+</div>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>

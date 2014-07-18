@@ -58,6 +58,9 @@ class TemplateService {
                 doc.select(".picture-segment[data-index=${index++}]").attr("src", pictureSegment.originalUrl)
         }
 
+        doc.select(".crop-title").html(content.cropTitle)
+        doc.select(".crop-text").html(content.cropText)
+
         return doc.html()
     }
 

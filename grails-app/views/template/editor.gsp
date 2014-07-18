@@ -29,7 +29,7 @@
 <body>
 
 <div class="container">
-    <g:form action="editor" class="templateSelectForm">
+    <g:form action="editor" class="templateSelectForm" method="get">
         <g:select name="id" from="${kgl.OriginalTemplate.list()}" value="${template?.id}" optionKey="id" optionValue="name" class="form-control" onchange="\$('.templateSelectForm').submit()" />
     </g:form>
 

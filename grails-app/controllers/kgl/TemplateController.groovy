@@ -121,6 +121,13 @@ class TemplateController {
 
     @Secured(["ROLE_ADMIN"])
     def editor(OriginalTemplate template) {
-        [template: template]
+
+        if (params.save) {
+            template.save(flush: true)
+        }
+
+        [
+                template: template
+        ]
     }
 }

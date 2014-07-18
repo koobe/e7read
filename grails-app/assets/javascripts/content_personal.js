@@ -67,35 +67,15 @@ function addHandlers() {
 	    }
 	);
 
-	$('.editing-title').unbind('focus');
-	$('.editing-title').focus(function() {
-		beforeText = $(this).text();
-	});
+    var callback = function(data, textStatus) {
+        if (data && data.id) {
+            var parent = $('#content-' + data.id);
+            $('.last-updated .date-value', parent).text(data.message);
+        }
+    };
 
-	$('.editing-title').unbind('blur');
-	$('.editing-title').blur(function() {
-		if ($(this).text() != beforeText) {
-			var thisObj = $(this);
-			$.ajax({
-				type:'POST',
-				data: { 'contentid': $(this).attr('contentid'), 'title': $(this).text() },
-				url:'/content/updateTitle',
-				success:function(data,textStatus){refreshUpdated(thisObj, data);},
-				error:function(XMLHttpRequest,textStatus,errorThrown){}
-			});
-		}
-	});
-
-	$('.editing-title').unbind('keydown');
-	$('.editing-title').keydown(function(event){
-		if ( event.which == 13 ) {
-			$(this).blur();
-		}
-	});
-}
-
-function refreshUpdated(obj, data) {
-	$(obj).parent().find('.last-updated').html('Last Updated: ' + data);
+	$('.editing-title').inlineEditing(callback);
+    $('.element-text').inlineEditing(callback);
 }
 
 function deleteContent(contentid) {
@@ -129,3 +109,7 @@ function refreshButtons(data, contentid) {
 	// need to concern about performance
 	addHandlers();
 }
+
+$(function() {
+   console.log($('.inline-editing-auto-save').size());
+});

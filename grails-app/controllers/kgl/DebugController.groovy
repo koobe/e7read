@@ -7,6 +7,7 @@ import grails.plugin.springsecurity.annotation.Secured
 class DebugController {
 
     def s3Service
+    def templateService
 
     def index() {
         [
@@ -28,5 +29,11 @@ class DebugController {
 
     def s3file() {
         render S3File.list() as JSON
+    }
+
+    def reloadTemplates() {
+        templateService.loadBuiltIn()
+
+        render "successful"
     }
 }

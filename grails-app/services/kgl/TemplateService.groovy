@@ -48,14 +48,15 @@ class TemplateService {
 
         texts.each {
             text ->
-
-                //println text
-
-                doc.select(".text-segment[data-index=${index}]").html(text?.encodeAsHTML())
-
-                index ++
+                doc.select(".text-segment[data-index=${index++}]").html(text?.encodeAsHTML())
         }
 
+        index = 0
+
+        content.pictureSegments.each {
+            pictureSegment ->
+                doc.select(".picture-segment[data-index=${index++}]").attr("src", pictureSegment.originalUrl)
+        }
 
         return doc.html()
     }
@@ -102,7 +103,7 @@ class TemplateService {
 
                 log.info "Save ${ot.html.bytes.length} bytes."
 
-                ot.save flush: true
+                log.info ot.save(flush: true)
         })
 
         log.info "Import all GSP templates"
@@ -124,7 +125,7 @@ class TemplateService {
 
                 log.info "Save ${ot.html.bytes.length} bytes."
 
-                ot.save flush: true
+                log.info ot.save(flush: true)
         })
     }
 

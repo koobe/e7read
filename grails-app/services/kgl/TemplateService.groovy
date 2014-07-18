@@ -22,8 +22,7 @@ class TemplateService {
         }
 
         if (!template) {
-            log.warn "Content ${content.id} has no original template."
-            return content.fullText.replaceAll("\n\n", "<br/><br/>")
+            template = OriginalTemplate.findByName("default")
         }
 
         if (template.renderType == OriginalTemplateRenderType.HTML) {
@@ -44,16 +43,14 @@ class TemplateService {
 
         int index = 0
 
-        println texts.length
-
-        texts.each {
-            text ->
-                doc.select(".text-segment[data-index=${index++}]").html(text?.encodeAsHTML())
+        content.textSegments?.each {
+            textSegments ->
+                doc.select(".text-segment[data-index=${index++}]").html(textSegments.text?.encodeAsHTML())
         }
 
         index = 0
 
-        content.pictureSegments.each {
+        content.pictureSegments?.each {
             pictureSegment ->
                 doc.select(".picture-segment[data-index=${index++}]").attr("src", pictureSegment.originalUrl)
         }

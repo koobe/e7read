@@ -2,13 +2,35 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>One-Picture Template</title>
+    <title>Two-Picture Template</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css" media="screen">
+        @import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+        @import url(http://fonts.googleapis.com/earlyaccess/cwtexhei.css);
+        h1 {
+            font-family: 'cwTeXHei', serif;
+        }
+        p {
+            font-family: 'cwTeXFangSong', serif;
+        }
     </style>
 </head>
 <body>
-<img class="picture-segment" data-index="0" src="/images/empty.png" alt="picture" />
-<img class="picture-segment" data-index="1" src="/images/empty.png" alt="picture" />
-<p class="text-segment" data-index="0"></p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="picture-segment img-responsive" data-index="0" src="/images/empty.png" alt="picture" />
+        </div>
+        <div class="col-md-4">
+            <img class="picture-segment img-responsive" data-index="1" src="/images/empty.png" alt="picture" />
+        </div>
+        <div class="col-md-4">
+            <h1 class="crop-title">這是標題</h1>
+            <p class="text-segment" data-index="0">這是內文。</p>
+            <p class="text-segment" data-index="1">這是第二段內文。</p>
+        </div>
+    </div>
+</div>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>

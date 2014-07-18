@@ -1,3 +1,5 @@
+@import "css3-mixins";
+
 .hovercontent {
 	padding: 5px;
 	border: 1px solid #fff;
@@ -50,4 +52,32 @@
     bottom: 5px;
     top: 5px;
     color: #fff;
+}
+
+.content-element {
+  .content-element-header {
+    .element-title {
+      @include text-shadow(1px, 1px, 2px, #aaaaaa);
+      font-size: 18px;
+      margin: 0 0 10px 0;
+      padding: 0 0 5px 0;
+      border-bottom: 1px solid #a9c6e6;
+    }
+    .element-date {
+      font-size: 10px;
+      line-height: 1.5em;
+      margin: 0;
+    }
+  }
+  .content-element-body {
+    margin-top: 10px;
+
+    .element-text {
+      font-size: 11px;
+      padding: 5px;
+    }
+    .element-text:hover {
+      background: #eeeeee;
+    }
+  }
 }

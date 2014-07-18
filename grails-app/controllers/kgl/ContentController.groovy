@@ -266,7 +266,12 @@ class ContentController {
 		}
 	}
 
-	def personal() {		
+    /**
+     * List all contents for currentUser
+     * @return
+     */
+	def personal() {
+        []
 	}
 	
 	def renderPersonalContentsHTML() {
@@ -278,7 +283,12 @@ class ContentController {
 		}
 		
 		// def contentList = Content.findAllByUser(springSecurityService.currentUser, [max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc"]);
-		def contentSize = contentList.size()
+
+        // Return nothing if no any contents
+        if (!contentList) {
+            render ""
+            return
+        }
 		
 		def currItem = 1
 		def hasEndDiv = false
@@ -305,9 +315,7 @@ class ContentController {
 //			render "</div>"
 //		}
 		
-		if (contentSize == 0) {
-			render ""
-		}
+
 	}
 	
 	def updateTitle() {

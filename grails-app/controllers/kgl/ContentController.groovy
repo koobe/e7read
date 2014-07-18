@@ -502,7 +502,7 @@ class ContentController {
 		contentInstance.fullText = fullText
 
 		if (contentInstance.pictureSegments) {
-			contentInstance.coverUrl = contentInstance.pictureSegments.first().thumbnailUrl? contentInstance.pictureSegment.first().thumbnailUrl: contentInstance.pictureSegment.first().originalUrl
+			contentInstance.coverUrl = contentInstance.pictureSegments.first().thumbnailUrl? contentInstance.pictureSegments.first().thumbnailUrl: contentInstance.pictureSegments.first().originalUrl
 		}
 
 		contentInstance.hasPicture = contentInstance.pictureSegments? true: false

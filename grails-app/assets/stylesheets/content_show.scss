@@ -1,4 +1,6 @@
 @import "css3-mixins";
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexkai.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
 
 .show-header {
 	background-color: #F8F8F8;
@@ -10,6 +12,7 @@
 }
 
 .text-segment {
-	font-size: 15px;
-	@include text-shadow(1px, 1px, 1px, #aaaaaa);
+	font-family: 'cwTeXFangSong', serif;
+	font-size: 17px;
+	/* @include text-shadow(1px, 1px, 1px, #aaaaaa); */
 }

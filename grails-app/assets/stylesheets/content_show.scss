@@ -1,0 +1,15 @@
+@import "css3-mixins";
+
+.show-header {
+	background-color: #F8F8F8;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 4px;
+	@include text-shadow(1px, 1px, 2px, #aaaaaa);
+	font-size: 14px;
+}
+
+.text-segment {
+	font-size: 15px;
+	@include text-shadow(1px, 1px, 1px, #aaaaaa);
+}

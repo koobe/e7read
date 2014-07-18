@@ -18,7 +18,7 @@ class TemplateService {
 
         if (!content.template) {
             log.warn "Content ${content.id} has no original template."
-            return ""
+            return content.fullText.replaceAll("\n\n", "<br/><br/>")
         }
 
         if (content.template.renderType == OriginalTemplateRenderType.HTML) {

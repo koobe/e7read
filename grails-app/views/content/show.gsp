@@ -25,7 +25,7 @@
 	        	<span>${title}</span>
 	    	</div>
 	    	<div>
-				<g:render template="/originalTemplate/default_template" model="['pictureSegments': pictureSegments, 'textSegments': textSegments]" />
+				<g:render template="/template/default_template" model="['pictureSegments': pictureSegments, 'textSegments': textSegments]" />
 	    	</div>
 	    	<div class="show-header">
 	    		END OF CONTENT

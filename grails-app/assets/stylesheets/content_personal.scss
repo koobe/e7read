@@ -55,7 +55,10 @@
 }
 
 .content-element {
+  .content-element-image {
+  }
   .content-element-header {
+    margin-top: 10px;
     .element-title {
       @include text-shadow(1px, 1px, 2px, #aaaaaa);
       font-size: 18px;

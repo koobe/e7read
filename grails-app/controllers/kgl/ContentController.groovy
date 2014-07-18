@@ -318,20 +318,31 @@ class ContentController {
 
 	}
 	
-	def updateTitle() {
-		
-		def contentId = params.contentid
-		def title = params.title
-		
-		if (contentId != null) {
-			def content = Content.get(contentId)
-			content.cropTitle = title;
-			content.save flush:true
-			render g.formatDate(date: content.lastUpdated, type: "datetime", style: "LONG", timeStyle: "SHORT")
-		}
-		
-		render ""
-	}
+	def ajaxInlineUpdate(Content contentInstance) {
+
+        def result = [id: params.id]
+
+        if (!contentInstance) {
+            result.hasError = true
+            result.message = "Content instance ${params.id} not found."
+        }
+
+        contentInstance.properties = params
+
+        println params
+        println contentInstance.cropTitle
+
+        if (contentInstance.validate() && contentInstance.save(flush: true)) {
+            result.hasError = false
+            result.message = g.formatDate(date: contentInstance.lastUpdated, type: "datetime", style: "LONG", timeStyle: "SHORT")
+        }
+        else {
+            result.hasError = true
+            result.message = renderErrors(bean: contentInstance)
+        }
+
+        render result as JSON
+    }
 	
 	def disableContent() {
 		

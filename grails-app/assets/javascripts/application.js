@@ -7,6 +7,7 @@
 //
 //= require jquery
 //= require bootstrap
+//= require jquery.editable
 //= require_self
 
 if (typeof jQuery !== 'undefined') {

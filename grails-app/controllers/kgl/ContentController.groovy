@@ -36,7 +36,7 @@ class ContentController {
 
 		//TODO FOR TEST
 		[
-                pictureSegments: contentInstance.pictureSegment,
+                pictureSegments: contentInstance.pictureSegments,
                 textSegments: contentInstance.textSegments,
                 title: contentInstance.cropTitle,
                 id: contentInstance.id
@@ -446,7 +446,7 @@ class ContentController {
 		// new content instance for persistence
 		def contentInstance = new Content()
 		contentInstance.textSegments = []
-		contentInstance.pictureSegment = []
+		contentInstance.pictureSegments = []
 		
 		def fullText = ''
 		def dataIdx = 0
@@ -492,7 +492,7 @@ class ContentController {
 		fileidList.each { s3fileId ->
 			def s3ImageFile = S3File.get(s3fileId)
 			def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
-			contentInstance.pictureSegment << pictureSegment
+			contentInstance.pictureSegments << pictureSegment
 			// log.info 'Picture segment added. {' + pictureSegment + '}'
 			dataIdx++
 		}
@@ -501,11 +501,11 @@ class ContentController {
 		contentInstance.cropText = cropSegment
 		contentInstance.fullText = fullText
 
-		if (contentInstance.pictureSegment) {
-			contentInstance.coverUrl = contentInstance.pictureSegment.first().thumbnailUrl? contentInstance.pictureSegment.first().thumbnailUrl: contentInstance.pictureSegment.first().originalUrl
+		if (contentInstance.pictureSegments) {
+			contentInstance.coverUrl = contentInstance.pictureSegments.first().thumbnailUrl? contentInstance.pictureSegment.first().thumbnailUrl: contentInstance.pictureSegment.first().originalUrl
 		}
 
-		contentInstance.hasPicture = contentInstance.pictureSegment? true: false
+		contentInstance.hasPicture = contentInstance.pictureSegments? true: false
 		contentInstance.isDelete = false
 		contentInstance.isPrivate = false
 

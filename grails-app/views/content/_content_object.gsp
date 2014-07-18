@@ -5,7 +5,7 @@
 		</a>
 	</div>
 	<div class="col-sm-7 col-xs-7 media-body ">
-		<g:link action="show" id="${it.id}">
+		<g:link uri="javascript: showContent('${it.id}');">
 			<h4 class="media-heading text-uppercase">${it.cropTitle}</h4>
 		</g:link>
 		<h6><g:formatDate date="${it.dateCreated}" type="datetime" style="LONG" timeStyle="SHORT"/></h6>

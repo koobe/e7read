@@ -2,6 +2,7 @@
 	<head>
 	    <meta name="layout" content="main"/>
 	    <title></title>
+	    <asset:javascript src="content_show.js"/>
 	</head>
 	<body>
 		<g:render template="/home/header" />

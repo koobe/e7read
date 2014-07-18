@@ -32,6 +32,7 @@ class Content {
 
     static mapping = {
         id generator: 'uuid'
+		textSegments sort: 'dataIndex'
     }
 
     static constraints = {

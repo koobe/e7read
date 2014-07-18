@@ -22,7 +22,7 @@ class Content {
 	
 	static hasMany = [
 		textSegments: TextSegment,
-		pictureSegment: PictureSegment,
+		pictureSegments: PictureSegment,
 	]
 	
 	static belongsTo = [

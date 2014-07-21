@@ -1,7 +1,7 @@
 <g:link class="btn btn-default button" title="View" uri="javascript: showContent('${it.id}');">
 	<span class="fa fa-eye"></span>
 </g:link>
-<g:link class="btn btn-default button" title="Edit" uri="javascript: void(0)">
+<g:link class="btn btn-default button" title="Edit" controller="content" action="edit" id="${it.id}">
 	<span class="fa fa-pencil-square-o"></span>
 </g:link>
 <g:link class="btn btn-default button" title="Delete" uri="javascript: deleteContent('${it.id}');">

@@ -14,6 +14,7 @@
         	<div id="content-editing-textarea" class="content-editing-textarea form-control" placeholder="Write something here..." contenteditable="true"></div>
         	
         	<g:uploadForm class="uploadImageForm" name="uploadImageForm" action="uploadImage" style="display: none;">
+                <!-- TODO: support multiple files -->
         		<input id="uploadImageInput" type="file" accept="image/*" name="file" />
         	</g:uploadForm>
         	

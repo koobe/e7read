@@ -104,6 +104,9 @@ function postContent() {
 }
 
 function cancelPost() {
+
+    //TODO if nothing edited, skip the confirm step...
+
 	var r = confirm('Discard post?');
 	if (r) {
 		history.back()

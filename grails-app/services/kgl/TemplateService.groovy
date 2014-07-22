@@ -63,20 +63,17 @@ class TemplateService {
 
     private String renderInGSP(Content content, OriginalTemplate template) {
 
-        def fullText = content.fullText?.replace("\r", "")
-
-        def texts = fullText?.split("\n\n")
-
-        def textSegment = []
-
-        texts.each {
-            textSegment << it
-        }
+//        def fullText = content.fullText?.replace("\r", "")
+//        def texts = fullText?.split("\n\n")
+//        def textSegment = []
+//        texts.each {
+//            textSegment << it
+//        }
 
         def writer = new StringWriter()
 
         groovyPagesTemplateEngine
-                .createTemplate(template?.html, 'output')?.make([title: 'test title 1', textSegment: textSegment])?.writeTo(writer)
+                .createTemplate(template?.html, template?.name)?.make([content: content])?.writeTo(writer)
 
         return writer.toString()
     }

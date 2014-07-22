@@ -15,18 +15,26 @@
             font-family: 'cwTeXFangSong', serif;
             font-size: 18px;
         }
+        .autofit-image {
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        .picture-segment {
+            display: none;
+        }
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
-            <img class="picture-segment img-responsive" data-index="0" src="/images/empty.png" alt="picture" />
+        <div class="col-sm-4">
+            <img class="picture-segment img-responsive" data-index="0" data-ratio="9:16" src="/images/empty.png" alt="picture" />
         </div>
-        <div class="col-md-4">
-            <img class="picture-segment img-responsive" data-index="1" src="/images/empty.png" alt="picture" />
+        <div class="col-sm-4">
+            <img class="picture-segment img-responsive" data-index="1" data-ratio="9:16" src="/images/empty.png" alt="picture" />
         </div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <div class="page-header">
                 <h1 class="crop-title">這是標題</h1>
             </div>
@@ -35,6 +43,20 @@
         </div>
     </div>
 </div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('.picture-segment').each(function() {
+            var ratio = $(this).data('ratio').split(':');
+            var elm = $('<div class="autofit-image"></div>')
+                    .css('background-image', 'url('+$(this).attr('src')+')')
+                    .appendTo($(this).parent());
+            elm.css('height', elm.width()/ratio[0]*ratio[1]);
+            $(this).remove();
+        });
+    });
+</script>
 </body>
 </html>

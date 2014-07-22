@@ -36,10 +36,7 @@ class ContentController {
 
 		//TODO FOR TEST
 		[
-                pictureSegments: contentInstance.pictureSegments,
-                textSegments: contentInstance.textSegments,
-                title: contentInstance.cropTitle,
-                id: contentInstance.id
+			content: contentInstance
         ]
     }
 

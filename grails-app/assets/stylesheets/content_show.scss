@@ -11,8 +11,13 @@
 	font-size: 14px;
 }
 
-.text-segment {
+p {
 	font-family: 'cwTeXFangSong', serif;
 	font-size: 17px;
 	/* @include text-shadow(1px, 1px, 1px, #aaaaaa); */
+}
+
+.button-margin {
+	padding: 3px;
+	margin: 3px;
 }

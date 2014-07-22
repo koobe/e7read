@@ -135,7 +135,13 @@ class ContentController {
     }
 
     def edit(Content contentInstance) {
-        respond contentInstance
+
+        if (!contentInstance) {
+            redirect uri: '/'
+            return
+        }
+
+        respond contentInstance, model: [template: OriginalTemplate.findByName(params.template)]
     }
 
     @Transactional

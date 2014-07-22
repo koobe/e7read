@@ -19,6 +19,7 @@
             width: 100%;
             background-size: cover;
             background-position: center;
+            border-radius: 5px;
         }
         .picture-segment {
             display: none;
@@ -51,10 +52,17 @@
         $('.picture-segment').each(function() {
             var ratio = $(this).data('ratio').split(':');
             var elm = $('<div class="autofit-image"></div>')
+                    .data('ratio', ratio)
                     .css('background-image', 'url('+$(this).attr('src')+')')
                     .appendTo($(this).parent());
             elm.css('height', elm.width()/ratio[0]*ratio[1]);
             $(this).remove();
+        });
+        $(window).resize(function() {
+            $('.autofit-image').each(function() {
+                var ratio = $(this).data('ratio').split(':');
+                $(this).css('height', $(this).width()/ratio[0]*ratio[1]);
+            });
         });
     });
 </script>

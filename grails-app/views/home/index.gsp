@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<g:render template="header" />
-		<g:render template="navbar" />
+		<g:render template="search" />
 		<g:render template="/content/contents_container" />
 		<g:render template="footer" />
 	</body>

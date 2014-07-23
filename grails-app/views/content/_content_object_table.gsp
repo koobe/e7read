@@ -5,6 +5,7 @@
 			<g:link uri="javascript: showContent('${it.id}');">
 				<h4 class="text-uppercase">${it.cropTitle}</h4>
 			</g:link>
+			<div style="border-top: 1px solid #a9c6e6;"></div>
 			<h6><g:formatDate date="${it.lastUpdated}" type="datetime" style="LONG" timeStyle="SHORT"/></h6>
 			<h6>${it.user.fullName}</h6>
 			<p class="text-left">${it.cropText}</p>

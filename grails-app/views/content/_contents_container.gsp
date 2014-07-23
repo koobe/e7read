@@ -1,5 +1,4 @@
 <style>
-<!--
 	.hovercontent {
 		padding: 5px;
 		border: 1px solid #fff;
@@ -11,19 +10,10 @@
 		box-shadow:2px 2px 2px 1px rgba(0,0,0,.075);
 		transition: border-color ease-in-out .10s,box-shadow ease-in-out .1s;
 	}
-	
 	.maincontainer {
-		margin-left: 0px;
-		margin-right: 0px;
+		margin-left: 15px;
+		margin-right: 15px;
 	}
-	
-	.resetmargin {
-		margin-top: 0px;
-		margin-bottom: 0px;
-		margin-left: 0px;
-		margin-right: 0px;
-	}
--->
 </style>
 <script type="text/javascript">
 

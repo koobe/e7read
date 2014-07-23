@@ -10,6 +10,8 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class TemplateController {
 
+    def templateService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -127,7 +129,15 @@ class TemplateController {
         }
 
         [
+                templates: OriginalTemplate.list(sort:"name", order:"asc"),
                 template: template
         ]
+    }
+
+    @Secured(["ROLE_ADMIN"])
+    def reloadAllDefaultTemplates() {
+        templateService.loadBuiltIn()
+
+        redirect(action: 'editor')
     }
 }

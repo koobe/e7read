@@ -38,7 +38,7 @@
     <!--${contentInstance}-->
     <g:form action="edit" id="${contentInstance.id}" class="form-inline" role="form" method="get">
         <h1>${contentInstance.cropTitle}</h1>
-        <g:select class="form-control" name="template" from="${kgl.OriginalTemplate.list()}" value="${template?.name}" optionKey="name" optionValue="name" />
+        <g:select class="form-control" name="template" from="${templates}" value="${template?.name}" optionKey="name" optionValue="name" />
         <button class="form-control" type="submit">Apply</button>
         <g:link class="form-control" uri="/">Cancel</g:link>
     </g:form>

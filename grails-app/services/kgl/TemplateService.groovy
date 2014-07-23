@@ -1,6 +1,7 @@
 package kgl
 
 import grails.transaction.Transactional
+import grails.util.Environment
 import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine
 import org.jsoup.Jsoup
 
@@ -45,14 +46,29 @@ class TemplateService {
 
         content.textSegments?.each {
             textSegments ->
-                doc.select(".text-segment[data-index=${index++}]").html(textSegments.text?.encodeAsHTML())
+                doc.select("p.text-segment[data-index=${index++}]").html(textSegments.text?.encodeAsHTML())
         }
 
         index = 0
 
         content.pictureSegments?.each {
             pictureSegment ->
-                doc.select(".picture-segment[data-index=${index++}]").attr("src", pictureSegment.originalUrl)
+                doc.select("img.picture-segment[data-index=${index++}]").attr("src", pictureSegment.originalUrl)
+        }
+
+        index = 0
+
+        content.pictureSegments?.each {
+            pictureSegment ->
+                def elm = doc.select("div.picture-segment[data-index=${index++}]")
+                if (elm.size() > 0) {
+                    def styleSettings = elm.attr("style")
+                    if (styleSettings) {
+                        styleSettings += ";"
+                    }
+                    styleSettings += "background-image:url(${pictureSegment.originalUrl})"
+                    elm.attr("style", styleSettings)
+                }
         }
 
         doc.select(".crop-title").html(content.cropTitle)
@@ -81,49 +97,58 @@ class TemplateService {
     void loadBuiltIn() {
         def templates = grailsApplication.getParentContext().getResource("classpath:resources/templates").file
 
+        // Load from project source directory in DEV mode
+        Environment.executeForCurrentEnvironment {
+            development {
+                if (templates.absolutePath.contains("target/work/resources")) {
+                    def srcPath = new File(templates.absolutePath.replace("target/work/resources", "grails-app/conf"))
+
+                    if (srcPath.exists() && srcPath.isDirectory()) {
+                        templates = srcPath
+                    }
+                }
+            }
+        }
+
         log.info "Import all HTML templates"
 
         templates.eachFileMatch(~/.*\.html/, {
-            template ->
-                def baseName = template.name.replace(".html", "")
+            file ->
+                log.info "Processing ${file.absolutePath}"
 
-                log.info "OriginalTemplate.findOrCreateByName(${baseName})"
+                def baseName = file.name.replace(".html", "")
 
-                def ot = OriginalTemplate.findOrCreateByName(baseName)
-
-                ot.name = baseName
-                ot.html = template.getText('UTF-8')
-                ot.group = 'A'
-                ot.mediaCount = 2
-                ot.textCount = 2
-                ot.renderType = OriginalTemplateRenderType.HTML
-
-                log.info "Save ${ot.html.bytes.length} bytes."
-
-                log.info ot.save(flush: true)
+                saveTemplate(baseName, file.getText('UTF-8'), 'A', 2, 2, OriginalTemplateRenderType.HTML)
         })
 
         log.info "Import all GSP templates"
 
         templates.eachFileMatch(~/.*\.gsp/, {
-            template ->
-                def baseName = template.name.replace(".gsp", "")
+            file ->
+                log.info "Processing ${file.absolutePath}"
 
-                log.info "OriginalTemplate.findOrCreateByName(${baseName})"
+                def baseName = file.name.replace(".gsp", "")
 
-                def ot = OriginalTemplate.findOrCreateByName(baseName)
-
-                ot.name = baseName
-                ot.html = template.getText('UTF-8')
-                ot.group = 'A'
-                ot.mediaCount = 2
-                ot.textCount = 2
-                ot.renderType = OriginalTemplateRenderType.GSP
-
-                log.info "Save ${ot.html.bytes.length} bytes."
-
-                log.info ot.save(flush: true)
+                saveTemplate(baseName, file.getText('UTF-8'), 'A', 2, 2, OriginalTemplateRenderType.GSP)
         })
+    }
+
+    private void saveTemplate(String baseName, String html, String group,
+                              int mediaCount, int textCount, OriginalTemplateRenderType type) {
+
+        log.info "OriginalTemplate.findOrCreateByName(${baseName})"
+
+        def ot = OriginalTemplate.findOrCreateByName(baseName)
+
+        ot.name = baseName
+        ot.html = html
+        ot.group = group
+        ot.mediaCount = mediaCount
+        ot.textCount = textCount
+        ot.renderType = type
+
+        log.info "Save ${ot.html.bytes.length} bytes."
+        log.info ot.save(flush: true)
     }
 
 }

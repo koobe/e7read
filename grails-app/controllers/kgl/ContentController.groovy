@@ -138,7 +138,10 @@ class ContentController {
             return
         }
 
-        respond contentInstance, model: [template: OriginalTemplate.findByName(params.template)]
+        respond contentInstance, model: [
+                templates: OriginalTemplate.list(sort:"name", order:"asc"),
+                template: OriginalTemplate.findByName(params.template)
+        ]
     }
 
     @Transactional

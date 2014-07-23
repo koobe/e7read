@@ -49,11 +49,15 @@
 <div class="top-panel">
     <g:form action="editor" class="templateSelectForm form-inline" method="post">
         Open:
-        <g:select name="id" from="${kgl.OriginalTemplate.list()}" value="${template?.id}" optionKey="id" optionValue="name" class="form-control" onchange="\$('.templateSelectForm').submit()" />
+        <g:select name="id" from="${templates}" value="${template?.id}" optionKey="id" optionValue="name" class="form-control" onchange="\$('.templateSelectForm').submit()" />
 
         <g:if test="${template}">
             <g:submitButton name="save" class="form-control" />
         </g:if>
+
+        <div class="pull-right">
+            <g:link action="reloadAllDefaultTemplates" class="btn btn-default" onclick="return confirm('Are you sure to reload all templates from disk?')">Reload All</g:link>
+        </div>
     </g:form>
 </div>
 

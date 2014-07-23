@@ -13,8 +13,8 @@
 	}
 	
 	.maincontainer {
-		margin-left: 0px;
-		margin-right: 0px;
+		margin-left: 15px;
+		margin-right: 15px;
 	}
 	
 	.resetmargin {

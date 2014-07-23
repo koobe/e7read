@@ -118,7 +118,8 @@ class TemplateService {
 
                 def baseName = file.name.replace(".html", "")
 
-                saveTemplate(baseName, file.getText('UTF-8'), 'A', 2, 2, OriginalTemplateRenderType.HTML)
+                def t = saveTemplate(baseName, file.getText('UTF-8'), 'A', 0, 0, OriginalTemplateRenderType.HTML)
+                retrieveAttributes(t)
         })
 
         log.info "Import all GSP templates"
@@ -129,11 +130,12 @@ class TemplateService {
 
                 def baseName = file.name.replace(".gsp", "")
 
-                saveTemplate(baseName, file.getText('UTF-8'), 'A', 2, 2, OriginalTemplateRenderType.GSP)
+                def t = saveTemplate(baseName, file.getText('UTF-8'), 'A', 0, 0, OriginalTemplateRenderType.GSP)
+                retrieveAttributes(t)
         })
     }
 
-    private void saveTemplate(String baseName, String html, String group,
+    private OriginalTemplate saveTemplate(String baseName, String html, String group,
                               int mediaCount, int textCount, OriginalTemplateRenderType type) {
 
         log.info "OriginalTemplate.findOrCreateByName(${baseName})"
@@ -149,6 +151,30 @@ class TemplateService {
 
         log.info "Save ${ot.html.bytes.length} bytes."
         log.info ot.save(flush: true)
+
+        return ot
+    }
+
+    void retrieveAttributes(OriginalTemplate template) {
+        def doc = Jsoup.parse(template?.html)
+
+        try {
+            def mediaCount = doc.select("meta[name=kgl:media_count]").attr("content")
+            def textCount = doc.select("meta[name=kgl:text_count]").attr("content")
+
+            if (mediaCount?.isInteger()) {
+                template.mediaCount = mediaCount.toInteger()
+            }
+
+            if (textCount?.isInteger()) {
+                template.textCount = textCount.toInteger()
+            }
+
+            template.save flush: true
+        }
+        catch (e) {
+            e.printStackTrace()
+        }
     }
 
 }

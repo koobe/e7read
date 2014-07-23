@@ -517,8 +517,8 @@ class ContentController {
 		contentInstance.isPrivate = false
 
 		contentInstance.user = springSecurityService.currentUser
-		//TODO apply a template
-//		contentInstance.originalTemplate = OriginalTemplate.findByName("default")
+
+		contentInstance.template = matchTemplate(contentInstance)
 
 		contentInstance.validate()
 		log.info contentInstance.errors
@@ -527,6 +527,23 @@ class ContentController {
 		
 		render ""
 	}
+
+    private OriginalTemplate matchTemplate(Content content) {
+        if (content.pictureSegments == null) {
+            return null
+        }
+
+        int mediaCount = content.pictureSegments.size()
+
+        def templates = OriginalTemplate.findAllByMediaCount(mediaCount)
+
+        if (!templates) {
+            return OriginalTemplate.findByName("default")
+        }
+
+        // TODO random select
+        return templates.first()
+    }
 
     @Secured(["ROLE_ADMIN"])
     def debug() {

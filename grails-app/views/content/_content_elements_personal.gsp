@@ -1,10 +1,10 @@
 <div id="content-${it.id}" class="content-element">
-    <g:if test="${it.hasPicture}">
-        <div class="content-element-image col-sm-5">
+    	<g:if test="${it.hasPicture}">
+        <div class="content-element-image col-sm-5 nopadding">
             <g:img class="img-responsive img-rounded image-shadow" uri="${it.coverUrl}" />
         </div>
-        <div class="col-sm-7">
-    </g:if>
+        </g:if>
+		<div class="col-sm-7 nopadding">
             <div class="content-element-header">
                 <h3 class="element-title editing-title inline-editing-auto-save" contenteditable="true" contentid="${it.id}" data-id="${it.id}" data-field="cropTitle" data-url="${createLink(action: 'ajaxInlineUpdate')}">
                     ${it.cropTitle}

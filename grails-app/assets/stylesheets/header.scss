@@ -1,0 +1,81 @@
+@import url(http://fonts.googleapis.com/css?family=Fascinate);
+
+@media screen and (min-width: 768px) {
+
+	.koobe-header {
+		display: table;
+		
+		width: 100%;
+		
+		margin-top: 10px;
+		margin-bottom: 15px;
+		padding-left: 22px;
+		padding-right: 22px;
+		
+		/* border: #0000FF 1px solid; */
+		
+		.header-logo {
+			display: table-cell;
+		}
+		
+		.header-search {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: right;
+			width:40%;
+			
+		}
+		
+		.header-usermenu {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: right;
+			padding-left: 20px;
+			
+			width: 1%;
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+
+	.koobe-header {
+		
+		width: 100%;
+		margin-top: 10px;
+		margin-bottom: 15px;
+		padding-left: 22px;
+		padding-right: 22px;
+				
+		.header-search {
+			text-align: right;
+			padding-top: 5px;
+			width:100%;
+		}
+		
+		.header-usermenu {
+			padding-top: 5px;
+			padding-bottom: 30px;
+			width:100%;
+			text-align: center;
+		}
+	}
+}
+
+.header-logo {
+	font-family: 'Fascinate', cursive;
+	font-size: 0.9cm;
+	
+	.logomark {
+		font-size: 0.7cm;
+	}
+}
+
+.usermenu-table {
+	float:right;
+	display: table;
+	div {
+		display: table-cell;
+		padding-left: 3px;
+	}
+}

@@ -20,6 +20,9 @@
 				</g:each>
 			</div>
 		</div>
+		<div style="padding:7px;">
+			<h1>${it.cropTitle}</h1>
+		</div>
 		<div>
 			<div style="padding:5px;">
 				<g:each in="${it.textSegments}" var="segment">

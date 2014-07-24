@@ -538,11 +538,17 @@ class ContentController {
         def templates = OriginalTemplate.findAllByMediaCount(mediaCount)
 
         if (!templates) {
-            return OriginalTemplate.findByName("default")
+			// gsp-default will show all text and pictures
+            return OriginalTemplate.findByName("gsp-default")
         }
-
-        // TODO random select
-        return templates.first()
+		
+		log.info 'Number of templates can be selected: ' + templates.size()
+		Random r = new Random()
+		def idx = r.nextInt(templates.size()+1)
+		def template = templates.get(idx)
+		log.info 'Template name: ' + template.name + ' type: ' + template.renderType + ' be selected'
+		
+        return template
     }
 
     @Secured(["ROLE_ADMIN"])

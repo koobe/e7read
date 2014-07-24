@@ -36,7 +36,8 @@ function showContent(contentId) {
 	$('body').append(responsiveiframe);
 	$('body').css('overflow', 'hidden');
 	$('.div-iframe').css('display', '');
-	$('.iframe').attr('src', '/content/show/' + contentId);
+//	$('.iframe').attr('src', '/content/show/' + contentId);
+	$('.iframe').attr('src', '/content/embed/' + contentId);
 	
 	$('body').append(backmenu);
 	$('.contentback').click(function() {

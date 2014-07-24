@@ -1,6 +1,8 @@
 <!DOCTYPE html> 
 <html style="width:100%; height:100%;"> 
-<head> 
+<head>
+	<meta name="kgl:media_count" content="3"/> 
+	<meta name="kgl:text_count" content="1" />
     <title>three_picture_right_vertical</title>
     <link rel="stylesheet" href="/assets/bootstrap.css?compile=false"  />
     <style type="text/css">

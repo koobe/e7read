@@ -2,6 +2,10 @@ package kgl
 
 class Content {
 
+    static searchable = {
+        only = 'cropText'
+    }
+
     String id
 
 	String cropTitle

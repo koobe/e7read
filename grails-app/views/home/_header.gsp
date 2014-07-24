@@ -6,9 +6,9 @@
 		</g:link>
 	</div>
 	<div class="header-search">
-		<form>
-			<input type="text" class="form-control" placeholder="Search">
-		</form>
+        <g:form controller="search" role="search" method="get">
+            <g:textField name="q" class="form-control" placeholder="Search" />
+        </g:form>
 	</div>
 	<div class="header-usermenu">
 		<g:render template="/home/usermenu" />

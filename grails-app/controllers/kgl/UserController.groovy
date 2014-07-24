@@ -1,6 +1,7 @@
 package kgl
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -25,7 +26,10 @@ class UserController {
         respond new User(params)
     }
 
+    @Secured(["ROLE_USER"])
     def profile() {
+        def user = springSecurityService.currentUser
+
         [user: springSecurityService.currentUser]
     }
 

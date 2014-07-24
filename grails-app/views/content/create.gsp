@@ -24,7 +24,11 @@
         		</div>
         		<!-- <div class="text-uppercase" style="display: table-row;">TIP: Delete uploaded image by touch.</div>  -->
         	</div>
-        	
+
+            <div>
+                <g:textField name="references" value="" placeholder="http://" class="form-control" />
+            </div>
+
         	<div class="button-block">
         		<g:link class="btn btn-default button-ele" uri="javascript:cancelPost();" >Cancel</g:link>
 	        	<g:link id="button-post" class="btn btn-primary btn-block button-ele" uri="javascript: postContent();">Post</g:link>

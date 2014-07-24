@@ -436,9 +436,10 @@ class ContentController {
 	@Transactional
 	def postContent() {
 		
-		log.info 'The id list of files: ' + params.s3fileId
-		log.info 'User input text: ' + params.contentText
-		
+		log.info "The id list of files: ${params.s3fileId}"
+		log.info "User input text: ${params.contentText}"
+		log.info "References: ${params.references}"
+
 		// parse content as xml
 		def contentXml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "' + grailsApplication.config.grails.serverURL + '/assets/xhtml1-transitional.dtd">' +
 			"<html>" + params.contentText + "</html>"
@@ -519,6 +520,8 @@ class ContentController {
 		contentInstance.user = springSecurityService.currentUser
 
 		contentInstance.template = matchTemplate(contentInstance)
+
+        contentInstance.references = params.references
 
 		contentInstance.validate()
 		log.info contentInstance.errors

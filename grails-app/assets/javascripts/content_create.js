@@ -95,7 +95,8 @@ function postContent() {
 		url: '/content/postContent',
 		type:'POST',
 		data: {
-			s3fileId: s3fileids, 
+			s3fileId: s3fileids,
+            references: $('input[name=references]').val(),
 			contentText: $('#content-editing-textarea').html()
 		},
 		success:function(data,textStatus){window.location.replace("/content/personal");},

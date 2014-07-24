@@ -45,5 +45,6 @@ class Content {
 		cropText nullable: true, maxSize: 512 * 1024
 		coverUrl nullable: true
 		template nullable: true
+        references nullable: true
     }
 }

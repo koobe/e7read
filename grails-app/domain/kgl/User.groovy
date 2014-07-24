@@ -27,7 +27,6 @@ class User {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-
         description nullable: true, maxSize: 1024 * 1024
 	}
 

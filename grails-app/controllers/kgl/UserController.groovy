@@ -33,6 +33,29 @@ class UserController {
         [user: springSecurityService.currentUser]
     }
 
+    @Secured(["ROLE_USER"])
+    def modify() {
+        def user = springSecurityService.currentUser
+
+        [user: springSecurityService.currentUser]
+    }
+
+    @Secured(["ROLE_USER"])
+    def modifySave() {
+
+        def user = springSecurityService.currentUser
+
+        def userInstance = User.get(user.id)
+
+        userInstance.properties = params
+
+        if (userInstance.validate()) {
+            userInstance.save flush: true
+        }
+
+        redirect action: 'profile'
+    }
+
     @Transactional
     def save(User userInstance) {
         if (userInstance == null) {

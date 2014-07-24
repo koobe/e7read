@@ -27,6 +27,7 @@ class FacebookController {
         def resource = JSON.parse(response.body)
 
         // Sample
+        log.info(resource)
 
         User user = User.findByEmail(resource.email)
 

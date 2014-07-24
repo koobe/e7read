@@ -10,6 +10,10 @@ class User {
     String fullName
     String email
 
+    String phone
+    String facebookUrl
+    String blogUrl
+
     String description
 
     //TODO
@@ -27,8 +31,13 @@ class User {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-        description nullable: true, maxSize: 1024 * 1024
 		email nullable: true
+
+        phone nullable: true
+        facebookUrl nullable: true
+        blogUrl nullable: true
+
+        description nullable: true, maxSize: 1024 * 1024
 	}
 
 	static mapping = {

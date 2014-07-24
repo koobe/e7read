@@ -3,7 +3,7 @@
 		<meta name="kgl:media_count" content="3"/> 
 		<meta name="kgl:text_count" content="1" /> 
 	   <link rel="stylesheet" href="/assets/bootstrap.css?compile=false"  />
-	    <title>Content template: three_picture_pull_one_left</title>
+	    <title>Content template: three_picture_pull_one_left_title_first</title>
 	    <style type="text/css">
 	    	.template-container {
 	    		width:100%;
@@ -61,6 +61,14 @@
 	</head>
 	<body>
 		<div class="template-container">
+			<div class="text-container">
+				<div class="content-title">
+					<h2>${content.cropTitle}</h2>
+				</div>
+				<div class="content-author">
+					<h4>${content.user.fullName}</h4>
+				</div>
+			</div>
 			<div class="pictures-container">
 				<div class="picture-item" style="background-image:url(${content.pictureSegments[0].originalUrl});"></div>
 				<div class="picture-vertical">
@@ -69,12 +77,6 @@
 				</div>
 			</div>
 			<div class="text-container">
-				<div class="content-title">
-					<h2>${content.cropTitle}</h2>
-				</div>
-				<div class="content-author">
-					<h4>${content.user.fullName}</h4>
-				</div>
 				<div class="content-text">
 					<g:each in="${content.textSegments}" var="segment">
 						<p>${segment.text}</p>

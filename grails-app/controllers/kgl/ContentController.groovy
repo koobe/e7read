@@ -203,7 +203,7 @@ class ContentController {
 	
 	// TEST
 	def count() {
-		
+		[content: Content.list().get(0)]
 	}
 	
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
@@ -544,7 +544,7 @@ class ContentController {
 		
 		log.info 'Number of templates can be selected: ' + templates.size()
 		Random r = new Random()
-		def idx = r.nextInt(templates.size()+1)
+		def idx = r.nextInt(templates.size())
 		def template = templates.get(idx)
 		log.info 'Template name: ' + template.name + ' type: ' + template.renderType + ' be selected'
 		

@@ -19,6 +19,9 @@ class Content {
 	//TODO
 	@Deprecated
 	String fullText
+
+    // References (URLs) for the content.
+    String references
 	
 	static hasMany = [
 		textSegments: TextSegment,

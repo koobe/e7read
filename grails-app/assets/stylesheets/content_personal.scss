@@ -82,5 +82,19 @@
     .element-text:hover {
       background: #eeeeee;
     }
+
+    .element-references {
+      padding: 5px;
+
+      :hover {
+        //background: #eeeeee;
+        //cursor: pointer;
+      }
+
+      a {
+        font-size: 11px;
+        color: #00015d;
+      }
+    }
   }
 }

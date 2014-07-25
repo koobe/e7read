@@ -351,7 +351,7 @@ class ContentController {
 	
 	def ajaxInlineUpdate(Content contentInstance) {
 
-        def result = [id: params.id]
+        def result = [id: params.id, instance: contentInstance]
 
         if (!contentInstance) {
             result.hasError = true

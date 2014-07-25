@@ -76,6 +76,33 @@ function addHandlers() {
 
 	$('.editing-title').inlineEditing(callback);
     $('.element-text').inlineEditing(callback);
+
+
+    $('.button-modify-references').unbind('click').click(function() {
+        var actionUrl = $(this).data('url');
+        var contentId = $(this).data('id');
+
+        var elm = $('.element-references[data-id='+contentId+']');
+
+        var url = prompt('Reference URL:', $('a', elm).attr('href'));
+
+        if (url != null) {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    'references': url
+                },
+                url: actionUrl,
+                success: function(data, textStatus) {
+                    var references = data.instance.references
+                    $('a', elm).text(references).attr('href', references);
+                }
+            });
+        }
+
+        return false;
+    });
+
 }
 
 function deleteContent(contentid) {

@@ -208,11 +208,24 @@ class ContentController {
 	
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def renderContentsHTML() {
-				
-		def criteria = Content.createCriteria()
-		def contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
-			eq("isDelete", false)
-			eq("isPrivate", false)
+		
+		def contentList = []
+		
+		if (params.q) {
+			def searchResult = Content.search(params.q, [from: params.from, size: params.size])
+			searchResult.searchResults.each { result ->
+				def content = Content.get(result.id)
+				if (content && !content.isDelete && !content.isPrivate) {
+					contentList << content
+				}
+			}
+//			contentList.sort { it.lastUpdated }
+		} else {
+			def criteria = Content.createCriteria()
+			contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
+				eq("isDelete", false)
+				eq("isPrivate", false)
+			}
 		}
 		
 		// def contentList = Content.list(max: params.max, offset: params.offset, sort:'lastUpdated', order:'desc')

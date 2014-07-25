@@ -6,9 +6,11 @@
 		</g:link>
 	</div>
 	<div class="header-search">
-        <g:form controller="search" role="search" method="get">
-            <g:textField name="q" class="form-control" placeholder="Search" />
-        </g:form>
+        <g:form uri="" role="search" method="get">
+		    <g:textField id="text-search" name="q" class="form-control" placeholder="Search" value="${params.q? params.q: ''}"/>
+		    <g:hiddenField name="from" value="0" />
+		    <g:hiddenField name="size" value="5" />
+		</g:form>
 	</div>
 	<div class="header-usermenu">
 		<g:render template="/home/usermenu" />

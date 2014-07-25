@@ -3,7 +3,7 @@ package kgl
 class Content {
 
     static searchable = {
-        only = 'cropText'
+        only = ['cropText', 'cropTitle', 'lastUpdated']
     }
 
     String id

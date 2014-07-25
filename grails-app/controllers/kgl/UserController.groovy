@@ -134,4 +134,11 @@ class UserController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    @Secured(["ROLE_USER"])
+    def debug() {
+        def user = springSecurityService.currentUser
+
+        render user as JSON
+    }
 }

@@ -43,6 +43,7 @@ class FacebookController {
                     password: new Date().time,
                     authType: 'FACEBOOK',
                     facebookId: resource.id,
+                    facebookUrl: resource.link,
                     enabled: true
             )
             user.save(failOnError: true, flush: true)

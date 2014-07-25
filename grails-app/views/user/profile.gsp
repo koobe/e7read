@@ -55,6 +55,20 @@
         </div>
 
         <div class="form-group">
+            <label class="col-sm-2 control-label">LINE:</label>
+            <div class="col-sm-10">
+                <div class="form-control-static">${user.lineId}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Skype:</label>
+            <div class="col-sm-10">
+                <div class="form-control-static">${user.skypeId}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-2 control-label">Description:</label>
             <div class="col-sm-10">
                 <div class="form-control-static">${user.description?.encodeAsRaw()}</div>

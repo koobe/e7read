@@ -65,6 +65,20 @@
         </div>
 
         <div class="form-group">
+            <label for="lineId" class="col-sm-2 control-label">LINE:</label>
+            <div class="col-sm-10">
+                <g:textField name="lineId" value="${user.lineId}" class="form-control" placeholder=""/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="skypeId" class="col-sm-2 control-label">Skype:</label>
+            <div class="col-sm-10">
+                <g:textField name="skypeId" value="${user.skypeId}" class="form-control" placeholder=""/>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Description:</label>
             <div class="col-sm-10">
                 <g:textArea name="description" value="${user.description}" class="form-control" rows="5" />

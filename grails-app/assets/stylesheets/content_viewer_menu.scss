@@ -24,10 +24,7 @@
 
     text-shadow: 1px 1px 1px #333;
 	
-	&:hover {
-		opacity: 1;
-	}
-	
+
 	div {
 		display:table-cell;
 		vertical-align:middle;
@@ -38,4 +35,8 @@
 			color: #D8F3F3;
 		}
 	}
+}
+
+.contentback:hover {
+  opacity: 1;
 }

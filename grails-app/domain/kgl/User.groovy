@@ -10,10 +10,10 @@ class User {
     String fullName
     String email
 
-    String authType        // SYSTEM, FACEBOOK
+    String authType = "SYSTEM"        // SYSTEM, FACEBOOK
     String facebookId
 
-    UserContact contact
+    UserContact contact = new UserContact()
 
     //TODO
     // loginType
@@ -35,7 +35,7 @@ class User {
         authType nullable: true
         facebookId nullable: true
 
-        contact nullable: true
+        //contact nullable: true
 	}
 
 	static mapping = {
@@ -49,7 +49,11 @@ class User {
 
 	def beforeInsert() {
 		encodePassword()
-	}
+
+        if (contact == null) {
+            contact = new UserContact()
+        }
+    }
 
 	def beforeUpdate() {
 		if (isDirty('password')) {

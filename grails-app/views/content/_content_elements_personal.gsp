@@ -43,7 +43,9 @@
 </div>
 <g:if test="${it.isPrivate}">
     <div class="private-div">
-        <h5>PRIVATE</h5>
+    	<div>
+        	<span class="fa fa-lock"></span>
+        </div>
     </div>
 </g:if>
 <div class="item-editing-menu">

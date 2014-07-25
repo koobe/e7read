@@ -19,10 +19,12 @@
 	
 	border-radius: 5px;
 	background-color: #45CFCF;
-	opacity: 0.8;
+	opacity: 0.7;
 	z-index: 9999;
+
+    text-shadow: 1px 1px 1px #333;
 	
-	:hover {
+	&:hover {
 		opacity: 1;
 	}
 	

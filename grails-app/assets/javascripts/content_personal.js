@@ -95,7 +95,15 @@ function addHandlers() {
                 url: actionUrl,
                 success: function(data, textStatus) {
                     var references = data.instance.references
-                    $('a', elm).text(references).attr('href', references);
+
+                    if (references) {
+                        $('i', elm).show();
+                        $('a', elm).text(references).attr('href', references).show();
+                    }
+                    else {
+                        $('i', elm).hide();
+                        $('a', elm).text('').attr('href', '#').hide();
+                    }
                 }
             });
         }

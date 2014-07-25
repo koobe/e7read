@@ -31,7 +31,12 @@
         </p>
 
         <p class="element-references" data-id="${it.id}">
-            <i class="fa fa-link"></i>
+            <g:if test="${it.references}">
+                <i class="fa fa-link"></i>
+            </g:if>
+            <g:else>
+                <i class="fa fa-link" style="display: none"></i>
+            </g:else>
             <a href="${it.references}" target="_blank">${it.references}</a>
         </p>
     </div>

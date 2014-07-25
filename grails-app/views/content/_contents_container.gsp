@@ -15,62 +15,8 @@
 		margin-right: 15px;
 	}
 </style>
-<script type="text/javascript">
 
-	$(document).ready(function() {
-		if (($(window).height() - $("#contents_container").height()) >= 0) {
-			triggerAjaxForData();
-		}
-	});
-
-	var max = 5;
-	var page = 1;
-	var onCall = false;
-	var eof = false;
-	
-	$(window).scroll(function() {
-		if (!eof) {determineIFTriggerAjax();}
-	});
-
-	// for mobile
-	$('body').on({
-	    'touchmove': function(e) { 
-	    	if (!eof) {determineIFTriggerAjax();}
-	    }
-	});
-
-	function determineIFTriggerAjax() {
-		var factor = $(window).scrollTop() + $(window).height() + 100;
-		
-		if (($(document.body).height() - factor) <= 0) {
-			triggerAjaxForData();
-		}
-	}
-
-	function triggerAjaxForData() {
-		if (!onCall) {
-			page = page + 1;
-			var offset = (page * max) - max;				
-			onCall = true;
-			$.ajax({
-				type:'POST',
-				data: { 'max': max, 'offset': offset },
-				url:'/content/renderContentsHTML',
-				success:function(data,textStatus){onSuccessAndAppendHTMLToContentContainer(data);},
-				error:function(XMLHttpRequest,textStatus,errorThrown){}
-			});
-		}
-	}
-
-	function onSuccessAndAppendHTMLToContentContainer(data) {
-		$("#contents_container").append(data);
-		onCall = false;
-		if (data == "") {
-			console.log('EOF');
-			eof = true;
-		}
-	}
-</script>
-<div id="contents_container" class="container-fluid maincontainer">
+<asset:javascript src="content_container.js"/>
+<div id="contents_container" class="container-fluid">
 	<g:include controller="content" action="renderContentsHTML" params="[max:5, offset:0]" />
 </div>

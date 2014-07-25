@@ -44,44 +44,44 @@
         </div>
 
         <div class="form-group">
-            <label for="phone" class="col-sm-2 control-label">Phone:</label>
+            <label for="contact.phone" class="col-sm-2 control-label">Phone:</label>
             <div class="col-sm-10">
-                <g:textField name="phone" value="${user.phone}" class="form-control" placeholder="Phone Number"/>
+                <g:textField name="contact.phone" value="${user.contact?.phone}" class="form-control" placeholder="Phone Number"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="facebookUrl" class="col-sm-2 control-label">Facebook:</label>
+            <label for="contact.facebookUrl" class="col-sm-2 control-label">Facebook:</label>
             <div class="col-sm-10">
-                <g:textField name="facebookUrl" value="${user.facebookUrl}" class="form-control" placeholder="http://facebook.com/YourFacebookID"/>
+                <g:textField name="contact.facebookUrl" value="${user.contact?.facebookUrl}" class="form-control" placeholder="http://facebook.com/YourFacebookID"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="blogUrl" class="col-sm-2 control-label">Blog:</label>
+            <label for="contact.blogUrl" class="col-sm-2 control-label">Blog:</label>
             <div class="col-sm-10">
-                <g:textField name="blogUrl" value="${user.blogUrl}" class="form-control" placeholder="http://${user.username}.blogspot.com/"/>
+                <g:textField name="contact.blogUrl" value="${user.contact?.blogUrl}" class="form-control" placeholder="http://${user.username}.blogspot.com/"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="lineId" class="col-sm-2 control-label">LINE:</label>
+            <label for="contact.lineId" class="col-sm-2 control-label">LINE:</label>
             <div class="col-sm-10">
-                <g:textField name="lineId" value="${user.lineId}" class="form-control" placeholder=""/>
+                <g:textField name="contact.lineId" value="${user.contact?.lineId}" class="form-control" placeholder=""/>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="skypeId" class="col-sm-2 control-label">Skype:</label>
+            <label for="contact.skypeId" class="col-sm-2 control-label">Skype:</label>
             <div class="col-sm-10">
-                <g:textField name="skypeId" value="${user.skypeId}" class="form-control" placeholder=""/>
+                <g:textField name="contact.skypeId" value="${user.contact?.skypeId}" class="form-control" placeholder=""/>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">Description:</label>
+            <label for="contact.description" class="col-sm-2 control-label">Description:</label>
             <div class="col-sm-10">
-                <g:textArea name="description" value="${user.description}" class="form-control" rows="5" />
+                <g:textArea name="contact.description" value="${user.contact?.description}" class="form-control" rows="5" />
             </div>
         </div>
 

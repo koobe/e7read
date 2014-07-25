@@ -36,42 +36,42 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Phone:</label>
             <div class="col-sm-10">
-                <div class="form-control-static">${user.phone}</div>
+                <div class="form-control-static">${user.contact?.phone}</div>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Facebook:</label>
             <div class="col-sm-10">
-                <div class="form-control-static">${user.facebookUrl}</div>
+                <div class="form-control-static">${user.contact?.facebookUrl}</div>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Blog:</label>
             <div class="col-sm-10">
-                <div class="form-control-static">${user.blogUrl}</div>
+                <div class="form-control-static">${user.contact?.blogUrl}</div>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">LINE:</label>
             <div class="col-sm-10">
-                <div class="form-control-static">${user.lineId}</div>
+                <div class="form-control-static">${user.contact?.lineId}</div>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Skype:</label>
             <div class="col-sm-10">
-                <div class="form-control-static">${user.skypeId}</div>
+                <div class="form-control-static">${user.contact?.skypeId}</div>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Description:</label>
             <div class="col-sm-10">
-                <div class="form-control-static">${user.description?.encodeAsRaw()}</div>
+                <div class="form-control-static">${user.contact?.description?.encodeAsRaw()}</div>
             </div>
         </div>
 

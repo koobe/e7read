@@ -31,12 +31,21 @@ function determineIFTriggerAjax() {
 
 function triggerAjaxForData() {
 	if (!onCall) {
+		onCall = true;
+		
 		page = page + 1;
 		var offset = (page * max) - max;				
-		onCall = true;
+		
+		if ($('#text-search').val() != '') {
+			var searchString = $('#text-search').val();
+			data = {'q': searchString, 'from': offset, 'size': max};
+		} else {
+			data = {'max': max, 'offset': offset};
+		}
+		
 		$.ajax({
 			type:'POST',
-			data: { 'max': max, 'offset': offset },
+			data: data,
 			url:'/content/renderPersonalContentsHTML',
 			success:function(data,textStatus){onSuccessAndAppendHTMLToContentContainer(data);},
 			error:function(XMLHttpRequest,textStatus,errorThrown){}

@@ -320,10 +320,24 @@ class ContentController {
 	
 	def renderPersonalContentsHTML() {
 		
-		def criteria = Content.createCriteria()
-		def contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
-			eq("user", springSecurityService.currentUser)
-			eq("isDelete", false)
+		def contentList = []
+		
+		if (params.q) {
+			def searchResult = Content.search(params.q, [from: params.from, size: params.size])
+			searchResult.searchResults.each { result ->
+				def content = Content.get(result.id)
+				if (content && !content.isDelete && !content.isPrivate) {
+					if (content.user == springSecurityService.currentUser) {
+						contentList << content
+					}
+				}
+			}
+		} else {
+			def criteria = Content.createCriteria()
+			contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
+				eq("user", springSecurityService.currentUser)
+				eq("isDelete", false)
+			}
 		}
 		
 		// def contentList = Content.findAllByUser(springSecurityService.currentUser, [max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc"]);

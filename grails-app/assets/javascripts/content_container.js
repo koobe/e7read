@@ -9,8 +9,6 @@
 	var page = 1;
 	var onCall = false;
 	var eof = false;
-	var doSearch = false;
-	var searchString;
 	
 	$(window).scroll(function() {
 		if (!eof) {determineIFTriggerAjax();}
@@ -39,8 +37,7 @@
 			var offset = (page * max) - max;	
 			
 			if ($('#text-search').val() != '') {
-				doSearch = true;
-				searchString = $('#text-search').val();
+				var searchString = $('#text-search').val();
 				data = {'q': searchString, 'from': offset, 'size': max};
 			} else {
 				data = {'max': max, 'offset': offset};

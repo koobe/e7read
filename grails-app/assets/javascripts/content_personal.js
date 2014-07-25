@@ -66,12 +66,13 @@ function onSuccessAndAppendHTMLToContentContainer(data) {
 
 function addHandlers() {
 
-	$('.hovercontent').unbind('hover');
-	$('.hovercontent').hover(
+	$('.hovercontent').unbind('hover').hover(
 	    function () {
+            $(this).find('.advanced-options').show();
 	        $(this).find('.item-editing-menu').show(250);
 	    }, 
 	    function () {
+            $(this).find('.advanced-options').hide();
 	        $(this).find('.item-editing-menu').hide(250);
 	    }
 	);

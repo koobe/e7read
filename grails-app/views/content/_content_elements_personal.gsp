@@ -41,7 +41,7 @@
         </p>
 
 
-        <div class="btn-group" data-toggle="buttons">
+        <div class="btn-group advanced-options" data-toggle="buttons">
             <a href="#" class="btn btn-default btn-xs disabled">Display vCard?</a>
             <label class="btn btn-default btn-xs ${it.isShowContact?'active':''}">
                 <input type="radio" name="isShowContact" value="true" data-id="${it.id}" /> Show

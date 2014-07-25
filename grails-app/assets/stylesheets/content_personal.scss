@@ -38,20 +38,35 @@
 	padding: 5px;
 	position: absolute;
 	bottom: 5px;
-	right: 20px;
+	right: 5px;
 	color: #fff;
 	display: none;
 }
 
 .private-div {
-	background: rgba(0,0,0,0.5);
-    width: auto;
+	display: table;
+	
+	background: rgba(91,192,222,0.8);
+	border-radius: 5px;
+    width: 45px;
     height: 45px;
-    padding: 5px;
+    
     position: absolute;
     bottom: 5px;
     top: 5px;
+    
     color: #fff;
+    text-shadow: 1px 1px 1px #333;
+    
+    div {
+    	display: table-cell;
+    	vertical-align:middle;
+    	text-align: center;
+    	
+    	span {
+    		font-size: 0.7cm;
+    	}
+    }
 }
 
 .content-element {

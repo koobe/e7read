@@ -93,6 +93,13 @@ function addHandlers() {
         var contentId = $(this).data('id');
 
         var elm = $('.element-references[data-id='+contentId+']');
+        
+//        var msg;
+//        if ($('a', elm).attr('href') == undefined) {
+//        	msg = '';
+//        } else {
+//        	msg = $('a', elm).attr('href');
+//        }
 
         var url = prompt('Reference URL:', $('a', elm).attr('href'));
 
@@ -107,11 +114,13 @@ function addHandlers() {
                     var references = data.instance.references
 
                     if (references) {
-                        $('i', elm).show();
-                        $('a', elm).text(references).attr('href', references).show();
+                    	elm.show();
+//                        $('i', elm).show();
+                        $('a', elm).text('Link').attr('href', references).show();
                     }
                     else {
-                        $('i', elm).hide();
+                    	elm.hide();
+//                        $('i', elm).hide();
                         $('a', elm).text('').attr('href', '#').hide();
                     }
                 }
@@ -137,8 +146,8 @@ function deleteContent(contentid) {
 }
 
 function switchPrivacy(contentid) {
-	var r = confirm('Are you sure?');
-	if (r == true) {
+//	var r = confirm('Are you sure?');
+//	if (r == true) {
 		$.ajax({
 			type:'POST',
 			data: { 'contentid': contentid },
@@ -146,7 +155,7 @@ function switchPrivacy(contentid) {
 			success:function(data,textStatus){refreshButtons(data, contentid);},
 			error:function(XMLHttpRequest,textStatus,errorThrown){}
 		});
-	}
+//	}
 }
 
 function refreshButtons(data, contentid) {

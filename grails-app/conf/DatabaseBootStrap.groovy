@@ -20,6 +20,7 @@ class DatabaseBootStrap {
                     email: 'admin@codecanaan.com',
                     username: 'admin',
                     password: 'admin',
+                    authType: 'SYSTEM',
                     enabled: true
             )
             user1.save(failOnError: true, flush: true)

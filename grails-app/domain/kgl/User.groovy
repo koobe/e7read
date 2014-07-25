@@ -10,9 +10,14 @@ class User {
     String fullName
     String email
 
+    String authType        // SYSTEM, FACEBOOK
+    String facebookId
+
     String phone
     String facebookUrl
     String blogUrl
+    String lineId
+    String skypeId
 
     String description
 
@@ -33,9 +38,14 @@ class User {
 		password blank: false
 		email nullable: true
 
+        authType nullable: true
+        facebookId nullable: true
+
         phone nullable: true
         facebookUrl nullable: true
         blogUrl nullable: true
+        lineId nullable: true
+        skypeId nullable: true
 
         description nullable: true, maxSize: 1024 * 1024
 	}

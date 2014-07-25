@@ -29,7 +29,7 @@ class FacebookController {
         // Sample
         log.info(resource)
 
-        User user = User.findByEmail(resource.email)
+        User user = User.findByAuthTypeAndFacebookId("FACEBOOK", resource.id)
 
         if (!user) {
             log.info("Create a new user domain class from facebook account data")
@@ -41,6 +41,8 @@ class FacebookController {
                     email: resource.email,
                     username: resource.username?:"facebook_${resource.id}",
                     password: new Date().time,
+                    authType: 'FACEBOOK',
+                    facebookId: resource.id,
                     enabled: true
             )
             user.save(failOnError: true, flush: true)

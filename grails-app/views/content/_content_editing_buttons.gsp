@@ -4,9 +4,10 @@
 <g:link class="btn btn-default button button-modify-references" title="Edit" uri="#" data-id="${it.id}" data-url="${createLink(action: 'ajaxInlineUpdate', id: it.id)}">
     <span class="fa fa-link"></span>
 </g:link>
+<!-- 
 <g:link class="btn btn-default button" title="Edit" controller="content" action="edit" id="${it.id}">
 	<span class="fa fa-pencil-square-o"></span>
-</g:link>
+</g:link>  -->
 <g:link class="btn btn-default button" title="Delete" uri="javascript: deleteContent('${it.id}');">
 	<span class="fa fa-times"></span>
 </g:link>

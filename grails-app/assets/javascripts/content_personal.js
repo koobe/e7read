@@ -145,8 +145,8 @@ function deleteContent(contentid) {
 }
 
 function switchPrivacy(contentid) {
-	var r = confirm('Are you sure?');
-	if (r == true) {
+//	var r = confirm('Are you sure?');
+//	if (r == true) {
 		$.ajax({
 			type:'POST',
 			data: { 'contentid': contentid },
@@ -154,7 +154,7 @@ function switchPrivacy(contentid) {
 			success:function(data,textStatus){refreshButtons(data, contentid);},
 			error:function(XMLHttpRequest,textStatus,errorThrown){}
 		});
-	}
+//	}
 }
 
 function refreshButtons(data, contentid) {

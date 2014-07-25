@@ -17,6 +17,9 @@ class Content {
 	Boolean isPrivate
 	Boolean isDelete
 
+    Boolean isShowContact = false
+
+
     Date dateCreated
     Date lastUpdated
 	

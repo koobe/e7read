@@ -39,6 +39,15 @@
             </g:else>
             <a href="${it.references}" target="_blank">${it.references}</a>
         </p>
+
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary active">
+                <input type="radio" name="isShowContact" value="true"> Show
+            </label>
+            <label class="btn btn-primary">
+                <input type="radio" name="isShowContact" value="false"> Hide
+            </label>
+        </div>
     </div>
 
     <g:if test="${it.hasPicture}">

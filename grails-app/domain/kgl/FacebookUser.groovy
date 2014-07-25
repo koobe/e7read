@@ -1,7 +1,5 @@
 package kgl
 
-import kgl.User
-
 class FacebookUser {
 
     long uid

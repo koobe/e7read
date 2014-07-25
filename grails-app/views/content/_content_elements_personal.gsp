@@ -40,12 +40,14 @@
             <a href="${it.references}" target="_blank">${it.references}</a>
         </p>
 
+
         <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-primary active">
-                <input type="radio" name="isShowContact" value="true"> Show
+            <a href="#" class="btn btn-default btn-xs disabled">Display vCard?</a>
+            <label class="btn btn-default btn-xs ${it.isShowContact?'active':''}">
+                <input type="radio" name="isShowContact" value="true" data-id="${it.id}" /> Show
             </label>
-            <label class="btn btn-primary">
-                <input type="radio" name="isShowContact" value="false"> Hide
+            <label class="btn btn-default btn-xs ${it.isShowContact?'':'active'}">
+                <input type="radio" name="isShowContact" value="false" data-id="${it.id}"> Hide
             </label>
         </div>
     </div>

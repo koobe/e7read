@@ -31,10 +31,10 @@
                 <div class="btn-group advanced-options" data-toggle="buttons">
                     <a href="#" class="btn btn-default btn-xs disabled">Display vCard?</a>
                     <label class="btn btn-default btn-xs ${it.isShowContact?'active':''}">
-                        <input type="radio" name="isShowContact" value="true" data-id="${it.id}" /> Show
+                        <input type="radio" name="isShowContact" value="true" data-id="${it.id}" data-url="${createLink(action: 'ajaxInlineUpdate', id: it.id)}" /> Show
                     </label>
                     <label class="btn btn-default btn-xs ${it.isShowContact?'':'active'}">
-                        <input type="radio" name="isShowContact" value="false" data-id="${it.id}"> Hide
+                        <input type="radio" name="isShowContact" value="false" data-id="${it.id}" data-url="${createLink(action: 'ajaxInlineUpdate', id: it.id)}" /> Hide
                     </label>
                 </div>
 		    </div>

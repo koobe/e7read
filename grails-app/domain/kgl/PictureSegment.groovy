@@ -28,5 +28,7 @@ class PictureSegment {
 		thumbnailUrl nullable: true
 		originalUrl blank: false
 		dataIndex blank: false
+
+        s3File nullable: true
     }
 }

@@ -74,6 +74,10 @@ class TemplateService {
         doc.select(".crop-title").html(content.cropTitle)
         doc.select(".crop-text").html(content.cropText)
 
+        if (content.isShowContact) {
+            doc.select("body").append(renderContact(content));
+        }
+
         return doc.html()
     }
 
@@ -92,6 +96,52 @@ class TemplateService {
                 .createTemplate(template?.html, template?.name)?.make([content: content])?.writeTo(writer)
 
         return writer.toString()
+    }
+
+    private String renderContact(Content content) {
+
+        def user = content.user
+
+        return """
+<style type="text/css">
+.content-contact ul, .content-contact li {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+.content-contact {
+margin: 15px;
+padding: 10px 30px;
+float: right;
+display: inline-block;
+background-color: #eeeeee;
+border-radius: 5px;
+box-shadow: 1px 1px 5px #aaa;
+}
+.content-contact .basic {
+display: inline-block;
+float: left;
+margin-right: 10px;
+}
+.content-contact .basic li {
+text-align: center;
+}
+.content-contact .advanced {
+display: inline-block;
+}
+</style>
+<div class="content-contact">
+    <ul class="basic">
+        <li class="avatar"><img src="//graph.facebook.com/${user.facebookId}/picture" alt="facebook-avatar" /></li>
+        <li class="fullName">${user.fullName}</li>
+    </ul>
+    <ul class="advanced">
+        <li class="email">E-Mail: ${user.email}</li>
+        <li class="phone">Phone: ${user.contact?.phone}</li>
+        <li class="lineId">Line: ${user.contact?.lineId}</li>
+    </ul>
+</div>
+"""
     }
 
     void loadBuiltIn() {

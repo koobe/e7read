@@ -4,13 +4,17 @@
 <meta name="layout" content="main">
 <title>Template Editor</title>
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/codemirror.css">
+<%-- <g:set var="codeMirrorUrl" value="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0" /> --%>
+<g:set var="codeMirrorUrl" value="//cdn.jsdelivr.net/codemirror/4.3.0" />
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/codemirror.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/mode/xml/xml.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/mode/javascript/javascript.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/mode/css/css.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/mode/htmlmixed/htmlmixed.js"></script>
+<link rel="stylesheet" href="${codeMirrorUrl}/codemirror.css">
+<link rel="stylesheet" href="${codeMirrorUrl}/theme/ambiance.css">
+
+    <script src="${codeMirrorUrl}/codemirror.js"></script>
+    <script src="${codeMirrorUrl}/mode/xml/xml.js"></script>
+    <script src="${codeMirrorUrl}/mode/javascript/javascript.js"></script>
+    <script src="${codeMirrorUrl}/mode/css/css.js"></script>
+    <script src="${codeMirrorUrl}/mode/htmlmixed/htmlmixed.js"></script>
 
 <style type="text/css">
     html, body {
@@ -49,7 +53,7 @@
 <div class="top-panel">
     <g:form action="editor" class="templateSelectForm form-inline" method="post">
         Open:
-        <g:select name="id" from="${templates}" value="${template?.id}" optionKey="id" optionValue="name" class="form-control" onchange="\$('.templateSelectForm').submit()" />
+        <g:select name="id" from="${templates}" value="${template?.id}" optionKey="id" optionValue="name" class="form-control" onchange="\$('.templateSelectForm').submit()" noSelection="['':'']" />
 
         <g:if test="${template}">
             <g:submitButton name="save" class="form-control" />
@@ -61,7 +65,6 @@
     </g:form>
 </div>
 
-
 <g:if test="${template}">
     <g:textArea name="html" class="form-control" value="${template?.html}" />
 
@@ -70,7 +73,8 @@
             var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('html'), {
                 lineNumbers: true,
                 mode: "htmlmixed",
-                smartIndent: false
+                smartIndent: false,
+                theme: 'ambiance'
             });
         });
     </script>

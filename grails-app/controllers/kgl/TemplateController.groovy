@@ -128,6 +128,13 @@ class TemplateController {
             template.save(flush: true)
         }
 
+        if (template) {
+            println "true"
+        }
+        else {
+            println "false"
+        }
+
         [
                 templates: OriginalTemplate.list(sort:"name", order:"asc"),
                 template: template

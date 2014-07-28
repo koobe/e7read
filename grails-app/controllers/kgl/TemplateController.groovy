@@ -110,7 +110,7 @@ class TemplateController {
     def debug() {
         withFormat {
             html {
-                render OriginalTemplate.findByName('default')?.html
+                render OriginalTemplate.defaultTemplate?.html
             }
             json {
                 render OriginalTemplate.list() as JSON

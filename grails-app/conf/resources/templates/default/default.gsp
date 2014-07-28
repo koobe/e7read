@@ -1,19 +1,21 @@
 <!DOCTYPE html> 
-<html style="width:100%; height:100%;"> 
-<head> 
-    <title>${content.cropTitle}</title>
-    <link rel="stylesheet" href="/assets/bootstrap.css?compile=false"  />
-    <style type="text/css">
-    	@import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
-    	p {
-    		font-family: 'cwTeXFangSong', serif;
-			font-size: 17px;
-    	}
-    	h1 {
-    		font-weight: bold;
-    		font-family: 'cwTeXFangSong', serif;
-    	}
-    </style>
+<html style="width:100%; height:100%;">
+<head>
+<title>${content.cropTitle}</title>
+<meta name="kgl:media_count" content="3" />
+<meta name="kgl:text_count" content="1" />
+<link rel="stylesheet" href="/assets/bootstrap.css?compile=false"  />
+<style type="text/css">
+    @import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+    p {
+        font-family: 'cwTeXFangSong', serif;
+        font-size: 17px;
+    }
+    h1 {
+        font-weight: bold;
+        font-family: 'cwTeXFangSong', serif;
+    }
+</style>
 </head>
 <body style="width:100%; height:100%;">
 	<div style="width:100%; height:100%;">

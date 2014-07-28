@@ -43,7 +43,7 @@ class DemoController {
 
         def rss = new XmlSlurper().parseText(rssText)
 
-        def defaultTemplate = OriginalTemplate.findByName('default')
+        def defaultTemplate = OriginalTemplate.defaultTemplate
 
         if (!defaultTemplate) {
             log.warn "Missing default template."

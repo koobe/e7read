@@ -3,7 +3,7 @@
 		<meta name="kgl:media_count" content="3"/> 
 		<meta name="kgl:text_count" content="1" /> 
 	   <link rel="stylesheet" href="/assets/bootstrap.css?compile=false"  />
-	    <title>Content template: three_picture_pull_one_left</title>
+	    <title>Content template: three_picture_pull_one_right</title>
 	    <style type="text/css">
 	    	.template-container {
 	    		width:100%;
@@ -62,11 +62,11 @@
 	<body>
 		<div class="template-container">
 			<div class="pictures-container">
-				<div class="picture-item" style="background-image:url(${content.pictureSegments[0].originalUrl});"></div>
 				<div class="picture-vertical">
-					<div class="picture-native" style="background-image:url(${content.pictureSegments[1].originalUrl});"></div>
-					<div class="picture-native" style="background-image:url(${content.pictureSegments[2].originalUrl});"></div>
+					<div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
+					<div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
 				</div>
+				<div class="picture-item" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
 			</div>
 			<div class="text-container">
 				<div class="content-title">

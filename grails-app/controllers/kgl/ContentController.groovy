@@ -109,7 +109,7 @@ class ContentController {
 		contentInstance.isPrivate = false
 
         contentInstance.user = springSecurityService.currentUser
-        contentInstance.originalTemplate = OriginalTemplate.findByName("default")
+        contentInstance.originalTemplate = OriginalTemplate.defaultTemplate
 
         contentInstance.validate()
 
@@ -569,7 +569,7 @@ class ContentController {
 
         if (!templates) {
 			// gsp-default will show all text and pictures
-            return OriginalTemplate.findByName("gsp-default")
+            return OriginalTemplate.defaultTemplate
         }
 		
 		log.info 'Number of templates can be selected: ' + templates.size()

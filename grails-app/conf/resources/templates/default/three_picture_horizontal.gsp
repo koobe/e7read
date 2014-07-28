@@ -3,7 +3,7 @@
 		<meta name="kgl:media_count" content="3"/> 
 		<meta name="kgl:text_count" content="1" /> 
 	   <link rel="stylesheet" href="/assets/bootstrap.css?compile=false"  />
-	    <title>Content template: three_picture_horizontal_title_first</title>
+	    <title>Content template: three_picture_horizontal</title>
 	    <style type="text/css">
 	    	.template-container {
 	    		width:100%;
@@ -26,6 +26,7 @@
 	    	.text-container {
 	    		padding-left: 20px;
 	    		padding-right: 20px;
+	    		padding-bottom: 30px;
 	    	}
 	    	
 	    	.content-author {
@@ -44,6 +45,11 @@
 	</head>
 	<body>
 		<div class="template-container">
+			<div class="pictures-container">
+				<div class="picture-item" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
+				<div class="picture-item" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
+				<div class="picture-item" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
+			</div>
 			<div class="text-container">
 				<div class="content-title">
 					<h2>${content.cropTitle}</h2>
@@ -51,14 +57,6 @@
 				<div class="content-author">
 					<h4>${content.user.fullName}</h4>
 				</div>
-			</div>
-			<div class="pictures-container">
-				<div class="picture-item" style="background-image:url(${content.pictureSegments[0].originalUrl});"></div>
-				<div class="picture-item" style="background-image:url(${content.pictureSegments[1].originalUrl});"></div>
-				<div class="picture-item" style="background-image:url(${content.pictureSegments[2].originalUrl});"></div>
-			</div>
-			<div class="text-container">
-				
 				<div class="content-text">
 					<g:each in="${content.textSegments}" var="segment">
 						<p>${segment.text}</p>

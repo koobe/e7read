@@ -53,9 +53,9 @@
 				</div>
 			</div>
 			<div class="pictures-container">
-				<div class="picture-item" style="background-image:url(${content.pictureSegments[0].originalUrl});"></div>
-				<div class="picture-item" style="background-image:url(${content.pictureSegments[1].originalUrl});"></div>
-				<div class="picture-item" style="background-image:url(${content.pictureSegments[2].originalUrl});"></div>
+				<div class="picture-item" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
+				<div class="picture-item" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
+				<div class="picture-item" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
 			</div>
 			<div class="text-container">
 				

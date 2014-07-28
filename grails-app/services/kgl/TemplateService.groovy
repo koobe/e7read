@@ -94,10 +94,18 @@ class TemplateService {
 
         def writer = new StringWriter()
 
+        groovyPagesTemplateEngine.clearPageCache()
+        //new GroovyPagesTemplateEngine()
         groovyPagesTemplateEngine
                 .createTemplate(template?.html, template?.name)?.make([content: content])?.writeTo(writer)
 
-        return writer.toString()
+        def doc = Jsoup.parse(writer.toString())
+
+        if (content.isShowContact) {
+            doc.select("body").append(renderContact(content));
+        }
+
+        return doc.html()
     }
 
     private String renderContact(Content content) {

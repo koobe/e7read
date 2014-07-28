@@ -136,7 +136,10 @@ class TemplateController {
         }
 
         [
-                templates: OriginalTemplate.list(sort:"name", order:"asc"),
+                templates: OriginalTemplate.createCriteria().list {
+                    order('grouping', 'asc')
+                    order('name', 'asc')
+                },
                 template: template
         ]
     }

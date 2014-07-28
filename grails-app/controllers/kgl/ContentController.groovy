@@ -139,7 +139,7 @@ class ContentController {
         }
 
         respond contentInstance, model: [
-                templates: OriginalTemplate.list(sort:"name", order:"asc"),
+                templates: OriginalTemplate.list(sort: "name", order: "asc"),
                 template: OriginalTemplate.findByName(params.template)
         ]
     }

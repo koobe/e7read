@@ -25,6 +25,7 @@
         line-height: 1.5em;
         border: 1px solid #eee;
         width: 100%;
+        min-height: 100%;
         height: auto;
         padding-top: 50px;
     }
@@ -52,33 +53,64 @@
 
 <div class="top-panel">
     <g:form action="editor" class="templateSelectForm form-inline" method="post">
-        Open:
-        <g:select name="id" from="${templates}" value="${template?.id}" optionKey="id" optionValue="name" class="form-control" onchange="\$('.templateSelectForm').submit()" noSelection="['':'']" />
+        <i class="fa fa-file-o"></i>
+
+        <select name="template.id" class="form-control">
+            <option value=""></option>
+            <g:each in="${templates}">
+                <g:if test="${template.id == it.id}">
+                    <option value="${it.id}" selected>${it.grouping} - ${it.name}</option>
+                </g:if>
+                <g:else>
+                    <option value="${it.id}">${it.grouping} - ${it.name}</option>
+                </g:else>
+            </g:each>
+        </select>
 
         <g:if test="${template}">
-            <g:submitButton name="save" class="form-control" />
+            <button class="form-control">
+                <i class="fa fa-save"></i>
+                Save
+            </button>
         </g:if>
 
         <div class="pull-right">
-            <g:link action="reloadAllDefaultTemplates" class="btn btn-default" onclick="return confirm('Are you sure to reload all templates from disk?')">Reload All</g:link>
+            <g:link action="reloadAllDefaultTemplates" class="btn btn-default" onclick="return confirm('Are you sure to reload all templates from disk?')">
+                <i class="fa fa-rotate-left"></i>
+                Reload All
+            </g:link>
         </div>
     </g:form>
 </div>
 
 <g:if test="${template}">
     <g:textArea name="html" class="form-control" value="${template?.html}" />
-
-    <script type="text/javascript">
-        $(function() {
-            var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('html'), {
-                lineNumbers: true,
-                mode: "htmlmixed",
-                smartIndent: false,
-                theme: 'ambiance'
-            });
-        });
-    </script>
 </g:if>
+
+<script type="text/javascript">
+$(function() {
+
+    if ($('textarea[name=html]').length > 0) {
+        var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('html'), {
+            lineNumbers: true,
+            mode: "htmlmixed",
+            smartIndent: false,
+            theme: 'ambiance'
+        });
+    }
+
+    $('select[name="template.id"]').change(function() {
+
+        if ($(this).val()) {
+            $('.templateSelectForm').submit();
+        }
+        else {
+            location.href = "${createLink(action: 'editor')}";
+        }
+    });
+});
+</script>
+
 
 </body>
 </html>

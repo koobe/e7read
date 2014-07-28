@@ -20,7 +20,7 @@ class OriginalTemplate {
 	Integer textCount
 	Integer mediaCount
 	
-	String group
+	String grouping = 'default'
 	
 	String html
 
@@ -35,6 +35,10 @@ class OriginalTemplate {
     }
 	
 	static mapping = {
-		group column: '`group`'
+		//group column: '`group`'
 	}
+
+    public static OriginalTemplate getDefaultTemplate() {
+        OriginalTemplate.findByNameAndGrouping('default', 'default')
+    }
 }

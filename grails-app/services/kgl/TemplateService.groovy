@@ -5,6 +5,8 @@ import grails.util.Environment
 import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine
 import org.jsoup.Jsoup
 
+import java.util.regex.Pattern
+
 @Transactional
 class TemplateService {
 
@@ -23,7 +25,7 @@ class TemplateService {
         }
 
         if (!template) {
-            template = OriginalTemplate.findByName("default")
+            template = OriginalTemplate.defaultTemplate
         }
 
         if (template.renderType == OriginalTemplateRenderType.HTML) {
@@ -145,6 +147,7 @@ display: inline-block;
     }
 
     void loadBuiltIn() {
+
         def templates = grailsApplication.getParentContext().getResource("classpath:resources/templates").file
 
         // Load from project source directory in DEV mode
@@ -160,52 +163,35 @@ display: inline-block;
             }
         }
 
-        log.info "Import all HTML templates"
+        def groups = ['default', 'experimental']
 
-        templates.eachFileMatch(~/.*\.html/, {
+        groups.each { grouping ->
+
+            def templatesDir = new File(templates, grouping)
+
+            if (templatesDir.exists() && templatesDir.isDirectory()) {
+
+                log.info "Import all HTML templates"
+                loadTemplatesFromDirectory(templatesDir, grouping, ~/.*\.html/, '.html', OriginalTemplateRenderType.HTML)
+
+                log.info "Import all GSP templates"
+                loadTemplatesFromDirectory(templatesDir, grouping, ~/.*\.gsp/, '.gsp', OriginalTemplateRenderType.GSP)
+            }
+        }
+    }
+
+    private void loadTemplatesFromDirectory(File dir, String grouping, Pattern pattern, String suffix, OriginalTemplateRenderType type) {
+        dir.eachFileMatch(pattern, {
             file ->
-                log.info "Processing ${file.absolutePath}"
+                log.info "Processing ${dir.absolutePath}"
 
-                def baseName = file.name.replace(".html", "")
+                def baseName = file.name.replace(suffix, '')
 
-                def t = saveTemplate(baseName, file.getText('UTF-8'), 'A', 0, 0, OriginalTemplateRenderType.HTML)
-                retrieveAttributes(t)
-        })
-
-        log.info "Import all GSP templates"
-
-        templates.eachFileMatch(~/.*\.gsp/, {
-            file ->
-                log.info "Processing ${file.absolutePath}"
-
-                def baseName = file.name.replace(".gsp", "")
-
-                def t = saveTemplate(baseName, file.getText('UTF-8'), 'A', 0, 0, OriginalTemplateRenderType.GSP)
-                retrieveAttributes(t)
+                retrieveAttributes(saveTemplate(baseName, file.getText('UTF-8'), grouping, 0, 0, type))
         })
     }
 
-    private OriginalTemplate saveTemplate(String baseName, String html, String group,
-                              int mediaCount, int textCount, OriginalTemplateRenderType type) {
-
-        log.info "OriginalTemplate.findOrCreateByName(${baseName})"
-
-        def ot = OriginalTemplate.findOrCreateByName(baseName)
-
-        ot.name = baseName
-        ot.html = html
-        ot.group = group
-        ot.mediaCount = mediaCount
-        ot.textCount = textCount
-        ot.renderType = type
-
-        log.info "Save ${ot.html.bytes.length} bytes."
-        log.info ot.save(flush: true)
-
-        return ot
-    }
-
-    void retrieveAttributes(OriginalTemplate template) {
+    private void retrieveAttributes(OriginalTemplate template) {
         def doc = Jsoup.parse(template?.html)
 
         try {
@@ -227,4 +213,23 @@ display: inline-block;
         }
     }
 
+    private OriginalTemplate saveTemplate(String baseName, String html, String grouping,
+                              int mediaCount, int textCount, OriginalTemplateRenderType type) {
+
+        log.info "OriginalTemplate.findOrCreateByName(${baseName})"
+
+        def ot = OriginalTemplate.findOrCreateByName(baseName)
+
+        ot.name = baseName
+        ot.html = html
+        ot.grouping = grouping
+        ot.mediaCount = mediaCount
+        ot.textCount = textCount
+        ot.renderType = type
+
+        log.info "Save ${ot.html.bytes.length} bytes."
+        log.info ot.save(flush: true)
+
+        return ot
+    }
 }

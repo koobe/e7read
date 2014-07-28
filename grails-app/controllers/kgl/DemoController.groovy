@@ -69,6 +69,36 @@ class DemoController {
                         isDelete: false
                 )
 
+                /*
+                def s3file = new S3File(
+                        owner: springSecurityService.currentUser,
+                        originalFilename: '',
+                        contentType: '',
+                        contentLength: 0,
+                        bucket: '',
+                        objectKey: '',
+                        resourceUrl: it.enclosure.'@url'.text(),
+                        hasBeenUploaded: false,
+                        isPublic: true,
+                        remark: 'IMPORT-FROM-RSS'
+                )
+                */
+
+                content.pictureSegments = []
+                content.pictureSegments << new PictureSegment(
+                        content: content,
+                        dataIndex: 0,
+                        originalUrl: it.enclosure.'@url'.text(),
+                        thumbnailUrl: it.enclosure.'@url'.text()
+                )
+
+                content.textSegments = []
+                content.textSegments << new TextSegment(
+                        content: content,
+                        dataIndex: 0,
+                        text: it.description.text()
+                )
+
                 if (content.validate()) {
 
                     content.save(flush: true)

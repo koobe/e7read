@@ -4,7 +4,7 @@
 
 $.fn.inlineEditing = function(callback) {
     $(this).each(function() {
-        console.log($(this));
+        //console.log($(this));
         var id = $(this).data('id');
         var field = $(this).data('field');
         var url = $(this).data('url');

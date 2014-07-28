@@ -19,7 +19,6 @@ class Content {
 
     Boolean isShowContact = false
 
-
     Date dateCreated
     Date lastUpdated
 	

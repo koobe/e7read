@@ -64,6 +64,67 @@ function onSuccessAndAppendHTMLToContentContainer(data) {
 	}
 }
 
+var updateReferences = function() {
+    var actionUrl = $(this).data('url');
+    var contentId = $(this).data('id');
+
+    var elm = $('.element-references[data-id='+contentId+']');
+
+//        var msg;
+//        if ($('a', elm).attr('href') == undefined) {
+//        	msg = '';
+//        } else {
+//        	msg = $('a', elm).attr('href');
+//        }
+
+    var url = prompt('Reference URL:', $('a', elm).attr('href'));
+
+    if (url != null) {
+        $.ajax({
+            type: 'POST',
+            data: {
+                'references': url
+            },
+            url: actionUrl,
+            success: function(data, textStatus) {
+                var references = data.instance.references
+
+                if (references) {
+                    elm.show();
+//                        $('i', elm).show();
+                    $('a', elm).text('Link').attr('href', references).show();
+                }
+                else {
+                    elm.hide();
+//                        $('i', elm).hide();
+                    $('a', elm).text('').attr('href', '#').hide();
+                }
+            }
+        });
+    }
+
+    return false;
+};
+
+var updateShowContact = function() {
+    var actionUrl = $(this).data('url');
+    var contentId = $(this).data('id');
+    var value = $(this).val();
+
+    $.ajax({
+        type: 'POST',
+        data: {
+            'isShowContact': value
+        },
+        url: actionUrl,
+        success: function(data, textStatus) {
+            //console.log(data);
+        }
+    });
+
+    return false;
+};
+
 function addHandlers() {
 
 	$('.hovercontent').unbind('hover').hover(
@@ -87,48 +148,9 @@ function addHandlers() {
 	$('.editing-title').inlineEditing(callback);
     $('.element-text').inlineEditing(callback);
 
+    $('.button-modify-references').unbind('click').click(updateReferences);
 
-    $('.button-modify-references').unbind('click').click(function() {
-        var actionUrl = $(this).data('url');
-        var contentId = $(this).data('id');
-
-        var elm = $('.element-references[data-id='+contentId+']');
-        
-//        var msg;
-//        if ($('a', elm).attr('href') == undefined) {
-//        	msg = '';
-//        } else {
-//        	msg = $('a', elm).attr('href');
-//        }
-
-        var url = prompt('Reference URL:', $('a', elm).attr('href'));
-
-        if (url != null) {
-            $.ajax({
-                type: 'POST',
-                data: {
-                    'references': url
-                },
-                url: actionUrl,
-                success: function(data, textStatus) {
-                    var references = data.instance.references
-
-                    if (references) {
-                    	elm.show();
-//                        $('i', elm).show();
-                        $('a', elm).text('Link').attr('href', references).show();
-                    }
-                    else {
-                    	elm.hide();
-//                        $('i', elm).hide();
-                        $('a', elm).text('').attr('href', '#').hide();
-                    }
-                }
-            });
-        }
-
-        return false;
-    });
+    $('input[name=isShowContact]').unbind('change').change(updateShowContact);
 
 }
 
@@ -165,5 +187,5 @@ function refreshButtons(data, contentid) {
 }
 
 $(function() {
-   console.log($('.inline-editing-auto-save').size());
+   //console.log($('.inline-editing-auto-save').size());
 });

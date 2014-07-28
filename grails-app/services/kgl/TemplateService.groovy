@@ -101,6 +101,9 @@ class TemplateService {
         groovyPagesTemplateEngine
                 .createTemplate(template?.html, template?.name)?.make([content: content])?.writeTo(writer)
 
+
+        // TODO provide render contact card expression support in GSP ?
+
         def doc = Jsoup.parse(writer.toString())
 
         if (content.isShowContact) {

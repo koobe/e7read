@@ -19,6 +19,7 @@
 	    	
 	    	.picture-item {
 	    		display: table-cell;
+	    		width: 33%;
 	    		border-radius: 5px;
 	    		background-position: center; background-repeat: no-repeat; background-size: cover;
 	    	}
@@ -63,6 +64,7 @@
 					</g:each>
 				</div>
 			</div>
+			<div><br/><br/></div>
 		</div>
 	</body>
 </html>

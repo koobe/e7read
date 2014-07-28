@@ -43,6 +43,8 @@ class Content {
     static mapping = {
         id generator: 'uuid'
 		textSegments sort: 'dataIndex'
+		
+		references column: '`references`'
     }
 
     static constraints = {

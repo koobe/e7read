@@ -17,6 +17,6 @@ class UserContact {
         blogUrl nullable: true
         lineId nullable: true
         skypeId nullable: true
-        description nullable: true, maxSize: 1024 * 1024
+        description nullable: true, maxSize: 8000
     }
 }

@@ -9,8 +9,8 @@
 		
 		margin-top: 10px;
 		margin-bottom: 15px;
-		padding-left: 22px;
-		padding-right: 22px;
+		padding-left: 40px;
+		padding-right: 0px;
 		
 		/* border: #0000FF 1px solid; */
 		
@@ -22,15 +22,19 @@
 			display: table-cell;
 			vertical-align: middle;
 			text-align: right;
-			width:40%;
+			width:20%;
 			
+			form {
+				input {
+				}
+			}
 		}
 		
 		.header-usermenu {
 			display: table-cell;
 			vertical-align: middle;
 			text-align: right;
-			padding-left: 20px;
+			padding-left: 15px;
 			
 			width: 1%;
 		}
@@ -45,19 +49,22 @@
 		margin-top: 10px;
 		margin-bottom: 15px;
 		padding-left: 22px;
-		padding-right: 22px;
+		padding-right: 0px;
 				
 		.header-search {
 			text-align: right;
 			padding-top: 5px;
+			padding-right: 22px;
 			width:100%;
 		}
 		
 		.header-usermenu {
-			padding-top: 5px;
+			padding-top: 10px;
 			padding-bottom: 30px;
+			margin-right: 22px;
 			width:100%;
 			text-align: center;
+			
 		}
 	}
 }
@@ -74,8 +81,8 @@
 .usermenu-table {
 	float:right;
 	display: table;
+	background-color: #94E6DA;
 	div {
 		display: table-cell;
-		padding-left: 3px;
 	}
 }

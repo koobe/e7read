@@ -11,6 +11,7 @@
 * require mobile
 *= require bootstrap
 *= require_self
+*= require application_menu
 */
 
 body {
@@ -32,4 +33,20 @@ body {
 	left: 0px;
 	color: #fff;
 	z-index: 999;
+}
+
+.div-iframe {
+	z-index: 9998;
+}
+
+.back-btn-pos {
+	position: fixed;
+	left: 2px;
+	bottom: 2px;
+	z-index: 9999;
+	padding-left: 15px;
+	padding-right: 17px;
+	padding-top: 3px;
+	padding-bottom: 0px;
+	font-size: 30px;
 }

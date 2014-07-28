@@ -6,10 +6,16 @@
 		</g:link>
 	</div>
 	<div class="header-search">
-        <g:form uri="" role="search" method="get">
-		    <g:textField id="text-search" name="q" class="form-control" placeholder="Search" value="${params.q? params.q: ''}"/>
+		
+        <g:form uri="" role="search" class="" method="get">
+        	<div class="input-group">
+			    <g:textField id="text-search" name="q" class="form-control input-search" value="${params.q? params.q: ''}"/>
+			    <span class="input-group-addon">
+			        <i class="fa fa-search"></i>
+			    </span>
+		    </div>
 		    <g:hiddenField name="from" value="0" />
-		    <g:hiddenField name="size" value="5" />
+			<g:hiddenField name="size" value="5" />
 		</g:form>
 	</div>
 	<div class="header-usermenu">

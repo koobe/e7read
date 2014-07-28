@@ -10,9 +10,17 @@
 		box-shadow:2px 2px 2px 1px rgba(0,0,0,.075);
 		transition: border-color ease-in-out .10s,box-shadow ease-in-out .1s;
 	}
-	.contents-container {
-		margin-left: 15px;
-		margin-right: 15px;
+	@media screen and (min-width: 768px) {
+		.contents-container {
+			margin-left: 30px;
+			margin-right: 30px;
+		}
+	}
+	@media screen and (max-width: 767px) {
+		.contents-container {
+			margin-left: 10px;
+			margin-right: 15px;
+		}
 	}
 </style>
 <asset:javascript src="content_container.js"/>

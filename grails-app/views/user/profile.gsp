@@ -4,11 +4,12 @@
     <title></title>
 </head>
 <body>
+<g:render template="/home/header" />
 
 <div class="container">
-
+	
     <div class="page-header">
-        <h1>User Profie</h1>
+        <h4>User Profie</h4>
     </div>
 
     <form class="form-horizontal" role="form">

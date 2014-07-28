@@ -42,6 +42,8 @@
         z-index: 999;
         padding: 5px 10px;
 
+        height: 50px;
+
         background-color: white;
 
         box-shadow: 0 0 5px darkgray;
@@ -58,7 +60,7 @@
         <select name="template.id" class="form-control">
             <option value=""></option>
             <g:each in="${templates}">
-                <g:if test="${template.id == it.id}">
+                <g:if test="${template?.id == it.id}">
                     <option value="${it.id}" selected>${it.grouping} - ${it.name}</option>
                 </g:if>
                 <g:else>

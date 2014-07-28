@@ -1,3 +1,3 @@
-<div class="col-sm-${span} nopadding">
+<div class="col-md-${span} nopadding">
 	<g:render template="${object_template}" bean="${content}" />
 </div>

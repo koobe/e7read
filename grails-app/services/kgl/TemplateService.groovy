@@ -94,6 +94,8 @@ class TemplateService {
 
         def writer = new StringWriter()
 
+        // TODO clear cache not a good design
+
         groovyPagesTemplateEngine.clearPageCache()
         //new GroovyPagesTemplateEngine()
         groovyPagesTemplateEngine

@@ -229,9 +229,9 @@ display: inline-block;
     private OriginalTemplate saveTemplate(String baseName, String html, String grouping,
                               int mediaCount, int textCount, OriginalTemplateRenderType type) {
 
-        log.info "OriginalTemplate.findOrCreateByName(${baseName})"
+        log.info "Write template to database: ${baseName})"
 
-        def ot = OriginalTemplate.findOrCreateByName(baseName)
+        def ot = OriginalTemplate.findOrCreateByNameAndGrouping(baseName, grouping)
 
         ot.name = baseName
         ot.html = html

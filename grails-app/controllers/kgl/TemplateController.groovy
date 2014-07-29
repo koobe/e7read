@@ -1,14 +1,17 @@
 package kgl
 
+import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine;
+
 import grails.converters.JSON
 import grails.converters.XML
 import grails.plugin.springsecurity.annotation.Secured
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TemplateController {
+	
+	GroovyPagesTemplateEngine groovyPagesTemplateEngine
 
     def templateService
 
@@ -148,4 +151,9 @@ class TemplateController {
 
         redirect(action: 'editor')
     }
+	
+	def clearCache() {
+		groovyPagesTemplateEngine.clearPageCache()
+		render "OK"
+	}
 }

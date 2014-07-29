@@ -123,12 +123,6 @@ class TemplateController {
 
     @Secured(["ROLE_ADMIN"])
     def editor(OriginalTemplate template) {
-
-        if (params.html != null) {
-            template.properties = params
-            template.save flush: true
-        }
-
         [
                 templates: OriginalTemplate.createCriteria().list {
                     order('grouping', 'asc')
@@ -136,6 +130,16 @@ class TemplateController {
                 },
                 template: template
         ]
+    }
+
+    @Secured(["ROLE_ADMIN"])
+    def editorSave(OriginalTemplate template) {
+
+        if (template) {
+            template.save flush: true
+        }
+
+        redirect action: 'editor', id: template?.id
     }
 
     @Secured(["ROLE_ADMIN"])

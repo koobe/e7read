@@ -27,13 +27,13 @@
 <g:link class="koobe-btn button" title="Delete" uri="javascript: deleteContent('${it.id}');">
 	<span class="fa fa-times"></span>
 </g:link>
-<g:if test="${it.isPrivate != true}">
-	<g:link class="koobe-btn button linkprivate" title="Make private" uri="javascript: switchPrivacy('${it.id}');">
+<g:if test="${!it.isPrivate}">
+	<g:link class="koobe-btn linkprivate" title="Make private" uri="javascript: switchPrivacy('${it.id}');">
 		<span class="fa fa-lock"></span>
 	</g:link>
 </g:if>
 <g:if test="${it.isPrivate}">
-	<g:link class="koobe-btn button linkpublic" title="Make public" uri="javascript: switchPrivacy('${it.id}');">
-		<span class="fa fa-globe"></span>
+	<g:link class="koobe-btn koobe-btn-inverse linkpublic" title="Make public" uri="javascript: switchPrivacy('${it.id}');">
+		<span class="fa fa-lock"></span>
 	</g:link>
 </g:if>

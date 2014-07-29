@@ -53,43 +53,43 @@
 </head>
 <body>
 
-<g:form action="editor" class="templateSelectForm form-inline" method="post">
 
-    <div class="top-panel">
-        <i class="fa fa-file-o"></i>
+<div class="top-panel">
+    <i class="fa fa-file-o"></i>
 
-        <select name="template.id" class="form-control">
-            <option value=""></option>
-            <g:each in="${templates}">
-                <g:if test="${template?.id == it.id}">
-                    <option value="${it.id}" selected>${it.grouping} - ${it.name}</option>
-                </g:if>
-                <g:else>
-                    <option value="${it.id}">${it.grouping} - ${it.name}</option>
-                </g:else>
-            </g:each>
-        </select>
-
-        <g:if test="${template}">
-            <button class="form-control">
-                <i class="fa fa-save"></i>
-                Save
-            </button>
-        </g:if>
-
-        <div class="pull-right">
-            <g:link action="reloadAllDefaultTemplates" class="btn btn-default" onclick="return confirm('Are you sure to reload all templates from disk?')">
-                <i class="fa fa-rotate-left"></i>
-                Reload All
-            </g:link>
-        </div>
-    </div>
+    <select name="template.id" class="form-control">
+        <option value=""></option>
+        <g:each in="${templates}">
+            <g:if test="${template?.id == it.id}">
+                <option value="${it.id}" selected>${it.grouping} - ${it.name}</option>
+            </g:if>
+            <g:else>
+                <option value="${it.id}">${it.grouping} - ${it.name}</option>
+            </g:else>
+        </g:each>
+    </select>
 
     <g:if test="${template}">
-        <g:textArea name="html" class="form-control" value="${template?.html}" />
+        <button class="form-control">
+            <i class="fa fa-save"></i>
+            Save
+        </button>
     </g:if>
 
-</g:form>
+    <div class="pull-right">
+        <g:link action="reloadAllDefaultTemplates" class="btn btn-default" onclick="return confirm('Are you sure to reload all templates from disk?')">
+            <i class="fa fa-rotate-left"></i>
+            Reload All
+        </g:link>
+    </div>
+</div>
+
+<g:if test="${template}">
+    <g:form action="editorSave" id="${template.id}" class="templateSelectForm form-inline" method="post">
+        <g:textArea name="html" class="form-control" value="${template.html}" />
+    </g:form>
+</g:if>
+
 
 <script type="text/javascript">
 $(function() {

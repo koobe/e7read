@@ -31,7 +31,12 @@
 <body>
 
 <div class="maximized">
-    <iframe class="iframe-embed" src="${createLink(controller: 'content', action: 'embed', id: contentInstance.id, params: ['template.id': template?.id])}" width="100%" height="800px" frameborder="0" ></iframe>
+    <g:if test="${template}">
+        <iframe class="iframe-embed" src="${createLink(controller: 'content', action: 'embed', id: contentInstance.id, params: ['template.id': template?.id])}" width="100%" height="800px" frameborder="0" ></iframe>
+    </g:if>
+    <g:else>
+        <iframe class="iframe-embed" src="${createLink(controller: 'content', action: 'embed', id: contentInstance.id)}" width="100%" height="800px" frameborder="0" ></iframe>
+    </g:else>
 </div>
 
 <div class="topPanel">

@@ -41,7 +41,9 @@ class ContentController {
     }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-    def embed(Content contentInstance, OriginalTemplate template) {
+    def embed(Content contentInstance) {
+
+        def template = OriginalTemplate.get(params.template?.id)
 
         def output
 
@@ -131,7 +133,9 @@ class ContentController {
 //        }
     }
 
-    def edit(Content contentInstance, OriginalTemplate template) {
+    def edit(Content contentInstance) {
+
+        def template = OriginalTemplate.get(params.template?.id)
 
         if (!contentInstance) {
             redirect uri: '/'

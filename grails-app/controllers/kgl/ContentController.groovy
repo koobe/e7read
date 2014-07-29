@@ -532,7 +532,7 @@ class ContentController {
 			dataIdx++
 		}
 		
-		contentInstance.cropTitle = fullText.split(",|\\.|;|，|。").first()
+		contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
 		contentInstance.cropText = cropSegment
 		contentInstance.fullText = fullText
 

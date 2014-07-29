@@ -28,14 +28,18 @@
 			        	<a href="#" target="_blank">Link</a>
 			        </p>
 		        </g:else>
-                <div class="btn-group advanced-options" data-toggle="buttons">
-                    <a href="#" class="btn btn-default btn-xs disabled">Display vCard?</a>
-                    <label class="btn btn-default btn-xs ${it.isShowContact?'active':''}">
-                        <input type="radio" name="isShowContact" value="true" data-id="${it.id}" data-url="${createLink(action: 'ajaxInlineUpdate', id: it.id)}" /> Show
-                    </label>
-                    <label class="btn btn-default btn-xs ${it.isShowContact?'':'active'}">
-                        <input type="radio" name="isShowContact" value="false" data-id="${it.id}" data-url="${createLink(action: 'ajaxInlineUpdate', id: it.id)}" /> Hide
-                    </label>
+                <div class="advanced-options">
+                    <span>Display vCard?</span><br/>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default btn-xs ${it.isShowContact?'active':''}">
+                            <input type="radio" name="isShowContact" value="true" data-id="${it.id}" data-url="${createLink(action: 'ajaxInlineUpdate', id: it.id)}" /> Show
+                        </label>
+                        <label class="btn btn-default btn-xs ${it.isShowContact?'':'active'}">
+                            <input type="radio" name="isShowContact" value="false" data-id="${it.id}" data-url="${createLink(action: 'ajaxInlineUpdate', id: it.id)}" /> Hide
+                        </label>
+                    </div>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
                 </div>
 		    </div>
 		</div>

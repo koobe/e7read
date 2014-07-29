@@ -16,12 +16,13 @@
     p {
         font-family: serif;
         font-size: 18px;
-        margin-bottom: 15px;
-        line-height: 150%;
+        margin-bottom: 20px;
+        line-height: 160%;
+        letter-spacing: 1px;
     }
     h1 {
-        /* font-weight: bold; */
-        font-family: sans-serif;
+        font-weight: 700;
+       	font-family: sans-serif;
         font-size: 28px;
     }
     .main-container {

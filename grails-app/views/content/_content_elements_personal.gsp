@@ -28,7 +28,7 @@
 			        	<a href="#" target="_blank">Link</a>
 			        </p>
 		        </g:else>
-                <div class="advanced-options">
+                <div class="advanced-options" style="display: none">
                     <span>Display vCard?</span><br/>
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-default btn-xs ${it.isShowContact?'active':''}">

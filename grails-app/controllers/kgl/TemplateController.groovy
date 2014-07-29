@@ -124,15 +124,9 @@ class TemplateController {
     @Secured(["ROLE_ADMIN"])
     def editor(OriginalTemplate template) {
 
-        if (params.save) {
-            template.save(flush: true)
-        }
-
-        if (template) {
-            println "true"
-        }
-        else {
-            println "false"
+        if (params.html != null) {
+            template.properties = params
+            template.save flush: true
         }
 
         [

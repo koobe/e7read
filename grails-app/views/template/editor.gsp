@@ -53,8 +53,9 @@
 </head>
 <body>
 
-<div class="top-panel">
-    <g:form action="editor" class="templateSelectForm form-inline" method="post">
+<g:form action="editor" class="templateSelectForm form-inline" method="post">
+
+    <div class="top-panel">
         <i class="fa fa-file-o"></i>
 
         <select name="template.id" class="form-control">
@@ -82,12 +83,13 @@
                 Reload All
             </g:link>
         </div>
-    </g:form>
-</div>
+    </div>
 
-<g:if test="${template}">
-    <g:textArea name="html" class="form-control" value="${template?.html}" />
-</g:if>
+    <g:if test="${template}">
+        <g:textArea name="html" class="form-control" value="${template?.html}" />
+    </g:if>
+
+</g:form>
 
 <script type="text/javascript">
 $(function() {

@@ -41,7 +41,7 @@ class ContentController {
     }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-    def embed(Content contentInstance, String template) {
+    def embed(Content contentInstance, OriginalTemplate template) {
 
         def output
 
@@ -49,7 +49,7 @@ class ContentController {
             output = templateService.render(contentInstance)
         }
         else {
-            output = templateService.render(contentInstance, OriginalTemplate.findByName(template))
+            output = templateService.render(contentInstance, template)
         }
 
         //render contentInstance.fullText.replaceAll("\n\n", "<br/><br/>")
@@ -131,7 +131,7 @@ class ContentController {
 //        }
     }
 
-    def edit(Content contentInstance) {
+    def edit(Content contentInstance, OriginalTemplate template) {
 
         if (!contentInstance) {
             redirect uri: '/'
@@ -139,8 +139,11 @@ class ContentController {
         }
 
         respond contentInstance, model: [
-                templates: OriginalTemplate.list(sort: "name", order: "asc"),
-                template: OriginalTemplate.findByName(params.template)
+                templates: OriginalTemplate.createCriteria().list {
+                    order('grouping', 'asc')
+                    order('name', 'asc')
+                },
+                template: template
         ]
     }
 

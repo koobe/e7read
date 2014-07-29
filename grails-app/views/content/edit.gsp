@@ -44,20 +44,23 @@
     <g:form action="edit" id="${contentInstance.id}" class="form-inline" role="form" method="get">
         <h1>${contentInstance.cropTitle}</h1>
 
-        <select name="template.id" class="form-control">
-            <option value=""></option>
-            <g:each in="${templates}">
-                <g:if test="${template?.id == it.id}">
-                    <option value="${it.id}" selected>${it.grouping} - ${it.name}</option>
-                </g:if>
-                <g:else>
-                    <option value="${it.id}">${it.grouping} - ${it.name}</option>
-                </g:else>
-            </g:each>
-        </select>
+        <div class="visible-md-inline visible-lg-inline visible-sm-inline">
+            <select name="template.id" class="form-control">
+                <option value=""></option>
+                <g:each in="${templates}">
+                    <g:if test="${template?.id == it.id}">
+                        <option value="${it.id}" selected>${it.grouping} - ${it.name}</option>
+                    </g:if>
+                    <g:else>
+                        <option value="${it.id}">${it.grouping} - ${it.name}</option>
+                    </g:else>
+                </g:each>
+            </select>
 
-        <button class="form-control" type="submit">Apply</button>
-        <g:link class="form-control" uri="/">Cancel</g:link>
+            <button class="form-control" type="submit">Apply</button>
+            <g:link class="form-control" uri="/">Cancel</g:link>
+        </div>
+
     </g:form>
 </div>
 

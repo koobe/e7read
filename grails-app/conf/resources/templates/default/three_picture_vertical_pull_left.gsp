@@ -30,23 +30,24 @@
     }
     .main-content {
         margin: auto;
+        margin-left: 30%;
         max-width: 920px;
         padding: 20px;
     }
     .main-gallery {
+        position: fixed;
         margin: auto;
         display: table;
         border-spacing: 5px;
-        width:100%;
-        height:50%;
-        max-width: 900px;
+        width: 30%;
+        height: 100%;
     }
     .table-row {
         display: table-row;
     }
     .table-col {
         display: table-cell;
-        height:100%;
+        width: 100%;
         border-radius: 5px;
         border: 1px solid #ccc;
         background-position: center;
@@ -59,9 +60,13 @@
 <div class="main-container">
     <div class="main-gallery">
         <div class="table-row">
-            <g:each in="${content.pictureSegments}">
-                <div class="table-col" style="background-image:url(${it.originalUrl});"></div>
-            </g:each>
+            <div class="table-col" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
+        </div>
+        <div class="table-row">
+            <div class="table-col" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
+        </div>
+        <div class="table-row">
+            <div class="table-col" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
         </div>
     </div>
     <div class="main-content">

@@ -572,7 +572,7 @@ class ContentController {
 
         int mediaCount = content.pictureSegments.size()
 
-        def templates = OriginalTemplate.findAllByMediaCount(mediaCount)
+        def templates = OriginalTemplate.findAllByGroupingAndMediaCount('default', mediaCount)
 
         if (!templates) {
 			// gsp-default will show all text and pictures

@@ -95,11 +95,11 @@ class TemplateService {
         def writer = new StringWriter()
 
         // TODO clear cache not a good design
-
+		// TODO cannot clear cache every time
         groovyPagesTemplateEngine.clearPageCache()
         //new GroovyPagesTemplateEngine()
         groovyPagesTemplateEngine
-                .createTemplate(template?.html, "template-{template?.name}")?.make([content: content])?.writeTo(writer)
+                .createTemplate(template?.html, "template-" + template?.name)?.make([content: content])?.writeTo(writer)
 
         // TODO provide render contact card expression support in GSP ?
 

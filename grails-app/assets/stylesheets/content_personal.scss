@@ -40,7 +40,7 @@
 }
 
 .item-editing-menu {
-	background: rgba(0,0,0,0.5);
+	background: rgba(148,230,218,1);
 	width: auto;
 	height: auto;
 	padding: 5px;
@@ -51,30 +51,19 @@
 	display: none;
 }
 
-.private-div {
-	display: table;
-	
-	background: rgba(91,192,222,0.8);
-	border-radius: 5px;
-    width: 45px;
-    height: 45px;
-    
-    position: absolute;
-    bottom: 5px;
+.status-div {
+	display: inline;
+	position: absolute;
+    left: 5px;
     top: 5px;
-    
-    color: #fff;
-    text-shadow: 1px 1px 1px #333;
-    
     div {
-    	display: table-cell;
-    	vertical-align:middle;
-    	text-align: center;
-    	
-    	span {
-    		font-size: 0.7cm;
-    	}
+    	display: inline-block;
     }
+}
+
+.status-item-div {
+	cursor: default;
+	background: rgba(148,230,218,0.8);
 }
 
 .content-element {
@@ -87,7 +76,7 @@
       font-size: 18px;
       margin: 0 0 10px 0;
       padding: 0 0 5px 0;
-      border-bottom: 1px solid #a9c6e6;
+      border-bottom: 1px solid #94E6DA;
     }
     .element-date {
       font-size: 10px;
@@ -99,7 +88,7 @@
     margin-top: 10px;
 
     .element-text {
-      font-size: 11px;
+      /*font-size: 11px;*/
       padding: 5px;
     }
     .element-text:hover {

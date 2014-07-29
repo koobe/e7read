@@ -406,7 +406,9 @@ class ContentController {
             result.message = renderErrors(bean: contentInstance)
         }
 
-        render result as JSON
+		//TODO
+//        render result as JSON
+		render template: "content_elements_personal", bean: contentInstance
     }
 	
 	def disableContent() {

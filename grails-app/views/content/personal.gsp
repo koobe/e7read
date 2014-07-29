@@ -8,8 +8,10 @@
 		<asset:javascript src="content_show.js"/>
 	</head>
 	<body>
-		<g:render template="/home/header" />
-		<g:render template="/content/contents_container_personal" />
-		<g:render template="/home/footer" />
+		<div id="display-container">
+			<g:render template="/home/header" />
+			<g:render template="/content/contents_container_personal" />
+			<g:render template="/home/footer" />
+		</div>
 	</body>
 </html>

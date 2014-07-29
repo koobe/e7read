@@ -6,8 +6,10 @@
 	    <asset:stylesheet src="content_viewer_menu.css"/>
 	</head>
 	<body>
-		<g:render template="header" />
-		<g:render template="/content/contents_container" />
-		<g:render template="footer" />
+		<div id="display-container">
+			<g:render template="header" />
+			<g:render template="/content/contents_container" />
+			<g:render template="footer" />
+		</div>
 	</body>
 </html>

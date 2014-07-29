@@ -13,6 +13,7 @@
     </div>
 
     <form class="form-horizontal" role="form">
+    
         <div class="form-group">
             <label class="col-sm-2 control-label">Username:</label>
             <div class="col-sm-10">
@@ -77,9 +78,9 @@
         </div>
 
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <g:link controller="user" action="modify" class="btn btn-default">Modify</g:link>
-                <g:link uri="/" class="btn btn-default">Done</g:link>
+            <div class="col-sm-offset-3 col-sm-10">
+                <g:link controller="user" action="modify" class="koobe-text-btn koobe-text-btn-inverse">編輯 Modify</g:link>
+                <!-- <g:link uri="/" class="btn btn-default">Done</g:link> -->
             </div>
         </div>
 

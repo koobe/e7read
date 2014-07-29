@@ -34,10 +34,10 @@
         		<div style="width: 60%">
         		</div>
         		<div style="width: 10%">
-					<g:link class="create-page-btn cancel-btn" uri="javascript:cancelPost();" >取消Cancel</g:link>
+					<g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" >取消Cancel</g:link>
         		</div>
         		<div style="width: 30%">
-					<g:link id="button-post" class="create-page-btn post-btn" uri="javascript: postContent();">發佈 Post</g:link>
+					<g:link id="button-post" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent();">發佈 Post</g:link>
 	        	</div>
             </div>
             

@@ -4,7 +4,7 @@ class TextSegment {
 	
 	String id
 	
-	String dataIndex
+	Integer dataIndex
 	String text
 	
 	static belongsTo = [

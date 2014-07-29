@@ -18,6 +18,12 @@
 	border-color: #94E6DA;
 }
 
+.koobe-btn-inverse {
+	color: #FFFFFF;
+	background-color: #67A89F;
+	border-color: #67A89F;
+}
+
 .menu-blank {
 	display: inline-block;
 	padding-top: 7px;

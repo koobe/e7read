@@ -109,7 +109,8 @@ var updateReferences = function() {
 var updateShowContact = function() {
     var actionUrl = $(this).data('url');
     var contentId = $(this).data('id');
-    var value = $(this).val();
+//    var value = $(this).val();
+    var value = $(this).data('value');
 
     $.ajax({
         type: 'POST',
@@ -119,9 +120,10 @@ var updateShowContact = function() {
         url: actionUrl,
         success: function(data, textStatus) {
             //console.log(data);
+        	refreshButtons(data, contentId);
         }
     });
-
+    
     return false;
 };
 
@@ -150,8 +152,8 @@ function addHandlers() {
 
     $('.button-modify-references').unbind('click').click(updateReferences);
 
-    $('input[name=isShowContact]').unbind('change').change(updateShowContact);
-
+//    $('input[name=isShowContact]').unbind('change').change(updateShowContact);
+    $('.button-show-contact').unbind('click').click(updateShowContact);
 }
 
 function deleteContent(contentid) {

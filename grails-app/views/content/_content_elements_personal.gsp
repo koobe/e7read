@@ -1,6 +1,6 @@
 <div id="content-${it.id}" class="content-element" style="display: table;">
 	<div style="display: table-row;">
-		<div style="display: table-cell; width: 40%; border-radius: 5px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image:url(${it.coverUrl}); box-shadow: 0 1px 2px 1px #ccc;"></div>
+		<div onclick="showContent('${it.id}');" style="cursor: pointer; display: table-cell; width: 40%; border-radius: 5px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image:url(${it.coverUrl}); box-shadow: 0 1px 2px 1px #ccc;"></div>
 		<div style="display: table-cell; width: 60%; padding-left: 10px;">
 			<div class="content-element-header">
 		        <h3 class="element-title editing-title inline-editing-auto-save" contenteditable="true" contentid="${it.id}"
@@ -29,6 +29,7 @@
 			        </p>
 		        </g:else>
                 <div class="advanced-options" style="display: none">
+                	<!-- 
                     <span>Display vCard?</span><br/>
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-default btn-xs ${it.isShowContact?'active':''}">
@@ -37,7 +38,7 @@
                         <label class="btn btn-default btn-xs ${it.isShowContact?'':'active'}">
                             <input type="radio" name="isShowContact" value="false" data-id="${it.id}" data-url="${createLink(action: 'ajaxInlineUpdate', id: it.id)}" /> Hide
                         </label>
-                    </div>
+                    </div>  -->
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                 </div>

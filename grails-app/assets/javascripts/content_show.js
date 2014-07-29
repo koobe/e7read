@@ -22,7 +22,7 @@ function receiveMessage(event) {
 var responsiveiframe = '<div class="div-iframe embed-responsive" style="height:100%; width:100%; position:fixed;top:0px;left:0px; overflow:auto;-webkit-overflow-scrolling:touch;"><iframe class="iframe embed-responsive-item" src=""></iframe></div>';
 var iframe = '<iframe id="iframe-show-content" frameborder="0" style="display:none;overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:999;" height="100%" width="100%"></iframe>';
 var backmenu = '<div class="contentback"><div><span class="fa fa-caret-left"></span></div></div>';
-var backlink = '<a id="button-back" href="#" class="koobe-btn back-btn-pos"><i class="fa fa-caret-left"></i></a>'
+var backlink = '<a id="button-back" href="javascript: void(0)" class="koobe-btn back-btn-pos"><i class="fa fa-caret-left"></i></a>'
 
 function showContent(contentId) {
 	console.log('Open content: ' + contentId);

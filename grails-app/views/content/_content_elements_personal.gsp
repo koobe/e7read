@@ -46,13 +46,22 @@
 		</div>
 	</div>
 </div>
-<g:if test="${it.isPrivate}">
-    <div class="private-div">
-    	<div>
-        	<span class="fa fa-lock"></span>
-        </div>
-    </div>
-</g:if>
+<div class="status-div">
+	<g:if test="${it.isPrivate}">
+		<div>
+		    <div class="koobe-btn status-item-div">
+				<span class="fa fa-lock"></span>
+		    </div>
+	    </div>
+	</g:if>
+	<g:if test="${it.isShowContact}">
+		<div>
+		    <div class="koobe-btn status-item-div">
+				<span class="fa fa-user"></span>
+		    </div>
+	    </div>
+	</g:if>
+</div>
 <div class="item-editing-menu">
     <div class="editing-buttons">
         <g:render template="content_editing_buttons" bean="${it}"/>

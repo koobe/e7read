@@ -17,7 +17,8 @@
     }
     
     p {
-        font-family: serif;
+        /*font-family: serif;*/
+        font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
         font-size: 18px;
         margin-bottom: 20px;
         line-height: 160%;
@@ -26,7 +27,8 @@
     
     h1 {
         font-weight: 700;
-       	font-family: sans-serif;
+       	/*font-family: sans-serif;*/
+       	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
         font-size: 28px;
     }
     
@@ -54,7 +56,7 @@
     }   
      
     .content-author {
-    	font-family: serif;
+    	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
         font-size: 18px;
     }
     

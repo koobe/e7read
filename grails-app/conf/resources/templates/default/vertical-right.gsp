@@ -32,6 +32,7 @@
     p {
         font-size: 17px;
         text-align: justify;
+        font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
     }
     </style>
 </head>
@@ -54,7 +55,6 @@
             </g:each>
         </div>
     </div>
-
     <div><br/><br/></div>
 </div>
 </body>

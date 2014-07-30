@@ -217,6 +217,7 @@ environments {
         }
     }
     production {
-        elasticSearch.client.mode = 'node'
+        //elasticSearch.client.mode = 'node'
+        elasticSearch.client.mode = 'local'
     }
 }

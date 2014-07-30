@@ -32,7 +32,15 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+
+            pooled = true
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "${System.getProperty("RDS_USERNAME")}"
+            password = "${System.getProperty("RDS_PASSWORD")}"
+
+            //url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            url = "jdbc:mysql://${System.getProperty("RDS_HOSTNAME")}:${System.getProperty("RDS_PORT")}/${System.getProperty("RDS_DB_NAME")}?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull"
+
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                jmxEnabled = true

@@ -33,11 +33,12 @@ class DebugController {
     def rds() {
 
         def result = [
-                dbName: System.getProperty("RDS_DB_NAME"),
-                userName: System.getProperty("RDS_USERNAME"),
-                password: System.getProperty("RDS_PASSWORD"),
-                hostname: System.getProperty("RDS_HOSTNAME"),
-                port: System.getProperty("RDS_PORT")
+                RDS_DB_NAME: System.getProperty("RDS_DB_NAME"),
+                RDS_USERNAME: System.getProperty("RDS_USERNAME"),
+                RDS_PASSWORD: System.getProperty("RDS_PASSWORD"),
+                RDS_HOSTNAME: System.getProperty("RDS_HOSTNAME"),
+                RDS_PORT: System.getProperty("RDS_PORT"),
+                JDBC_CONNECTION_STRING: System.getProperty("JDBC_CONNECTION_STRING")
         ]
 
         render result as JSON

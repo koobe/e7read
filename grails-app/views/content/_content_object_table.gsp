@@ -7,7 +7,7 @@
 			
 			<div style="border-bottom: 1px solid #94E6DA;"></div>
 			<div style="text-align: right;">
-				<span class="" style="color: #787878; font-size: 13px"><g:formatDate date="${it.lastUpdated}" type="date" style="LONG" />&nbsp;${it.user.fullName}</span>
+				<span class="" style="color: #333; font-size: 13px"><g:formatDate date="${it.lastUpdated}" type="date" style="LONG" />&nbsp;${it.user.fullName}</span>
 			</div>
 			<div style="padding-top: 13px; color: #333;">
 				<p class="text-left" style="-webkit-font-smoothing: antialiased; line-height: 160%; letter-spacing: 1px;">${it.cropText}</p>

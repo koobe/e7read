@@ -1,7 +1,19 @@
 html, body {
-     width: 100%;
-     height: 100%;
- }
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	padding-top: 0px;
+	padding-bottom: 30px;
+}
+
+h1 {
+    font-weight: 700;
+   	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
  
 p {
     font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
@@ -9,63 +21,33 @@ p {
     margin-bottom: 20px;
     line-height: 160%;
     letter-spacing: 1px;
-}
- 
-h1 {
-    font-weight: 700;
-   	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
-    font-size: 28px;
-}
- 
-.main-container {
-    width: 100%;
-    height: 100%;
-    padding-top: 20px;
+    text-align: justify;
 }
 
-.main-content {
+.template-container {
     margin: auto;
+    width: 100%;
     max-width: 920px;
-    padding-top: 25px;
-    padding-left: 25px;
-    padding-right: 25px;
-    padding-bottom: 30px;
 }
 
-.main-content-title {
-	margin: auto;
-    max-width: 920px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
-.content-title {
-	margin-bottom: 0px;
-}
-
-.content-author-div {
-	text-align: left;	
-	border-bottom: 1px solid #94E6DA;
-	margin-bottom: 0px;
-}   
- 
 .content-author {
 	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
     font-size: 18px;
+    letter-spacing: 1px;
 }
 
-.context-text {
-	margin-top: 20px;
+.border-btm {
+	border-bottom: 1px solid #94E6DA;
 }
 
 .main-gallery {
-	padding-top: 10px;
-    margin: auto;
     display: table;
-    border-spacing: 15px 0px;
+    border-spacing: 20px 0px;
+    
     width:100%;
-    height:50%;
     max-width: 900px;
+    min-height: 300px;
+    max-height: 500px;
 }
 
 .table-row {
@@ -75,43 +57,39 @@ h1 {
 .table-col {
     display: table-cell;
     height:100%;
+    width: 33%;
     border-radius: 5px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-position: center; background-repeat: no-repeat; background-size: cover;
     box-shadow: 0 1px 2px 1px #ccc;
 }
- 
- .pictures-container{
- 	margin: auto;
-     max-width: 920px;
-		display: table;
-		width: 100%;
-		height: 60%;
-		border-spacing: 25px 20px;
-		padding-top: 10px;
-	}
-	
-	.picture-vertical {
-		display: table-cell;
-	}
-	
-	.picture-item {
-		width: 50%;
-		display: table-cell;
-		border-radius: 5px;
-		background-position: center; background-repeat: no-repeat; background-size: cover;
-	}
-	
-	.picture-native {
-		position: relative;
-		top: -20px;
-		left: 0px;
-		
-		border-radius: 5px;
-		background-position: center; background-repeat: no-repeat; background-size: cover;
-		width: 100%;
-		height: 50%;
-		margin-top: 20px;
-		padding-bottom: 10px;
-	}
+
+.picture-native {
+	border-radius: 6px;
+	width: 100%;
+	height: 100%;
+	background-position: center; background-repeat: no-repeat; background-size: cover;
+}
+
+.picture-rtable {
+	width: 100%; 
+	height: 450px;
+	border: 20px solid #FFF;
+}
+
+tr, td {
+	border: 10px solid #FFF;
+}
+
+.margin-blank {
+	height: 20px;
+}
+
+.padding-lr {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.margin-lr-20 {
+	margin-left: 20px;
+	margin-right: 20px;
+}

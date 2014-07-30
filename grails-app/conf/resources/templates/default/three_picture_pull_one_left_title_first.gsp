@@ -5,33 +5,47 @@
     <meta name="kgl:media_count" content="3"/>
     <meta name="kgl:text_count" content="1"/>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <asset:stylesheet src="default_template.css"/>
 </head>
 <body>
-<div class="main-container">
-	<div class="main-content-title">
-        <div class="content-title">
+<div class="template-container">
+
+	<div class="title-container border-btm margin-lr-20">
+		<div class="content-title">
             <h1>${content.cropTitle}</h1>
         </div>
-        <div class="content-author-div">
-        	<span class="content-author">${content.user.fullName}</span>
+        <div class="content-author">
+        	<span>${content.user.fullName}</span>
         </div>
-    </div>
-    <div class="pictures-container">
-		<div class="picture-item" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
-		<div class="picture-vertical">
-			<div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
-			<div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
-		</div>
 	</div>
-    <div class="main-content">
+
+    <div class="pictures-container">
+    	<table class="picture-rtable">
+			<tr>
+			  <td rowspan="2">
+				<div class="picture-native" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
+			  </td>
+			  <td >
+			  	<div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
+			  </td>
+			</tr>
+			<tr>
+			  <td>
+			  	<div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
+			  </td>
+			</tr>
+		</table>
+	</div>
+	
+    <div class="text-container padding-lr">
         <div>
         	<g:each in="${content.textSegments}" var="segment">
                 <p style="text-align:justify;">${segment.text}</p>
             </g:each>
         </div>
     </div>
+    
 </div>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -10,6 +10,15 @@
 </head>
 <body>
 	<div class="template-container">
+	
+		<div class="title-container border-btm margin-lr-20">
+			<div class="content-title">
+	            <h1>${content.cropTitle}</h1>
+	        </div>
+	        <div class="content-author">
+	        	<span>${content.user.fullName}</span>
+	        </div>
+		</div>
 		
 		<div class="margin-blank"></div>
 	    
@@ -20,15 +29,6 @@
 	            </g:each>
 	        </div>
 	    </div>
-	    
-	    <div class="title-container border-btm margin-lr-20">
-			<div class="content-title">
-	            <h1>${content.cropTitle}</h1>
-	        </div>
-	        <div class="content-author">
-	        	<span>${content.user.fullName}</span>
-	        </div>
-		</div>
 		
 		<div class="margin-blank"></div>
 		

@@ -62,49 +62,22 @@ p {
     background-position: center; background-repeat: no-repeat; background-size: cover;
     box-shadow: 0 1px 2px 1px #ccc;
 }
- 
- .pictures-table {
- 	display: table;
-	
-	width: 100%;
-	border-spacing: 20px 0px;
-	
-	min-height: 400px;
-    max-height: 500px;
-}
-
-.picture-item {
-	display: table-cell;
-	width: 50%;
-	border-radius: 5px;
-	background-position: center; background-repeat: no-repeat; background-size: cover;
-	margin-top: 50px;
-}
-	
-.picture-vertical {
-	display: table-cell;
-}
-
-.pic-sub-table {
-	width: 100%;
-	min-height: 400px;
-    max-height: 500px;
-    
-    border-spacing: 0px 20px;
-}
-
-.pic-row {
-	display: table-row;
-}
 
 .picture-native {
-	/* position: relative;
-	top: -20px;
-	left: 0px;
-	border-radius: 5px; */
-	border-radius: 5px;
-	display: table-cell;
+	border-radius: 6px;
+	width: 100%;
+	height: 100%;
 	background-position: center; background-repeat: no-repeat; background-size: cover;
+}
+
+.picture-rtable {
+	width: 100%; 
+	height: 450px;
+	border: 20px solid #FFF;
+}
+
+tr, td {
+	border: 10px solid #FFF;
 }
 
 .margin-blank {

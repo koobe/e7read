@@ -21,27 +21,21 @@
 	</div>
 
     <div class="pictures-container">
-    	<div class="pictures-table">
-    		<div style="display: table-row;">
-				<div class="picture-vertical">
-					<div style="display:table;" class="pic-sub-table">
-						<div class="pic-row">
-							<div class="picture-native" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
-						</div>
-					</div>
-				</div>
-				<div class="picture-vertical">
-					<div style="display:table;" class="pic-sub-table">
-						<div class="pic-row">
-							<div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
-						</div>
-						<div class="pic-row">
-							<div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    	<table class="picture-rtable">
+			<tr>
+			  <td rowspan="2">
+				<div class="picture-native" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
+			  </td>
+			  <td >
+			  	<div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
+			  </td>
+			</tr>
+			<tr>
+			  <td>
+			  	<div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
+			  </td>
+			</tr>
+		</table>
 	</div>
 	
     <div class="text-container padding-lr">

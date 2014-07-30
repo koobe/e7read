@@ -49,14 +49,14 @@
 <div class="status-div">
 	<g:if test="${it.isPrivate}">
 		<div>
-		    <div class="koobe-btn status-item-div">
+		    <div class="koobe-btn koobe-btn-normal status-item-div">
 				<span class="fa fa-lock"></span>
 		    </div>
 	    </div>
 	</g:if>
 	<g:if test="${it.isShowContact}">
 		<div>
-		    <div class="koobe-btn status-item-div">
+		    <div class="koobe-btn koobe-btn-normal status-item-div">
 				<span class="fa fa-user"></span>
 		    </div>
 	    </div>

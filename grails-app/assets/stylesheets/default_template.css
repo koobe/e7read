@@ -93,3 +93,42 @@ tr, td {
 	margin-left: 20px;
 	margin-right: 20px;
 }
+
+.vcard-container {
+	display: table;
+	
+	width: 100%;
+}
+
+
+.vcard-cell-body {
+	display: table-cell;
+}
+
+
+
+.content-contact ul, .content-contact li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.content-contact {
+	margin: 15px;
+	padding: 10px 30px;
+	float: right;
+	display: inline-block;
+	background-color: #94E6DA;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px #aaa;
+}
+.content-contact .basic {
+	display: inline-block;
+	float: left;
+	margin-right: 10px;
+}
+.content-contact .basic li {
+	text-align: center;
+}
+.content-contact .advanced {
+	display: inline-block;
+}

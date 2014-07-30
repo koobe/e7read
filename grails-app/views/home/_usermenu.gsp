@@ -2,23 +2,23 @@
 <sec:ifLoggedIn>
 	<div class="usermenu-table">
 		<div>
-			<g:link controller="content" action="personal" class="koobe-btn">
+			<g:link controller="content" action="personal" class="koobe-btn koobe-btn-normal">
 		        <i class="fa fa-archive"></i> <!-- My Contents  -->
 		    </g:link>
 	    </div>
 	    <div>
-	    <g:link controller="content" action="create" class="koobe-btn">
+	    <g:link controller="content" action="create" class="koobe-btn koobe-btn-normal">
 	        <i class="fa fa-pencil"></i> <!-- Create -->
 	    </g:link>
 	    </div>
 	    <div>
-	    <g:link uri="/me" class="koobe-btn">
+	    <g:link uri="/me" class="koobe-btn koobe-btn-normal">
 	        <i class="fa fa-user"></i>
 	        <!-- <sec:loggedInUserInfo field="fullName"/> -->
 	    </g:link>
 	    </div>
 	    <div>
-	    <g:link uri="javascript: confirmLogout();" class="koobe-btn">
+	    <g:link uri="javascript: confirmLogout();" class="koobe-btn koobe-btn-normal">
 	        <i class="fa fa-sign-out"></i> <!-- Logout -->
 	    </g:link>
 	    </div>
@@ -28,7 +28,7 @@
 <sec:ifNotLoggedIn>
 	<div class="usermenu-table">
 		<div>
-			<oauth:connect provider="facebook" id="facebook-connect-link" class="koobe-btn">
+			<oauth:connect provider="facebook" id="facebook-connect-link" class="koobe-btn koobe-btn-normal">
 		        <span class="fa fa-facebook-square"></span>
 		        <!-- Sign-in with Facebook -->
 		    </oauth:connect>

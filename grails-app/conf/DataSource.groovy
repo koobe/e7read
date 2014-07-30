@@ -33,13 +33,15 @@ environments {
         dataSource {
             dbCreate = "update"
 
+            //dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+
             pooled = true
             driverClassName = "com.mysql.jdbc.Driver"
             username = "${System.getProperty("RDS_USERNAME")}"
             password = "${System.getProperty("RDS_PASSWORD")}"
 
             //url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
-            url = "jdbc:mysql://${System.getProperty("RDS_HOSTNAME")}:${System.getProperty("RDS_PORT")}/${System.getProperty("RDS_DB_NAME")}?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull"
+            url = "jdbc:mysql://${System.getProperty("RDS_HOSTNAME")}:${System.getProperty("RDS_PORT")}/${System.getProperty("RDS_DB_NAME")}?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&failOverReadOnly=false&autoReconnect=true"
 
             properties {
                // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation

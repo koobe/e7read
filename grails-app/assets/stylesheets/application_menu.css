@@ -1,11 +1,6 @@
 .koobe-btn {
 	display: inline-block;
-	padding-top: 3px;
-	padding-bottom: 1px;
-	padding-left: 12px;
-	padding-right: 12px;
-	margin-bottom: 0;
-	font-size: 20px;
+	
 	font-weight: normal;
 	text-align: center;
 	white-space: nowrap;
@@ -16,6 +11,27 @@
 	color: #FFFFFF;
 	background-color: #94E6DA;
 	border-color: #94E6DA;
+}
+
+.koobe-btn-normal {
+	padding-top: 3px;
+	padding-bottom: 1px;
+	padding-left: 12px;
+	padding-right: 12px;
+	margin-bottom: 0;
+	font-size: 20px;
+}
+
+.koobe-btn-large {
+	padding-top: 3px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 12px;
+	margin-bottom: 0;
+	font-size: 35px;
+	
+	width: 54px;
+	height: 54px;
 }
 
 .koobe-btn-inverse {

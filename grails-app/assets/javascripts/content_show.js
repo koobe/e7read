@@ -3,16 +3,8 @@ var scrollTop;
 
 $(function() {
 	window.addEventListener("message", receiveMessage, false);
-	window.onbeforeunload = function(event) {
-		/**
-		 * Handling the back button event of browser
-		 */
-//		if (onshowiframe) {
-//			$('#iframe-show-content').remove();
-//			$('body').css('overflow', '');
-//			event.stopPropagation();
-//			event.preventDefault();
-//		}
+	window.onpopstate = function(event) {
+		closeIframe();
 	};
 });
 
@@ -45,6 +37,8 @@ function showContent(contentId) {
 	$('#button-back').click(function() {
 		closeIframe();
 	});
+	
+	history.pushState("", contentId, "/#");
 }
 
 function closeIframe() {

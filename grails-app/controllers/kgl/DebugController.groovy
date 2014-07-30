@@ -29,4 +29,17 @@ class DebugController {
     def s3file() {
         render S3File.list() as JSON
     }
+
+    def rds() {
+
+        def result = [
+                dbName: System.getProperty("RDS_DB_NAME"),
+                userName: System.getProperty("RDS_USERNAME"),
+                password: System.getProperty("RDS_PASSWORD"),
+                hostname: System.getProperty("RDS_HOSTNAME"),
+                port: System.getProperty("RDS_PORT")
+        ]
+
+        render result as JSON
+    }
 }

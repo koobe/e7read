@@ -28,6 +28,8 @@ p {
     margin: auto;
     width: 100%;
     max-width: 920px;
+    
+    padding-bottom: 50px;
 }
 
 .content-author {

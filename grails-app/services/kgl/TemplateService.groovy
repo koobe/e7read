@@ -123,9 +123,9 @@ class TemplateService {
 					        <li class="fullName"><strong>${content.user.fullName}</strong></li>
 					    </ul>
 					    <ul class="advanced">
-				        	<li class="email"><strong>Email:</strong> ${content.user.email? content.user.email: ""}</li>
-				        	<li class="phone"><strong>Phone:</strong> ${content.user.contact?.phone? content.user.contact?.phone: ""}</li>
-				        	<li class="phone"><strong>Skype:</strong> ${content.user.contact?.skypeId? content.user.contact?.skypeId: ""}</li>
+				        	<li class="email"><i class="fa fa-envelope-o"></i> ${content.user.email? content.user.email: ""}</li>
+				        	<li class="phone"><i class="fa fa-phone"></i> ${content.user.contact?.phone? content.user.contact?.phone: ""}</li>
+				        	<li class="phone"><i class="fa fa-skype"></i> ${content.user.contact?.skypeId? content.user.contact?.skypeId: ""}</li>
 				        	<li class="lineId"><strong>Line:</strong> ${content.user.contact?.lineId? content.user.contact?.lineId: ""}</li>
 					    </ul>
 					</div>

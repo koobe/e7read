@@ -5,6 +5,7 @@
     <meta name="kgl:media_count" content="3"/>
     <meta name="kgl:text_count" content="1"/>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <style type="text/css">
     @import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
     @import url(http://fonts.googleapis.com/earlyaccess/cwtexming.css);

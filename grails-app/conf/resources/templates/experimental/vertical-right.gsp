@@ -3,6 +3,7 @@
     <meta name="kgl:media_count" content="0"/>
     <meta name="kgl:text_count" content="1"/>
     <link rel="stylesheet" href="/assets/bootstrap.css?compile=false"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <title>Content template: three_picture_horizontal</title>
     <style type="text/css">
 

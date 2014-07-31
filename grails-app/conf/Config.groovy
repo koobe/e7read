@@ -222,3 +222,6 @@ environments {
         elasticSearch.client.mode = 'local'
     }
 }
+
+// Disable assets-pipeline minifyJS in production
+grails.assets.minifyJs = false

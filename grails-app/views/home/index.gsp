@@ -11,5 +11,8 @@
 			<g:render template="/content/contents_container" />
 			<g:render template="footer" />
 		</div>
+		<g:link uri="#" class="koobe-btn koobe-btn-normal top-btn-pos">
+			<i class="fa fa-caret-square-o-up"></i> <!-- My Contents  -->
+		</g:link>
 	</body>
 </html>

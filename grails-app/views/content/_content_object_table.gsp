@@ -9,8 +9,8 @@
 			<div style="text-align: right;">
 				<span class="" style="color: #333; font-size: 13px"><g:formatDate date="${it.lastUpdated}" type="date" style="LONG" />&nbsp;${it.user.fullName}</span>
 			</div>
-			<div style="padding-top: 13px; color: #333;">
-				<p class="text-left" style="-webkit-font-smoothing: antialiased; line-height: 160%; letter-spacing: 1px;">${it.cropText}</p>
+			<div class="contentlist-text" style="padding-top: 1.8em; color: #333; max-height: 12.6em; overflow: hidden;">
+				<p class="text-left" style="-webkit-font-smoothing: antialiased; line-height: 1.8em;  letter-spacing: 1px; text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 6;-webkit-box-orient: vertical;">${it.cropText}</p>
 			</div>
 		</div>
 	</div>

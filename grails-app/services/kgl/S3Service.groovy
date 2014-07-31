@@ -1,5 +1,7 @@
 package kgl
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile
+
 import java.util.logging.Logger;
 
 import com.amazonaws.auth.BasicAWSCredentials
@@ -52,8 +54,16 @@ class S3Service {
         s3client.createBucket(bucket)
     }
 
-    def upload(S3File s3file, InputStream inputStream) {
-		
+    @Transactional(readOnly = false)
+    S3File upload(owner, CommonsMultipartFile file, InputStream inputStream, boolean isPublic, String remark) {
+
+        def s3file = new S3File();
+
+        s3file.owner = owner
+        s3file.file = file
+        s3file.isPublic = isPublic
+        s3file.remark = remark
+
         log.info "Upload S3File ${s3file.originalFilename} (Content-Type: ${s3file.contentType}, Content-Length: ${s3file.contentLength} bytes)"
 
         if (!s3file.bucket) {
@@ -83,5 +93,7 @@ class S3Service {
         s3file.url = s3client.getUrl(s3file.bucket, s3file.objectKey).toString().replaceFirst("https://", "http://")
         s3file.resourceUrl = s3file.url
         s3file.hasBeenUploaded = true
+
+        return s3file
     }
 }

@@ -448,16 +448,17 @@ class ContentController {
 		List<CommonsMultipartFile> imageFiles = params.list("file")
 		imageFiles.each { imageFile ->
 			if (!imageFile.isEmpty()) {
-				def s3file = new S3File();
-				s3file.owner = springSecurityService.currentUser
-				s3file.file = imageFile
-				s3file.isPublic = true
-				s3file.remark = 'USER-UPLOAD-IMAGE'
-				
-				s3Service.upload(s3file, imageFile.inputStream)
-				
-				s3file.save flush: true
-				
+
+				S3File s3file
+
+                s3file = s3Service.upload(
+                        springSecurityService.currentUser,
+                        imageFile,
+                        imageFile.inputStream,
+                        true,
+                        'USER-UPLOAD-IMAGE'
+                )
+
 				log.info 'S3File id: ' + s3file.id
 				log.info 'S3File object key: ' + s3file.objectKey
 				log.info 'S3File url: ' + s3file.url

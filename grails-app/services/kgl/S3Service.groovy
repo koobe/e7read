@@ -57,7 +57,7 @@ class S3Service {
     @Transactional(readOnly = false)
     S3File upload(owner, CommonsMultipartFile file, InputStream inputStream, boolean isPublic, String remark) {
 
-        def s3file = new S3File();
+        def s3file = new S3File()
 
         s3file.owner = owner
         s3file.file = file
@@ -93,6 +93,8 @@ class S3Service {
         s3file.url = s3client.getUrl(s3file.bucket, s3file.objectKey).toString().replaceFirst("https://", "http://")
         s3file.resourceUrl = s3file.url
         s3file.hasBeenUploaded = true
+
+        s3file.save flush: true
 
         return s3file
     }

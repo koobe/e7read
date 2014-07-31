@@ -96,6 +96,7 @@ environments {
     production {
         grails.logging.jul.usebridge = false
 
+        //grails.serverURL = "http://dev.e7read.com:8080"
         grails.serverURL = "http://www.e7read.com"
     }
 }
@@ -221,3 +222,6 @@ environments {
         elasticSearch.client.mode = 'local'
     }
 }
+
+// Disable assets-pipeline minifyJS in production
+grails.assets.minifyJs = false

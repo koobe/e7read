@@ -1,4 +1,4 @@
-<div class="hovercontent" style="display: table; cursor: pointer;" onclick="showContent('${it.id}');">
+<div class="hovercontent" style="display: table; cursor: pointer; width:100%;" onclick="showContent('${it.id}');">
 	<div style="display: table-row;">
 		<div style="display: table-cell; width: 40%; border-radius: 5px; background-position: center; background-repeat: no-repeat; background-size: cover; background-image:url(${it.coverUrl}); box-shadow: 0 1px 2px 1px #ccc; "></div>
 		<div style="display: table-cell; width: 60%; padding-left: 15px;">
@@ -9,7 +9,7 @@
 			<div style="text-align: right;">
 				<span class="" style="color: #333; font-size: 13px"><g:formatDate date="${it.lastUpdated}" type="date" style="LONG" />&nbsp;${it.user.fullName}</span>
 			</div>
-			<div class="contentlist-text" style="padding-top: 1.8em; color: #333; max-height: 12.6em; overflow: hidden;">
+			<div class="contentlist-text" style="padding-top: 1.8em; color: #333; max-height: 12.6em; min-height: 12.6em; min-width:100%; overflow: hidden;">
 				<p class="text-left" style="-webkit-font-smoothing: antialiased; line-height: 1.8em;  letter-spacing: 1px; text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 6;-webkit-box-orient: vertical;">${it.cropText}</p>
 			</div>
 		</div>

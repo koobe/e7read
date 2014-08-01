@@ -46,7 +46,8 @@
             </g:each>
         </div>
     </div>
-    <g:render template="/home/footer" />
+    
 </div>
+<g:render template="/home/footer" />
 </body>
 </html>

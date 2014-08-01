@@ -17,7 +17,7 @@ hibernate {
 environments {
     development {
         dataSource {
-            dialect = kgl.ImprovedH2Dialect
+        	dialect = kgl.ImprovedH2Dialect
 
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
@@ -32,18 +32,18 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-
-
             pooled = true
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 
-            username = "${System.getProperty("RDS_USERNAME")}"
-            password = "${System.getProperty("RDS_PASSWORD")}"
+            //username = "${System.getProperty("RDS_USERNAME")}"
+            //password = "${System.getProperty("RDS_PASSWORD")}"
 
             //url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
-            url = "jdbc:mysql://${System.getProperty("RDS_HOSTNAME")}:${System.getProperty("RDS_PORT")}/${System.getProperty("RDS_DB_NAME")}?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&failOverReadOnly=false&autoReconnect=true"
+            //url = "jdbc:mysql://${System.getProperty("RDS_HOSTNAME")}:${System.getProperty("RDS_PORT")}/${System.getProperty("RDS_DB_NAME")}?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&failOverReadOnly=false&autoReconnect=true"
 
+            url = "${System.getProperty("JDBC_CONNECTION_STRING")}"
+            
             properties {
 
                 validationQuery = "SELECT 1"

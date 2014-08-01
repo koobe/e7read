@@ -26,8 +26,13 @@
 			<div class="content-title">
 	            <h1>${content.cropTitle}</h1>
 	        </div>
-	        <div class="content-author">
-	        	<span>${content.user.fullName}</span>
+	        <div style="display:table; width:100%;">
+		        <div class="content-author" style="display:table-cell;">
+		        	<span>${content.user.fullName}</span>
+		        </div>
+		        <div class="content-author" style="display:table-cell; text-align: right;">
+		        	<span style="font-size: 0.7em; color: #333;"><g:formatDate date="${content.lastUpdated}" format="yyyy/MM/dd HH:mm:ss" /></span>
+		        </div>
 	        </div>
 		</div>
 		
@@ -40,6 +45,16 @@
 	            </g:each>
 	        </div>
 	    </div>
+	    
+	    <div class="margin-blank"></div>
+	    
+	    <g:if test="${content.references}">
+	    	<div class="text-references padding-lr" style="overflow: hidden; text-overflow:ellipsis; white-space: nowrap; color: #555;">
+	    		<i class="fa fa-external-link"></i>
+	    		<g:link uri="${createLink(uri: content.references)}" target="_blank">Source</g:link>
+	    		${content.references}
+	    	</div>
+	    </g:if>
 	    
 	</div>
 	<g:render template="/home/footer" />

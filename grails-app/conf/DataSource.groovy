@@ -1,10 +1,3 @@
-dataSource {
-    pooled = true
-    jmxExport = true
-    driverClassName = "org.h2.Driver"
-    username = "sa"
-    password = ""
-}
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
@@ -17,14 +10,23 @@ hibernate {
 environments {
     development {
         dataSource {
+			pooled = true
+			jmxExport = true
+			driverClassName = "org.h2.Driver"
+			username = "sa"
+			password = ""
         	dialect = kgl.ImprovedH2Dialect
-
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
         }
     }
     test {
         dataSource {
+			pooled = true
+			jmxExport = true
+			driverClassName = "org.h2.Driver"
+			username = "sa"
+			password = ""
             dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
         }

@@ -19,7 +19,7 @@
 		        <g:if test="${it.references}">
 			        <p class="element-references" data-id="${it.id}">
 			        	<span class="fa fa-link"></span>
-			        	<a href="${it.references}" target="_blank">Link</a>
+			        	<a href="${it.references}" target="_blank">Source</a>
 			        </p>
 		        </g:if>
 		        <g:else>

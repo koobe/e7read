@@ -78,6 +78,10 @@ var updateReferences = function() {
 //        }
 
     var url = prompt('Reference URL:', $('a', elm).attr('href'));
+    
+    if (url == '#') {
+    	return;
+    }
 
     if (url != null) {
         $.ajax({
@@ -87,18 +91,20 @@ var updateReferences = function() {
             },
             url: actionUrl,
             success: function(data, textStatus) {
-                var references = data.instance.references
-
-                if (references) {
-                    elm.show();
-//                        $('i', elm).show();
-                    $('a', elm).text('Link').attr('href', references).show();
-                }
-                else {
-                    elm.hide();
-//                        $('i', elm).hide();
-                    $('a', elm).text('').attr('href', '#').hide();
-                }
+//                var references = data.instance.references
+//
+//                if (references) {
+//                    elm.show();
+////                        $('i', elm).show();
+//                    $('a', elm).text('Link').attr('href', references).show();
+//                }
+//                else {
+//                    elm.hide();
+////                        $('i', elm).hide();
+//                    $('a', elm).text('').attr('href', '#').hide();
+//                }
+            	
+            	refreshButtons(data, contentId);
             }
         });
     }

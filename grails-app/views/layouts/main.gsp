@@ -10,9 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>e7read</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="${assetPath(src: 'favicon.png')}">
-    <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'favicon.png')}">
+    <link rel="shortcut icon" href="${assetPath(src: 'webicon.png')}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">
+    <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'webicon.png')}">
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
     <asset:stylesheet src="header.css"/>

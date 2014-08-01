@@ -54,7 +54,7 @@ class S3Service {
         s3client.createBucket(bucket)
     }
 
-    @Transactional(readOnly = false)
+    @Transactional
     S3File upload(owner, CommonsMultipartFile file, InputStream inputStream, boolean isPublic, String remark) {
 
         def s3file = new S3File()

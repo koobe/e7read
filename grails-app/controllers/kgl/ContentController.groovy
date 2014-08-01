@@ -444,6 +444,7 @@ class ContentController {
 		render ""
 	}
 	
+	@Transactional
 	def uploadImage() {
 		List<CommonsMultipartFile> imageFiles = params.list("file")
 		imageFiles.each { imageFile ->

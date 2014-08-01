@@ -11,7 +11,11 @@
 	<body>
         <div class="main-container">
         	<div class="content-editing-title">編輯內容 Post Content</div>
+        	<!-- 
         	<div id="content-editing-textarea" class="content-editing-textarea form-control" placeholder="Write something here..." contenteditable="true"></div>
+        	 -->
+        	
+        	<g:textArea id="content-editing-textarea" class="content-editing-textarea form-control" name="text" placeholder="Write something here..." rows="15"></g:textArea>
         	
         	<g:uploadForm class="uploadImageForm" name="uploadImageForm" action="uploadImage" style="display: none;">
                 <!-- TODO: support multiple files -->

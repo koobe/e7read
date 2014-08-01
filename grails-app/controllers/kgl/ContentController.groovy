@@ -383,6 +383,7 @@ class ContentController {
 
 	}
 	
+	@Transactional
 	def ajaxInlineUpdate(Content contentInstance) {
 
         def result = [id: params.id, instance: contentInstance]
@@ -411,6 +412,7 @@ class ContentController {
 		render template: "content_elements_personal", bean: contentInstance
     }
 	
+	@Transactional
 	def disableContent() {
 		
 		def contentId = params.contentid
@@ -424,6 +426,7 @@ class ContentController {
 		render ""
 	}
 	
+	@Transactional
 	def switchPrivacy() {
 		
 		def contentId = params.contentid

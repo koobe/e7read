@@ -3,6 +3,8 @@
 		if (($(window).height() - $("#contents_container").height()) >= 0) {
 			triggerAjaxForData();
 		}
+		
+		$('body').css('height', 'auto');
 	});
 
 	var max = 5;
@@ -23,6 +25,11 @@
 
 	function determineIFTriggerAjax() {
 		var factor = $(window).scrollTop() + $(window).height() + 100;
+		
+		console.log('$(window).scrollTop()  ' + $(window).scrollTop());
+		console.log('$(window).height()  ' + $(window).height());
+		console.log('factor  ' + factor);
+		console.log('$(document.body).height()  ' + $(document.body).height());
 		
 		if (($(document.body).height() - factor) <= 0) {
 			triggerAjaxForData();

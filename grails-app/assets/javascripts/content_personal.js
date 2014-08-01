@@ -2,6 +2,8 @@ $(document).ready(function() {
 	if (($(window).height() - $("#contents_container").height()) >= 0) {
 		triggerAjaxForData();
 	}
+	
+	$('body').css('height', 'auto');
 });
 
 var max = 4;

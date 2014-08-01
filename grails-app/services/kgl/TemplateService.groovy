@@ -123,10 +123,10 @@ class TemplateService {
 					        <li class="fullName"><strong>${content.user.fullName}</strong></li>
 					    </ul>
 					    <ul class="advanced">
-				        	<li class="email"><i class="fa fa-envelope-o"></i> ${content.user.email? content.user.email: ""}</li>
-				        	<li class="phone"><i class="fa fa-phone"></i> ${content.user.contact?.phone? content.user.contact?.phone: ""}</li>
-				        	<li class="phone"><i class="fa fa-skype"></i> ${content.user.contact?.skypeId? content.user.contact?.skypeId: ""}</li>
-				        	<li class="lineId"><img src="/assets/line.png" alt="Line" height="15" width="15"> ${content.user.contact?.lineId? content.user.contact?.lineId: ""}</li>
+				        	<li class="email"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;&nbsp;${content.user.email? content.user.email: ""}</li>
+				        	<li class="phone"><i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;${content.user.contact?.phone? content.user.contact?.phone: ""}</li>
+				        	<li class="phone"><i class="fa fa-skype"></i>&nbsp;&nbsp;&nbsp;${content.user.contact?.skypeId? content.user.contact?.skypeId: ""}</li>
+				        	<li class="lineId"><img src="/assets/line.png" alt="Line" height="15" width="15">&nbsp;&nbsp;&nbsp;${content.user.contact?.lineId? content.user.contact?.lineId: ""}</li>
 					    </ul>
 					</div>
 		    	</div>

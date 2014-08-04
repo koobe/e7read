@@ -514,7 +514,7 @@ class ContentController {
 		}
 		
 		// Set image files for content
-		def fileidList = params.s3fileId.tokenize(",");
+		def fileidList = params.s3fileId?.tokenize(",");
 		dataIdx = 0
 		fileidList.each { s3fileId ->
 			def s3ImageFile = S3File.get(s3fileId)
@@ -523,6 +523,24 @@ class ContentController {
 			// log.info 'Picture segment added. {' + pictureSegment + '}'
 			dataIdx++
 		}
+
+        // Default Cover Pictures
+        if (contentInstance.pictureSegments.size() == 0) {
+            // pick up default cover pictures
+
+            def defaultCovers = S3File.findAllByRemark('DEFAULT-COVER-IMAGE')
+
+            // TODO random pick up one cover picture
+            
+            dataIdx = 0
+            if (defaultCovers.size() > 0) {
+                def s3ImageFile = defaultCovers.first()
+                def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
+                contentInstance.pictureSegments << pictureSegment
+                // log.info 'Picture segment added. {' + pictureSegment + '}'
+                dataIdx++
+            }
+        }
 		
 		contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
 		contentInstance.cropText = cropSegment

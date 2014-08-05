@@ -34,7 +34,7 @@ var anchorChangeHandler = function() {
 $(function() {
     // Use container scrollbar instead of full page scrollbar
     $('body').css('height', '100%').css('overflow', 'hidden');
-    $('#display-container').css('height', '100%').css('overflow-y', 'scroll');
+    $('#display-container').css('height', '100%').css('overflow-y', 'scroll').css('-webkit-overflow-scrolling', 'touch');
 
     window.addEventListener("message", receiveMessage, false);
 	window.onpopstate = function(event) {

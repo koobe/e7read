@@ -52,7 +52,6 @@
 	    	<div class="text-references padding-lr" style="overflow: hidden; text-overflow:ellipsis; white-space: nowrap; color: #555;">
 	    		<i class="fa fa-external-link"></i>
 	    		<g:link uri="${createLink(uri: content.references)}" target="_blank">Source</g:link>
-	    		${content.references}
 	    	</div>
 	    </g:if>
 	    

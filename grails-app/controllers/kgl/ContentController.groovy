@@ -531,10 +531,12 @@ class ContentController {
             def defaultCovers = S3File.findAllByRemark('DEFAULT-COVER-IMAGE')
 
             // TODO random pick up one cover picture
+			Random r = new Random()
+			def idx = r.nextInt(defaultCovers.size())
             
             dataIdx = 0
             if (defaultCovers.size() > 0) {
-                def s3ImageFile = defaultCovers.first()
+                def s3ImageFile = defaultCovers.get(idx)
                 def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
                 contentInstance.pictureSegments << pictureSegment
                 // log.info 'Picture segment added. {' + pictureSegment + '}'

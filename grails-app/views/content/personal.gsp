@@ -2,7 +2,6 @@
 	<head>
 	    <meta name="layout" content="main"/>
 	    <title></title>
-	    <asset:stylesheet src="content_viewer_menu.css"/>
 	    <asset:stylesheet src="content_personal.css"/>
 		<asset:javascript src="content_personal.js"/>
 		<asset:javascript src="content_show.js"/>

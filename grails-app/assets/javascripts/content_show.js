@@ -3,7 +3,7 @@ var scrollTop;
 
 var hashChanged = function(hash) {
     if (hash) {
-        if (hash.indexOf('#content-') == 0) {
+        if (hash.indexOf('#content-') >= 0) {
             showContentImpl(hash.replace('#content-', ''));
         }
     }
@@ -43,7 +43,7 @@ $(function() {
 
     anchorChangeHandler();
 
-    if (window.location.hash.indexOf('#content-' == 0)) {
+    if (window.location.hash.indexOf('#content-') >= 0) {
         showContentImpl(window.location.hash.replace('#content-', ''));
     }
 });
@@ -63,6 +63,11 @@ function showContent(contentId) {
 }
 
 function showContentImpl(contentId) {
+
+    if (!contentId) {
+        return;
+    }
+
 	console.log('Open content: ' + contentId);
 	
 	onshowiframe = true;
@@ -76,16 +81,17 @@ function showContentImpl(contentId) {
     var iframe = $(responsiveiframe);
     iframe.find('.iframe').attr('src', '/content/embed/' + contentId);
 
+    var back = $(backlink);
+    back.click(function() {
+        //closeIframe();
+        history.back();
+    });
+
 	$('body')
         .append(iframe)
 	    //.css('overflow', 'hidden')
-	    .append(backlink);
+	    .append(back);
 
-	$('#button-back').click(function() {
-		//closeIframe();
-        history.back();
-	});
-	
 	//history.pushState("", contentId, window.location.pathname + "#content-" + contentId);
 }
 

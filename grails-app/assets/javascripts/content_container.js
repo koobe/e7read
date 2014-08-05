@@ -12,12 +12,12 @@
 	var onCall = false;
 	var eof = false;
 	
-	$(window).scroll(function() {
+	$('#display-container').scroll(function() {
 		if (!eof) {determineIFTriggerAjax();}
 	});
 
 	// for mobile
-	$('body').on({
+	$('#display-container').on({
 	    'touchmove': function(e) { 
 	    	if (!eof) {determineIFTriggerAjax();}
 	    }
@@ -30,8 +30,9 @@
 		console.log('$(window).height()  ' + $(window).height());
 		console.log('factor  ' + factor);
 		console.log('$(document.body).height()  ' + $(document.body).height());
+        console.log('$(\'#display-container\').height()  ' + $('#display-container').height());
 		
-		if (($(document.body).height() - factor) <= 0) {
+		if (($('#display-container').height() - factor) <= 0) {
 			triggerAjaxForData();
 		}
 	}

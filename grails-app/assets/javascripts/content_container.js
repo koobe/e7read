@@ -4,7 +4,7 @@
 			triggerAjaxForData();
 		}
 		
-		$('body').css('height', 'auto');
+		//$('body').css('height', 'auto');
 	});
 
 	var max = 5;

@@ -1,6 +1,36 @@
 var onshowiframe = false;
 var scrollTop;
 
+var hashChanged = function(hash) {
+    if (hash) {
+        if (hash.indexOf('#content-') == 0) {
+            showContentImpl(hash.replace('#content-', ''));
+        }
+    }
+};
+
+//window.onpopstate = function(event) {
+//    alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+//};
+
+var anchorChangeHandler = function() {
+
+    if ("onhashchange" in window) { // event supported?
+        window.onhashchange = function () {
+            hashChanged(window.location.hash);
+        };
+    }
+    else { // event not supported:
+        var storedHash = window.location.hash;
+        window.setInterval(function () {
+            if (window.location.hash != storedHash) {
+                storedHash = window.location.hash;
+                hashChanged(storedHash);
+            }
+        }, 100);
+    }
+};
+
 $(function() {
     // Use container scrollbar instead of full page scrollbar
     $('body').css('height', '100%').css('overflow', 'hidden');
@@ -10,6 +40,12 @@ $(function() {
 	window.onpopstate = function(event) {
 		closeIframe();
 	};
+
+    anchorChangeHandler();
+
+    if (window.location.hash.indexOf('#content-' == 0)) {
+        showContentImpl(window.location.hash.replace('#content-', ''));
+    }
 });
 
 function receiveMessage(event) {
@@ -23,6 +59,10 @@ var backmenu = '<div class="contentback"><div><span class="fa fa-caret-left"></s
 var backlink = '<a id="button-back" class="koobe-btn koobe-btn-large back-btn-pos"><i class="fa fa-caret-left"></i></a>'
 
 function showContent(contentId) {
+    window.location.hash = 'content-' + contentId;
+}
+
+function showContentImpl(contentId) {
 	console.log('Open content: ' + contentId);
 	
 	onshowiframe = true;
@@ -42,10 +82,11 @@ function showContent(contentId) {
 	    .append(backlink);
 
 	$('#button-back').click(function() {
-		closeIframe();
+		//closeIframe();
+        history.back();
 	});
 	
-	history.pushState("", contentId, "/#");
+	//history.pushState("", contentId, window.location.pathname + "#content-" + contentId);
 }
 
 function closeIframe() {

@@ -9,7 +9,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>E7READ - <g:layoutTitle default="Welcome"/></title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
     <link rel="shortcut icon" href="${assetPath(src: 'webicon.png')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'webicon.png')}">

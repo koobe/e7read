@@ -2,7 +2,11 @@ var onshowiframe = false;
 var scrollTop;
 
 $(function() {
-	window.addEventListener("message", receiveMessage, false);
+    // Use container scrollbar instead of full page scrollbar
+    $('body').css('height', '100%').css('overflow', 'hidden');
+    $('#display-container').css('height', '100%').css('overflow-y', 'scroll');
+
+    window.addEventListener("message", receiveMessage, false);
 	window.onpopstate = function(event) {
 		closeIframe();
 	};
@@ -27,13 +31,15 @@ function showContent(contentId) {
 		$('#display-container').css('display', 'none');
 		scrollTop = $(window).scrollTop();
 	}
-	
-	
-	$('body').append(responsiveiframe);
-	$('body').css('overflow', 'hidden');
-	$('.iframe').attr('src', '/content/embed/' + contentId);
-	
-	$('body').append(backlink);
+
+    var iframe = $(responsiveiframe);
+    iframe.find('.iframe').attr('src', '/content/embed/' + contentId);
+
+	$('body')
+        .append(iframe)
+	    //.css('overflow', 'hidden')
+	    .append(backlink);
+
 	$('#button-back').click(function() {
 		closeIframe();
 	});

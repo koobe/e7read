@@ -25,15 +25,20 @@
     });
 
 	function determineIFTriggerAjax() {
-		var factor = $(window).scrollTop() + $(window).height() + 100;
+
+        var scrollContainer = $('#display-container');
+        var contentPane = $('#display-container .content-pane');
+
+		var factor = scrollContainer.scrollTop() + scrollContainer.height() + 100;
 		
-		console.log('$(window).scrollTop()  ' + $(window).scrollTop());
-		console.log('$(window).height()  ' + $(window).height());
-		console.log('factor  ' + factor);
-		console.log('$(document.body).height()  ' + $(document.body).height());
-        console.log('$(\'#display-container\').height()  ' + $('#display-container').height());
+		//console.log('scrollContainer.scrollTop()  ' + scrollContainer.scrollTop());
+		//console.log('$(window).height()  ' + $(window).height());
+		//console.log('factor  ' + factor);
+		//console.log('$(document.body).height()  ' + $(document.body).height());
+        //console.log('$(\'#display-container\').height()  ' + $('#display-container').height());
+        //console.log(contentPane.height());
 		
-		if (($('#display-container').height() - factor) <= 0) {
+		if ((contentPane.height() - factor) <= 0) {
 			triggerAjaxForData();
 		}
 	}

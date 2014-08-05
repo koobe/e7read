@@ -56,7 +56,7 @@ function closeIframe() {
 	
 	$('#button-back').remove();
 	$('.div-iframe').remove();
-	$('body').css('overflow', '');
+	//$('body').css('overflow', '');
 	
 	onshowiframe = false;
 }

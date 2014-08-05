@@ -8,7 +8,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>e7read</title>
+    <title>E7READ - <g:layoutTitle default="Welcome"/></title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <link rel="shortcut icon" href="${assetPath(src: 'webicon.png')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">

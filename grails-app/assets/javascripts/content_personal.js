@@ -12,21 +12,22 @@ var onCall = false;
 var eof = false;
 var beforeText;
 
-$(window).scroll(function() {
-	if (!eof) {determineIFTriggerAjax();}
-});
-
-// for mobile
-$('body').on({
-    'touchmove': function(e) { 
-    	if (!eof) {determineIFTriggerAjax();}
-    }
+$(function() {
+    $('#display-container')
+        .scroll(function() {
+            if (!eof) {determineIFTriggerAjax();}
+        })
+        .on({
+            'touchmove': function(e) {
+                if (!eof) {determineIFTriggerAjax();} // for mobile
+            }
+        });
 });
 
 function determineIFTriggerAjax() {
 	var factor = $(window).scrollTop() + $(window).height() + 100;
 	
-	if (($(document.body).height() - factor) <= 0) {
+	if (($('#display-container').height() - factor) <= 0) {
 		triggerAjaxForData();
 	}
 }

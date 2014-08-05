@@ -11,17 +11,18 @@
 	var page = 1;
 	var onCall = false;
 	var eof = false;
-	
-	$('#display-container').scroll(function() {
-		if (!eof) {determineIFTriggerAjax();}
-	});
 
-	// for mobile
-	$('#display-container').on({
-	    'touchmove': function(e) { 
-	    	if (!eof) {determineIFTriggerAjax();}
-	    }
-	});
+    $(function() {
+        $('#display-container')
+            .scroll(function() {
+                if (!eof) {determineIFTriggerAjax();}
+            })
+            .on({
+                'touchmove': function(e) {
+                    if (!eof) {determineIFTriggerAjax();} // for mobile
+                }
+            });
+    });
 
 	function determineIFTriggerAjax() {
 		var factor = $(window).scrollTop() + $(window).height() + 100;

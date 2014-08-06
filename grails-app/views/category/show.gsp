@@ -32,6 +32,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${categoryInstance?.category}">
+				<li class="fieldcontain">
+					<span id="category-label" class="property-label"><g:message code="category.category.label" default="Category" /></span>
+					
+						<span class="property-value" aria-labelledby="category-label"><g:link controller="category" action="show" id="${categoryInstance?.category?.id}">${categoryInstance?.category?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form url="[resource:categoryInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

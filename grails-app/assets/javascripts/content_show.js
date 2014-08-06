@@ -108,3 +108,7 @@ function closeIframe() {
 	
 	onshowiframe = false;
 }
+
+var scrollDisplayContainerToTop = function() {
+	$('#display-container').scrollTop(0);
+}

@@ -11,7 +11,7 @@
 			<g:render template="footer" />
         </div></div>
 
-		<a href="#" class="koobe-btn koobe-btn-normal top-btn-pos">
+		<a href="javascript: scrollDisplayContainerToTop();" class="koobe-btn koobe-btn-normal top-btn-pos">
 			<i class="fa fa-caret-up"></i>
 		</a>
 	</body>

@@ -2,10 +2,13 @@ package kgl
 
 class Category {
 
+	static belongsTo = [
+		category: Category
+	]
+	
     String name
-    String label
 
     static constraints = {
-        name size: 5..15, blank: false, unique: true
+        name size: 2..15, blank: false, unique: true
     }
 }

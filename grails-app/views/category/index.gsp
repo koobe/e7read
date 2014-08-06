@@ -26,6 +26,8 @@
 					
 						<g:sortableColumn property="name" title="${message(code: 'category.name.label', default: 'Name')}" />
 					
+						<th><g:message code="category.category.label" default="Category" /></th>
+					
 					</tr>
 				</thead>
 				<tbody>
@@ -34,12 +36,14 @@
 					
 						<td><g:link action="show" id="${categoryInstance.id}">${fieldValue(bean: categoryInstance, field: "name")}</g:link></td>
 					
+						<td>${fieldValue(bean: categoryInstance, field: "category")}</td>
+					
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
 			<div class="pagination">
-				<%--<g:paginate total="${categoryInstanceCount ?: 0}" />--%>
+				<g:paginate total="${categoryInstanceCount ?: 0}" />
 			</div>
 		</div>
 	</body>

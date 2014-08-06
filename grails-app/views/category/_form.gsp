@@ -7,14 +7,16 @@
 		<g:message code="category.name.label" default="Name" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="name" required="" value="${categoryInstance?.name}"/>
+	<g:textField name="name" maxlength="15" required="" value="${categoryInstance?.name}"/>
 
+</div>
 
-    <label for="label">
-        <g:message code="category.label.label" default="Label" />
-        <span class="required-indicator">*</span>
-    </label>
-    <g:textField name="label" required="" value="${categoryInstance?.label}"/>
+<div class="fieldcontain ${hasErrors(bean: categoryInstance, field: 'category', 'error')} required">
+	<label for="category">
+		<g:message code="category.category.label" default="Category" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="category" name="category.id" from="${kgl.Category.list()}" optionKey="id" required="" value="${categoryInstance?.category?.id}" class="many-to-one"/>
 
 </div>
 

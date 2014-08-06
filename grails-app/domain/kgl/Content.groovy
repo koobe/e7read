@@ -36,7 +36,8 @@ class Content {
 	
 	static belongsTo = [
 		user: User,
-		template: OriginalTemplate
+		template: OriginalTemplate,
+		category: Category
 	]
 
     static mapping = {
@@ -53,6 +54,7 @@ class Content {
 		cropText nullable: true, maxSize: 512 * 1024
 		coverUrl nullable: true
 		template nullable: true
+		category nullable: true
         references nullable: true
     }
 }

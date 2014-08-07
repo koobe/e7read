@@ -2,10 +2,12 @@ var onshowiframe = false;
 var scrollTop;
 
 var hashChanged = function(hash) {
-    if (hash) {
-        if (hash.indexOf('#content-') >= 0) {
-            showContentImpl(hash.replace('#content-', ''));
-        }
+    console.log('hashChanged: ' + hash);
+    if (hash && hash.indexOf('#content-') >= 0) {
+        showContentImpl(hash.replace('#content-', ''));
+    }
+    else {
+        closeIframe();
     }
 };
 
@@ -37,9 +39,17 @@ $(function() {
     $('#display-container').css('height', '100%').css('overflow-y', 'scroll').css('-webkit-overflow-scrolling', 'touch');
 
     window.addEventListener("message", receiveMessage, false);
-	window.onpopstate = function(event) {
-		closeIframe();
-	};
+
+    if ('onpopstate' in window) {
+        console.log("onpopstate in window");
+//        window.onpopstate = function(event) {
+//            console.log('onpopstate');
+//            //closeIframe();
+//        };
+    }
+    else {
+        console.log("onpopstate not in window");
+    }
 
     anchorChangeHandler();
 

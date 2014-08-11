@@ -97,7 +97,7 @@ environments {
         grails.logging.jul.usebridge = false
 
         //grails.serverURL = "http://dev.e7read.com:8080"
-        grails.serverURL = "http://www.e7read.com"
+        grails.serverURL = System.getenv('SERVER_URL')?:System.getProperty('SERVER_URL')
     }
 }
 
@@ -185,7 +185,7 @@ grails.plugins.twitterbootstrap.fixtaglib = true
 aws {
     credentials {
         accessKey = System.getenv('AWS_ACCESS_KEY_ID')?:System.getProperty('AWS_ACCESS_KEY_ID')
-        secretKey = System.getenv('AWS_SECRET_ACCESS_KEY')?:System.getProperty('AWS_SECRET_KEY')
+        secretKey = System.getenv('AWS_SECRET_KEY')?:System.getProperty('AWS_SECRET_KEY')
     }
     s3 {
         bucket = "s3.e7read.com"

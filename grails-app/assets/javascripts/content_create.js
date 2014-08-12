@@ -99,7 +99,9 @@ function postContent() {
             references: $('input[name=references]').val(),
 			contentText: $('#content-editing-textarea').val()
 		},
-		success:function(data,textStatus){window.location.replace("/content/personal");},
+		success:function(data,textStatus){
+            window.location.replace($('meta[name=url2redirect]').attr('content'));
+        },
 		error:function(XMLHttpRequest,textStatus,errorThrown){alert('error');}
 	});
 }

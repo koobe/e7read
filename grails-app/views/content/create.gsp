@@ -7,6 +7,12 @@
 		<asset:stylesheet src="create.css"/>
 		<asset:javascript src="content_create.js"/>
 		<asset:javascript src="jquery.form.min.js"/>
+        <sec:ifLoggedIn>
+            <meta name="url2redirect" content="${createLink(controller: 'content', action: 'personal')}">
+        </sec:ifLoggedIn>
+        <sec:ifNotLoggedIn>
+            <meta name="url2redirect" content="${createLink(uri: '/')}">
+        </sec:ifNotLoggedIn>
 	</head>
 	<body>
         <div class="main-container">
@@ -16,10 +22,12 @@
         	 -->
         	
         	<g:textArea id="content-editing-textarea" class="content-editing-textarea form-control" name="text" placeholder="Write something here..." rows="15"></g:textArea>
-        	
+
+            <%--
         	<g:uploadForm class="uploadImageForm" name="uploadImageForm" action="uploadImage" style="display: none;">
         		<input id="uploadImageInput" type="file" accept="image/*" name="file" />
         	</g:uploadForm>
+        	--%>
         	
         	<div id="PictureContainer" class="content-editing-picture">
         		<div class="picture-cell">

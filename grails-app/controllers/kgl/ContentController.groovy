@@ -59,6 +59,7 @@ class ContentController {
         render contentType: 'text/html', text: output
     }
 
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def create() {
         respond new Content(params)
     }
@@ -470,11 +471,12 @@ class ContentController {
 				render s3file as JSON
 			}
 		}
-		
+
 		render ""
 	}
 	
 	@Transactional
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def postContent() {
 		
 		log.info "The id list of files: ${params.s3fileId}"
@@ -530,18 +532,20 @@ class ContentController {
 
             def defaultCovers = S3File.findAllByRemark('DEFAULT-COVER-IMAGE')
 
-            // TODO random pick up one cover picture
-			Random r = new Random()
-			def idx = r.nextInt(defaultCovers.size())
-            
-            dataIdx = 0
-            if (defaultCovers.size() > 0) {
-                def s3ImageFile = defaultCovers.get(idx)
-                def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
-                contentInstance.pictureSegments << pictureSegment
-                // log.info 'Picture segment added. {' + pictureSegment + '}'
-                dataIdx++
+            if (defaultCovers) {
+                Random r = new Random()
+                def idx = r.nextInt(defaultCovers.size())
+
+                dataIdx = 0
+                if (defaultCovers.size() > 0) {
+                    def s3ImageFile = defaultCovers.get(idx)
+                    def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
+                    contentInstance.pictureSegments << pictureSegment
+                    // log.info 'Picture segment added. {' + pictureSegment + '}'
+                    dataIdx++
+                }
             }
+
         }
 		
 		contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
@@ -556,7 +560,8 @@ class ContentController {
 		contentInstance.isDelete = false
 		contentInstance.isPrivate = false
 
-		contentInstance.user = springSecurityService.currentUser
+        //TODO set as anonymous user if not logged in
+        contentInstance.user = springSecurityService.isLoggedIn()?springSecurityService.currentUser:User.findByUsername('anonymous')
 
 		contentInstance.template = matchTemplate(contentInstance)
 

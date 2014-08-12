@@ -17,7 +17,7 @@ class DatabaseBootStrap {
         if (!user1) {
             user1 = new User(
                     fullName: 'Administrator',
-                    email: 'admin@codecanaan.com',
+                    email: 'admin@e7read.com',
                     username: 'admin',
                     password: 'admin',
                     authType: 'SYSTEM',
@@ -28,6 +28,21 @@ class DatabaseBootStrap {
             UserRole.create(user1, role1)
             //UserRole.create(user1, role2)
             UserRole.create(user1, role3)
+        }
+
+        def user2 = User.findByUsername('anonymous')
+
+        if (!user2) {
+            user2 = new User(
+                    fullName: 'Anonymous',
+                    email: 'anonymous@e7read.com',
+                    username: 'anonymous',
+                    password: 'anonymous',
+                    authType: 'SYSTEM',
+                    enabled: true
+            )
+            user2.save(failOnError: true, flush: true)
+            UserRole.create(user2, role1)
         }
 
     }

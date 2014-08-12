@@ -7,26 +7,31 @@
 		    </g:link>
 	    </div>
 	    <div>
-	    <g:link controller="content" action="create" class="koobe-btn koobe-btn-normal">
-	        <i class="fa fa-pencil"></i> <!-- Create -->
-	    </g:link>
+            <g:link controller="content" action="create" class="koobe-btn koobe-btn-normal">
+                <i class="fa fa-pencil"></i> <!-- Create -->
+            </g:link>
 	    </div>
 	    <div>
-	    <g:link uri="/me" class="koobe-btn koobe-btn-normal">
-	        <i class="fa fa-user"></i>
-	        <!-- <sec:loggedInUserInfo field="fullName"/> -->
-	    </g:link>
+            <g:link uri="/me" class="koobe-btn koobe-btn-normal">
+                <i class="fa fa-user"></i>
+                <!-- <sec:loggedInUserInfo field="fullName"/> -->
+            </g:link>
 	    </div>
 	    <div>
-	    <g:link uri="javascript: confirmLogout();" class="koobe-btn koobe-btn-normal">
-	        <i class="fa fa-sign-out"></i> <!-- Logout -->
-	    </g:link>
+            <g:link uri="javascript: confirmLogout();" class="koobe-btn koobe-btn-normal">
+                <i class="fa fa-sign-out"></i> <!-- Logout -->
+            </g:link>
 	    </div>
 	    <div class="menu-blank">&nbsp;</div>
 	</div>
 </sec:ifLoggedIn>
 <sec:ifNotLoggedIn>
 	<div class="usermenu-table">
+        <div>
+            <g:link controller="content" action="create" class="koobe-btn koobe-btn-normal">
+                <i class="fa fa-pencil"></i> <!-- Create -->
+            </g:link>
+        </div>
 		<div>
 			<oauth:connect provider="facebook" id="facebook-connect-link" class="koobe-btn koobe-btn-normal">
 		        <span class="fa fa-facebook-square"></span>

@@ -21,6 +21,8 @@ class Content {
 
     Date dateCreated
     Date lastUpdated
+
+    String editableHashcode
 	
 	//TODO
 	@Deprecated
@@ -56,5 +58,6 @@ class Content {
 		template nullable: true
 		category nullable: true
         references nullable: true
+        editableHashcode nullable: true
     }
 }

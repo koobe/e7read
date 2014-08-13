@@ -11,12 +11,15 @@
             <meta name="url2redirect" content="${createLink(controller: 'content', action: 'personal')}">
         </sec:ifLoggedIn>
         <sec:ifNotLoggedIn>
-            <meta name="url2redirect" content="${createLink(uri: '/')}">
+            <meta name="url2redirect" content="${createLink(controller: 'content', action: 'shorten')}">
         </sec:ifNotLoggedIn>
 	</head>
 	<body>
         <div class="main-container">
-        	<div class="content-editing-title">編輯內容 Post Content</div>
+        	<div class="content-editing-title">
+                編輯內容 Post Content
+                <sec:ifNotLoggedIn><span class="label label-warning">匿名模式</span></sec:ifNotLoggedIn>
+            </div>
         	<!-- 
         	<div id="content-editing-textarea" class="content-editing-textarea form-control" placeholder="Write something here..." contenteditable="true"></div>
         	 -->

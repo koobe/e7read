@@ -15,6 +15,7 @@ class ContentController {
     def springSecurityService
     def templateService
     def s3Service
+    def contentService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -570,7 +571,9 @@ class ContentController {
 		contentInstance.validate()
 		log.info contentInstance.errors
 		
-		contentInstance.save(flush: true)
+		contentInstance.save flush: true
+
+        session.setAttribute(MyConstant.SESSION_KEY_LATEST_CONTENT_ID, contentInstance.id)
 		
 		render ""
 	}
@@ -699,5 +702,19 @@ class ContentController {
     @Secured(["ROLE_ADMIN"])
     def debug() {
         render Content.list() as JSON
+    }
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def shorten() {
+        def contentId = session.getAttribute(MyConstant.SESSION_KEY_LATEST_CONTENT_ID)
+
+        if (!contentId) {
+            redirect uri: '/'
+            return
+        }
+
+        def hashcode = contentService.createEditableHashcode(Content.get(contentId))
+
+        [contentId: contentId, hashcode: hashcode]
     }
 }

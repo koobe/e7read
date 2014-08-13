@@ -26,12 +26,6 @@
         	
         	<g:textArea id="content-editing-textarea" class="content-editing-textarea form-control" name="text" placeholder="Write something here..." rows="15"></g:textArea>
 
-            <%--
-        	<g:uploadForm class="uploadImageForm" name="uploadImageForm" action="uploadImage" style="display: none;">
-        		<input id="uploadImageInput" type="file" accept="image/*" name="file" />
-        	</g:uploadForm>
-        	--%>
-        	
         	<div id="PictureContainer" class="content-editing-picture">
         		<div class="picture-cell">
         			<div class="picture-add" ><span class="fa fa-plus" style="font-size:large;"></span></div>
@@ -68,6 +62,11 @@
         </div>
         <br />
         <br />
+
+        <g:uploadForm class="uploadImageForm" name="uploadImageForm" action="uploadImage" style="display: none;">
+            <input id="uploadImageInput" type="file" accept="image/*" name="file" />
+        </g:uploadForm>
+
         <g:render template="/home/footer" />
 	</body>
 </html>

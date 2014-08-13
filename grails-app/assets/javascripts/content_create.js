@@ -3,7 +3,9 @@ var s3fileId = [];
 var currItem = 0;
 
 $(function() {
-	$('.picture-add').on('click', function() {
+    //console.log($('.picture-add'));
+
+	$('.picture-add').click(function() {
 		$('#uploadImageInput').trigger('click');
 	});
 	$('#uploadImageInput').on('change', prepareFilesAndTriggerSubmit);

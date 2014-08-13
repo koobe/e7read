@@ -7,6 +7,7 @@
 	<body>
 		<div id="display-container"><div class="content-pane">
 			<g:render template="header" />
+			<g:render template="/category/category_panel" />
 			<g:render template="/content/contents_container" />
 			<g:render template="footer" />
         </div></div>

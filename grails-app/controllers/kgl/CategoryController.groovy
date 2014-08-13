@@ -108,4 +108,11 @@ class CategoryController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	
+	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+	def showCategory() {
+		def categoryList = Category.findAllByCategory(null)
+		render template: "category_panel_topmenu", model:[categorys: categoryList, active: params.c]
+		render template: "category_panel_sidemenu", model:[categorys: categoryList, active: params.c]
+	}
 }

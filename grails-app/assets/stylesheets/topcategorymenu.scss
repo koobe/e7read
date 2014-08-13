@@ -1,0 +1,63 @@
+.topmenu-bar {
+	display: table;
+	width: 100%;
+	
+	div {
+		display: table-cell;
+		text-align: right;
+		vertical-align: middle;
+	}
+	
+	.open-sidemenu-btn {
+		padding-right: 10px;
+	}
+}
+
+.topmenu-ul, .topmenu-li {
+  margin: 0;
+  padding: 0;
+}
+ 
+.topmenu-ul {
+	overflow: auto;
+	list-style-type: none;
+}
+ 
+.topmenu-li {
+	float: left;
+	margin-right: 0px;
+	border-right: 1px solid #aaa;
+	padding: 0 20px;
+}
+ 
+.topmenu-li:last-child {
+	border-right: none;
+}
+ 
+.topmenu-li .topmenu-topitem {
+	text-decoration: none;
+	color: #FFF;
+	font: 17px/1 Helvetica, Verdana, sans-serif;
+	text-transform: uppercase;
+ 
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+ 
+.topmenu-li a:hover {
+	color: #666;
+}
+ 
+.topmenu-li.active a {
+	font-weight: bold;
+	color: #333;
+}
+
+.menu-style {
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font: 15px/1 Helvetica, Verdana, sans-serif, "微軟正黑體","Helvetica Neue",Helvetica,"Heiti TC","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+}

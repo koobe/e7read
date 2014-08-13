@@ -1,0 +1,89 @@
+.side-menu-float {
+	display: none;
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 1000;
+	
+	height: 100%;
+	min-width: 40%;
+	
+	border-radius: 1px;
+	
+	background-color: #94E6DA;
+	opacity: 0.8;
+	
+	overflow: auto;
+	
+	.side-menu-header {
+		width: 100%;
+		
+		font-size: 1.4em;
+		
+		font-weight: 700;
+		
+		background-color: #8ACCC3;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		/*padding-right: 0px;
+		margin-right: 0px;*/
+		
+		display: table;
+		
+		div {
+			display: table-cell;
+			vertical-align: middle;
+			/*border: 1px solid blue;*/
+		}
+		
+		.side-menu-title {
+			padding-left: 20px;
+		}
+		
+		.back-button {
+			text-align: right;
+		}
+	}
+	
+	.side-menu {
+		padding-right: 30px;
+		
+		ul {
+			list-style-type: none;
+			padding-left: 20px;
+			margin-left: 10px;
+		}
+ 
+		li {
+			font: 600 18px/1.5 "微軟正黑體","Helvetica Neue",Helvetica,"Heiti TC","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+			border-bottom: 1px solid #ccc;
+			text-transform:uppercase;
+		}
+		 
+		li:last-child {
+			border: none;
+		}
+		 
+		li a {
+			text-decoration: none;
+			color: #000;
+			display: block;
+		 
+			-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+			-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+			-o-transition: font-size 0.3s ease, background-color 0.3s ease;
+			-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+			transition: font-size 0.3s ease, background-color 0.3s ease;
+		}
+		 
+		li a:hover {
+			font-size: 21px;
+			background: #DDD;
+		}
+	}
+}
+
+.active-item {
+	font-size: 22px;
+	background-color: #8ACCC3;
+}

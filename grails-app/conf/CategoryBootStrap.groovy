@@ -14,7 +14,11 @@ class CategoryBootStrap {
 					"name" : "news",
 					"child" : [
 						{ "name" : "world", "child" : [
-							{ "name" : "asia", "child" : [] },
+							{ "name" : "asia", "child" : [
+								{ "name" : "china", "child" : [] },
+								{ "name" : "japan", "child" : [] },
+								{ "name" : "taiwan", "child" : [] }
+							] },
 							{ "name" : "us", "child" : [] }
 						]},
 						{ "name" : "political", "child" : [] },
@@ -29,7 +33,20 @@ class CategoryBootStrap {
 				{
 					"name" : "travel",
 					"child" : []
+				},
+				{
+					"name" : "sport",
+					"child" : []
+				},
+				{
+					"name" : "future",
+					"child" : [
+						{ "name" : "science", "child" : [] },
+						{ "name" : "tech-", "child" : [] },
+						{ "name" : "health", "child" : [] }
+					]
 				}
+
 			]
 		}
 		"""

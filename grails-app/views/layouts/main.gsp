@@ -13,6 +13,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
+    <meta name="application-name" content="${meta(name: 'app.name')}"/>
+    <meta name="application-version" content="${meta(name: 'app.version')}"/>
+    <meta name="grails-version" content="${meta(name: 'app.grails.version')}"/>
+
     <link rel="shortcut icon" href="${assetPath(src: 'webicon.png')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'webicon.png')}">

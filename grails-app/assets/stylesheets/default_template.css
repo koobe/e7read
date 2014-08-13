@@ -6,6 +6,8 @@ html, body {
 body {
 	padding-top: 0px;
 	padding-bottom: 30px;
+
+    word-break: break-all;
 }
 
 h1 {

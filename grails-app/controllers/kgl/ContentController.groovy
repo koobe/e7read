@@ -450,7 +450,11 @@ class ContentController {
 	}
 	
 	@Transactional
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 	def uploadImage() {
+
+        def currentUser = springSecurityService.isLoggedIn()?springSecurityService.currentUser:User.findByUsername('anonymous')
+
 		List<CommonsMultipartFile> imageFiles = params.list("file")
 		imageFiles.each { imageFile ->
 			if (!imageFile.isEmpty()) {
@@ -458,7 +462,7 @@ class ContentController {
 				S3File s3file
 
                 s3file = s3Service.upload(
-                        springSecurityService.currentUser,
+                        currentUser,
                         imageFile,
                         imageFile.inputStream,
                         true,

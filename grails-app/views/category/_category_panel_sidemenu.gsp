@@ -1,4 +1,4 @@
-<div class="side-menu-float">
+<div class="side-menu-float" style="display:${showpanel? 'block':'none'}">
 	<div class="side-menu-header">
 		
 		<div class="side-menu-title"><span>Category Menu</span></div>

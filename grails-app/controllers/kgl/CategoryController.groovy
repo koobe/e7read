@@ -113,6 +113,6 @@ class CategoryController {
 	def showCategory() {
 		def categoryList = Category.findAllByCategory(null)
 		render template: "category_panel_topmenu", model:[categorys: categoryList, active: params.c]
-		render template: "category_panel_sidemenu", model:[categorys: categoryList, active: params.c]
+		render template: "category_panel_sidemenu", model:[categorys: categoryList, active: params.c, showpanel: params.p]
 	}
 }

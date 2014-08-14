@@ -110,9 +110,14 @@ class CategoryController {
     }
 	
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-	def showCategory() {
+	def addCategoryMenu() {
 		def categoryList = Category.findAllByCategory(null)
 		render template: "category_panel_topmenu", model:[categorys: categoryList, active: params.c]
+	}
+	
+	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+	def addCategoryPanel() {
+		def categoryList = Category.findAllByCategory(null)
 		render template: "category_panel_sidemenu", model:[categorys: categoryList, active: params.c, showpanel: params.p]
 	}
 }

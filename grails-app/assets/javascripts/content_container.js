@@ -50,9 +50,14 @@
 			page = page + 1;
 			var offset = (page * max) - max;	
 			
+			console.log(max+', '+offset);
+			var c = getQueryVariable("c");
+			
 			if ($('#text-search').val() != '') {
 				var searchString = $('#text-search').val();
 				data = {'q': searchString, 'from': offset, 'size': max};
+			} else if (c) {
+				data = {'c': c, 'max': offset, 'offset': max};
 			} else {
 				data = {'max': max, 'offset': offset};
 			}

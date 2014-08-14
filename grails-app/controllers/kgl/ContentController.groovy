@@ -218,7 +218,26 @@ class ContentController {
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def renderContentsHTML() {
 		
+		log.info 'Paging: max=' + params.max + ', offset=' + params.offset
+		
 		def contentList = []
+		
+		def categoryList = []
+		
+		def collectAllSubCategory = { categorys, category ->
+			categorys << category
+			if (category.categorys) {
+				category.categorys.each { subcate ->
+					owner.call(categorys, subcate)
+				}
+			}
+		}
+		
+		if (params.c) {
+			def category = Category.findByName(params.c)
+			collectAllSubCategory(categoryList, category)
+			log.info 'Query category: ' + categoryList
+		}
 		
 		if (params.q) {
 			def searchResult = Content.search(params.q, [from: params.from, size: params.size])
@@ -231,9 +250,27 @@ class ContentController {
 //			contentList.sort { it.lastUpdated }
 		} else {
 			def criteria = Content.createCriteria()
-			contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
-				eq("isDelete", false)
-				eq("isPrivate", false)
+//			contentList = criteria.list (max: params.max, offset: params.offset) {
+//				eq("isDelete", false)
+//				eq("isPrivate", false)
+//				'in'('category', categoryList)
+//				order("lastUpdated", "desc")
+//			}
+			if (categoryList.size() > 0) {
+				log.info 'has category'
+				contentList = criteria.list (max: params.max, offset: params.offset) {
+					eq("isDelete", false)
+					eq("isPrivate", false)
+					'in'('category', categoryList)
+					order("lastUpdated", "desc")
+				}
+			} else {
+				log.info 'no category'
+				contentList = criteria.list (max: params.max, offset: params.offset) {
+					eq("isDelete", false)
+					eq("isPrivate", false)
+					order("lastUpdated", "desc")
+				}
 			}
 		}
 		

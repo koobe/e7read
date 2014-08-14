@@ -17,7 +17,7 @@
 	<body>
         <div class="main-container">
         	<div class="content-editing-title">
-                編輯內容 Post Content
+				編輯內容 Post Content
                 <sec:ifNotLoggedIn><span class="label label-warning">匿名模式</span></sec:ifNotLoggedIn>
             </div>
         	<!-- 
@@ -31,6 +31,15 @@
         			<div class="picture-add" ><span class="fa fa-plus" style="font-size:large;"></span></div>
         		</div>
         	</div>
+        	
+        	<div class="content-editing-category">
+        		<div class="category-cell">
+        			<div class="category-add" >
+	        			<span class="fa fa-plus" style="font-size:large;"></span>
+	        			內容類別
+        			</div>
+        		</div>
+        	</div>
 
             <!--
             <div>
@@ -42,7 +51,7 @@
         		<div style="width: 60%">
         		</div>
         		<div style="width: 10%">
-					<g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" >取消Cancel</g:link>
+					<g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" >取消 Cancel</g:link>
         		</div>
         		<div style="width: 30%">
 					<g:link id="button-post" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent();">發佈 Post</g:link>

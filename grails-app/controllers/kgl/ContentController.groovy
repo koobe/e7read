@@ -8,7 +8,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import static org.springframework.http.HttpStatus.*
 
 @Secured(["ROLE_USER"])
-@Transactional(readOnly = true)
+@Transactional
 class ContentController {
 
 	def grailsApplication

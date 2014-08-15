@@ -590,6 +590,15 @@ class ContentController {
 
         }
 		
+		//TODO add multi-category
+		def categorys = params.categorysData?.tokenize(",")
+		def categoryName = categorys?.first()
+		if (categoryName) {
+			log.info 'add category: ' + categoryName
+			def category = Category.findByName(categoryName)
+			contentInstance.category = category
+		}
+		
 		contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
 		contentInstance.cropText = cropSegment
 		contentInstance.fullText = fullText

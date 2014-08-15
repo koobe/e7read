@@ -93,17 +93,25 @@ function controlUploader() {
 
 function postContent() {
 	
-	console.log(s3fileId);
+	console.log('images: ' + s3fileId);
+	console.log('categorys: ' + categorys);
 	
 	var s3fileids = '';
 	s3fileId.forEach(function(value){
 		s3fileids = s3fileids + value + ",";
 	});
+	
+	var categorysData = '';
+	categorys.forEach(function(value){
+		categorysData = categorysData + value + ",";
+	});
+	
 	$.ajax({
 		url: '/content/postContent',
 		type:'POST',
 		data: {
 			s3fileId: s3fileids,
+			categorysData: categorysData,
             references: $('input[name=references]').val(),
 			contentText: $('#content-editing-textarea').val()
 		},

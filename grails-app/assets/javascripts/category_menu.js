@@ -20,5 +20,5 @@ function hideCategoryMenu() {
 }
 
 function showCategoryMenu() {
-$('.side-menu-float').show(400);
+	$('.side-menu-float').show(400);
 }

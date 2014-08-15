@@ -4,9 +4,14 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'content.label', default: 'Content')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		
 		<asset:stylesheet src="create.css"/>
+		<asset:stylesheet src="category_sidemenu.css"/>
+		
 		<asset:javascript src="content_create.js"/>
 		<asset:javascript src="jquery.form.min.js"/>
+		<asset:javascript src="category_menu.js"/>
+		
         <sec:ifLoggedIn>
             <meta name="url2redirect" content="${createLink(controller: 'content', action: 'personal')}">
         </sec:ifLoggedIn>
@@ -17,7 +22,7 @@
 	<body>
         <div class="main-container">
         	<div class="content-editing-title">
-				編輯內容 Post Content
+				<span>編輯內容 Post Content</span>
                 <sec:ifNotLoggedIn><span class="label label-warning">匿名模式</span></sec:ifNotLoggedIn>
             </div>
         	<!-- 
@@ -34,7 +39,7 @@
         	
         	<div class="content-editing-category">
         		<div class="category-cell">
-        			<div class="category-add" >
+        			<div class="category-add" onclick="showCategoryMenu()">
 	        			<span class="fa fa-plus" style="font-size:large;"></span>
 	        			內容類別
         			</div>
@@ -77,5 +82,7 @@
         </g:uploadForm>
 
         <g:render template="/home/footer" />
+        
+        <g:include controller="category" action="addCategoryPanel" params="[btnaction: 'create']" />
 	</body>
 </html>

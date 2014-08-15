@@ -12,7 +12,7 @@
 			<g:render template="footer" />
         </div></div>
 		
-		<g:include controller="category" action="addCategoryPanel" />
+		<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home']" />
 		
 		<a href="javascript: scrollDisplayContainerToTop();" class="koobe-btn koobe-btn-normal top-btn-pos">
 			<i class="fa fa-caret-up"></i>

@@ -88,7 +88,9 @@ function controlUploader() {
 }
 
 function postContent() {
+	
 	console.log(s3fileId);
+	
 	var s3fileids = '';
 	s3fileId.forEach(function(value){
 		s3fileids = s3fileids + value + ",";
@@ -115,5 +117,39 @@ function cancelPost() {
 	var r = confirm('Discard post?');
 	if (r) {
 		history.back()
+	}
+}
+
+var categoryLimit = 3;
+var categorys = [];
+var currCategorys = 0;
+
+function addCategory(name) {
+	console.log('add category... ' + name);
+	if (categorys.indexOf(name) != -1) {
+		console.log('alreday selected category: ' + name);
+	} else {
+		hideCategoryMenu();
+		categorys.push(name);
+		$('.category-add').before('<div id="category-' + name + '" class="category-item">' + name + '</div>');
+		$('#category-' + name).click(function() {
+			this.remove();
+			currCategorys--;
+			var idx = categorys.indexOf(name);
+			categorys.splice(idx, 1);
+			console.log('category: ' + categorys);
+			controlAddCategoryBtn();
+		});
+		currCategorys++;
+		controlAddCategoryBtn();
+	}
+	console.log('category: ' + categorys);
+}
+
+function controlAddCategoryBtn() {
+	if (currCategorys < categoryLimit) {
+		$('.category-add').css('display', 'table-cell');
+	} else {
+		$('.category-add').css('display', 'none');
 	}
 }

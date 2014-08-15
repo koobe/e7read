@@ -35,7 +35,17 @@ body {
 	color: #787878;
 	vertical-align: middle;
 	
-	font: 700 20px/1 "微軟正黑體","Helvetica Neue",Helvetica,"Heiti TC","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+	font-weight: 700;
+	font-size: 1.4em;
+	
+	.title-text {
+		vertical-align: middle;
+	}
+	
+	.anonymous-tag {
+		padding: 4px 4px 3px 4px;
+		vertical-align: middle;
+	}
 }
 
 
@@ -129,6 +139,10 @@ body {
 		a {
 			width: 100%;
 		}
+	}
+	
+	.btn-item {
+		min-width: 105px;
 	}
 }
 

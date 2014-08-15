@@ -9,6 +9,10 @@ $(function() {
 		$('#uploadImageInput').trigger('click');
 	});
 	$('#uploadImageInput').on('change', prepareFilesAndTriggerSubmit);
+	
+	$('.content-editing-textarea').click(function() {hideCategoryMenu();});
+	$('.content-editing-picture').click(function() {hideCategoryMenu();});
+//	$('.content-editing-category').click(function() {hideCategoryMenu();});
 });
 
 //function appendUploadForm() {
@@ -129,7 +133,7 @@ function addCategory(name) {
 	if (categorys.indexOf(name) != -1) {
 		console.log('alreday selected category: ' + name);
 	} else {
-		hideCategoryMenu();
+//		hideCategoryMenu();
 		categorys.push(name);
 		$('.category-add').before('<div id="category-' + name + '" class="category-item">' + name + '</div>');
 		$('#category-' + name).click(function() {
@@ -151,5 +155,6 @@ function controlAddCategoryBtn() {
 		$('.category-add').css('display', 'table-cell');
 	} else {
 		$('.category-add').css('display', 'none');
+		hideCategoryMenu();
 	}
 }

@@ -22,8 +22,10 @@
 	<body>
         <div class="main-container">
         	<div class="content-editing-title">
-				<span>編輯內容 Post Content</span>
-                <sec:ifNotLoggedIn><span class="label label-warning">匿名模式</span></sec:ifNotLoggedIn>
+				<span class="title-text">編輯內容 Post Content</span>
+                <sec:ifNotLoggedIn>
+                	<span class="label label-warning anonymous-tag">匿名模式</span>
+                </sec:ifNotLoggedIn>
             </div>
         	<!-- 
         	<div id="content-editing-textarea" class="content-editing-textarea form-control" placeholder="Write something here..." contenteditable="true"></div>
@@ -33,7 +35,9 @@
 
         	<div id="PictureContainer" class="content-editing-picture">
         		<div class="picture-cell">
-        			<div class="picture-add" ><span class="fa fa-plus" style="font-size:large;"></span></div>
+        			<div class="picture-add" >
+        				<span class="fa fa-plus" style="font-size:large;"></span>
+        			</div>
         		</div>
         	</div>
         	
@@ -55,10 +59,10 @@
         	<div class="button-block">
         		<div style="width: 60%">
         		</div>
-        		<div style="width: 10%">
+        		<div style="width: 10%" class="btn-item">
 					<g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" >取消 Cancel</g:link>
         		</div>
-        		<div style="width: 30%">
+        		<div style="width: 30%" class="btn-item">
 					<g:link id="button-post" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent();">發佈 Post</g:link>
 	        	</div>
             </div>

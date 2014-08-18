@@ -225,7 +225,7 @@ class ContentController {
 		def categoryList = []
 		
 		def collectAllSubCategory = { categorys, category ->
-			categorys << category
+			categorys << category.name
 			if (category.categorys) {
 				category.categorys.each { subcate ->
 					owner.call(categorys, subcate)
@@ -249,23 +249,17 @@ class ContentController {
 			}
 //			contentList.sort { it.lastUpdated }
 		} else {
-			def criteria = Content.createCriteria()
-//			contentList = criteria.list (max: params.max, offset: params.offset) {
-//				eq("isDelete", false)
-//				eq("isPrivate", false)
-//				'in'('category', categoryList)
-//				order("lastUpdated", "desc")
-//			}
+			
 			if (categoryList.size() > 0) {
-				log.info 'has category'
-				contentList = criteria.list (max: params.max, offset: params.offset) {
-					eq("isDelete", false)
-					eq("isPrivate", false)
-					'in'('category', categoryList)
-					order("lastUpdated", "desc")
-				}
+				def hql = """
+					select distinct content 
+					from Content as content join content.categories category 
+					where category.name in (:tags) and content.isDelete = false and content.isPrivate = false
+					order by content.lastUpdated desc
+				"""
+				contentList = Content.executeQuery(hql, [tags: categoryList], [max: params.max, offset: params.offset])
 			} else {
-				log.info 'no category'
+				def criteria = Content.createCriteria()
 				contentList = criteria.list (max: params.max, offset: params.offset) {
 					eq("isDelete", false)
 					eq("isPrivate", false)
@@ -273,8 +267,7 @@ class ContentController {
 				}
 			}
 		}
-		
-		// def contentList = Content.list(max: params.max, offset: params.offset, sort:'lastUpdated', order:'desc')
+
 		def contentSize = contentList.size()
 		Random r = new Random()
 		def currIdx = 0
@@ -529,6 +522,7 @@ class ContentController {
 		def contentInstance = new Content()
 		contentInstance.textSegments = []
 		contentInstance.pictureSegments = []
+		contentInstance.categories = []
 		
 		def fullText = ''
 		def dataIdx = 0
@@ -590,14 +584,19 @@ class ContentController {
 
         }
 		
-		//TODO add multi-category
-		def categorys = params.categorysData?.tokenize(",")
-		def categoryName = categorys?.first()
-		if (categoryName) {
-			log.info 'add category: ' + categoryName
-			def category = Category.findByName(categoryName)
-			contentInstance.category = category
+		// add multi-category
+		def categoryTokens = params.categorysData?.tokenize(",")
+		categoryTokens.each { name ->
+			def category = Category.findByName(name)
+			contentInstance.categories << category
 		}
+		
+//		def categoryName = categorys?.first()
+//		if (categoryName) {
+//			log.info 'add category: ' + categoryName
+//			def category = Category.findByName(categoryName)
+//			contentInstance.category = category
+//		}
 		
 		contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
 		contentInstance.cropText = cropSegment

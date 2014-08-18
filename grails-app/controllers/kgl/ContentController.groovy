@@ -254,10 +254,10 @@ class ContentController {
 				def hql = """
 					select distinct content 
 					from Content as content join content.categories category 
-					where category.name in (:tags) and content.isDelete = false and content.isPrivate = false
+					where category.name in (:categories) and content.isDelete = false and content.isPrivate = false
 					order by content.lastUpdated desc
 				"""
-				contentList = Content.executeQuery(hql, [tags: categoryList], [max: params.max, offset: params.offset])
+				contentList = Content.executeQuery(hql, [categories: categoryList], [max: params.max, offset: params.offset])
 			} else {
 				def criteria = Content.createCriteria()
 				contentList = criteria.list (max: params.max, offset: params.offset) {

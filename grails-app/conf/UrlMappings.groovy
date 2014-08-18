@@ -13,5 +13,10 @@ class UrlMappings {
         "500"(view:'/error')
 
         "/me" (controller: 'user', action: 'profile')
+
+        "/e/$hash" {
+            controller = 'content'
+            action = 'modify'
+        }
 	}
 }

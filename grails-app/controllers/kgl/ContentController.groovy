@@ -153,6 +153,23 @@ class ContentController {
         ]
     }
 
+    /**
+     * Content re-editing, both for anonymous and registered user.
+     *
+     * @param id
+     */
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def modify(String hash) {
+        def content = Content.findByEditableHashcode(hash)
+
+        if (!content) {
+            redirect uri: '/'
+            return
+        }
+
+        respond content
+    }
+
     @Transactional
     def update(Content contentInstance) {
         if (contentInstance == null) {
@@ -513,17 +530,28 @@ class ContentController {
 	@Transactional
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def postContent() {
-		
+
+        log.info "Content ID: ${params.id}"
 		log.info "The id list of files: ${params.s3fileId}"
 		log.info "User input text: ${params.contentText}"
 		log.info "References: ${params.references}"
 		
 		// new content instance for persistence
-		def contentInstance = new Content()
-		contentInstance.textSegments = []
-		contentInstance.pictureSegments = []
-		contentInstance.categories = []
-		
+
+        def contentInstance
+
+        if (params.id) {
+            contentInstance = Content.get(params.id)
+        }
+
+        if (!contentInstance) {
+            contentInstance = new Content()
+
+            contentInstance.textSegments = []
+            contentInstance.pictureSegments = []
+            contentInstance.categories = []
+        }
+
 		def fullText = ''
 		def dataIdx = 0
 		def cropSegment
@@ -624,7 +652,7 @@ class ContentController {
 
         session.setAttribute(MyConstant.SESSION_KEY_LATEST_CONTENT_ID, contentInstance.id)
 		
-		render ""
+		render contentInstance as JSON
 	}
 	
 //	@Transactional

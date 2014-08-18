@@ -2,19 +2,6 @@ var imageLimit = 3;
 var s3fileId = [];
 var currItem = 0;
 
-$(function() {
-    //console.log($('.picture-add'));
-
-	$('.picture-add').click(function() {
-		$('#uploadImageInput').trigger('click');
-	});
-	$('#uploadImageInput').on('change', prepareFilesAndTriggerSubmit);
-	
-	$('.content-editing-textarea').click(function() {hideCategoryMenu();});
-	$('.content-editing-picture').click(function() {hideCategoryMenu();});
-//	$('.content-editing-category').click(function() {hideCategoryMenu();});
-});
-
 //function appendUploadForm() {
 //	var value = new Date().getTime();
 //	var inputId = 'ajax-upload-input-' + value;
@@ -65,11 +52,11 @@ function showResponse(responseText, statusText, xhr, $form, uploadId)  {
 	console.log(responseText);
 	s3fileId.push(responseText.id);
 	console.log(s3fileId);
-	$('#' + uploadId).css('background-image', 'url(' + responseText.url + ')');
-	$('#' + uploadId).attr('class', 'picture-block');
-	$('#' + uploadId).on('click', function() {
-		removeImage(uploadId, responseText.id);
-	});
+	$('#' + uploadId)
+        .css('background-image', 'url(' + responseText.url + ')')
+        .removeClass('picture-onupload')
+        .addClass('picture-block')
+        .click( function() { removeImage(uploadId, responseText.id); });
 }
 
 function removeImage(uploadId, id) {
@@ -110,6 +97,7 @@ function postContent() {
 		url: '/content/postContent',
 		type:'POST',
 		data: {
+            id: $('meta[name=contentId]').attr('content'),
 			s3fileId: s3fileids,
 			categorysData: categorysData,
             references: $('input[name=references]').val(),
@@ -136,6 +124,15 @@ var categoryLimit = 3;
 var categorys = [];
 var currCategorys = 0;
 
+var categoryRemoveAction = function() {
+    this.remove();
+    currCategorys--;
+    var idx = categorys.indexOf(name);
+    categorys.splice(idx, 1);
+    console.log('category: ' + categorys);
+    controlAddCategoryBtn();
+};
+
 function addCategory(name) {
 	console.log('add category... ' + name);
 	if (categorys.indexOf(name) != -1) {
@@ -144,14 +141,7 @@ function addCategory(name) {
 //		hideCategoryMenu();
 		categorys.push(name);
 		$('.category-add').before('<div id="category-' + name + '" class="category-item">' + name + '</div>');
-		$('#category-' + name).click(function() {
-			this.remove();
-			currCategorys--;
-			var idx = categorys.indexOf(name);
-			categorys.splice(idx, 1);
-			console.log('category: ' + categorys);
-			controlAddCategoryBtn();
-		});
+		$('#category-' + name).click(categoryRemoveAction);
 		currCategorys++;
 		controlAddCategoryBtn();
 	}
@@ -166,3 +156,18 @@ function controlAddCategoryBtn() {
 		hideCategoryMenu();
 	}
 }
+
+$(function() {
+    //console.log($('.picture-add'));
+
+    $('.picture-add').click(function() {
+        $('#uploadImageInput').trigger('click');
+    });
+    $('#uploadImageInput').on('change', prepareFilesAndTriggerSubmit);
+
+    $('.content-editing-textarea').click(function() {hideCategoryMenu();});
+    $('.content-editing-picture').click(function() {hideCategoryMenu();});
+//	$('.content-editing-category').click(function() {hideCategoryMenu();});
+
+    $('.category-item').click(categoryRemoveAction);
+});

@@ -96,7 +96,7 @@ class TemplateService {
 
         // TODO clear cache not a good design
 		// TODO cannot clear cache every time
-        groovyPagesTemplateEngine.clearPageCache()
+//        groovyPagesTemplateEngine.clearPageCache()
         //new GroovyPagesTemplateEngine()
         groovyPagesTemplateEngine
                 .createTemplate(template?.html, "template-" + template?.name)?.make([content: content])?.writeTo(writer)

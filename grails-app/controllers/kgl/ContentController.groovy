@@ -247,13 +247,7 @@ class ContentController {
 		def contentList = []
 		def categoryList = []
 		
-		if (params.c) {
-			def category = Category.findByName(params.c)
-			collectAllSubCategory(categoryList, category)
-		}
-		
 		if (params.q) {
-			// search
 			log.info 'search content: {' + params.q + '}'
 			def searchResult = Content.search(params.q, [from: params.from, size: params.size])
 			searchResult.searchResults.each { result ->
@@ -262,20 +256,24 @@ class ContentController {
 					contentList << content
 				}
 			}
-		} else if (categoryList.size() > 0) {
-			def hql = """
+		} else if (params.c) {
+			def category = Category.findByName(params.c)
+			collectAllSubCategory(categoryList, category)
+			if (categoryList.size() > 0) {
+				def hql = """
 				select distinct content 
 				from Content as content join content.categories category 
 				where category.name in (:categories) and content.isDelete = false and content.isPrivate = false
-				order by content.lastUpdated desc
-			"""
-			contentList = Content.executeQuery(hql, [categories: categoryList], [max: params.max, offset: params.offset])
+				order by content.datePosted desc, content.lastUpdated desc
+				"""
+				contentList = Content.executeQuery(hql, [categories: categoryList], [max: params.max, offset: params.offset])
+			}
 		} else if (params.u) {
 			def hql = """
 				select content 
 				from Content as content
 				where content.user.id = :userId and content.isDelete = false and content.isPrivate = false
-				order by content.lastUpdated desc
+				order by content.datePosted desc, content.lastUpdated desc
 			"""
 			def u = new Long(params.u)
 			contentList = Content.executeQuery(hql, [userId: u], [max: params.max, offset: params.offset])
@@ -284,6 +282,7 @@ class ContentController {
 			contentList = criteria.list (max: params.max, offset: params.offset) {
 				eq 'isDelete', false
 				eq 'isPrivate', false
+				order 'datePosted', 'desc'
 				order 'lastUpdated', 'desc'
 			}
 		}

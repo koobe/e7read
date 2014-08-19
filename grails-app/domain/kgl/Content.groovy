@@ -21,6 +21,8 @@ class Content {
 
     Date dateCreated
     Date lastUpdated
+	
+	Date datePosted
 
     String editableHashcode
 	
@@ -58,5 +60,12 @@ class Content {
 		template nullable: true
         references nullable: true
         editableHashcode nullable: true
+		datePosted nullable: true
     }
+	
+	def beforeInsert() {
+		if (datePosted == null) {
+			datePosted = new Date()
+		}
+	 }
 }

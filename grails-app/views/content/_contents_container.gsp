@@ -27,5 +27,4 @@
 </style>
 <asset:javascript src="content_container.js"/>
 <div id="contents_container" class="container-fluid contents-container">
-	<g:include controller="content" action="renderContentsHTML" params="[max:5, offset:0]" />
 </div>

@@ -8,7 +8,7 @@
 	});
 
 	var max = 5;
-	var page = 1;
+	var page = 0;
 	var onCall = false;
 	var eof = false;
 
@@ -50,14 +50,16 @@
 			page = page + 1;
 			var offset = (page * max) - max;	
 			
-			console.log(max+', '+offset);
 			var c = getQueryVariable("c");
+			var u = getQueryVariable("u");
 			
 			if ($('#text-search').val() != '') {
 				var searchString = $('#text-search').val();
 				data = {'q': searchString, 'from': offset, 'size': max};
 			} else if (c) {
-				data = {'c': c, 'max': offset, 'offset': max};
+				data = {'c': c, 'max': max, 'offset': offset};
+			} else if (u) {
+				data = {'u': u, 'max': max, 'offset': offset};
 			} else {
 				data = {'max': max, 'offset': offset};
 			}
@@ -66,7 +68,9 @@
 				type:'POST',
 				data: data,
 				url:'/content/renderContentsHTML',
-				success:function(data,textStatus){onSuccessAndAppendHTMLToContentContainer(data);},
+				success:function(data,textStatus){
+					onSuccessAndAppendHTMLToContentContainer(data);
+				},
 				error:function(XMLHttpRequest,textStatus,errorThrown){}
 			});
 		}
@@ -78,5 +82,14 @@
 		if (data == "") {
 			console.log('EOF');
 			eof = true;
+		} else {
+			$('.content-author-name').unbind('click').click(onAuthorClick);
 		}
+	}
+	
+	var onAuthorClick = function(event) {
+		console.log('author name clicked!!' + event.target);
+		var userId = $(event.target).data('user');
+		location.href = "?u=" + userId;
+		event.stopPropagation();
 	}

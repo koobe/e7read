@@ -9,7 +9,7 @@
 			<div style="text-align: right;">
 				<span class="" style="color: #333; font-size: 13px">
 				<i class="fa fa-user"></i>
-				${it.user.fullName}
+				<a class="content-author-name" data-user="${it.user.id}">${it.user.fullName}</a>
 				&nbsp;<i class="fa fa-clock-o"></i>
 				<g:formatDate date="${it.lastUpdated}" format="MM/dd" />
 				</span>

@@ -232,31 +232,29 @@ class ContentController {
 		[content: Content.list().get(0)]
 	}
 	
+	def collectAllSubCategory = { categorys, category ->
+		categorys << category.name
+		if (category.categorys) {
+			category.categorys.each { subcate ->
+				owner.call(categorys, subcate)
+			}
+		}
+	}
+	
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def renderContentsHTML() {
 		
-		log.info 'Paging: max=' + params.max + ', offset=' + params.offset
-		
 		def contentList = []
-		
 		def categoryList = []
-		
-		def collectAllSubCategory = { categorys, category ->
-			categorys << category.name
-			if (category.categorys) {
-				category.categorys.each { subcate ->
-					owner.call(categorys, subcate)
-				}
-			}
-		}
 		
 		if (params.c) {
 			def category = Category.findByName(params.c)
 			collectAllSubCategory(categoryList, category)
-			log.info 'Query category: ' + categoryList
 		}
 		
 		if (params.q) {
+			// search
+			log.info 'search content: {' + params.q + '}'
 			def searchResult = Content.search(params.q, [from: params.from, size: params.size])
 			searchResult.searchResults.each { result ->
 				def content = Content.get(result.id)
@@ -264,27 +262,41 @@ class ContentController {
 					contentList << content
 				}
 			}
-//			contentList.sort { it.lastUpdated }
+		} else if (categoryList.size() > 0) {
+			def hql = """
+				select distinct content 
+				from Content as content join content.categories category 
+				where category.name in (:categories) and content.isDelete = false and content.isPrivate = false
+				order by content.lastUpdated desc
+			"""
+			contentList = Content.executeQuery(hql, [categories: categoryList], [max: params.max, offset: params.offset])
+		} else if (params.u) {
+			def hql = """
+				select content 
+				from Content as content
+				where content.user.id = :userId and content.isDelete = false and content.isPrivate = false
+				order by content.lastUpdated desc
+			"""
+			def u = new Long(params.u)
+			contentList = Content.executeQuery(hql, [userId: u], [max: params.max, offset: params.offset])
 		} else {
-			
-			if (categoryList.size() > 0) {
-				def hql = """
-					select distinct content 
-					from Content as content join content.categories category 
-					where category.name in (:categories) and content.isDelete = false and content.isPrivate = false
-					order by content.lastUpdated desc
-				"""
-				contentList = Content.executeQuery(hql, [categories: categoryList], [max: params.max, offset: params.offset])
-			} else {
-				def criteria = Content.createCriteria()
-				contentList = criteria.list (max: params.max, offset: params.offset) {
-					eq("isDelete", false)
-					eq("isPrivate", false)
-					order("lastUpdated", "desc")
-				}
+			def criteria = Content.createCriteria()
+			contentList = criteria.list (max: params.max, offset: params.offset) {
+				eq 'isDelete', false
+				eq 'isPrivate', false
+				order 'lastUpdated', 'desc'
 			}
 		}
 
+		renderContentContainerHTML(contentList)
+	}
+	
+	/**
+	 * 
+	 * @param contentList
+	 */
+	protected void renderContentContainerHTML(contentList) {
+		
 		def contentSize = contentList.size()
 		Random r = new Random()
 		def currIdx = 0

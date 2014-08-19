@@ -15,7 +15,8 @@
 */
 
 * {
-	font-family: "微軟正黑體","Helvetica Neue",Helvetica,"Heiti TC","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+	-webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -62,9 +63,5 @@ body {
 }
 
 p {
-	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
-}
-
-.content-title {
 	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
 }

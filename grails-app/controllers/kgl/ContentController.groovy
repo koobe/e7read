@@ -258,7 +258,7 @@ class ContentController {
 			}
 		} else if (params.c) {
 			def category = Category.findByName(params.c)
-			collectAllSubCategory(categoryList, category)
+			if (category) {collectAllSubCategory(categoryList, category)}
 			if (categoryList.size() > 0) {
 				def hql = """
 				select distinct content 

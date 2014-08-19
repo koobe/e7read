@@ -2,7 +2,6 @@
 	<head>
 	    <meta name="layout" content="main"/>
 	    <title></title>
-	    <asset:javascript src="content_show.js"/>
 	</head>
 	<body>
 		<div id="display-container" onclick="hideCategoryMenu()"><div class="content-pane">

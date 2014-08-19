@@ -84,6 +84,7 @@
 			eof = true;
 		} else {
 			$('.content-author-name').unbind('click').click(onAuthorClick);
+			$('.content-category-name').unbind('click').click(onCategoryTagClick);
 		}
 	}
 	
@@ -91,5 +92,11 @@
 		console.log('author name clicked!!' + event.target);
 		var userId = $(event.target).data('user');
 		location.href = "?u=" + userId;
+		event.stopPropagation();
+	}
+	
+	var onCategoryTagClick = function(event) {
+		var c = $(event.target).data('categoryname');
+		location.href = "?c=" + c;
 		event.stopPropagation();
 	}

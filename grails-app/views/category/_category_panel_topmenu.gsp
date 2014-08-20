@@ -3,7 +3,7 @@
 		<ul class="topmenu-ul">
 			<g:each in="${categorys}" var="category">
 				<li class="topmenu-li ${active?.equals(category.name)? 'active': ''}">
-					<a class="topmenu-topitem" href="?c=${category.name}">${category.name}</a>
+					<a class="topmenu-topitem" href="?c=${category.name}"><g:message code="category.name.i18n.${category.name}" default="${category.name}" /></a>
 					<g:if test="${category.categorys}">
 						<g:render template="/category/category_panel_topmenu_item" model="[categorys: category.categorys]" />
 					</g:if>

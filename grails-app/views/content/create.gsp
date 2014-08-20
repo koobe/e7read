@@ -20,7 +20,7 @@
         </sec:ifNotLoggedIn>
 	</head>
 	<body>
-        <div class="main-container">
+        <div class="main-container" onclick="hideCategoryMenu();">
         	<div class="content-editing-title">
 				<span class="title-text"><g:message code="content.create.title" /></span>
                 <sec:ifNotLoggedIn>
@@ -43,7 +43,7 @@
         	
         	<div class="content-editing-category">
         		<div class="category-cell">
-        			<div class="category-add" onclick="showCategoryMenu()">
+        			<div class="category-add">
 	        			<span class="fa fa-plus" style="font-size:large;"></span>
 	        			內容類別
         			</div>

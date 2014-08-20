@@ -16,9 +16,9 @@ $(function() {
 });
 
 function hideCategoryMenu() {
-	$('.side-menu-float').hide(400);
+	$('.side-menu-float').hide(200);
 }
 
 function showCategoryMenu() {
-	$('.side-menu-float').show(400);
+	$('.side-menu-float').show(300);
 }

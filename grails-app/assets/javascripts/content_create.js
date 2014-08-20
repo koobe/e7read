@@ -111,9 +111,7 @@ function postContent() {
 }
 
 function cancelPost() {
-
     //TODO if nothing edited, skip the confirm step...
-
 	var r = confirm('Discard post?');
 	if (r) {
 		history.back()
@@ -124,26 +122,26 @@ var categoryLimit = 3;
 var categorys = [];
 var currCategorys = 0;
 
-var categoryRemoveAction = function() {
+var categoryRemoveAction = function(e) {
     this.remove();
-    currCategorys--;
+    if (currCategorys > 0) {
+    	currCategorys--;
+    }
     var idx = categorys.indexOf(name);
     categorys.splice(idx, 1);
     console.log('category: ' + categorys);
     controlAddCategoryBtn();
+    e.stopPropagation();
 };
 
 function addCategory(name) {
-	console.log('add category... ' + name);
-	if (categorys.indexOf(name) != -1) {
-		console.log('alreday selected category: ' + name);
-	} else {
-//		hideCategoryMenu();
-		categorys.push(name);
-		$('.category-add').before('<div id="category-' + name + '" class="category-item">' + name + '</div>');
-		$('#category-' + name).click(categoryRemoveAction);
+	if (categorys.indexOf(name) == -1) {
 		currCategorys++;
 		controlAddCategoryBtn();
+		categorys.push(name);
+		var div = '<div id="category-' + name + '" class="category-item">' + name + '</div>';
+		var ele = $(div).click(categoryRemoveAction);
+		$('.category-add').before(ele);
 	}
 	console.log('category: ' + categorys);
 }
@@ -158,16 +156,17 @@ function controlAddCategoryBtn() {
 }
 
 $(function() {
-    //console.log($('.picture-add'));
 
     $('.picture-add').click(function() {
         $('#uploadImageInput').trigger('click');
     });
     $('#uploadImageInput').on('change', prepareFilesAndTriggerSubmit);
 
-    $('.content-editing-textarea').click(function() {hideCategoryMenu();});
-    $('.content-editing-picture').click(function() {hideCategoryMenu();});
-//	$('.content-editing-category').click(function() {hideCategoryMenu();});
-
     $('.category-item').click(categoryRemoveAction);
+    
+    $('.category-add').click(function(e) {
+    	showCategoryMenu();
+    	e.stopPropagation();
+    });
+    
 });

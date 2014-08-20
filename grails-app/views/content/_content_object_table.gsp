@@ -6,7 +6,7 @@
 		<div class="content-cell-body" style="${(lr == 1)? 'padding-left:0px; padding-right:15px;': ''}">
 			<strong><span class="text-uppercase content-title">${content.cropTitle}</span></strong>
 			<div style="border-bottom: 1px solid #94E6DA;"></div>
-			<div class="content-author-block" style="${(lr == 1)? 'text-align: left;': ''}">
+			<div class="content-author-block">
 				<span>
 					<i class="fa fa-user"></i>
 					<a class="content-author-name" data-user="${content.user.id}">${content.user.fullName}</a>
@@ -15,6 +15,7 @@
 				</span>
 			</div>
 			<g:if test="${content.categories}">
+				<div style="height: 1.3em;"></div>
 				<div class="content-category-tags-table text-uppercase">
 					<g:each in="${content.categories}" var="category">
 						<div>

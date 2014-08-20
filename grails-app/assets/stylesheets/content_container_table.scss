@@ -53,6 +53,8 @@
 
 .content-author-block {
 	text-align: right;
+	padding-left: 3px;
+	padding-bottom: 1em;
 	
 	span {
 		color: #333;
@@ -61,10 +63,17 @@
 }
 
 .content-category-tags-table {
-	display:table; padding-top: 1.8em;
+
+	display: inline;
+	/*padding-left: 3px;*/
+	/*padding-top: 1.8em;*/
+	margin: 0;
 	
 	div {
-		display:table-cell;
+		display: inline-block;
+		margin: 0;
+		padding-top:5px;
+		margin-right: -4px;
 		
 		.content-category-name {
 			text-decoration: none;
@@ -82,6 +91,7 @@
 }
 
 .content-text-body {
+	
 	padding-top: 1.8em;
 	color: #333;
 	max-height: 12.6em;

@@ -315,7 +315,8 @@ class ContentController {
 					columnSize = 1
 					def ls = contentList[currIdx..currIdx]
 					render "<div class='row rowmargin'>"
-					render template: "contents_col", model:[content:ls[0], span:12, object_template:'content_object_table']
+					def lr = r.nextInt(2)
+					render template: "contents_col", model:[content:ls[0], span:12, object_template:'content_object_table', lr: lr]
 					render "</div>"
 					currIdx++
 					break
@@ -326,8 +327,14 @@ class ContentController {
 					if (!(columnSize > remainSize)) {
 						def ls = contentList[currIdx..currIdx+1]
 						render "<div class='row rowmargin'>"
-						render template: "contents_col", model:[content:ls[0], span:7, object_template:'content_object_table']
-						render template: "contents_col", model:[content:ls[1], span:5, object_template:'content_object_table']
+						def lr = r.nextInt(2)
+						render template: "contents_col", model:[content:ls[0], span:7, object_template:'content_object_table', lr: lr]
+						if (lr == 1) {
+							lr == 1
+						} else {
+							lr = r.nextInt(2)
+						}
+						render template: "contents_col", model:[content:ls[1], span:5, object_template:'content_object_table', lr: lr]
 						render "</div>"
 						currIdx+= columnSize
 					}
@@ -338,8 +345,14 @@ class ContentController {
 					if (!(columnSize > remainSize)) {
 						def ls = contentList[currIdx..currIdx+1]
 						render "<div class='row rowmargin'>"
-						render template: "contents_col", model:[content:ls[0], span:5, object_template:'content_object_table']
-						render template: "contents_col", model:[content:ls[1], span:7, object_template:'content_object_table']
+						def lr = r.nextInt(2)
+						render template: "contents_col", model:[content:ls[0], span:5, object_template:'content_object_table', lr: lr]
+						if (lr == 1) {
+							lr == 1
+						} else {
+							lr = r.nextInt(2)
+						}
+						render template: "contents_col", model:[content:ls[1], span:7, object_template:'content_object_table', lr: lr]
 						render "</div>"
 						currIdx+= columnSize
 					}
@@ -350,8 +363,14 @@ class ContentController {
 					if (!(columnSize > remainSize)) {
 						def ls = contentList[currIdx..currIdx+1]
 						render "<div class='row rowmargin'>"
-						render template: "contents_col", model:[content:ls[0], span:6, object_template:'content_object_table']
-						render template: "contents_col", model:[content:ls[1], span:6, object_template:'content_object_table']
+						def lr = r.nextInt(2)
+						render template: "contents_col", model:[content:ls[0], span:6, object_template:'content_object_table', lr: lr]
+						if (lr == 1) {
+							lr == 1
+						} else {
+							lr = r.nextInt(2)
+						}
+						render template: "contents_col", model:[content:ls[1], span:6, object_template:'content_object_table', lr: lr]
 						render "</div>"
 						currIdx+= columnSize
 					}

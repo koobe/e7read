@@ -1,20 +1,22 @@
-<div class="hovercontent" onclick="showContent('${it.id}');">
+<div class="hovercontent" onclick="showContent('${content.id}');">
 	<div style="display: table-row;">
-		<div class="content-cell-image" style="background-image:url(${it.coverUrl});"></div>
-		<div class="content-cell-body">
-			<strong><span class="text-uppercase content-title">${it.cropTitle}</span></strong>
+		<g:if test="${lr == 0}">
+			<div class="content-cell-image" style="background-image:url(${content.coverUrl});"></div>
+		</g:if>
+		<div class="content-cell-body" style="${(lr == 1)? 'padding-left:0px; padding-right:15px;': ''}">
+			<strong><span class="text-uppercase content-title">${content.cropTitle}</span></strong>
 			<div style="border-bottom: 1px solid #94E6DA;"></div>
-			<div class="content-author-block">
+			<div class="content-author-block" style="${(lr == 1)? 'text-align: left;': ''}">
 				<span>
 					<i class="fa fa-user"></i>
-					<a class="content-author-name" data-user="${it.user.id}">${it.user.fullName}</a>
+					<a class="content-author-name" data-user="${content.user.id}">${content.user.fullName}</a>
 					&nbsp;<i class="fa fa-clock-o"></i>
-					<g:formatDate date="${it.lastUpdated}" format="MM/dd" />
+					<g:formatDate date="${content.lastUpdated}" format="MM/dd" />
 				</span>
 			</div>
-			<g:if test="${it.categories}">
+			<g:if test="${content.categories}">
 				<div class="content-category-tags-table text-uppercase">
-					<g:each in="${it.categories}" var="category">
+					<g:each in="${content.categories}" var="category">
 						<div>
 							<a class="content-category-name" data-categoryName="${category.name}">
 								<span data-categoryName="${category.name}" class="label">${category.name}</span>&nbsp;
@@ -24,8 +26,11 @@
 				</div>
 			</g:if>
 			<div class="content-text-body">
-				<p>${it.cropText}</p>
+				<p>${content.cropText}</p>
 			</div>
 		</div>
+		<g:if test="${lr == 1}">
+			<div class="content-cell-image" style="background-image:url(${content.coverUrl});"></div>
+		</g:if>
 	</div>
 </div>

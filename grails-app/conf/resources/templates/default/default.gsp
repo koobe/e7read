@@ -8,7 +8,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
     <asset:stylesheet src="default_template.css"/>
 </head>
-<body>
+<body data-linkify="p, .plain-text">
 	<div class="template-container">
 		
 		<div class="margin-blank"></div>
@@ -60,6 +60,7 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
 <asset:javascript src="default_template.js" />
 
 </body>

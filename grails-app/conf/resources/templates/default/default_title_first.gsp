@@ -9,8 +9,8 @@
     <asset:stylesheet src="default_template.css"/>
 
 </head>
-<body>
-	<div class="template-container">
+<body data-linkify="p, .plain-text">
+    <div class="template-container">
 	
 		<div class="title-container border-btm margin-lr-20">
 			<div class="content-title">
@@ -62,6 +62,7 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
 <asset:javascript src="default_template.js" />
 
 </body>

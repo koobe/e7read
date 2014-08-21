@@ -25,7 +25,7 @@
 	<body>
         <div class="main-container">
         	<div class="content-editing-title">
-				<span class="title-text">編輯內容 Post Content</span>
+                <span class="title-text"><g:message code="content.create.title" /></span>
                 <sec:ifNotLoggedIn>
                 	<span class="label label-warning anonymous-tag">匿名模式</span>
                 </sec:ifNotLoggedIn>
@@ -74,10 +74,10 @@
         		<div style="width: 60%">
         		</div>
         		<div style="width: 10%" class="btn-item">
-					<g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" >取消 Cancel</g:link>
+					<g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" ><g:message code="default.button.cancel.label" /></g:link>
         		</div>
         		<div style="width: 30%" class="btn-item">
-					<g:link id="button-post" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent();">更新 Update</g:link>
+					<g:link id="button-post" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent();"><g:message code="default.button.post.label" /></g:link>
 	        	</div>
             </div>
             

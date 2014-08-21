@@ -1,0 +1,33 @@
+.imageview-mask-div {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 799;
+	
+	height: 100%;
+	width: 100%;
+	
+	background-color: rgba(25, 25, 25, 0.6);
+}
+
+.imageview-element-container {
+	display: table;
+	text-align: center;
+    
+    height: 100%;
+	width: 100%;
+}
+
+.imageview-navbar {
+	display: table-cell;
+	height: 50%;
+	width: 6%;
+	height: 100%;
+}
+
+.imageview-image-container {
+	display: table-cell;
+	vertical-align: middle;
+	width: 88%;
+	height: 100%;
+}

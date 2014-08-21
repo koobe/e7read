@@ -65,17 +65,20 @@ function collectAllImageUrl(array, obj, options) {
 }
 
 function adjustImage(imgObj, imgContainer) {
-	
-	if (imgObj.height() > imgObj.width()) {
-		imgContainer.height($(window).height());
-		imgObj.css('height', '100%');
-		imgObj.css('width', 'auto');
-		
-		$(window).unbind('resize').resize(function(){
-			imgContainer.height($(window).height());
-		});
-	} else {
-		imgObj.css('height', 'auto');
-		imgObj.css('width', '100%');
-	}
+	$('<img/>')
+		.attr("src", $(imgObj).attr("src"))
+	    .load(function() {
+	    	if (this.height > this.width) {
+	    		imgContainer.height($(window).height());
+	    		imgObj.css('height', '100%');
+	    		imgObj.css('width', 'auto');
+	    		$(window).unbind('resize').resize(function(){
+	    			imgContainer.height($(window).height());
+	    		});
+	    	} else {
+	    		imgObj.css('height', 'auto');
+	    		imgObj.css('width', '100%');
+	    	}
+	    
+	    });
 }

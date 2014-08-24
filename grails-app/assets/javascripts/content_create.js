@@ -128,7 +128,7 @@ var categoryRemoveAction = function(e) {
     if (currCategorys > 0) {
     	currCategorys--;
     }
-    var idx = categorys.indexOf(name);
+    var idx = categorys.indexOf($(this).text());
     categorys.splice(idx, 1);
     console.log('category: ' + categorys);
     controlAddCategoryBtn();
@@ -165,6 +165,10 @@ $(function() {
     $('#uploadImageInput').on('change', prepareFilesAndTriggerSubmit);
 
     $('.category-item').click(categoryRemoveAction);
+
+    $('.category-item').each(function() {
+        categorys.push($(this).text());
+    });
     
     $('.category-add').click(function(e) {
     	showCategoryMenu();

@@ -586,8 +586,17 @@ class ContentController {
 		def dataIdx = 0
 		def cropSegment
 		def maxLength = 0
-		
-		if (params.contentText) {
+
+        def pendingRemoves = []
+
+        pendingRemoves.addAll contentInstance.textSegments
+        pendingRemoves.each {
+            textSegment ->
+                contentInstance.removeFromTextSegments(textSegment)
+                textSegment.delete flush: true
+        }
+
+        if (params.contentText) {
 			
 			def contentList = params.contentText.trim().split("\n")
 			
@@ -609,7 +618,7 @@ class ContentController {
 			}
 		}
 
-        def pendingRemoves = []
+        pendingRemoves = []
         pendingRemoves.addAll contentInstance.pictureSegments
         pendingRemoves.each {
             PictureSegment pictureSegment ->
@@ -650,7 +659,14 @@ class ContentController {
             }
 
         }
-		
+
+        pendingRemoves = []
+        pendingRemoves.addAll contentInstance.categories
+        pendingRemoves.each {
+            contentInstance.removeFromCategories it
+            //it.delete flush: true
+        }
+
 		// add multi-category
 		def categoryTokens = params.categorysData?.tokenize(",")
 		categoryTokens.each { name ->

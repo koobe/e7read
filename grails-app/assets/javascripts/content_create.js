@@ -181,5 +181,12 @@ $(function() {
         $('.category-add').show();
     }
 
+    $('.picture-block').click(function() {
+        removeImage($(this).data('upload-id'), $(this).data('s3file-id'));
+    });
+
+    $('.picture-block').each(function() {
+        s3fileId.push($(this).data('s3file-id'));
+    });
     
 });

@@ -568,7 +568,7 @@ class ContentController {
 		
 		// new content instance for persistence
 
-        def contentInstance
+        Content contentInstance
 
         if (params.id) {
             contentInstance = Content.get(params.id)
@@ -582,7 +582,7 @@ class ContentController {
             contentInstance.categories = []
         }
 
-		def fullText = ''
+        def fullText = ''
 		def dataIdx = 0
 		def cropSegment
 		def maxLength = 0
@@ -608,7 +608,16 @@ class ContentController {
 				dataIdx++
 			}
 		}
-		
+
+        def pendingRemoves = []
+        pendingRemoves.addAll contentInstance.pictureSegments
+        pendingRemoves.each {
+            PictureSegment pictureSegment ->
+                //pictureSegment.delete flush: true
+                contentInstance.removeFromPictureSegments(pictureSegment)
+                pictureSegment.delete flush: true
+        }
+
 		// Set image files for content
 		def fileidList = params.s3fileId?.tokenize(",");
 		dataIdx = 0

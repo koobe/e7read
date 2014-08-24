@@ -104,7 +104,8 @@ function postContent() {
 			contentText: $('#content-editing-textarea').val()
 		},
 		success:function(data,textStatus){
-            window.location.replace($('meta[name=url2redirect]').attr('content'));
+            //window.location.replace($('meta[name=url2redirect]').attr('content'));
+            console.log(data);
         },
 		error:function(XMLHttpRequest,textStatus,errorThrown){alert('error');}
 	});

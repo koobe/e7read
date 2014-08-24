@@ -160,6 +160,7 @@ $(function() {
     $('.picture-add').click(function() {
         $('#uploadImageInput').trigger('click');
     });
+
     $('#uploadImageInput').on('change', prepareFilesAndTriggerSubmit);
 
     $('.category-item').click(categoryRemoveAction);
@@ -168,5 +169,17 @@ $(function() {
     	showCategoryMenu();
     	e.stopPropagation();
     });
+
+    currCategorys = $('.category-item').size();
+    currItem = $('.picture-block').size();
+
+    if (currItem < imageLimit) {
+        $('.picture-add').show();
+    }
+
+    if (currCategorys < categoryLimit) {
+        $('.category-add').show();
+    }
+
     
 });

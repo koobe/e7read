@@ -13,6 +13,11 @@ $(function() {
 			$(this).find('.dropdown-menu').first().hide(100);
 		}
 	);
+	
+	var is_safari_or_uiwebview = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent);
+	if (is_safari_or_uiwebview) {
+		$('.hidden-xs').hide();
+	}
 });
 
 function hideCategoryMenu() {

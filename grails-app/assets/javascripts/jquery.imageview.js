@@ -76,9 +76,10 @@ function adjustImage(imgObj, imgContainer) {
 	    			imgContainer.height($(window).height());
 	    		});
 	    	} else {
+	    		imgContainer.height($(window).height());
 	    		imgObj.css('height', 'auto');
-	    		imgObj.css('width', '100%');
+	    		imgObj.css('max-width', '100%');
+	    		imgObj.css('max-height', '100%');
 	    	}
-	    
 	    });
 }

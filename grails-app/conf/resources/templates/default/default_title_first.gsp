@@ -7,7 +7,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
     <asset:stylesheet src="default_template.css"/>
-
+	
 </head>
 <body data-linkify="p, .plain-text">
     <div class="template-container">
@@ -31,7 +31,7 @@
 	    <div class="main-gallery">
 	        <div class="table-row">
 	            <g:each in="${content.pictureSegments}">
-	                <div class="table-col" style="background-image:url(${it.originalUrl});"></div>
+	                <div class="table-col" style="background-image:url(${it.originalUrl});" data-imageurl="${it.originalUrl}"></div>
 	            </g:each>
 	        </div>
 	    </div>
@@ -65,5 +65,14 @@
 <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
 <asset:javascript src="default_template.js" />
 
+<asset:stylesheet src="imageview.css"/>
+<asset:javascript src="jquery.imageview.js"/>
+<script type="text/javascript">
+ $(function() {
+ 	$('.main-gallery').imageview({
+		attrOfUrl: 'data-imageurl'
+	  });
+	 });
+</script>
 </body>
 </html>

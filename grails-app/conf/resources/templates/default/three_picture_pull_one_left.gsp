@@ -16,15 +16,15 @@
             <table class="picture-rtable">
                 <tr>
                   <td rowspan="2">
-                    <div class="picture-native" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
+                    <div class="picture-native" style="background-image:url(${content.pictureSegments[0]?.originalUrl});" data-imageurl="${content.pictureSegments[0]?.originalUrl}"></div>
                   </td>
                   <td>
-                    <div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
+                    <div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.originalUrl});" data-imageurl="${content.pictureSegments[1]?.originalUrl}"></div>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
+                    <div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.originalUrl});" data-imageurl="${content.pictureSegments[2]?.originalUrl}"></div>
                   </td>
                 </tr>
             </table>
@@ -72,5 +72,14 @@
     <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
     <asset:javascript src="default_template.js" />
 
+<asset:stylesheet src="imageview.css"/>
+<asset:javascript src="jquery.imageview.js"/>
+<script type="text/javascript">
+ $(function() {
+ 	$('.pictures-container').imageview({
+		attrOfUrl: 'data-imageurl'
+	  });
+	 });
+</script>
 </body>
 </html>

@@ -77,6 +77,7 @@
       margin: 0 0 10px 0;
       padding: 0 0 5px 0;
       border-bottom: 1px solid #94E6DA;
+      word-break: break-all;
     }
     .element-date {
       font-size: 10px;
@@ -90,6 +91,7 @@
     .element-text {
       /*font-size: 11px;*/
       padding: 5px;
+      word-break: break-all;
     }
     .element-text:hover {
       background: #eeeeee;

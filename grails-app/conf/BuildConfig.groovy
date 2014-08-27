@@ -66,6 +66,8 @@ grails.project.dependency.resolution = {
 
         // jsoup
         runtime 'org.jsoup:jsoup:1.7.3'
+		
+		// compile 'com.microsoft.sqlserver:sqljdbc4:4.0'
     }
 
     plugins {
@@ -113,5 +115,8 @@ grails.project.dependency.resolution = {
 
         compile ":elasticsearch:0.0.3.1"
         //compile ":searchable:0.6.8"
+		
+		// markdown plugin
+		compile ":markdown:1.1.1"
     }
 }

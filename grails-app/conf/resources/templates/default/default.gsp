@@ -40,7 +40,7 @@
 	    <div class="text-container padding-lr">
 	        <div>
 	        	<g:each in="${content.textSegments}" var="segment">
-	                <p style="text-align:justify;">${segment.text}</p>
+	                <markdown:renderHtml>${segment.text}</markdown:renderHtml>
 	            </g:each>
 	        </div>
 	    </div>

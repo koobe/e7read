@@ -46,6 +46,9 @@
 	function triggerAjaxForData() {
 		if (!onCall) {
 			onCall = true;
+
+            $('.copyright-text').text($('.copyright-text').data('text-onload'));
+
 			
 			page = page + 1;
 			var offset = (page * max) - max;	
@@ -70,6 +73,8 @@
 				url:'/content/renderContentsHTML',
 				success:function(data,textStatus){
 					onSuccessAndAppendHTMLToContentContainer(data);
+
+                    $('.copyright-text').text($('.copyright-text').data('text-original'));
 				},
 				error:function(XMLHttpRequest,textStatus,errorThrown){}
 			});

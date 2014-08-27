@@ -16,7 +16,7 @@ class UrlMappings {
 
         "/e/$hash" {
             controller = 'content'
-            action = 'modify'
+            action = 'modifyByHash'
         }
 	}
 }

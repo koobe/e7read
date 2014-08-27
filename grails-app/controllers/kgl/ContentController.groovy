@@ -153,14 +153,20 @@ class ContentController {
         ]
     }
 
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def modifyByHash(String hash) {
+        def content = Content.findByEditableHashcode(hash)
+
+        redirect action: 'modify', id: content.id
+    }
+
     /**
      * Content re-editing, both for anonymous and registered user.
      *
      * @param id
      */
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-    def modify(String hash) {
-        def content = Content.findByEditableHashcode(hash)
+    def modify(Content content) {
 
         if (!content) {
             redirect uri: '/'

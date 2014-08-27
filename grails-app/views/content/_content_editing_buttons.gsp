@@ -19,7 +19,7 @@
 </g:link>
 
 <g:if env="development">
-    <g:link class="koobe-btn koobe-btn-normal" title="Edit" controller="content" action="edit" id="${it.id}">
+    <g:link class="koobe-btn koobe-btn-normal" title="Edit" controller="content" action="modify" id="${it.id}">
         <span class="fa fa-pencil-square-o"></span>
     </g:link>
 </g:if>

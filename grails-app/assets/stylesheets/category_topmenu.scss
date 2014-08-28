@@ -1,15 +1,24 @@
+#category_panel {
+	padding:0;
+	margin:0;
+}
+
 .topmenu-bar {
-	display: table;
+	display: inline;
 	width: 100%;
 	
 	div {
-		display: table-cell;
-		text-align: right;
+		display: inline-block;
+		text-align: left;
 		vertical-align: middle;
 	}
 	
 	.open-sidemenu-btn {
 		padding-right: 10px;
+	}
+	
+	.sidemenu-btn-img {
+		width: 27px; height: 30px;
 	}
 }
 
@@ -41,8 +50,7 @@
  
 .topmenu-li .topmenu-topitem {
 	text-decoration: none;
-	color: #FFF;
-	font: 17px/1 Helvetica, Verdana, sans-serif;
+	color: #4D4D4D;
 	text-transform: uppercase;
 
 	-webkit-transition: all 0.5s ease;
@@ -50,10 +58,9 @@
 	-o-transition: all 0.5s ease;
 	-ms-transition: all 0.5s ease;
 	transition: all 0.5s ease;
-
-
-    text-shadow: 0px 0px 1px #AAAAAA;
-    font-weight: 600;
+	
+	font-size: 1.2em;
+    font-weight: 700;
 }
  
 .topmenu-li a:hover {

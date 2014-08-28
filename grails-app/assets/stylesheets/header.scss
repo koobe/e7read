@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Fascinate);
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1010px) {
 
 	.koobe-header {
 		display: table;
@@ -12,17 +12,22 @@
 		padding-left: 40px;
 		padding-right: 0px;
 		
-		/* border: #0000FF 1px solid; */
-		
 		.header-logo {
 			display: table-cell;
+			width: 10px;
+		}
+		
+		.header-cate-menu {
+			display: table-cell;
+			vertical-align: bottom;
+			width: auto;
 		}
 		
 		.header-search {
 			display: table-cell;
 			vertical-align: middle;
 			text-align: right;
-			width:20%;
+			width:15%;
 			
 			form {
 				input {
@@ -41,7 +46,9 @@
 	}
 }
 
-@media screen and (max-width: 767px) {
+
+
+@media screen and (max-width: 1009px) {
 
 	.koobe-header {
 		
@@ -50,6 +57,11 @@
 		margin-bottom: 15px;
 		padding-left: 22px;
 		padding-right: 0px;
+		
+		.header-cate-menu {
+			margin-left: -21px;
+			width: 100%;
+		}
 				
 		.header-search {
 			text-align: right;

@@ -7,6 +7,11 @@
 			<g:img uri="/assets/e7logo.png" height="33px" />
 		</g:link>
 	</div>
+	<g:if test="${showcategorymenu}">
+		<div class="header-cate-menu">
+			<g:render template="/category/category_panel" />
+		</div>
+	</g:if>
 	<div class="header-search">
 		
         <g:form uri="" role="search" class="" method="get">

@@ -44,8 +44,8 @@
         	<div class="content-editing-category">
         		<div class="category-cell">
         			<div class="category-add">
-	        			<span class="fa fa-plus" style="font-size:large;"></span>
-	        			內容類別
+	        			<span class="fa fa-tags" style="font-size:large;"></span>
+	        			類別
         			</div>
         		</div>
         	</div>

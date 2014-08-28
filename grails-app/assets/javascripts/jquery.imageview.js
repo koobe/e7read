@@ -72,14 +72,14 @@ function adjustImage(imgObj, imgContainer) {
 	    		imgContainer.height($(window).height());
 	    		imgObj.css('height', '100%');
 	    		imgObj.css('width', 'auto');
-	    		$(window).unbind('resize').resize(function(){
-	    			imgContainer.height($(window).height());
-	    		});
 	    	} else {
 	    		imgContainer.height($(window).height());
 	    		imgObj.css('height', 'auto');
 	    		imgObj.css('max-width', '100%');
 	    		imgObj.css('max-height', '100%');
 	    	}
+	    	$(window).unbind('resize').resize(function(){
+    			imgContainer.height($(window).height());
+    		});
 	    });
 }

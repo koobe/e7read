@@ -11,9 +11,12 @@ class Category {
 	]
 	
     String name
+	
+	Integer rankOnTop
 
     static constraints = {
         name size: 2..15, blank: false, unique: true
+		rankOnTop nullable: true
     }
 	
 	static mapping = {

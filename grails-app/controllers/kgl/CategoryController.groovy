@@ -120,4 +120,18 @@ class CategoryController {
 		def categoryList = Category.findAllByCategory(null)
 		render template: "category_panel_sidemenu", model:[categorys: categoryList, active: params.c, showpanel: params.p, btnaction: params.btnaction]
 	}
+	
+	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+	def addUIComponentCategoriesRankOnTop() {
+//		def hql = 'select Category from Category c where rankOnTop is not null order by rankOnTop'
+//		def categoryList = Category.executeQuery(hql)
+		
+		def criteria = Category.createCriteria()
+		def categoryList = criteria.list () {
+			isNotNull 'rankOnTop'
+			order 'rankOnTop', 'asc'
+		}
+		
+		render template: "category_panel_rankontop", model:[categories: categoryList, active: params.c]
+	}
 }

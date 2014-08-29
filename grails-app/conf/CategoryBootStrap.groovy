@@ -1,6 +1,11 @@
 import groovy.json.JsonSlurper
 import kgl.*
 
+/**
+ * 
+ * @author Cloude
+ *
+ */
 class CategoryBootStrap {
 
     def init = { servletContext ->
@@ -23,16 +28,18 @@ class CategoryBootStrap {
 						]},
 						{ "name" : "political", "child" : [] },
 						{ "name" : "life", "child" : [] },
-						{ "name" : "business", "child" : [] }
+						{ "name" : "business", "child" : [], "rankOnTop" : 4 }
 					]
 				},
 				{
 					"name" : "tech",
-					"child" : []
+					"child" : [],
+					"rankOnTop" : 3
 				},
 				{
 					"name" : "travel",
-					"child" : []
+					"child" : [],
+					"rankOnTop" : 1
 				},
 				{
 					"name" : "sport",
@@ -44,7 +51,16 @@ class CategoryBootStrap {
 						{ "name" : "science", "child" : [] },
 						{ "name" : "tech-", "child" : [] },
 						{ "name" : "health", "child" : [] }
-					]
+					],
+					"rankOnTop" : 2
+				},
+				{
+					"name" : "radio",
+					"child" : []
+				},
+				{
+					"name" : "learning",
+					"child" : []
 				}
 
 			]
@@ -56,7 +72,15 @@ class CategoryBootStrap {
 				childList.each { node ->
 					//save data
 					log.info 'Create category, parent: ' + parent + "; category-name: " + node.name
-					Category category = new Category(name: node.name);
+					
+					def category = Category.findByName(node.name)
+					if (!category) {
+						category = new Category(name: node.name);
+					}
+					
+					if (node.rankOnTop) {
+						category.rankOnTop = node.rankOnTop
+					}
 					if (parent) {
 						def parentCategory = Category.findByName(parent)
 						category.category = parentCategory;
@@ -74,6 +98,4 @@ class CategoryBootStrap {
 	
     def destroy = {
     }
-	
-	
 }

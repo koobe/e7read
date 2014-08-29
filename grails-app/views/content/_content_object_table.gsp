@@ -15,7 +15,7 @@
 				</span>
 			</div>
 			<g:if test="${content.categories}">
-				<div style="height: 1.3em;"></div>
+				<div style="height: 0.5em;"></div>
 				<div class="content-category-tags-table text-uppercase">
 					<g:each in="${content.categories}" var="category">
 						<div>

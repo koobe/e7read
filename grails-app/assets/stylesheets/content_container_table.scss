@@ -69,14 +69,14 @@
 	div {
 		display: inline-block;
 		margin: 0;
-		padding-top:5px;
+		padding-top: 5px;
 		margin-right: -4px;
 		
 		.content-category-name {
 			text-decoration: none;
 			
 			span {
-				padding: 4px 4px 3px 4px;
+				padding: 3px 4px 2px 4px;
 				background-color: #94E6DA;
 				letter-spacing: 1px;
 			}
@@ -89,7 +89,7 @@
 
 .content-text-body {
 	
-	padding-top: 1.8em;
+	padding-top: 0.8em;
 	color: #333;
 	max-height: 12.6em;
 	min-height: 12.6em;

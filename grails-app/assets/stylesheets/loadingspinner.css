@@ -1,0 +1,36 @@
+.loading-spinner-maindiv {
+	
+	display: table;
+	
+	position: fixed;
+	bottom: 20px;
+	left: 50%;
+	
+	height: auto;
+	width: auto;
+	
+	background-color: rgba(1,1,1,0.3);
+	border-radius: 1em;
+	padding: 5px 20px 5px 20px;
+}
+
+.loading-spinner-imgdiv {
+	display: table-cell;
+}
+
+.loading-spinner-img {
+	width: 16px;
+	height: 16px;
+}
+
+.loading-spinner-messagediv {
+	display: table-cell;
+	padding-left: 15px;
+}
+
+.loading-spinner-messagespan {
+	text-transform: uppercase;
+	color: #fff;
+	letter-spacing: 1px;
+	font-weight: 700;
+}

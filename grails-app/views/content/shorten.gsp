@@ -30,6 +30,8 @@
     <br/><br/>
 
     <g:link uri="/#content-${contentId}" class="btn btn-default">View Content</g:link>
+
+    <g:link uri="/" class="btn btn-default">Home</g:link>
 </div>
 
 <script type="text/javascript">

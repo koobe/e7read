@@ -18,11 +18,9 @@
     <span class="fa fa-link"></span>
 </g:link>
 
-<g:if env="development">
-    <g:link class="koobe-btn koobe-btn-normal" title="Edit" controller="content" action="modify" id="${it.id}">
-        <span class="fa fa-pencil-square-o"></span>
-    </g:link>
-</g:if>
+<g:link class="koobe-btn koobe-btn-normal" title="Edit" controller="content" action="modify" id="${it.id}">
+    <span class="fa fa-pencil-square-o"></span>
+</g:link>
 
 <g:link class="koobe-btn koobe-btn-normal" title="Delete" uri="javascript: deleteContent('${it.id}');">
 	<span class="fa fa-times"></span>

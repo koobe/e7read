@@ -1,4 +1,4 @@
-<div class="topmenu-bar hidden-xs">
+<div class="topmenu-bar">
 	<div class="">
 		<ul class="topmenu-ul">
 			<g:each in="${categorys}" var="category">
@@ -11,12 +11,12 @@
 			</g:each>
 		</ul>
 	</div>
+	
 	<div>
 		<a href="javascript: showCategoryMenu();">
 			<g:img class="sidemenu-btn-img" uri="/assets/arrow.png"/>
 		</a>
-	</div>
-	<!-- 
+	</div><!-- 
 	<div class="open-sidemenu-btn">
 		<g:link class="koobe-btn koobe-btn-normal" uri="javascript: showCategoryMenu();">
 			<i class="fa fa-sitemap"></i>

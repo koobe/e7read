@@ -1,4 +1,6 @@
 
+var s = $.spinner();
+
 	$(document).ready(function() {
 		if (($(window).height() - $("#contents_container").height()) >= 0) {
 			triggerAjaxForData();
@@ -45,6 +47,9 @@
 
 	function triggerAjaxForData() {
 		if (!onCall) {
+			
+			s.loading();
+			
 			onCall = true;
 
             $('.copyright-text').text($('.copyright-text').data('text-onload'));
@@ -91,6 +96,8 @@
 			$('.content-author-name').unbind('click').click(onAuthorClick);
 			$('.content-category-name').unbind('click').click(onCategoryTagClick);
 		}
+		
+		s.done();
 	}
 	
 	var onAuthorClick = function(event) {

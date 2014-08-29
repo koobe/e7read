@@ -2,6 +2,8 @@
 	<head>
 	    <meta name="layout" content="main"/>
 	    <title></title>
+	    <asset:javascript src="jquery.loadingspinner.js"/>
+		<asset:stylesheet src="loadingspinner.css"/>
 	</head>
 	<body>
 		<div id="display-container" onclick="hideCategoryMenu()"><div class="content-pane">

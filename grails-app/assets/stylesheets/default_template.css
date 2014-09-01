@@ -10,6 +10,39 @@ body {
     word-break: break-all;
 }
 
+ul.content-categories {
+    list-style: none;
+    margin: 0;
+    margin-top: 5px;
+    padding: 0;
+}
+
+ul.content-categories li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+    float: left;
+}
+
+ul.content-categories li a.content-category {
+    background-color: #94E6DA;
+    color: #FFFFFF;
+    font-size: 13px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+ul.content-categories li .category-name {
+    text-transform: uppercase;
+}
+
+ul.content-categories li a.content-category:hover {
+    text-decoration: none;
+}
+
+
 h1 {
     font-weight: 700;
    	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
@@ -85,6 +118,7 @@ tr, td {
 }
 
 .margin-blank {
+    clear: both;
 	height: 20px;
 }
 

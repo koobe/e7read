@@ -4,6 +4,7 @@ import grails.transaction.Transactional
 import grails.util.Environment
 import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
 import java.util.regex.Pattern
 
@@ -11,6 +12,7 @@ import java.util.regex.Pattern
 class TemplateService {
 
     def grailsApplication
+    def grailsLinkGenerator
 
     GroovyPagesTemplateEngine groovyPagesTemplateEngine
 
@@ -80,6 +82,8 @@ class TemplateService {
             doc.select("body").append(renderContact(content));
         }
 
+        appendMetadata(doc, content, template);
+
         return doc.html()
     }
 
@@ -92,6 +96,8 @@ class TemplateService {
 //            textSegment << it
 //        }
 
+        def shareUrl = grailsLinkGenerator.link(controller: 'content', action: 'share', id: content.id, absolute: true)
+
         def writer = new StringWriter()
 
         // TODO clear cache not a good design
@@ -99,7 +105,7 @@ class TemplateService {
 //        groovyPagesTemplateEngine.clearPageCache()
         //new GroovyPagesTemplateEngine()
         groovyPagesTemplateEngine
-                .createTemplate(template?.html, "template-" + template?.name)?.make([content: content])?.writeTo(writer)
+                .createTemplate(template?.html, "template-" + template?.name)?.make([content: content, shareUrl: shareUrl])?.writeTo(writer)
 
         // TODO provide render contact card expression support in GSP ?
 
@@ -109,7 +115,14 @@ class TemplateService {
             doc.select("div.template-container").append(renderContact(content));
         }
 
+        appendMetadata(doc, content, template);
+
         return doc.html()
+    }
+
+    private String appendMetadata(Document doc, Content content, OriginalTemplate template) {
+        doc.select('head').append("<meta name=\"kgl:template_grouping\" content=\"${template.grouping}\" />");
+        doc.select('head').append("<meta name=\"kgl:template_name\" content=\"${template.name}\" />");
     }
 
     private String renderContact(Content content) {

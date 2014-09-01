@@ -149,11 +149,11 @@ class TemplateController {
     def reloadAllDefaultTemplates() {
         templateService.loadBuiltIn()
 
-        redirect(action: 'editor')
+        redirect action: 'clearCache'
     }
 	
 	def clearCache() {
 		groovyPagesTemplateEngine.clearPageCache()
-		render "OK"
+        redirect action: 'editor'
 	}
 }

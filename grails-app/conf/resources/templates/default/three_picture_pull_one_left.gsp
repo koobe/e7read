@@ -44,6 +44,23 @@
             </div>
         </div>
 
+        <div class="margin-lr-20">
+            <g:if test="${content.categories}">
+                <ul class="content-categories">
+                    <g:each in="${content.categories}" var="category">
+                        <li>
+                            <a class="content-category" href="#" data-category-name="${category.name}">
+                                <span class="category-name">${category.name}</span>
+                            </a>
+                        </li>
+                    </g:each>
+                </ul>
+            </g:if>
+            <div class="pull-right">
+                <fb:share href="${shareUrl}" />
+            </div>
+        </div>
+
         <div class="margin-blank"></div>
 
         <div class="text-container padding-lr">

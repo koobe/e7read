@@ -1,7 +1,7 @@
 <div class="hovercontent" onclick="showContent('${content.id}');">
 	<div style="display: table-row;">
 		<g:if test="${lr == 0}">
-			<div class="content-cell-image" style="background-image:url(${content.coverUrl});"></div>
+			<div class="content-cell-image" style="background-image:url(${content.coverUrl});" data-imageurl="${content.coverUrl}"></div>
 		</g:if>
 		<div class="content-cell-body" style="${(lr == 1)? 'padding-left:0px; padding-right:15px;': ''}">
 			<strong><span class="text-uppercase content-title">${content.cropTitle}</span></strong>
@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<g:if test="${lr == 1}">
-			<div class="content-cell-image" style="background-image:url(${content.coverUrl});"></div>
+			<div class="content-cell-image" style="background-image:url(${content.coverUrl});" data-imageurl="${content.coverUrl}"></div>
 		</g:if>
 	</div>
 </div>

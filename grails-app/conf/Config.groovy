@@ -179,6 +179,7 @@ oauth {
 }
 
 grails.facebook.api.url = "https://graph.facebook.com/me"
+grails.facebook.app.id = '644198322329865'
 
 grails.plugins.twitterbootstrap.fixtaglib = true
 

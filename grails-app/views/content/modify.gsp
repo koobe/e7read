@@ -41,7 +41,7 @@
 
                     <g:each in="${contentInstance.pictureSegments}" var="pictureSegment">
                         <g:set var="uploadId" value="ajax-upload-display-${new java.util.Date().time}" />
-                        <div id="${uploadId}" class="picture-block" style="background-image: url(${pictureSegment.s3File.url})" data-upload-id="${uploadId}" data-s3file-id="${pictureSegment.s3File.id}"></div>
+                        <div id="${uploadId}" class="picture-block" style="background-image: url(${pictureSegment.s3File?.url})" data-upload-id="${uploadId}" data-s3file-id="${pictureSegment.s3File?.id}"></div>
                     </g:each>
 
         			<div class="picture-add" style="display: none">

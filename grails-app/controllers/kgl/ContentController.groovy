@@ -135,6 +135,17 @@ class ContentController {
 //        }
     }
 
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def share(Content contentInstance) {
+
+        if (!contentInstance) {
+            redirect uri: '/'
+            return
+        }
+
+        respond contentInstance
+    }
+
     def edit(Content contentInstance) {
 
         def template = OriginalTemplate.get(params.template?.id)

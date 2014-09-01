@@ -18,5 +18,10 @@ class UrlMappings {
             controller = 'content'
             action = 'modifyByHash'
         }
+
+        "/share/$id" {
+            controller = 'content'
+            action = 'share'
+        }
 	}
 }

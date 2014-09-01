@@ -117,7 +117,13 @@ class CategoryController {
 	
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def addCategoryPanel() {
-		def categoryList = Category.findAllByCategory(null)
+		def criteria = Category.createCriteria()
+		def categoryList = criteria.list () {
+			eq 'enable', true
+			isNull 'category'
+			order 'order', 'asc'
+		}
+		
 		render template: "category_panel_sidemenu", model:[categorys: categoryList, active: params.c, showpanel: params.p, btnaction: params.btnaction]
 	}
 	
@@ -129,6 +135,7 @@ class CategoryController {
 		def criteria = Category.createCriteria()
 		def categoryList = criteria.list () {
 			isNotNull 'rankOnTop'
+			eq 'enable', true
 			order 'rankOnTop', 'asc'
 		}
 		

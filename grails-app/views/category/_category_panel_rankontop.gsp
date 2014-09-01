@@ -1,7 +1,9 @@
 <div class="ontop_category_table">
 	<g:each in="${categories}" var="category">
 		<div class="ontop_category_item">
-			<a href="?c=${category.name}">${category.name}</a>
+			<a href="?c=${category.name}">
+				<g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+			</a>
 		</div>
 	</g:each>
 	<div class="ontop_category_btn">

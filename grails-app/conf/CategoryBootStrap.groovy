@@ -16,53 +16,50 @@ class CategoryBootStrap {
 		{
 			"category": [
 				{
-					"name" : "news",
-					"child" : [
-						{ "name" : "world", "child" : [
-							{ "name" : "asia", "child" : [
-								{ "name" : "china", "child" : [] },
-								{ "name" : "japan", "child" : [] },
-								{ "name" : "taiwan", "child" : [] }
-							] },
-							{ "name" : "us", "child" : [] }
-						]},
-						{ "name" : "political", "child" : [] },
-						{ "name" : "life", "child" : [] },
-						{ "name" : "business", "child" : [], "rankOnTop" : 4 }
-					]
+					"name" : "life",
+					"child" : [],
+					"rankOnTop" : 1,
+					"enable": true,
+					"order": 1
 				},
 				{
 					"name" : "tech",
 					"child" : [],
-					"rankOnTop" : 3
+					"rankOnTop" : 2,
+					"enable": true,
+					"order": 2
 				},
 				{
-					"name" : "travel",
+					"name" : "entertainment",
 					"child" : [],
-					"rankOnTop" : 1
+					"rankOnTop" : 3,
+					"enable": true,
+					"order": 3
 				},
 				{
-					"name" : "sport",
-					"child" : []
+					"name" : "opinion",
+					"child" : [],
+					"enable": true,
+					"order": 4
 				},
 				{
-					"name" : "future",
-					"child" : [
-						{ "name" : "science", "child" : [] },
-						{ "name" : "tech-", "child" : [] },
-						{ "name" : "health", "child" : [] }
-					],
-					"rankOnTop" : 2
+					"name" : "industry",
+					"child" : [],
+					"enable": true,
+					"order": 5
 				},
 				{
-					"name" : "radio",
-					"child" : []
+					"name" : "report",
+					"child" : [],
+					"enable": true,
+					"order": 6
 				},
 				{
-					"name" : "learning",
-					"child" : []
+					"name" : "share",
+					"child" : [],
+					"enable": true,
+					"order": 7
 				}
-
 			]
 		}
 		"""
@@ -80,6 +77,12 @@ class CategoryBootStrap {
 					
 					if (node.rankOnTop) {
 						category.rankOnTop = node.rankOnTop
+					}
+					if (node.enable) {
+						category.enable = node.enable
+					}
+					if (node.order) {
+						category.order = node.order
 					}
 					if (parent) {
 						def parentCategory = Category.findByName(parent)

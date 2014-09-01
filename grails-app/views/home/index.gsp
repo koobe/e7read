@@ -14,6 +14,8 @@
 		
 		<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home']" />
 		
+		<g:render template="/category/category_status_panel" />
+		
 		<a href="javascript: scrollDisplayContainerToTop();" class="koobe-btn koobe-btn-normal top-btn-pos">
 			<i class="fa fa-caret-up"></i>
 		</a>

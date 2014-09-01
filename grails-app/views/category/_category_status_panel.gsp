@@ -5,7 +5,8 @@
 	<div class="category-status-panel">
 		<div>
 			<a href="/">
-				<span class="category-status-logo">E7READ.com,</span>
+				<!-- <span class="category-status-logo">E7READ.com,</span>  -->
+				<img src="/assets/trans_logo.png" class="category-status-logo">
 			</a>
 		</div>
 		<div class="category-status-indicator">
@@ -15,7 +16,7 @@
 		
 		<div>
 			<a href="javascript: showCategoryMenu();">
-				<img src="/assets/arrow.png" class="category-status-catebtn">
+				<img src="/assets/white_arrow.png" class="category-status-catebtn">
 			</a>
 		</div>
 	</div>

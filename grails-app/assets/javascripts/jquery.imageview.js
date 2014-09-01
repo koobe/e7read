@@ -4,21 +4,35 @@
 
 (function($) {
 	
-	var settings;
-	var array = [];
-	var arrayLength;
-	
 	$.fn.imageview = function(options) {
-		console.log(options);
-		settings = options;
-		collectAllImageUrl(this);
-		arrayLength = array.length;
-		console.log(array + ', length=' + arrayLength);
+		var settings = options;
+		var array = [];
+		collectAllImageUrl(this, array, settings);
+//		console.log(array);
 	}
 	
-	var clickDomHandler = function(e) {
-		var ele = $(e.target);
-		var currUrl = ele.attr(settings.attrOfUrl);
+	function collectAllImageUrl(obj, array, settings) {
+		var obj = $(obj);
+		var imageUrl = obj.attr(settings.attrOfUrl);
+		if (imageUrl != undefined) {
+			array.push(imageUrl);
+			obj.css('cursor', 'pointer');
+			obj.click(function(e) {
+				var obj = (e.target);
+				clickImageHandler(obj, array, settings);
+				e.stopPropagation();
+			});
+		}
+		for (var i=0; i<obj.children().length; i++) {
+			var ele = $(obj.children()[i]);
+			collectAllImageUrl(obj.children()[i], array, settings);
+		}
+	}
+	
+	function clickImageHandler(obj, array, settings) {
+		
+		obj = $(obj);
+		var currUrl = obj.attr(settings.attrOfUrl);
 		var currUrlIdx = array.indexOf(currUrl);
 		
 		var imageMaskDiv = $('<div class="imageview-mask-div"></div>');
@@ -44,11 +58,11 @@
 		});
 		
 		imgObj.click(function(e){
-			if (arrayLength == 1) {
+			if (array.length == 1) {
 				imageMaskDiv.remove();
 			} else {
 				currUrlIdx++;
-				if (currUrlIdx > (arrayLength-1)) {
+				if (currUrlIdx > (array.length-1)) {
 					currUrlIdx = 0;
 				}
 				var nextUrl = array[currUrlIdx];
@@ -58,22 +72,8 @@
 			}
 			e.stopPropagation();
 		});
-		e.stopPropagation();
+		
 	};
-	
-	function collectAllImageUrl(obj) {
-		var obj = $(obj);
-		var imageUrl = obj.attr(settings.attrOfUrl);
-		if (imageUrl != undefined) {
-			array.push(imageUrl);
-			obj.css('cursor', 'pointer');
-			obj.click(clickDomHandler);
-		}
-		for (var i=0; i<obj.children().length; i++) {
-			var ele = $(obj.children()[i]);
-			collectAllImageUrl(obj.children()[i]);
-		}
-	}
 	
 	function adjustImage(imgObj, imgContainer) {
 		$('<img/>')

@@ -32,11 +32,15 @@ body {
 	background-color: #F8F8F8;
 	/*font-size: 20px;
 	font-weight: bold;*/
-	color: #787878;
+	color: #FFF;
 	vertical-align: middle;
 	
 	font-weight: 700;
 	font-size: 1.4em;
+	
+	display: table;
+	
+	margin: 0 auto;
 	
 	.title-text {
 		vertical-align: middle;
@@ -45,6 +49,9 @@ body {
 	.anonymous-tag {
 		padding: 4px 4px 3px 4px;
 		vertical-align: middle;
+		color: #777;
+		font-size: 0.9em;
+		padding-left: 10px;
 	}
 }
 

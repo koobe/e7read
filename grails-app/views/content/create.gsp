@@ -20,12 +20,17 @@
         </sec:ifNotLoggedIn>
 	</head>
 	<body>
-        <div class="main-container" onclick="hideCategoryMenu();">
-        	<div class="content-editing-title">
-				<span class="title-text"><g:message code="content.create.title" /></span>
-                <sec:ifNotLoggedIn>
-                	<span class="label label-warning anonymous-tag">匿名模式</span>
-                </sec:ifNotLoggedIn>
+        <div class="main-container" onclick="hideCategoryMenu();" style="text-align: center;">
+        	<div style="text-align: center;">
+	        	<div class="content-editing-title">
+	        		<div style="display:table-cell; background-color: #89E2D5; height: 30px; padding: 0px 20px 0px 10px;">
+						<span class="title-text"><g:message code="content.create.title" /></span>
+					</div>
+					<img src="/assets/arrow_30.png" class="">
+	                <sec:ifNotLoggedIn>
+	                	<span class="anonymous-tag">匿名模式</span>
+	                </sec:ifNotLoggedIn>
+	            </div>
             </div>
         	<!-- 
         	<div id="content-editing-textarea" class="content-editing-textarea form-control" placeholder="Write something here..." contenteditable="true"></div>
@@ -44,7 +49,7 @@
         	<div class="content-editing-category">
         		<div class="category-cell">
         			<div class="category-add">
-	        			<span class="fa fa-tags" style="font-size:large;"></span>
+	        			<span class="fa fa-bookmark" style="font-size:large;"></span>
 	        			類別
         			</div>
         		</div>

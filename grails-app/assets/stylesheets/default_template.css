@@ -32,15 +32,19 @@ ul.content-categories li a.content-category {
     padding: 5px 10px;
     margin-right: 5px;
     border-radius: 3px;
+    text-shadow: 1px 1px 1px #AAAAAA;
+}
+
+ul.content-categories li a.content-category:hover {
+    text-decoration: none;
+    background-color: #AAAAAA;
+    text-shadow: 1px 1px 1px #333333;
 }
 
 ul.content-categories li .category-name {
     text-transform: uppercase;
 }
 
-ul.content-categories li a.content-category:hover {
-    text-decoration: none;
-}
 
 
 h1 {

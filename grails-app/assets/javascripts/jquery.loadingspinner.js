@@ -4,7 +4,7 @@
 
 (function($) {
 	
-	var default_msg = "now loading...";
+	var default_msg = "load more...";
 	var maindiv = $('<div/>').addClass('loading-spinner-maindiv');
 	var imgdiv = $('<div><i class="fa fa-spinner fa-spin"></i></div>').addClass('loading-spinner-imgdiv');
 	var messagediv = $('<div/>').addClass('loading-spinner-messagediv');

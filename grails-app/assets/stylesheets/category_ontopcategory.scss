@@ -49,12 +49,22 @@
 		font-size: 1.1em;
 		font-weight: 700;
 	}
+	
+	.ontop_category_item_active {
+		/*font-size: 1.2em !important;*/
+		text-decoration: underline !important;
+	}
 }
 
 @media screen and (max-width: 768px) {
 	.ontop_category_item {
 		letter-spacing: 0px;
-		font-size: 0.9em;
+		font-size: 1em;
 		font-weight: 700;
+	}
+	
+	.ontop_category_item_active {
+		/*font-size: 1.1em !important;*/
+		text-decoration: underline !important;
 	}
 }

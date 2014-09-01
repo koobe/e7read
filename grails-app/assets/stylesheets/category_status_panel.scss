@@ -1,0 +1,43 @@
+.category-status-panel {
+	position: fixed;
+	top: 2px;
+	left: 2px;
+	z-index: 20;
+	
+	height: 33px;
+	width: auto;
+	background-color: rgba(148, 230, 218, 0.6);
+	
+	display: table;
+	
+	padding-right: 10px;
+	
+	div {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+.category-status-panel:hover {
+	background-color: rgba(148, 230, 218, 0.8);
+}
+
+.category-status-logo {
+	padding: 0px 0px 0px 10px;
+	font-weight: 700;
+	color: #FFF;
+}
+
+.category-status-indicator {
+	padding-right: 10px;
+	font-weight: 700;
+	color: #FFF;
+}
+
+.category-status-category-name {
+	text-decoration: underline !important;
+}
+
+.category-status-catebtn {
+	width: 18px;
+}

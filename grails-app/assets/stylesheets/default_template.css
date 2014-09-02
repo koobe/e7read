@@ -57,17 +57,20 @@ ul.content-categories li {
 ul.content-categories li a.content-category {
     background-color: #94E6DA;
     color: #FFFFFF;
-    font-size: 13px;
-    padding: 5px 10px;
+    font-size: 60%;
+    /*padding: 5px 10px;*/
+    padding: 3px 4px 2px 4px;
+    letter-spacing: 1px;
     margin-right: 5px;
-    border-radius: 3px;
-    text-shadow: 1px 1px 1px #AAAAAA;
+    border-radius: .25em;
+    /*text-shadow: 1px 1px 1px #AAAAAA;*/
+    display: inline-block;
 }
 
 ul.content-categories li a.content-category:hover {
     text-decoration: none;
-    background-color: #AAAAAA;
-    text-shadow: 1px 1px 1px #333333;
+    background-color: #888888;
+    /*text-shadow: 1px 1px 1px #333333;*/
 }
 
 ul.content-categories li .category-name {

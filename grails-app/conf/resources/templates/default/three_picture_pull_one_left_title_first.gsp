@@ -73,7 +73,7 @@
                     </g:link>
                 </g:if>
                 <a href="https://www.facebook.com/sharer/sharer.php?u=${URLEncoder.encode(shareUrl, 'UTF-8')}" target="_blank">
-                    <i class="fa fa-share-alt"></i>
+                    <i class="fa fa-facebook-square"></i>
                     Share
                 </a>
             </div>

@@ -80,16 +80,20 @@
 			.attr("src", $(imgObj).attr("src"))
 		    .load(function() {
 		    	if (this.height > this.width) {
-		    		imgContainer.height($(window).height());
-		    		imgObj.css('height', '100%');
+//		    		imgObj.css('height', '100%');
 		    		imgObj.css('width', 'auto');
+		    		imgObj.css('max-width', '100%');
+		    		imgObj.css('max-height', '100%');
 		    	} else {
-		    		imgContainer.height($(window).height());
 		    		imgObj.css('height', 'auto');
 		    		imgObj.css('max-width', '100%');
 		    		imgObj.css('max-height', '100%');
 		    	}
+//		    	alert($(window).height() + ", " + window.screen.availHeight);
+//		    	imgContainer.height(window.screen.availHeight);
+		    	imgContainer.height($(window).height());
 		    	$(window).unbind('resize').resize(function(){
+//	    			imgContainer.height(window.screen.availHeight);
 	    			imgContainer.height($(window).height());
 	    		});
 		    });

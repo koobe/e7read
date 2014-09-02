@@ -6,6 +6,7 @@
 	
 	height: 35px;
 	width: auto;
+	margin: auto;
 	background-color: rgba(148, 230, 218, 0.6);
 	
 	display: table;
@@ -24,18 +25,18 @@
 
 .category-status-logo {
 	padding: 0px 10px 0px 10px;
-	height: 16px;
+	height: 22px;
 	padding-bottom: 3px;
 }
 
 .category-status-indicator {
 	padding-right: 10px;
 	font-weight: 700;
-	color: #FFF;
+	color: #777;
 }
 
 .category-status-category-name {
-	text-decoration: underline !important;
+	/*text-decoration: underline !important;*/
 }
 
 .category-status-catebtn {

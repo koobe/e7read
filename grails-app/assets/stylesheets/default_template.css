@@ -38,6 +38,7 @@ body {
 .text-container a {
     color: #888888;
     font-size: .75em;
+    /* line-height: 1em; */
 }
 
 ul.content-categories {

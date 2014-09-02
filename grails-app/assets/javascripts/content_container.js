@@ -93,9 +93,9 @@ var s = $.spinner();
 		} else {
 			$("#contents_container").append(dataobj);
 			
-			$('.content-cell-image', dataobj).imageview({
-				attrOfUrl: 'data-imageurl'
-			});
+//			$('.content-cell-image', dataobj).imageview({
+//				attrOfUrl: 'data-imageurl'
+//			});
 			
 			$('.content-author-name', dataobj).click(onAuthorClick);
 			$('.content-category-name', dataobj).click(onCategoryTagClick);

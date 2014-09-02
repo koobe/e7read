@@ -25,8 +25,9 @@
 
 	text-transform: uppercase;
 	border-left: 1px solid #999;
-	padding-right: 10px;
-	padding-left: 10px;
+	padding-right: 13px;
+	padding-left: 13px;
+	cursor: pointer;
 	
 	a {
 		color: #333;
@@ -37,8 +38,12 @@
 		color: #BBB;
 	}
 }
-	
 
+.ontop_category_item:hover {
+	a {
+		color: #BBB;
+	}
+}
 
 @media screen and (min-width: 769px) {
 	.ontop_category_item {

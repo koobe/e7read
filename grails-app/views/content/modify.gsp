@@ -23,7 +23,7 @@
 
 	</head>
 	<body>
-        <div class="main-container">
+        <div class="main-container" onclick="hideCategoryMenu();">
         	<div style="text-align: center;">
 	        	<div class="content-editing-title">
 	        		<div style="display:table-cell; background-color: #89E2D5; height: 30px; padding: 0px 20px 0px 10px;">

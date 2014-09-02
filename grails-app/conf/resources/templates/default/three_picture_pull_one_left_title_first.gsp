@@ -65,8 +65,17 @@
                     </g:each>
                 </ul>
             </g:if>
-            <div class="pull-right">
-                <fb:share href="${shareUrl}" />
+            <div class="pull-right social-toolbar">
+                <g:if test="${content.references}">
+                    <g:link uri="${content.references}" target="_blank">
+                        <i class="fa fa-external-link"></i>
+                        Source
+                    </g:link>
+                </g:if>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${URLEncoder.encode(shareUrl, 'UTF-8')}" target="_blank">
+                    <i class="fa fa-share-alt"></i>
+                    Share
+                </a>
             </div>
         </div>
 

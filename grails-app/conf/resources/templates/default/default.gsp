@@ -54,8 +54,17 @@
                 </g:each>
             </ul>
         </g:if>
-        <div class="pull-right">
-            <fb:share href="${shareUrl}" />
+        <div class="pull-right social-toolbar">
+            <g:if test="${content.references}">
+                <g:link uri="${content.references}" target="_blank">
+                    <i class="fa fa-external-link"></i>
+                    Source
+                </g:link>
+            </g:if>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${URLEncoder.encode(shareUrl, 'UTF-8')}" target="_blank">
+                <i class="fa fa-share-alt"></i>
+                Share
+            </a>
         </div>
     </div>
 
@@ -70,14 +79,6 @@
     </div>
 
     <div class="margin-blank"></div>
-
-    <g:if test="${content.references}">
-        <div class="text-references padding-lr"
-             style="overflow: hidden; text-overflow:ellipsis; white-space: nowrap; color: #555;">
-            <i class="fa fa-external-link"></i>
-            <g:link uri="${createLink(uri: content.references)}" target="_blank">Source</g:link>
-        </div>
-    </g:if>
 
 </div>
 <g:render template="/home/footer"/>

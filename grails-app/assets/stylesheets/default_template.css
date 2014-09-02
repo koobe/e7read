@@ -10,6 +10,35 @@ body {
     word-break: break-all;
 }
 
+.e7read-logo {
+    width: 100px;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    opacity: .7;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .e7read-logo {
+        width: 77px;
+    }
+}
+
+.e7read-logo:hover {
+    opacity: 1;
+}
+
+.social-toolbar a {
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.text-container a {
+    color: #888888;
+    font-size: .75em;
+}
+
 ul.content-categories {
     list-style: none;
     margin: 0;

@@ -22,28 +22,36 @@
 		.header-cate-menu {
 			display: table-cell;
 			vertical-align: bottom;
+			width: auto;
 		}
 		
-		.header-search {
+		.header-search-usermenu {
+		
 			display: table-cell;
 			vertical-align: bottom;
-			text-align: right;
-			width:15%;
 			
-			form {
-				input {
+			.display-table {
+			
+				display: table;
+				float: right;
+				height: 34px;
+				
+				.header-search {
+					display: table-cell;
+					padding-left: 15px;
+					
+					input {
+						max-width: 170px;
+					}
+				}
+				
+				.header-usermenu {
+					display: table-cell;
+					padding-left: 15px;
 				}
 			}
 		}
 		
-		.header-usermenu {
-			display: table-cell;
-			vertical-align: bottom;
-			text-align: right;
-			padding-left: 15px;
-			
-			width: 1%;
-		}
 	}
 }
 
@@ -70,8 +78,33 @@
 			padding-bottom: 6px;
 			width: 100%;
 		}
+		
+		.header-search-usermenu {
+		
+			padding-bottom: 15px;
+			
+			.display-table {
+			
+				display: table;
+				float: right;
+				height: 34px;
 				
-		.header-search {
+				.header-search {
+					display: table-cell;
+					
+					input {
+						max-width: 170px;
+					}
+				}
+				
+				.header-usermenu {
+					display: table-cell;
+					padding-left: 10px;
+				}
+			}
+		}
+				
+		/*.header-search {
 			text-align: right;
 			padding-top: 5px;
 			padding-right: 22px;
@@ -84,7 +117,7 @@
 			margin-right: 22px;
 			width:100%;
 			text-align: center;
-		}
+		}*/
 	}
 }
 

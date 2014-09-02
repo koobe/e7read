@@ -5,7 +5,7 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'content.label', default: 'Content')}" />
     <g:set var="staticUrl" value="${createLink(controller: 'content', action: 'share', id: contentInstance.id, absolute: true)}" />
-    <title><g:message code="default.edit.label" args="[entityName]" /></title>
+    <title>${contentInstance.cropTitle}</title>
 
     <!-- Open Graph Metadata -->
     <meta property="og:title" content="${contentInstance.cropTitle}" />

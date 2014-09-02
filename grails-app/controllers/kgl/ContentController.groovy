@@ -437,9 +437,11 @@ class ContentController {
 			}
 		} else {
 			def criteria = Content.createCriteria()
-			contentList = criteria.list (max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc") {
+			contentList = criteria.list (max: params.max, offset: params.offset) {
 				eq("user", springSecurityService.currentUser)
 				eq("isDelete", false)
+				order 'datePosted', 'desc'
+				order 'lastUpdated', 'desc'
 			}
 		}
 		

@@ -7,10 +7,17 @@
 		            data-id="${it.id}" data-field="cropTitle" data-url="${createLink(action: 'ajaxInlineUpdate')}">
 		            ${it.cropTitle}
 		        </h3>
+		        <g:if test="${it.datePosted}">
 		        <p class="element-date last-updated">
-		            Last Updated:
-		            <span class="date-value"><g:formatDate date="${it.lastUpdated}" type="datetime" style="LONG" timeStyle="SHORT"/></span>
+		            <i class="fa fa-clock-o"></i>&nbsp;
+		            <span class="date-value"><g:formatDate date="${it.datePosted}" type="datetime" style="LONG" timeStyle="SHORT"/></span>
 		        </p>
+		        </g:if>
+		        <!-- 
+		        <p class="element-date last-updated">
+		            Update:
+		            <span class="date-value"><g:formatDate date="${it.lastUpdated}" type="datetime" style="LONG" timeStyle="SHORT"/></span>
+		        </p> -->
     		</div>
 			<div class="content-element-body">
 		        <p class="element-text text-left" contenteditable="true" data-id="${it.id}" data-field="cropText" data-url="${createLink(action: 'ajaxInlineUpdate')}">

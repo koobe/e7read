@@ -16,7 +16,7 @@
 		
 		<div>
 			<a href="javascript: showCategoryMenu();">
-				<img src="/assets/white_arrow.png" class="category-status-catebtn">
+				<img src="/assets/grey_arrow.png" class="category-status-catebtn">
 			</a>
 		</div>
 	</div>

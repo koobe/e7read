@@ -3,11 +3,15 @@ $(function() {
         window.open("/?c="+$(this).data('category-name'), '_top');
     });
 
-    var logo = $("<img src=\"/assets/logo_grey.png\" alt=\"logo\" class=\"e7read-logo\" />");
-    logo.click(function() {
+    
+    
+    var logodiv = $('<div/>').addClass('e7read-logo-div');
+    var logodivcell = $('<div/>').addClass('e7read-logo-cell');
+    var logoimg = $('<img src="/assets/trans_logo.png" alt="logo" class="e7read-logo" />');
+    logoimg.click(function() {
         window.open("/", '_top');
     });
-    $('body').append(logo);
+    $('body').append(logodiv.append(logodivcell.append(logoimg)));
     
     $('.main-gallery').imageview({
         attrOfUrl: 'data-imageurl'

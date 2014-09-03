@@ -8,10 +8,10 @@
 		            ${it.cropTitle}
 		        </h3>
 		        <g:if test="${it.datePosted}">
-		        <p class="element-date last-updated">
-		            <i class="fa fa-clock-o"></i>&nbsp;
-		            <span class="date-value"><g:formatDate date="${it.datePosted}" type="datetime" style="LONG" timeStyle="SHORT"/></span>
-		        </p>
+			        <p class="element-date last-updated">
+			            <i class="fa fa-clock-o"></i>&nbsp;
+			            <span class="date-value"><g:formatDate date="${it.datePosted}" type="datetime" style="SHORT" timeStyle="SHORT"/></span>
+			        </p>
 		        </g:if>
 		        <!-- 
 		        <p class="element-date last-updated">

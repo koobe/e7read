@@ -699,9 +699,15 @@ class ContentController {
 //			def category = Category.findByName(categoryName)
 //			contentInstance.category = category
 //		}
-		
-		contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
-		contentInstance.cropText = cropSegment
+
+        // Don't replace exists cropTitle and cropText
+        if (!contentInstance.cropTitle) {
+            contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
+        }
+        if (!contentInstance.cropText) {
+            contentInstance.cropText = cropSegment
+        }
+
 		contentInstance.fullText = fullText
 
 		if (contentInstance.pictureSegments) {

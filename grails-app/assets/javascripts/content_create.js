@@ -168,7 +168,7 @@ $(function() {
     $('.category-item').click(categoryRemoveAction);
 
     $('.category-item').each(function() {
-        categorys.push($(this).text());
+        categorys.push($(this).data('category-name'));
     });
     
     $('.category-add').click(function(e) {

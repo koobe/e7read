@@ -599,6 +599,9 @@ class ContentController {
             contentInstance.textSegments = []
             contentInstance.pictureSegments = []
             contentInstance.categories = []
+
+            contentInstance.isDelete = false
+            contentInstance.isPrivate = false
         }
 
         def fullText = ''
@@ -715,15 +718,15 @@ class ContentController {
 		}
 
 		contentInstance.hasPicture = contentInstance.pictureSegments? true: false
-		contentInstance.isDelete = false
-		contentInstance.isPrivate = false
 
         //TODO set as anonymous user if not logged in
         contentInstance.user = springSecurityService.isLoggedIn()?springSecurityService.currentUser:User.findByUsername('anonymous')
 
 		contentInstance.template = matchTemplate(contentInstance)
 
-		contentInstance.references = params.references
+        if (!contentInstance.references) {
+            contentInstance.references = params.references
+        }
 
 		contentInstance.validate()
 		log.info contentInstance.errors

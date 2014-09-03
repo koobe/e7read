@@ -1,0 +1,25 @@
+.gototop-button {
+	display: inline-block;
+	font-weight: normal;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	color: #FFFFFF;
+	background-color: #94E6DA;
+	border-color: #94E6DA;
+	
+	font-size: 27px;
+	width: 39px;
+	height: 39px;
+	
+	position: fixed;
+	right: 2px;
+	bottom: 2px;
+	opacity: 0.6;
+}
+
+.gototop-button:hover {
+	opacity: 0.9;
+}

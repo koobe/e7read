@@ -9,7 +9,7 @@
     <asset:stylesheet src="default_template.css"/>
 
 </head>
-<body data-linkify="p, .plain-text">
+<body data-linkify="p, .plain-text" id="content-body">
     <div class="template-container">
 
         <div class="pictures-container">
@@ -98,16 +98,12 @@
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
+    
+    <asset:stylesheet src="imageview.css"/>
+	<asset:javascript src="jquery.imageview.js"/>
+	<asset:stylesheet src="gototop.css"/>
+	<asset:javascript src="jquery.gototop.js"/>
+	
     <asset:javascript src="default_template.js" />
-
-<asset:stylesheet src="imageview.css"/>
-<asset:javascript src="jquery.imageview.js"/>
-<script type="text/javascript">
- $(function() {
- 	$('.pictures-container').imageview({
-		attrOfUrl: 'data-imageurl'
-	  });
-	 });
-</script>
 </body>
 </html>

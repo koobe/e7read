@@ -10,19 +10,36 @@ body {
     word-break: break-all;
 }
 
-.e7read-logo {
-    width: 130px;
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    opacity: .7;
+.e7read-logo-div {
+	
+	display:table;
+	
+	height: 35px;
+	
+	background-color: rgba(148, 230, 218, 0.6);
+	
+	position: absolute;
+    top: 2px;
+    left: 2px;
+    
     cursor: pointer;
 }
 
+.e7read-logo-cell {
+	display:table-cell;
+	vertical-align: middle;
+}
+
+.e7read-logo {
+   	height: 22px;
+   	padding: 0px 13px 0px 10px;
+   	padding-bottom: 3px;
+}
+
 @media screen and (max-width: 480px) {
-    .e7read-logo {
+    /*.e7read-logo {
         width: 77px;
-    }
+    }*/
 }
 
 .e7read-logo:hover {

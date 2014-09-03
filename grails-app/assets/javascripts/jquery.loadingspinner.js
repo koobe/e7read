@@ -16,7 +16,6 @@
     };
     
     Spinner.prototype.loading = function () {
-        console.log('loading');
         messagespan.text(default_msg);
         
         $('body').append(maindiv.append(imgdiv).append(messagediv.append(messagespan)));

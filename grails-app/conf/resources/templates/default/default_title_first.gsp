@@ -9,7 +9,7 @@
     <asset:stylesheet src="default_template.css"/>
 	
 </head>
-<body data-linkify="p, .plain-text">
+<body data-linkify="p, .plain-text" id="content-body">
     <div class="template-container">
 	
 		<div class="title-container border-btm margin-lr-20">
@@ -87,20 +87,16 @@
 	
 	<g:render template="/home/footer" />
 
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
-<asset:javascript src="default_template.js" />
-
-<asset:stylesheet src="imageview.css"/>
-<asset:javascript src="jquery.imageview.js"/>
-<script type="text/javascript">
- $(function() {
- 	$('.main-gallery').imageview({
-		attrOfUrl: 'data-imageurl'
-	  });
-	 });
-</script>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
+	
+	<asset:stylesheet src="imageview.css"/>
+	<asset:javascript src="jquery.imageview.js"/>
+	<asset:stylesheet src="gototop.css"/>
+	<asset:javascript src="jquery.gototop.js"/>
+	
+	<asset:javascript src="default_template.js" />
 </body>
 </html>

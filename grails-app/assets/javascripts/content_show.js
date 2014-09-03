@@ -63,14 +63,16 @@ function receiveMessage(event) {
 }
 
 //border: 1px solid #94E6DA;
-var responsiveiframe = '<div class="div-iframe embed-responsive" style="border:none;height:100%; width:100%; position:fixed;top:0px;left:0px; overflow:auto;-webkit-overflow-scrolling:touch;"><iframe class="iframe embed-responsive-item" src=""></iframe></div>';
-var iframe = '<iframe id="iframe-show-content" frameborder="0" style="display:none;overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:999;" height="100%" width="100%"></iframe>';
-var backmenu = '<div class="contentback"><div><span class="fa fa-caret-left"></span></div></div>';
+var responsiveiframe = '<div id="div-iframe" class="div-iframe embed-responsive" style="border:none;height:100%; width:100%; position:fixed;top:0px;left:0px; overflow:auto;-webkit-overflow-scrolling:touch;"><iframe class="iframe embed-responsive-item" src=""></iframe></div>';
+//var iframe = '<iframe id="iframe-show-content" frameborder="0" style="display:none;overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:999;" height="100%" width="100%"></iframe>';
+//var backmenu = '<div class="contentback"><div><span class="fa fa-caret-left"></span></div></div>';
 var backlink = '<a id="button-back" class="koobe-btn koobe-btn-large back-btn-pos"><i class="fa fa-caret-left"></i></a>'
 
 function showContent(contentId) {
     window.location.hash = 'content-' + contentId;
 }
+
+var gototop;
 
 function showContentImpl(contentId) {
 
@@ -102,6 +104,15 @@ function showContentImpl(contentId) {
 	    //.css('overflow', 'hidden')
 	    .append(back);
 
+	if (is_safari_or_uiwebview) {
+		gototop = $('body').gototop({
+			containerId: 'div-iframe',
+			z_index: 9999,
+			auto_hide: false
+		});
+		
+//		gototop.remove();
+	}
 	//history.pushState("", contentId, window.location.pathname + "#content-" + contentId);
 }
 
@@ -115,10 +126,7 @@ function closeIframe() {
 	$('#button-back').remove();
 	$('.div-iframe').remove();
 	//$('body').css('overflow', '');
+	gototop.remove();
 	
 	onshowiframe = false;
-}
-
-var scrollDisplayContainerToTop = function() {
-	$('#display-container').scrollTop(0);
 }

@@ -32,7 +32,9 @@
                     <g:each in="${content.categories}" var="category">
                         <li>
                             <a class="content-category" href="#" data-category-name="${category.name}">
-                                <span class="category-name">${category.name}</span>
+                                <span class="category-name">
+                                	<g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+                                </span>
                             </a>
                         </li>
                     </g:each>

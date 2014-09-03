@@ -137,10 +137,11 @@ var categoryRemoveAction = function(e) {
 
 function addCategory(name) {
 	if (categorys.indexOf(name) == -1) {
+		var target = $('#category-select-item-' + name);
 		currCategorys++;
 		controlAddCategoryBtn();
 		categorys.push(name);
-		var div = '<div id="category-' + name + '" class="category-item">' + name + '</div>';
+		var div = '<div id="category-' + name + '" class="category-item">' + target.text() + '</div>';
 		var ele = $(div).click(categoryRemoveAction);
 		$('.category-add').before(ele);
 	}

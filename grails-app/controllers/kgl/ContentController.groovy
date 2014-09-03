@@ -143,7 +143,7 @@ class ContentController {
             return
         }
 
-        respond contentInstance
+        render contentType: 'text/html', text: templateService.render(contentInstance)
     }
 
     def edit(Content contentInstance) {

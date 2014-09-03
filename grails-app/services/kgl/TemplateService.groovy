@@ -123,6 +123,17 @@ class TemplateService {
     private String appendMetadata(Document doc, Content content, OriginalTemplate template) {
         doc.select('head').append("<meta name=\"kgl:template_grouping\" content=\"${template.grouping}\" />");
         doc.select('head').append("<meta name=\"kgl:template_name\" content=\"${template.name}\" />");
+
+        def staticUrl = grailsLinkGenerator.link(controller: 'content', action: 'share', id: content.id, absolute: true)
+
+        doc.select('head').append("<meta property=\"og:title\" content=\"${content.cropTitle}\" />");
+        doc.select('head').append("<meta property=\"og:description\" content=\"${content.cropText}\" />");
+        doc.select('head').append("<meta property=\"og:type\" content=\"article\" />");
+        doc.select('head').append("<meta property=\"og:url\" content=\"${staticUrl}\" />");
+
+        if (content.coverUrl) {
+            doc.select('head').append("<meta property=\"og:image\" content=\"${content.coverUrl}\" />");
+        }
     }
 
     private String renderContact(Content content) {

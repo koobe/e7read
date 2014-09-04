@@ -1,3 +1,5 @@
+var s = $.spinner();
+
 $(document).ready(function() {
 	if (($(window).height() - $("#contents_container").height()) >= 0) {
 		triggerAjaxForData();
@@ -7,7 +9,7 @@ $(document).ready(function() {
 });
 
 var max = 4;
-var page = 1;
+var page = 0;
 var onCall = false;
 var eof = false;
 var beforeText;
@@ -45,6 +47,9 @@ function determineIFTriggerAjax() {
 
 function triggerAjaxForData() {
 	if (!onCall) {
+		
+		s.loading();
+		
 		onCall = true;
 		
 		page = page + 1;
@@ -76,6 +81,7 @@ function onSuccessAndAppendHTMLToContentContainer(data) {
 	} else {
 		addHandlers();
 	}
+	s.done();
 }
 
 var updateReferences = function() {

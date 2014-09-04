@@ -31,6 +31,9 @@
 			<div class="content-text-body">
 				<p>${content.cropText}</p>
 			</div>
+			<div style="display:none;">
+				<a href="/share/${content.id}">${content.cropTitle}</a>
+			</div>
 		</div>
 		<g:if test="${lr == 1}">
 			<div class="content-cell-image" style="background-image:url(${content.coverUrl});" data-imageurl="${content.coverUrl}"></div>

@@ -121,12 +121,12 @@ function closeIframe() {
 	if (is_safari_or_uiwebview) {
 		$('#display-container').css('display', '');
 		$(window).scrollTop(scrollTop);
+		gototop.remove();
 	}
 	
 	$('#button-back').remove();
 	$('.div-iframe').remove();
 	//$('body').css('overflow', '');
-	gototop.remove();
 	
 	onshowiframe = false;
 }

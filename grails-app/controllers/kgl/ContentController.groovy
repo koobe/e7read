@@ -620,7 +620,7 @@ class ContentController {
 
         if (params.contentText) {
 			
-			def contentList = params.contentText.trim().split("\n")
+			def contentList = params.contentText.trim().split("\n\n")
 			
 			contentList.each { segment ->
 				log.info '' + segment

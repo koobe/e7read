@@ -11,7 +11,7 @@
 					<i class="fa fa-user"></i>
 					<a class="content-author-name" data-user="${content.user.id}">${content.user.fullName}</a>
 					&nbsp;<i class="fa fa-clock-o"></i>
-					<g:formatDate date="${content.lastUpdated}" format="MM/dd" />
+					<g:formatDate date="${content.datePosted}" format="MM/dd" />
 				</span>
 			</div>
 			<g:if test="${content.categories}">

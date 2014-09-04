@@ -22,5 +22,9 @@ $(function() {
     		auto_hide: false
     	});
     }
+    
+    $('.author-click').click(function() {
+    	window.open("/?u="+$(this).data('user-id'), '_top');
+    });
 
 });

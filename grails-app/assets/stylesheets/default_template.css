@@ -90,6 +90,15 @@ h1 {
     letter-spacing: 1px;
 }
 
+.author-click {
+	color: #333;
+	cursor: pointer;
+}
+
+.author-click:hover {
+	color: #777;
+}
+
 .border-btm {
 	border-bottom: 1px solid #94E6DA;
 }

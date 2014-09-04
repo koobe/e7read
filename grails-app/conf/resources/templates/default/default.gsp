@@ -32,7 +32,7 @@
 	
 	        <div style="display:table; width:100%;">
 	            <div class="content-author" style="display:table-cell;">
-	                <span>${content.user.fullName}</span>
+	                <span class="author-click" data-user-id="${content.user.id}">${content.user.fullName}</span>
 	            </div>
 	
 	            <div class="content-author" style="display:table-cell; text-align: right;">

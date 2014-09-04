@@ -47,17 +47,17 @@
 
         <div class="margin-lr-20">
             <g:if test="${content.categories}">
-                <ul class="content-categories">
-                    <g:each in="${content.categories}" var="category">
-                        <li>
-                            <a class="content-category" href="#" data-category-name="${category.name}">
-                                <span class="category-name">
-                                	<g:message code="category.name.i18n.${category.name}" default="${category.name}" />
-                                </span>
-                            </a>
-                        </li>
-                    </g:each>
-                </ul>
+                <div class="content-category-tags-table text-uppercase">
+					<g:each in="${content.categories}" var="category">
+						<div>
+							<a class="content-category-name" data-categoryName="${category.name}">
+								<span data-categoryName="${category.name}" class="label">
+									<g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+								</span>
+							</a>
+						</div>
+					</g:each>
+				</div>
             </g:if>
             <div class="pull-right social-toolbar">
                 <g:if test="${content.references}">

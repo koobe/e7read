@@ -21,7 +21,7 @@
 		        	<span>${content.user.fullName}</span>
 		        </div>
 		        <div class="content-author" style="display:table-cell; text-align: right;">
-		        	<span style="font-size: 0.7em; color: #333;"><g:formatDate date="${content.lastUpdated}" format="yyyy/MM/dd HH:mm:ss" /></span>
+		        	<span style="font-size: 0.7em; color: #333;"><g:formatDate date="${content.datePosted}" format="yyyy/MM/dd HH:mm:ss" /></span>
 		        </div>
 	        </div>
 		</div>

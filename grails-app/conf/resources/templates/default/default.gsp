@@ -81,7 +81,6 @@
 	    </div>
 	
 	    <div class="margin-blank"></div>
-	
 	</div>
 	<g:render template="/home/footer"/>
 	

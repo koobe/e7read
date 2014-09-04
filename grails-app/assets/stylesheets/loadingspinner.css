@@ -11,12 +11,12 @@
 	
 	background-color: rgba(1,1,1,0.3);
 	border-radius: 1em;
-	padding: 0px 20px 0px 20px;
 }
 
 .loading-spinner-imgdiv {
 	display: table-cell;
 	vertical-align: middle;
+	padding-left: 20px;
 }
 
 .loading-spinner-img {
@@ -28,6 +28,7 @@
 	display: table-cell;
 	vertical-align: middle;
 	padding-left: 15px;
+	padding-right: 20px;
 }
 
 .loading-spinner-messagespan {

@@ -1,17 +1,10 @@
 $(function() {
+		
     $('a.content-category').click(function() {
         window.open("/?c="+$(this).data('category-name'), '_top');
     });
-
     
-    
-    var logodiv = $('<div/>').addClass('e7read-logo-div');
-    var logodivcell = $('<div/>').addClass('e7read-logo-cell');
-    var logoimg = $('<img src="/assets/trans_logo.png" alt="logo" class="e7read-logo" />');
-    logoimg.click(function() {
-        window.open("/", '_top');
-    });
-    $('body').append(logodiv.append(logodivcell.append(logoimg)));
+    $('body').e7readcstatuspanel({});
     
     $('.main-gallery').imageview({
         attrOfUrl: 'data-imageurl'

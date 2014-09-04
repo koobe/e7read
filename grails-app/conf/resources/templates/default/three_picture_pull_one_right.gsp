@@ -104,6 +104,8 @@
 	<asset:javascript src="jquery.imageview.js"/>
 	<asset:stylesheet src="gototop.css"/>
 	<asset:javascript src="jquery.gototop.js"/>
+	<asset:stylesheet src="e7read_categorystatus.css" />
+	<asset:javascript src="jquery.e7read.categorystatus.js"/>
 	
     <asset:javascript src="default_template.js" />
 </body>

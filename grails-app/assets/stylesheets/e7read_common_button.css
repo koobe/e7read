@@ -1,0 +1,113 @@
+.koobe-btn {
+	display: inline-block;
+	
+	font-weight: normal;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	
+	color: #FFFFFF;
+	background-color: #94E6DA;
+	border-color: #94E6DA;
+}
+
+.koobe-btn-normal {
+	padding-top: 3px;
+	padding-bottom: 1px;
+	padding-left: 12px;
+	padding-right: 12px;
+	margin-bottom: 0;
+	font-size: 20px;
+}
+
+.koobe-btn-large {
+	padding-top: 3px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 12px;
+	margin-bottom: 0;
+	font-size: 35px;
+	
+	width: 54px;
+	height: 54px;
+}
+
+.koobe-btn-inverse {
+	color: #FFFFFF;
+	background-color: #67A89F;
+	border-color: #67A89F;
+}
+
+.menu-blank {
+	display: inline-block;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	padding-right: 20px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	border: 1px solid transparent;
+	
+	color: #FFFFFF;
+	background-color: #94E6DA;
+	border-color: #94E6DA;
+}
+
+.koobe-text-btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.koobe-text-btn-default {
+	color: #FFF;
+	background-color: #33CCCC;
+	border-color: #33CCCC;
+}
+
+.koobe-text-btn-default:hover, 
+.koobe-text-btn-default:focus, 
+.koobe-text-btn-default:active, 
+.koobe-text-btn-default.active, 
+.open .dropdown-toggle.koobe-text-btn-default { 
+	color: #FFFFFF; 
+	background-color: #247A7A; 
+	border-color: #33CCCC; 
+	text-decoration: none !important;
+} 
+
+.koobe-text-btn-inverse {
+	color: #FFF;
+	background-color: #666666;
+	border-color: #666666;
+}
+
+.koobe-text-btn-inverse:hover, 
+.koobe-text-btn-inverse:focus, 
+.koobe-text-btn-inverse:active, 
+.koobe-text-btn-inverse.active, 
+.open .dropdown-toggle.koobe-text-btn-inverse { 
+	color: #FFFFFF; 
+	background-color: #8A8A8A; 
+	border-color: #CCCCCC;
+	text-decoration: none !important;
+} 

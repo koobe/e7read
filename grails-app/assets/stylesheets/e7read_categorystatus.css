@@ -1,0 +1,44 @@
+@import url("category_sidemenu.css");
+@import url("e7read_common_button.css");
+
+.table-cell {
+	display:table-cell;
+	vertical-align:middle;
+}
+
+.category-status-panel {
+	
+	display:table;
+	
+	position: fixed;
+	top: 2px;
+	left: 2px;
+	z-index: 20;
+	
+	height: 35px;
+	
+	background-color: rgba(148, 230, 218, 0.6);
+	padding-right: 10px;
+}
+
+.e7read-logo {
+	height: 22px;
+   	padding: 0px 13px 0px 10px;
+   	padding-bottom: 3px;
+   	cursor: pointer;
+}
+
+.category-status-indicator {
+	padding-right: 10px;
+	font-weight: 700;
+	color: #777;
+}
+
+.category-status-name-text {
+	text-transform:uppercase;
+}
+
+.category-status-catebtn {
+	width: 18px;
+	cursor: pointer;
+}

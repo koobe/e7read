@@ -2,6 +2,7 @@
 	<head>
 	    <meta name="layout" content="main"/>
 	    <title></title>
+	    <asset:stylesheet src="content_category_label.css"/>
 	    <asset:stylesheet src="content_personal.css"/>
 		<asset:javascript src="content_personal.js"/>
 		<asset:javascript src="content_show.js"/>

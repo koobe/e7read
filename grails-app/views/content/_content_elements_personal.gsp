@@ -13,6 +13,23 @@
 			            <span class="date-value"><g:formatDate date="${it.datePosted}" type="datetime" style="SHORT" timeStyle="SHORT"/></span>
 			        </p>
 		        </g:if>
+		        
+		        <g:if test="${it.categories}">
+					<div style="height: 0.5em;"></div>
+					<div class="content-category-tags-table text-uppercase">
+						<g:each in="${it.categories}" var="category">
+							<div>
+								<a class="content-category-name" data-categoryName="${category.name}">
+									<span data-categoryName="${category.name}" class="label">
+										<g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+									</span>
+								</a>
+							</div>
+						</g:each>
+					</div>
+				</g:if>
+		        
+		        
 		        <!-- 
 		        <p class="element-date last-updated">
 		            Update:

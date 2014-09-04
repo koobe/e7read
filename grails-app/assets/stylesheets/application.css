@@ -51,15 +51,11 @@ body {
 	left: 2px;
 	bottom: 2px;
 	z-index: 9999;
+	opacity: 0.6;
 }
 
-.top-btn-pos {
-	position: fixed;
-	right: 2px;
-	bottom: 2px;
-	z-index: 999;
-	
-	opacity: 0.6;
+.back-btn-pos:hover {
+	opacity: 0.9;
 }
 
 p {

@@ -706,6 +706,7 @@ class ContentController {
         // Don't replace exists cropTitle and cropText
         if (!contentInstance.cropTitle) {
             contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
+			contentInstance.cropTitle = contentInstance.cropTitle.replaceAll("#", "").replaceAll("\\*", "");
         }
         if (!contentInstance.cropText) {
             contentInstance.cropText = cropSegment

@@ -43,21 +43,28 @@ class ContentController {
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def embed(Content contentInstance) {
-
-        def template = OriginalTemplate.get(params.template?.id)
-
-        def output
-
-        if (!template) {
-            output = templateService.render(contentInstance)
-        }
-        else {
-            output = templateService.render(contentInstance, template)
-        }
-
-        //render contentInstance.fullText.replaceAll("\n\n", "<br/><br/>")
-
-        render contentType: 'text/html', text: output
+		
+		if (contentInstance.isDelete) {
+			render view: 'hasdeleted'
+		} else if (contentInstance.isPrivate && (contentInstance.user != springSecurityService.currentUser)) {
+			render view: 'haslocked'
+		} else {
+			
+			def template = OriginalTemplate.get(params.template?.id)
+		
+			def output
+	
+			if (!template) {
+				output = templateService.render(contentInstance)
+			}
+			else {
+				output = templateService.render(contentInstance, template)
+			}
+	
+			//render contentInstance.fullText.replaceAll("\n\n", "<br/><br/>")
+	
+			render contentType: 'text/html', text: output
+		}
     }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
@@ -142,8 +149,14 @@ class ContentController {
             redirect uri: '/'
             return
         }
-
-        render contentType: 'text/html', text: templateService.render(contentInstance)
+		
+		if (contentInstance.isDelete) {
+			render view: 'hasdeleted'
+		} else if (contentInstance.isPrivate && (contentInstance.user != springSecurityService.currentUser)) {
+			render view: 'haslocked'
+		} else {
+			render contentType: 'text/html', text: templateService.render(contentInstance)
+		}
     }
 
     def edit(Content contentInstance) {

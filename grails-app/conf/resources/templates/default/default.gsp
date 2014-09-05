@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>${content.cropTitle}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui" />
     <meta name="kgl:media_count" content="3"/>
     <meta name="kgl:text_count" content="1"/>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>

@@ -8,6 +8,8 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
     <asset:stylesheet src="default_template.css"/>
+    
+    <g:render template="/home/google_analytics" />
 </head>
 
 <body data-linkify="p, .plain-text" id="content-body">

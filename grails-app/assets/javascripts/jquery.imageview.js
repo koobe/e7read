@@ -51,7 +51,9 @@
 		$(imgContainer).append(imgObj);
 		
 		adjustImage(imgObj, imgContainer);
-		
+
+        //$(imgObj).scrollTo();
+
 		imageMaskDiv.click(function(e){
 			imageMaskDiv.remove();
 			e.stopPropagation();

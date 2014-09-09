@@ -15,9 +15,9 @@
 .imageview-element-container {
 	display: table;
 	text-align: center;
-    
-    height: 100%;
-	width: 100vh;
+
+    width: 100%;
+    height: 100vh;
 }
 
 .imageview-navbar {

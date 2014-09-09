@@ -41,6 +41,8 @@
         	
         	<g:textArea id="content-editing-textarea" class="content-editing-textarea form-control" name="text" placeholder="Write something here..." rows="15" value="${contentInstance.fullText}" />
 
+		<g:render template="editing_tips" />
+
         	<div id="PictureContainer" class="content-editing-picture">
         		<div class="picture-cell">
 

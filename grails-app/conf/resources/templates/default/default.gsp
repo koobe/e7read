@@ -22,7 +22,7 @@
 	    <div class="main-gallery">
 	        <div class="table-row">
 	            <g:each in="${content.pictureSegments}">
-	                <div class="table-col" style="background-image:url(${it.originalUrl});"
+	                <div data-toggle="lightbox" class="table-col" style="background-image:url(${it.originalUrl});"
 	                     data-imageurl="${it.originalUrl}"></div>
 	            </g:each>
 	        </div>
@@ -91,9 +91,14 @@
 	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
-	
+
+    <%--<!--bootstrap-lightbox-->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.7.0/bootstrap-lightbox.min.css" rel="stylesheet"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-lightbox/0.7.0/bootstrap-lightbox.min.js"></script>--%>
+
 	<asset:stylesheet src="imageview.css"/>
 	<asset:javascript src="jquery.imageview.js"/>
+
 	<asset:stylesheet src="gototop.css"/>
 	<asset:javascript src="jquery.gototop.js"/>
 	<asset:stylesheet src="e7read_categorystatus.css" />

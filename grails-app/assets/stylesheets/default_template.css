@@ -78,6 +78,10 @@ h1 {
     text-align: justify;
 }
 
+.text-container img {
+    max-width: 100%;
+}
+
 .template-container {
     margin: auto;
     width: 100%;

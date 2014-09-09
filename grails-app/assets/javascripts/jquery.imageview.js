@@ -9,7 +9,7 @@
 		var array = [];
 		collectAllImageUrl(this, array, settings);
 //		console.log(array);
-	}
+	};
 	
 	function collectAllImageUrl(obj, array, settings) {
 		var obj = $(obj);
@@ -40,7 +40,7 @@
 		var leftBar = $('<div class="imageview-navbar"></div>');
 		var imgContainer = $('<div class="imageview-image-container"></div>');
 		var rightBar = $('<div class="imageview-navbar"></div>');
-		var imgObj = $('<img class="img-thumbnail"></img>');
+		var imgObj = $('<img class="img-thumbnail" alt="thumbnail" />');
 		
 		imgObj.attr('src', currUrl);
 		imgObj.css('cursor','pointer');

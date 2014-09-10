@@ -68,6 +68,10 @@ grails.project.dependency.resolution = {
         runtime 'org.jsoup:jsoup:1.7.3'
 		
 		// compile 'com.microsoft.sqlserver:sqljdbc4:4.0'
+
+        // Provides Mail support to a running Grails application
+        compile ":mail:1.0.7"
+
     }
 
     plugins {
@@ -118,5 +122,9 @@ grails.project.dependency.resolution = {
 		
 		// markdown plugin
 		compile ":markdown:1.1.1"
+
+        // Thumbnailator - a thumbnail generation library for Java
+        compile 'net.coobird:thumbnailator:0.4.7'
+
     }
 }

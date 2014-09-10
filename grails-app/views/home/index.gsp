@@ -6,6 +6,9 @@
 		<asset:stylesheet src="loadingspinner.css"/>
 		<asset:stylesheet src="gototop.css"/>
 		<asset:javascript src="jquery.gototop.js"/>
+		<asset:stylesheet src="imageview.css"/>
+		<asset:javascript src="jquery.imageview.js"/>
+		<asset:javascript src="image.view.msghandler.js"/>
 	</head>
 	<body>
 		<div id="display-container" onclick="hideCategoryMenu()"><div class="content-pane">

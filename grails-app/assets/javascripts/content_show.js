@@ -38,7 +38,7 @@ $(function() {
     $('body').css('height', '100%').css('overflow', 'hidden');
     $('#display-container').css('height', '100%').css('overflow-y', 'scroll').css('-webkit-overflow-scrolling', 'touch');
 
-    window.addEventListener("message", receiveMessage, false);
+//    window.addEventListener("message", receiveMessage, false);
 
     if ('onpopstate' in window) {
         console.log("onpopstate in window");
@@ -58,9 +58,9 @@ $(function() {
     }
 });
 
-function receiveMessage(event) {
-	console.log('Receive message: ' + event.data);
-}
+//function receiveMessage(event) {
+//	console.log('Receive message: ' + event.data);
+//}
 
 //border: 1px solid #94E6DA;
 var responsiveiframe = '<div id="div-iframe" class="div-iframe embed-responsive" style="border:none;height:100%; width:100%; position:fixed;top:0px;left:0px; overflow:auto;-webkit-overflow-scrolling:touch;"><iframe class="iframe embed-responsive-item" src=""></iframe></div>';

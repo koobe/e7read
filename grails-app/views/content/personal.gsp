@@ -10,6 +10,9 @@
 		<asset:javascript src="content_show.js"/>
 		<asset:stylesheet src="gototop.css"/>
 		<asset:javascript src="jquery.gototop.js"/>
+		<asset:stylesheet src="imageview.css"/>
+		<asset:javascript src="jquery.imageview.js"/>
+		<asset:javascript src="image.view.msghandler.js"/>
 	</head>
 	<body>
 		<div id="display-container">

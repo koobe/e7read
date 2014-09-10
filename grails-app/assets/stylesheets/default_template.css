@@ -7,7 +7,7 @@ html, body {
 
 body {
 	padding-top: 0px;
-	padding-bottom: 30px;
+	padding-bottom: 0px;
 
     /* word-break: break-all; */
 }
@@ -22,51 +22,18 @@ body {
     color: #888888;
     font-size: .75em;
     /* line-height: 1em; */
+    word-break: break-all;
 }
 
-ul.content-categories {
-    list-style: none;
-    margin: 0;
-    margin-top: 5px;
-    padding: 0;
-}
-
-ul.content-categories li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    line-height: 100%;
-    float: left;
-}
-
-ul.content-categories li a.content-category {
-    background-color: #94E6DA;
-    color: #FFFFFF;
-    font-size: 60%;
-    /*padding: 5px 10px;*/
-    padding: 3px 4px 2px 4px;
-    letter-spacing: 1px;
-    margin-right: 5px;
-    border-radius: .25em;
-    /*text-shadow: 1px 1px 1px #AAAAAA;*/
-    display: inline-block;
-}
-
-ul.content-categories li a.content-category:hover {
-    text-decoration: none;
-    background-color: #888888;
-    /*text-shadow: 1px 1px 1px #333333;*/
-}
-
-ul.content-categories li .category-name {
-    text-transform: uppercase;
-}
-
-h1 {
-    font-weight: 700;
-   	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+.content-title>h1 {
     font-size: 28px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 700;
+   	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
     letter-spacing: 1px;
+    line-height: 160%;
 }
  
 .text-container>div>p , .text-container>div>ul, .text-container>div>ol {
@@ -87,7 +54,7 @@ h1 {
     width: 100%;
     max-width: 920px;
     
-    padding-bottom: 50px;
+    padding-bottom: 0px;
 }
 
 .content-author {

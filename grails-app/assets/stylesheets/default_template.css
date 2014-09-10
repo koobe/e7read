@@ -22,13 +22,18 @@ body {
     color: #888888;
     font-size: .75em;
     /* line-height: 1em; */
+    word-break: break-all;
 }
 
-h1 {
-    font-weight: 700;
-   	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+.content-title>h1 {
     font-size: 28px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 700;
+   	font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
     letter-spacing: 1px;
+    line-height: 160%;
 }
  
 .text-container>div>p , .text-container>div>ul, .text-container>div>ol {

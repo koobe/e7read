@@ -19,6 +19,9 @@ class S3File {
     String bucket
     String objectKey
 
+    String thumbnailUrl
+    String thumbnailObjectKey
+
     /**
      * An URL for the object stored in the specified bucket and objectKey.
      */
@@ -56,6 +59,9 @@ class S3File {
 		id maxSize: 32
         //attachDomain nullable: true, empty: true
         //attachId nullable: true, empty: true
+
+        thumbnailObjectKey nullable: true
+        thumbnailUrl nullable: true
     }
 
     void setFile(CommonsMultipartFile file) {

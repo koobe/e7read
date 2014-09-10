@@ -1,5 +1,8 @@
 package kgl
 
+import net.coobird.thumbnailator.Thumbnailator
+import net.coobird.thumbnailator.Thumbnails
+import net.coobird.thumbnailator.resizers.configurations.Rendering
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 import java.util.logging.Logger;
@@ -72,8 +75,10 @@ class S3Service {
 
         log.info "Save to bucket: ${s3file.bucket}"
 
+        def keyPrefix = "${Environment.current.name}/${s3file.ownerId}/${UUID.randomUUID()}"
+
         if (!s3file.objectKey) {
-            s3file.objectKey = "${Environment.current.name}/${s3file.ownerId}/${UUID.randomUUID()}/${s3file.originalFilename}"
+            s3file.objectKey = "${keyPrefix}/${s3file.originalFilename}"
             log.info "Auto-create s3 object objectKey: ${s3file.objectKey}"
         }
 
@@ -94,8 +99,57 @@ class S3Service {
         s3file.resourceUrl = s3file.url
         s3file.hasBeenUploaded = true
 
+        // make thumbnail
+        if (isImageFile(s3file.originalFilename)) {
+
+            //File fromFile = File.createTempFile("tmp", s3file.originalFilename)
+            //fromFile << inputStream
+
+            ByteArrayOutputStream os = new ByteArrayOutputStream()
+            Thumbnails.of(file.inputStream).size(640, 640).outputQuality(0.7).rendering(Rendering.QUALITY).toOutputStream(os)
+            ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray())
+
+            metadata = new ObjectMetadata()
+            metadata.contentLength = os.size()
+            metadata.contentType = s3file.contentType
+
+            s3file.thumbnailObjectKey = "${keyPrefix}/thumbnail-${s3file.originalFilename}"
+
+            request = new PutObjectRequest(s3file.bucket, "${s3file.thumbnailObjectKey}", is, metadata)
+
+            if (s3file.isPublic) {
+                request.setCannedAcl(CannedAccessControlList.PublicRead)
+            }
+
+            log.info "Upload thumbnail for image file and save to ${s3file.thumbnailObjectKey}"
+
+            s3client.putObject(request)
+
+            s3file.thumbnailUrl = s3client.getUrl(s3file.bucket, s3file.thumbnailObjectKey).toString().replaceFirst("https://", "http://")
+
+            log.info "Thumbnail URL: ${s3file.thumbnailUrl}"
+        }
+
         s3file.save flush: true
 
         return s3file
+    }
+
+    boolean isImageFile(String filename) {
+        filename = filename.toLowerCase()
+
+        if (filename.endsWith(".jpg") || filename.endsWith(".jpeg")) {
+            return true
+        }
+
+        if (filename.endsWith(".gif")) {
+            return true
+        }
+
+        if (filename.endsWith(".png")) {
+            return true
+        }
+
+        return false
     }
 }

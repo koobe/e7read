@@ -667,7 +667,7 @@ class ContentController {
 		dataIdx = 0
 		fileidList.each { s3fileId ->
 			def s3ImageFile = S3File.get(s3fileId)
-			def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
+			def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl, thumbnailUrl: s3ImageFile.thumbnailUrl)
 			contentInstance.pictureSegments << pictureSegment
 			// log.info 'Picture segment added. {' + pictureSegment + '}'
 			dataIdx++
@@ -686,7 +686,9 @@ class ContentController {
                 dataIdx = 0
                 if (defaultCovers.size() > 0) {
                     def s3ImageFile = defaultCovers.get(idx)
-                    def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
+                    def pictureSegment = new PictureSegment(
+                            content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl, thumbnailUrl: s3ImageFile.thumbnailUrl
+                    )
                     contentInstance.pictureSegments << pictureSegment
                     // log.info 'Picture segment added. {' + pictureSegment + '}'
                     dataIdx++
@@ -728,8 +730,13 @@ class ContentController {
 		contentInstance.fullText = fullText
 
 		if (contentInstance.pictureSegments) {
-			contentInstance.coverUrl = contentInstance.pictureSegments.first().thumbnailUrl? contentInstance.pictureSegments.first().thumbnailUrl: contentInstance.pictureSegments.first().originalUrl
-		}
+            def firstImage = contentInstance.pictureSegments.first()
+
+			contentInstance.coverUrl = firstImage.thumbnailUrl?firstImage.thumbnailUrl:firstImage.originalUrl
+
+            log.info "Set coverUrl = ${contentInstance.coverUrl}"
+
+        }
 
 		contentInstance.hasPicture = contentInstance.pictureSegments? true: false
 

@@ -22,7 +22,7 @@
 	    <div class="main-gallery">
 	        <div class="table-row">
 	            <g:each in="${content.pictureSegments}">
-	                <div data-toggle="lightbox" class="table-col" style="background-image:url(${it.originalUrl});"
+	                <div data-toggle="lightbox" class="table-col" style="background-image:url(${it.thumbnailUrl? it.thumbnailUrl: it.originalUrl});"
 	                     data-imageurl="${it.originalUrl}"></div>
 	            </g:each>
 	        </div>

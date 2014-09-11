@@ -61,7 +61,7 @@
 	    <div class="main-gallery">
 	        <div class="table-row">
 	            <g:each in="${content.pictureSegments}">
-	                <div class="table-col" style="background-image:url(${it.originalUrl});" data-imageurl="${it.originalUrl}"></div>
+	                <div class="table-col" style="background-image:url(${it.thumbnailUrl? it.thumbnailUrl: it.originalUrl});" data-imageurl="${it.originalUrl}"></div>
 	            </g:each>
 	        </div>
 	    </div>

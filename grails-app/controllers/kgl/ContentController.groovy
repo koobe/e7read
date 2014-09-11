@@ -1,8 +1,12 @@
 package kgl
 
+import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
+
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+
+import org.codenarc.rule.braces.ElseBlockBracesAstVisitor;
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 import static org.springframework.http.HttpStatus.*
@@ -619,6 +623,7 @@ class ContentController {
 
         def fullText = ''
 		def dataIdx = 0
+		def firstSegment
 		def cropSegment
 		def maxLength = 0
 
@@ -641,14 +646,18 @@ class ContentController {
 				segment = segment.trim()
 				if (segment == "") { return }
 				
+				if (firstSegment == null) {
+					firstSegment = segment;
+				}
+				
 				if (segment.length() > maxLength) {
-					cropSegment = segment.trim();
+					cropSegment = segment;
 					maxLength = segment.length()
 				}
 				
-				def textSegment = new TextSegment(content: contentInstance, dataIndex: dataIdx, text: segment.trim());
+				def textSegment = new TextSegment(content: contentInstance, dataIndex: dataIdx, text: segment);
 				contentInstance.textSegments << textSegment
-				fullText+= segment.trim() + "\n\n"
+				fullText+= segment + "\n\n"
 				dataIdx++
 			}
 		}
@@ -710,18 +719,26 @@ class ContentController {
 			def category = Category.findByName(name)
 			contentInstance.categories << category
 		}
-		
-//		def categoryName = categorys?.first()
-//		if (categoryName) {
-//			log.info 'add category: ' + categoryName
-//			def category = Category.findByName(categoryName)
-//			contentInstance.category = category
-//		}
 
         // Don't replace exists cropTitle and cropText
         if (!contentInstance.cropTitle) {
-            contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
-			contentInstance.cropTitle = contentInstance.cropTitle.replaceAll("#", "").replaceAll("\\*", "");
+			def titleSeg = firstSegment.split(",|\\.|;|，|。");
+			def assigned;
+			if (titleSeg.size() > 1) {
+				def second = titleSeg[1]
+				if (second.getAt(0..0).isNumber()) {
+					def firstL = titleSeg[0].length()
+					def secondL = titleSeg[1].length()
+					assigned = firstSegment.getAt(0..firstL+secondL)
+				} else {
+					assigned = titleSeg.first()
+				}
+			} else {
+				assigned = titleSeg.first()
+			}
+			
+			assigned = assigned.replaceAll("#", "").replaceAll("\\*", "")
+			contentInstance.cropTitle = assigned
         }
         if (!contentInstance.cropText) {
             contentInstance.cropText = cropSegment

@@ -63,7 +63,7 @@ class ContentService {
 		def result;
 		
 		if (fistSegL < 12) {
-			if (titleSegList[1]) {
+			if (titleSegList.size() > 1) {
 				def wantL = titleSegList[0].length() + titleSegList[1].length()
 				result = text[0..wantL]
 			} else {

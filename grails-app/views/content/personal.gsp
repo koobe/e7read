@@ -7,12 +7,16 @@
 	    <asset:stylesheet src="content_category_label.css"/>
 	    <asset:stylesheet src="content_personal.css"/>
 		<asset:javascript src="content_personal.js"/>
-		<asset:javascript src="content_show.js"/>
+		
 		<asset:stylesheet src="gototop.css"/>
 		<asset:javascript src="jquery.gototop.js"/>
 		<asset:stylesheet src="imageview.css"/>
 		<asset:javascript src="jquery.imageview.js"/>
 		<asset:javascript src="image.view.msghandler.js"/>
+		<asset:javascript src="jquery.hashmanager.js"/>
+		<asset:javascript src="jquery.fullframe.js"/>
+		
+		<asset:javascript src="content_show.js"/>
 	</head>
 	<body>
 		<div id="display-container">

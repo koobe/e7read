@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<div id="display-container" onclick="hideCategoryMenu()"><div class="content-pane">
-			<g:render template="header" model="[showcategorymenu: true]" />
+			<g:render template="header" model="[showcategorymenu: true, showsearchbar: true]" />
 			<g:render template="/content/contents_container" />
 			<g:render template="footer" />
         </div></div>

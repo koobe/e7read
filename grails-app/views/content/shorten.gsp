@@ -3,15 +3,22 @@
 <head>
     <meta name="layout" content="main">
     <title></title>
+    <asset:javascript src="jquery.fullframe.js" />
 </head>
 
 <body>
+
+	<div id="display-container">
+		<g:render template="/home/header" model="[showcategorymenu: true]" />
+	</div>
+	
+	<div class="container" style="padding-top: 40px;">
+	    <div style="text-align: center;" class="alert alert-success">
+	    		<span>Congratulation! Your post has been published.</span>
+	    </div>
+	</div>
+
 <div class="container">
-
-    <div class="page-header">
-        <h2>Congratulation! Your post has been published.</h2>
-    </div>
-
     <p>Content code is:</p>
     <p><code style="font-size:200%;">${hashcode}</code></p>
 
@@ -30,9 +37,11 @@
     <br/><br/>
 
     <g:link uri="/share/${contentId}" class="btn btn-default">View Content</g:link>
-
-    <g:link uri="/" class="btn btn-default">Home</g:link>
 </div>
+
+<g:render template="/home/footer" />
+		
+<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home']" />
 
 <script type="text/javascript">
     $(function() {
@@ -40,9 +49,13 @@
             $(this).select();
         });
         $('.friendly-url-copy').click(function() {
-
         });
     });
+
+   function viewContent(url) {
+	   var fullframe = $.fullframe({iframeUrl: url});
+	   fullframe.openFrame();
+   }
 </script>
 </body>
 </html>

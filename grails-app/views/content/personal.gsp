@@ -17,7 +17,7 @@
 	<body>
 		<div id="display-container">
 			<div class="content-pane">
-				<g:render template="/home/header" />
+				<g:render template="/home/header" model="[showsearchbar: true]" />
 				<g:render template="/content/contents_container_personal" />
 				<g:render template="/home/footer" />
 			</div>

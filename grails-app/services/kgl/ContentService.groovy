@@ -42,4 +42,43 @@ class ContentService {
 
         return content.editableHashcode
     }
+	
+	def cropTitle(String text) {
+		
+		def replaced = '@@@@@'
+		def replacedL = replaced.length()
+		def numList = []
+		def count = -1
+		
+		text = text.replaceAll(/[0-9.,]+/, {
+			numList << it
+			count++
+			replaced
+		})
+		
+		def titleSegList = text.split(",|\\.|;|，|。");
+		
+		def fistSegL = titleSegList.first().replaceAll(replaced, "").length()
+		def totalLength = 0;
+		def result;
+		
+		if (fistSegL < 12) {
+			if (titleSegList[1]) {
+				def wantL = titleSegList[0].length() + titleSegList[1].length()
+				result = text[0..wantL]
+			} else {
+				result = titleSegList.first()
+			}
+		} else {
+			result = titleSegList.first()
+		}
+		
+		count = -1
+		result = result.replaceAll(replaced, {
+			count++
+			numList[count]
+		})
+		
+		return result
+	}
 }

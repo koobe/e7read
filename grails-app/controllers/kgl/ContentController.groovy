@@ -1,15 +1,14 @@
 package kgl
 
+import static org.springframework.http.HttpStatus.*
+
 import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
-import org.codenarc.rule.braces.ElseBlockBracesAstVisitor;
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-
-import static org.springframework.http.HttpStatus.*
 
 @Secured(["ROLE_USER"])
 @Transactional
@@ -722,23 +721,11 @@ class ContentController {
 
         // Don't replace exists cropTitle and cropText
         if (!contentInstance.cropTitle) {
-			def titleSeg = firstSegment.split(",|\\.|;|，|。");
-			def assigned;
-			if (titleSeg.size() > 1) {
-				def second = titleSeg[1]
-				if (second.getAt(0..0).isNumber()) {
-					def firstL = titleSeg[0].length()
-					def secondL = titleSeg[1].length()
-					assigned = firstSegment.getAt(0..firstL+secondL)
-				} else {
-					assigned = titleSeg.first()
-				}
-			} else {
-				assigned = titleSeg.first()
-			}
+			def cropTitle = contentService.cropTitle(firstSegment)
+			log.info 'Cropped title: ' + cropTitle
 			
-			assigned = assigned.replaceAll("#", "").replaceAll("\\*", "")
-			contentInstance.cropTitle = assigned
+			cropTitle = cropTitle.replaceAll("#", "").replaceAll("\\*", "")
+			contentInstance.cropTitle = cropTitle
         }
         if (!contentInstance.cropText) {
             contentInstance.cropText = cropSegment

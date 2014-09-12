@@ -2,7 +2,7 @@
 	<g:each in="${categorys}" var="category">
 		<g:if test="${category.categorys}">
 			<li class="dropdown-submenu menu-style sub-menu-item ${active?.equals(category.name)? 'activei': ''}">
-				<a href="?c=${category.name}">${category.name}</a>
+				<g:link controller="home" action="index" params="${[c: category.name]}">${category.name}</g:link>
 				<g:render template="/category/category_panel_topmenu_item" model="[categorys: category.categorys]" />
 			</li>
 		</g:if>

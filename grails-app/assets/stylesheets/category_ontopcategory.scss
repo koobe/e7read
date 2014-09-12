@@ -21,66 +21,75 @@
 	}
 }
 
-.ontop_category_item {
+.ontop-category-item {
 
-	text-transform: uppercase;
-	border-left: 1px solid #999;
-	padding-right: 13px;
-	padding-left: 13px;
-	cursor: pointer;
-	
-	a {
-		color: #333;
-		text-decoration: none;
-	}
-	
-	a:hover {
-		color: #BBB;
-	}
+  text-transform: uppercase;
+  border-left: 1px solid #999;
+  cursor: pointer;
+
+  a {
+    display: inline-block;
+    padding-right: 13px;
+    padding-left: 13px;
+
+    color: #333;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #BBB;
+  }
 }
 
-.ontop_category_item:hover {
-	a {
-		color: #BBB;
-	}
+.ontop-category-item:hover {
+  a {
+    color: #BBB;
+  }
 }
 
 @media screen and (min-width: 769px) {
-	.ontop_category_item {
-		letter-spacing: 1px;
-		font-size: 1.2em;
-		font-weight: 600;
-	}
-	
-	.ontop_category_item:first-child {
-		padding-left: 20px;
-		border-left: 1px solid #fff;
-	}
-	
-	.ontop_category_item_active {
-		/*font-size: 1.2em !important;*/
-		/*text-decoration: underline !important;*/
-		color: #94E6DA !important;
-		/*font-weight: 700 !important;*/
-	}
+  .ontop-category-item {
+    letter-spacing: 1px;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+
+  .ontop-category-item:first-child {
+    border-left: 1px solid #fff;
+  }
+
+  .ontop-category-item:first-child a {
+    padding-left: 20px;
+  }
+
+  a.active {
+    /*font-size: 1.2em !important;*/
+    /*text-decoration: underline !important;*/
+    color: #94E6DA !important;
+    /*font-weight: 700 !important;*/
+  }
 }
 
 @media screen and (max-width: 768px) {
-	.ontop_category_item {
-		letter-spacing: 1px;
-		font-size: 1.1em;
-		font-weight: 600;
-	}
-	
-	.ontop_category_item:first-child {
-		padding-left: 0px;
-		border-left: 1px solid #fff;
-	}
-	
-	.ontop_category_item_active {
-		/*font-size: 1.1em !important;*/
-		/*text-decoration: underline !important;*/
-		color: #94E6DA !important;
-		/*font-weight: 700 !important;*/
-	}
+  .ontop-category-item {
+    letter-spacing: 1px;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  .ontop-category-item:first-child {
+    border-left: 1px solid #fff;
+  }
+
+  .ontop-category-item:first-child a {
+    padding-left: 0px;
+
+  }
+
+  a.active {
+    /*font-size: 1.1em !important;*/
+    /*text-decoration: underline !important;*/
+    color: #94E6DA !important;
+    /*font-weight: 700 !important;*/
+  }
 }

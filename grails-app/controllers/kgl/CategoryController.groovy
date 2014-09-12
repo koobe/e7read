@@ -138,7 +138,7 @@ class CategoryController {
 			eq 'enable', true
 			order 'rankOnTop', 'asc'
 		}
-		
-		render template: "category_panel_rankontop", model:[categories: categoryList, active: params.c]
+
+		render template: "category_panel_rankontop", model:[categories: categoryList, activeCategoryName: params.c]
 	}
 }

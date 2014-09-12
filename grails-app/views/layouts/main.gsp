@@ -17,6 +17,9 @@
     <meta name="application-version" content="${meta(name: 'app.version')}"/>
     <meta name="grails-version" content="${meta(name: 'app.grails.version')}"/>
 
+    <g:each in="${params}"><meta name="params-${it.key}" content="${it.value}"/>
+    </g:each>
+
     <link rel="shortcut icon" href="${assetPath(src: 'webicon.png')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'webicon.png')}">

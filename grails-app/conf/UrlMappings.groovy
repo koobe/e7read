@@ -10,6 +10,11 @@ class UrlMappings {
         // "/"(view:"/index")
         "/" (controller: "home")
 
+        "/c/$c/$p?" {
+            controller = 'home'
+            action = 'index'
+        }
+
         "500"(view:'/error')
 
         "/me" (controller: 'user', action: 'profile')

@@ -1,7 +1,7 @@
 <div class="ontop_category_table">
 	<g:each in="${categories}" var="category">
 		<div class="ontop-category-item">
-            <g:link controller="home" action="index" params="${[c: category.name]}" target="_top" class="category-link-item${category.name?.equalsIgnoreCase(activeCategoryName)?' active':''}" data-category="${category.name}">
+            <g:link controller="home" action="index" params="${[c: category.name]}" target="_top" class="category-link-item${category.name?.equalsIgnoreCase("${activeCategoryName}")?' active':''}" data-category="${category.name}">
                 <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
             </g:link>
 		</div>

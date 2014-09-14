@@ -139,6 +139,6 @@ class CategoryController {
 			order 'rankOnTop', 'asc'
 		}
 
-		render template: "category_panel_rankontop", model:[categories: categoryList, activeCategoryName: params.c]
+		render template: "category_panel_rankontop", model: [categories: categoryList, activeCategoryName: params.c]
 	}
 }

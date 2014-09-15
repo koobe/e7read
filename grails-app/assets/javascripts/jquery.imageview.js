@@ -122,6 +122,7 @@
 				var parent = window.parent;
 				if (window != parent) {
 					var data = {
+						action: 'openImageView',
 						imageUrl: currUrl,
 						imageArray: array
 					};

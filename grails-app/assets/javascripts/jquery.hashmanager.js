@@ -2,7 +2,7 @@
  * @author Cloude
  * 
  * depend on:
- * bootstrap: http://getbootstrap.com/
+ * jQuery
  */
 
 (function($) {

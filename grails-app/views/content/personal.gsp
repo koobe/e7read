@@ -2,6 +2,8 @@
 	<head>
 	    <meta name="layout" content="main"/>
 	    <title></title>
+	    
+	    <asset:javascript src="jquery.messagemanager.js"/>
 	    <asset:javascript src="jquery.loadingspinner.js"/>
 		<asset:stylesheet src="loadingspinner.css"/>
 	    <asset:stylesheet src="content_category_label.css"/>

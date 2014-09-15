@@ -1,14 +1,21 @@
+/**
+ * @author cloude
+ */
+
 $(function() {
-	function receiveMessage(event) {
-		console.log('Receive message: ' + event.data);
-		var data = event.data;
+	
+	// use message manager
+	var messagemanager = $.messagemanager();
+	
+	// register an action and handler
+	messagemanager.registerHandler('openImageView', function(data) {
 		console.log(data.imageUrl);
 		console.log(data.imageArray);
-		
 		var imageview = $.imageview({imageUrl: data.imageUrl, imageArray: data.imageArray});
 		imageview.openView(data.imageUrl);
-	}
+	});
 	
-	window.addEventListener("message", receiveMessage, false);
+	// start listen message
+	messagemanager.addMessageEvnetListener();
 });
 

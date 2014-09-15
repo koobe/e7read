@@ -62,6 +62,10 @@
 				<label>Description</label>
 				<g:textArea name="updateDesc" class="form-control" value="${content.cropText}" rows="5" cols="40"/>
 			</div>
+			<div class="form-group">
+				<label>Reference</label>
+				<g:textField name="updateReference" class="form-control" value="${content.references}" />
+			</div>
 			<button type="submit" class="btn btn-default">Update</button>
 		</g:form>
 	</div>

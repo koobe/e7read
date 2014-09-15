@@ -818,6 +818,10 @@ class ContentController {
 				updateFlag = true;
 				content.cropText = params.updateDesc
 			}
+			if (params.updateReference) {
+				updateFlag = true;
+				content.references = params.updateReference
+			}
 			if (updateFlag) {
 				content.save flush: true
 			}

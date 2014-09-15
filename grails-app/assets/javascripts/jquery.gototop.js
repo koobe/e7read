@@ -15,8 +15,13 @@
 		scrollContainer.scrollTop(0);
 		
 		var ua = window.navigator.userAgent;
-		var msie = ua.indexOf ( "MSIE " );
+		var msie = ua.indexOf ("MSIE ");
+		var trident = ua.indexOf('Trident/');
 		if ( msie > 0 ) {
+			console.log('window scroll position: ' + $(window).scrollTop());
+			$(window).scrollTop(0);
+		}
+		if ( trident > 0 ) {
 			console.log('window scroll position: ' + $(window).scrollTop());
 			$(window).scrollTop(0);
 		}

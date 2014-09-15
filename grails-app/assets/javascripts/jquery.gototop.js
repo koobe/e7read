@@ -11,8 +11,15 @@
 	var ontopclickHandler = function(settings, scrollContainerId, alink) {
 		
 		var scrollContainer = $('#' + scrollContainerId);
-		console.log('current scroll position: ' + scrollContainer.scrollTop());
+		console.log('container scroll position: ' + scrollContainer.scrollTop());
 		scrollContainer.scrollTop(0);
+		
+		var ua = window.navigator.userAgent;
+		var msie = ua.indexOf ( "MSIE " );
+		if ( msie > 0 ) {
+			console.log('window scroll position: ' + $(window).scrollTop());
+			$(window).scrollTop(0);
+		}
 		
 		if (settings.auto_hide) {
 			alink.hide();

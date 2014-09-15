@@ -43,4 +43,18 @@ class DebugController {
 
         render result as JSON
     }
+
+    def email() {
+        sendMail {
+            to "lyhcode@gmail.com"
+            subject "Hello Fred"
+            body 'How are you?'
+        }
+
+        def result = [
+                result: true
+        ]
+
+        render result as JSON
+    }
 }

@@ -234,7 +234,7 @@ grails {
         host = "email-smtp.us-east-1.amazonaws.com"
         port = 587
         username = "AKIAIPW65NXWUNOYF6ZQ"
-        password = "----PASSWORD----"
+        password = System.getenv('SMTP_PASSWORD')?:System.getProperty('SMTP_PASSWORD')
         props = ["mail.smtp.starttls.enable": "true",
                  "mail.smtp.port": "587"]
     }

@@ -69,7 +69,8 @@
     <br/>
 
     <g:link uri="/share/${contentId}" class="btn btn-default">View Content</g:link>
-    <g:link controller="content" action="disableByHashcode" id="${hashcode}" class="btn btn-danger">Delete Content</g:link>
+    
+    <g:link data-hashcode="${hashcode}" uri="#" class="btn btn-danger action-click-delete">Delete Content</g:link>
 </div>
 
 <g:render template="/home/footer" />
@@ -96,6 +97,14 @@
 	    			$('.editing-title-box').css('display', 'block');
 	    		}
 	    	});
+
+    		$('.action-click-delete').click(function(e) {
+			var c = confirm("Are you sure to delete?");
+			if (c) {
+				var hashcode = $('.action-click-delete').data('hashcode');
+				window.location.replace("/content/disableByHashcode/" + hashcode);
+			}
+        	});
     });
     
 </script>

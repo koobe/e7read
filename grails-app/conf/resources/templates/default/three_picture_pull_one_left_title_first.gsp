@@ -28,33 +28,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="pictures-container">
-            <table class="picture-rtable">
-                <tr>
-                  <td rowspan="2">
-                    <div class="picture-native" style="background-image:url(${content.pictureSegments[0]?.thumbnailUrl? content.pictureSegments[0]?.thumbnailUrl: content.pictureSegments[0]?.originalUrl});" data-imageurl="${content.pictureSegments[0]?.originalUrl}"></div>
-                  </td>
-                  <td >
-                    <div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.thumbnailUrl? content.pictureSegments[1]?.thumbnailUrl: content.pictureSegments[1]?.originalUrl});" data-imageurl="${content.pictureSegments[1]?.originalUrl}"></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.thumbnailUrl? content.pictureSegments[2]?.thumbnailUrl: content.pictureSegments[2]?.originalUrl});" data-imageurl="${content.pictureSegments[2]?.originalUrl}"></div>
-                  </td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="text-container padding-lr">
-            <div>
-                <g:each in="${content.textSegments}" var="segment">
-                    <markdown:renderHtml>${segment.text}</markdown:renderHtml>
-                </g:each>
-            </div>
-        </div>
-
+        
         <div class="margin-lr-20">
             <g:if test="${content.categories}">
                 <div class="content-category-tags-table text-uppercase">
@@ -82,6 +56,34 @@
                 </a>
             </div>
         </div>
+
+        <div class="pictures-container">
+            <table class="picture-rtable">
+                <tr>
+                  <td rowspan="2">
+                    <div class="picture-native" style="background-image:url(${content.pictureSegments[0]?.thumbnailUrl? content.pictureSegments[0]?.thumbnailUrl: content.pictureSegments[0]?.originalUrl});" data-imageurl="${content.pictureSegments[0]?.originalUrl}"></div>
+                  </td>
+                  <td >
+                    <div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.thumbnailUrl? content.pictureSegments[1]?.thumbnailUrl: content.pictureSegments[1]?.originalUrl});" data-imageurl="${content.pictureSegments[1]?.originalUrl}"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.thumbnailUrl? content.pictureSegments[2]?.thumbnailUrl: content.pictureSegments[2]?.originalUrl});" data-imageurl="${content.pictureSegments[2]?.originalUrl}"></div>
+                  </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="text-container padding-lr">
+            <div>
+                <g:each in="${content.textSegments}" var="segment">
+                    <markdown:renderHtml>${segment.text}</markdown:renderHtml>
+                </g:each>
+            </div>
+        </div>
+
+        
 
         <div class="margin-blank"></div>
     </div>

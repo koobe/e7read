@@ -20,6 +20,8 @@ var viewContentHandler = function(data) {
 	    });
 	    $('body').append(backlink);
 	    
+	    fullframe.openFrame('/content/embed/' + data.contentId);
+	    
 	    if (is_safari_or_uiwebview) {
 	    		$('#display-container').css('display', 'none');
 			scrollTop = $(window).scrollTop();
@@ -30,7 +32,6 @@ var viewContentHandler = function(data) {
 				auto_hide: false
 			});
 		}
-	    fullframe.openFrame('/content/embed/' + data.contentId);
 	}
 }
 

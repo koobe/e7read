@@ -8,10 +8,10 @@
 
 (function($) {
 	
-	var ontopclickHandler = function(settings, scrollContainer, alink) {
+	var ontopclickHandler = function(settings, scrollContainerId, alink) {
 		
+		var scrollContainer = $('#' + scrollContainerId);
 		console.log('current scroll position: ' + scrollContainer.scrollTop());
-		
 		scrollContainer.scrollTop(0);
 		
 		if (settings.auto_hide) {
@@ -44,23 +44,24 @@
 		alink.css('z-index', settings.z_index);
 		
 		$(alink).click(function(e) {
-			ontopclickHandler(settings, scrollContainer, alink);
+			ontopclickHandler(settings, settings.containerId, alink);
 			e.stopPropagation();
 		});
 		
 		if (settings.auto_hide) {
-			
-			scrollContainer.scroll(function() {
-				isGotoTopDisplay(scrollContainer, alink);
-			});
-			
-			scrollContainer.on({
-		        'touchmove': function(e) {
-		        	isGotoTopDisplay(scrollContainer, alink);
-		        }
-		    });
-			
-			alink.hide();
+			try {
+				scrollContainer.scroll(function() {
+					isGotoTopDisplay(scrollContainer, alink);
+				});
+				scrollContainer.on({
+			        'touchmove': function(e) {
+			        	isGotoTopDisplay(scrollContainer, alink);
+			        }
+			    });
+				alink.hide();
+			} catch (err) {
+				console.log(err);
+			}
 		}
 		
 		return new GotoTop(this, alink);

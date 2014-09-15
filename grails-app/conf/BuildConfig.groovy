@@ -80,10 +80,10 @@ grails.project.dependency.resolution = {
         // plugins for the compile step
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.7'
-        compile ":asset-pipeline:1.9.6"
+        compile ":asset-pipeline:1.9.9"
 
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate4:4.3.5.4" // or ":hibernate:3.6.10.15"
+        runtime ":hibernate4:4.3.5.5" // or ":hibernate:3.6.10.15"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
 
@@ -99,10 +99,10 @@ grails.project.dependency.resolution = {
         compile ":spring-security-oauth-facebook:0.2"
 
         // Twitter Bootstrap
-        runtime ":twitter-bootstrap:3.2.0"
+        runtime ":twitter-bootstrap:3.2.0.2"
 
         // Uncomment these to enable additional asset-pipeline capabilities
-        compile ":sass-asset-pipeline:1.9.0"
+        compile ":sass-asset-pipeline:1.9.1"
         //compile ":less-asset-pipeline:1.7.0"
         //compile ":coffee-asset-pipeline:1.7.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
@@ -116,7 +116,7 @@ grails.project.dependency.resolution = {
         // Grails Resources Plugin
         //runtime ':resources:1.2.8'
 
-        compile ":elasticsearch:0.0.3.1"
+        compile ":elasticsearch:0.0.3.3"
         //compile ":searchable:0.6.8"
 		
 		// markdown plugin

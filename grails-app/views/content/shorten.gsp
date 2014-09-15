@@ -3,9 +3,21 @@
 <head>
     <meta name="layout" content="main">
     <title></title>
-    <asset:javascript src="jquery.fullframe.js" />
+    <style type="text/css">
+    		.editing-title-switch {
+    			cursor: pointer;
+    		}
+    		.editing-title-box {
+    			display: none;
+    			border: 1px solid #AAA;
+    			border-radius: 5px;
+    			padding: 10px 10px 10px 10px;
+    			background-color: #eee;
+    			margin-right: 15px;
+    			margin-left: 15px;
+    		}
+    </style>
 </head>
-
 <body>
 
 	<div id="display-container">
@@ -33,10 +45,31 @@
             <button class="btn btn-default friendly-url-copy" style="display: none">Copy to clipboard</button>
         </div>
     </div>
+    
+    <br/>
+    
+    <div class="editing-title-switch">
+		<p><i class="fa fa-pencil"></i> Edit Title & Description</p>
+	</div>
+	
+	<div class="editing-title-box">
+		<g:form name="updateTitleForm" controller="content" action="shorten">
+			<div class="form-group">
+				<label>Title</label>
+				<g:textField name="updateTitle" class="form-control" value="${content.cropTitle}" />
+			</div>
+			<div class="form-group">
+				<label>Description</label>
+				<g:textArea name="updateDesc" class="form-control" value="${content.cropText}" rows="5" cols="40"/>
+			</div>
+			<button type="submit" class="btn btn-default">Update</button>
+		</g:form>
+	</div>
 
-    <br/><br/>
+    <br/>
 
     <g:link uri="/share/${contentId}" class="btn btn-default">View Content</g:link>
+    <g:link controller="content" action="disableByHashcode" id="${hashcode}" class="btn btn-danger">Delete Content</g:link>
 </div>
 
 <g:render template="/home/footer" />
@@ -44,18 +77,27 @@
 <g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home']" />
 
 <script type="text/javascript">
+
+	var onoff = false;
+
     $(function() {
         $('.friendly-url').click(function() {
             $(this).select();
         });
         $('.friendly-url-copy').click(function() {
         });
-    });
 
-   function viewContent(url) {
-	   var fullframe = $.fullframe({iframeUrl: url});
-	   fullframe.openFrame();
-   }
+        $('.editing-title-switch').click(function(e) {
+	    		if (onoff) {
+	    			onoff = false;
+	    			$('.editing-title-box').css('display', 'none');
+	    		} else {
+	    			onoff = true;
+	    			$('.editing-title-box').css('display', 'block');
+	    		}
+	    	});
+    });
+    
 </script>
 </body>
 </html>

@@ -4,6 +4,8 @@ import static org.springframework.http.HttpStatus.*
 
 import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
 
+import javax.sound.midi.MidiDevice.Info;
+
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
@@ -47,25 +49,20 @@ class ContentController {
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def embed(Content contentInstance) {
 		
-		if (contentInstance.isDelete) {
-			render view: 'hasdeleted'
-		} else if (contentInstance.isPrivate && (contentInstance.user != springSecurityService.currentUser)) {
-			render view: 'haslocked'
-		} else {
-			
-			def template = OriginalTemplate.get(params.template?.id)
+		def checkAction = checkContent(contentInstance)
 		
+		if (checkAction) {
+			redirect action: checkAction
+		} else {
+		
+			def template = OriginalTemplate.get(params.template?.id)
 			def output
 	
 			if (!template) {
 				output = templateService.render(contentInstance)
-			}
-			else {
+			} else {
 				output = templateService.render(contentInstance, template)
 			}
-	
-			//render contentInstance.fullText.replaceAll("\n\n", "<br/><br/>")
-	
 			render contentType: 'text/html', text: output
 		}
     }
@@ -153,10 +150,9 @@ class ContentController {
             return
         }
 		
-		if (contentInstance.isDelete) {
-			render view: 'hasdeleted'
-		} else if (contentInstance.isPrivate && (contentInstance.user != springSecurityService.currentUser)) {
-			render view: 'haslocked'
+		def checkAction = checkContent(contentInstance)
+		if (checkAction) {
+			redirect action: checkAction
 		} else {
 			render contentType: 'text/html', text: templateService.render(contentInstance)
 		}
@@ -199,8 +195,13 @@ class ContentController {
             redirect uri: '/'
             return
         }
-
-        respond content
+		
+		def checkAction = checkContent(content)
+		if (checkAction) {
+			redirect action: checkAction
+		} else {
+			respond content
+		}
     }
 
     @Transactional
@@ -533,7 +534,7 @@ class ContentController {
 		
 		if (contentId != null) {
 			def content = Content.get(contentId)
-			content.isDelete = true;
+			content.isDelete = true
 			content.save flush:true
 		}
 		
@@ -762,104 +763,6 @@ class ContentController {
 		
 		render contentInstance as JSON
 	}
-	
-//	@Transactional
-//	def postContent() {
-//		
-//		log.info "The id list of files: ${params.s3fileId}"
-//		log.info "User input text: ${params.contentText}"
-//		log.info "References: ${params.references}"
-//
-//		// parse content as xml
-//		def contentXml = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "' + grailsApplication.config.grails.serverURL + '/assets/xhtml1-transitional.dtd">' +
-//			"<html>" + params.contentText + "</html>"
-//			
-//		contentXml = contentXml.replaceAll("<br[^>]*>", "<br/>")
-//		log.info 'Mock xml: ' + contentXml
-//		
-//		def parser = new XmlParser()
-//		parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
-//		def contentDom = parser.parseText(contentXml)
-//		
-//		// new content instance for persistence
-//		def contentInstance = new Content()
-//		contentInstance.textSegments = []
-//		contentInstance.pictureSegments = []
-//		
-//		def fullText = ''
-//		def dataIdx = 0
-//		def cropSegment
-//		def maxLength = 0
-//		contentDom.children().each { node ->
-//			
-//			String segment;
-//			if (node instanceof String) {
-//				segment = node;
-//			} else if (node instanceof Node) {
-//				segment = node.text()
-//			} else {
-//				log.warn 'Unknow node type: ' + node;
-//				return
-//			}
-//			
-//			// log.info 'segment data: ' + segment
-//			segment = segment.replaceAll("&nbsp;", " ");
-//			segment = segment.replaceAll(String.valueOf((char) 160), " ")
-//			
-//			// break if no data
-//			segment = segment.trim()
-//			if (segment == "") {
-//				return
-//			}
-//			// log.info 'after trim segment data: ' + segment
-//
-//			if (segment.length() > maxLength) {
-//				cropSegment = segment.trim();
-//				maxLength = segment.length()
-//			}
-//			
-//			def textSegment = new TextSegment(content: contentInstance, dataIndex: dataIdx, text: segment.trim());
-//			contentInstance.textSegments << textSegment
-//			fullText+= segment.trim() + "\n\n"
-//			dataIdx++
-//		}
-//		
-//		// Set image files for content
-//		def fileidList = params.s3fileId.tokenize(",");
-//		dataIdx = 0
-//		fileidList.each { s3fileId ->
-//			def s3ImageFile = S3File.get(s3fileId)
-//			def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl)
-//			contentInstance.pictureSegments << pictureSegment
-//			// log.info 'Picture segment added. {' + pictureSegment + '}'
-//			dataIdx++
-//		}
-//		
-//		contentInstance.cropTitle = fullText?.trim().split("\n").first().split(",|\\.|;|，|。").first().trim()
-//		contentInstance.cropText = cropSegment
-//		contentInstance.fullText = fullText
-//
-//		if (contentInstance.pictureSegments) {
-//			contentInstance.coverUrl = contentInstance.pictureSegments.first().thumbnailUrl? contentInstance.pictureSegments.first().thumbnailUrl: contentInstance.pictureSegments.first().originalUrl
-//		}
-//
-//		contentInstance.hasPicture = contentInstance.pictureSegments? true: false
-//		contentInstance.isDelete = false
-//		contentInstance.isPrivate = false
-//
-//		contentInstance.user = springSecurityService.currentUser
-//
-//		contentInstance.template = matchTemplate(contentInstance)
-//
-//        contentInstance.references = params.references
-//
-//		contentInstance.validate()
-//		log.info contentInstance.errors
-//		
-//		contentInstance.save(flush: true)
-//		
-//		render ""
-//	}
 
     private OriginalTemplate matchTemplate(Content content) {
         if (content.pictureSegments == null) {
@@ -897,9 +800,62 @@ class ContentController {
             redirect uri: '/'
             return
         }
-
-        def hashcode = contentService.createEditableHashcode(Content.get(contentId))
-
-        [contentId: contentId, hashcode: hashcode]
+		
+		def content = Content.get(contentId)
+		
+		def checkAction = checkContent(content)
+		if (checkAction) {
+			redirect action: checkAction
+		} else {
+			def hashcode = contentService.createEditableHashcode(content)
+			
+			def updateFlag = false;
+			if (params.updateTitle) {
+				updateFlag = true;
+				content.cropTitle = params.updateTitle
+			}
+			if (params.updateDesc) {
+				updateFlag = true;
+				content.cropText = params.updateDesc
+			}
+			if (updateFlag) {
+				content.save flush: true
+			}
+	
+			[contentId: contentId, hashcode: hashcode, content: content]
+		}
     }
+	
+	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+	def disableByHashcode() {
+		def content = Content.findByEditableHashcode(params.id)
+		content.isDelete = true
+		content.save flush:true
+		redirect action: 'deteted'
+	}
+	
+	/**
+	 * check if content deleted or locked
+	 * @param content
+	 * @return
+	 */
+	protected checkContent(Content content) {
+		def action
+		if (content.isDelete) {
+			action = 'deteted'
+		} else if (content.isPrivate && (content.user != springSecurityService.currentUser)) {
+			action = 'locked'
+		}
+	}
+	
+	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+	def deteted() {
+		render view: 'hasdeleted'
+	}
+	
+	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+	def locked() {
+		render view: 'haslocked'
+	}
+	
 }

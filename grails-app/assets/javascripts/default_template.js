@@ -22,5 +22,33 @@ $(function() {
     $('.content-category-name').css('cursor', 'pointer').click(function() {
     	 window.open("/?c="+$(this).data('categoryname'), '_top');
     });
-    
+
+    $('p').linkify();
+
+    $('.text-container a').each(function() {
+
+        var getUrlParameter = function(sUrl, sParam) {
+            var url = sUrl.split('?')[1];
+            var sURLVariables = url.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        };
+        var href = $(this).attr('href');
+        var matches = href.match(/^http:\/\/(?:www\.)?youtube.com\/watch\?(?=.*v=\w+)(?:\S+)?$/);
+        if (matches) {
+            var youtubeId = getUrlParameter(href, 'v');
+
+            var iframe = $('<iframe type="text/html"></iframe>');
+
+            iframe.width(640).height(390).attr('frameborder', 0);
+            iframe.attr('src', 'http://www.youtube.com/embed/'+youtubeId);
+
+            $(iframe).insertBefore(this);
+            $('<br/>').insertAfter(iframe);
+        }
+    });
 });

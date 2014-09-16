@@ -30,20 +30,26 @@
     };
     
     ImageView.prototype.openView = function(imageUrl) {
-    	this.$img.attr('src', imageUrl);
-    	$('body').append(this.$maskDiv);
+    		
+    		if (imageUrl == null || imageUrl == undefined) {
+    			return;
+    		}
     	
-    	var array = this.$array;
-    	var currUrlIdx = array.indexOf(imageUrl);
+	    	this.$img.attr('src', imageUrl);
+	    	$('body').append(this.$maskDiv);
     	
-    	var imageMaskDiv = this.$maskDiv;
-    	imageMaskDiv.click(function(e){
+	    	var array = this.$array;
+	    	var currUrlIdx = array.indexOf(imageUrl);
+    	
+	    	var imageMaskDiv = this.$maskDiv;
+	    	imageMaskDiv.click(function(e){
 			imageMaskDiv.remove();
 			e.stopPropagation();
 		});
     	
-    	var imgContainer = this.$imgDiv;
-    	var imgObj = this.$img;
+	    	var imgContainer = this.$imgDiv;
+	    	var imgObj = this.$img;
+	    	
 		imgObj.click(function(e){
 			if (array.length == 1) {
 				imageMaskDiv.remove();
@@ -60,27 +66,27 @@
 			e.stopPropagation();
 		});
     	
-    	adjustImage(this.$img, this.$imgDiv);
+		adjustImage(this.$img, this.$imgDiv);
     	
-    	function adjustImage(imgObj, imgContainer) {
-    		$('<img/>')
-    			.attr("src", $(imgObj).attr("src"))
-    		    .load(function() {
-    		    	if (this.height > this.width) {
-    		    		imgObj.css('width', 'auto');
-    		    		imgObj.css('max-width', '100%');
-    		    		imgObj.css('max-height', '100%');
-    		    	} else {
-    		    		imgObj.css('height', 'auto');
-    		    		imgObj.css('max-width', '100%');
-    		    		imgObj.css('max-height', '100%');
-    		    	}
-    		    	imgContainer.height($(window).height());
-    		    	$(window).unbind('resize').resize(function(){
-    	    			imgContainer.height($(window).height());
-    	    		});
-    		    });
-    	}
+	    	function adjustImage(imgObj, imgContainer) {
+	    		$('<img/>')
+	    			.attr("src", $(imgObj).attr("src"))
+	    		    .load(function() {
+	    		    	if (this.height > this.width) {
+	    		    		imgObj.css('width', 'auto');
+	    		    		imgObj.css('max-width', '100%');
+	    		    		imgObj.css('max-height', '100%');
+	    		    	} else {
+	    		    		imgObj.css('height', 'auto');
+	    		    		imgObj.css('max-width', '100%');
+	    		    		imgObj.css('max-height', '100%');
+	    		    	}
+	    		    	imgContainer.height($(window).height());
+	    		    	$(window).unbind('resize').resize(function(){
+	    	    			imgContainer.height($(window).height());
+	    	    		});
+	    		    });
+	    	}
     };
 	
 	$.fn.imageview = function(options) {

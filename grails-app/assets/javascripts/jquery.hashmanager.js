@@ -16,16 +16,19 @@
         var handlers = this.actionHandlers;
         
         var onhashchange = function() {
-        		if (window.location.hash && window.location.hash.length > 0) {
-        			var hashobj = JSON.parse(b64_to_utf8(window.location.hash.substring(1)));
-            		var handler = handlers[hashobj.action];
-            		handler(hashobj);
-        		}
-        		if (window.location.hash == '') {
-        			var handler = handlers['hashmanager_defaulthandler'];
-        			if (handler) {
-        				handler();
-        			}
+        		try {
+	        		if (window.location.hash && window.location.hash.length > 0) {
+	        			var hashobj = JSON.parse(b64_to_utf8(window.location.hash.substring(1)));
+	            		var handler = handlers[hashobj.action];
+	            		handler(hashobj);
+	        		} else if (window.location.hash == '') {
+	        			var handler = handlers['hashmanager_defaulthandler'];
+	        			if (handler) {
+	        				handler();
+	        			}
+	        		}
+        		} catch (err) {
+        			console.log(err);
         		}
         };
         this.$onhashchange = onhashchange;

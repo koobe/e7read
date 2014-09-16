@@ -14,11 +14,9 @@ $(function() {
 
 function determainDisplay() {
 	var scrollPos = $('#display-container').scrollTop();
-	console.log(scrollPos);
 	if (scrollPos < 100) {
 		$('.category-status-panel').hide();
 	} else {
-		console.log('fff');
 		$('.category-status-panel').show();
 	}
 }

@@ -20,29 +20,29 @@
 	    var logodivcell = $('<div/>').addClass('table-cell');
 	    var logoimg = $('<img src="/assets/trans_logo.png" alt="logo" class="e7read-logo" />');
 	    logoimg.click(function(e) {
-	    	window.open("/", '_top');
-	    	e.stopPropagation();
+		    	window.open("/", '_top');
+		    	e.stopPropagation();
 	    });
 	    
 	    var cellstatusindicator;
 	    var nowAt;
 	    
 	    if (settings.isShowNowAt) {
-	    	cellstatusindicator = $('<div/>').addClass('table-cell').addClass('category-status-indicator');
-	    	var spannowat = $('<span/>');
-	    	var spancatename = $('<span/>').addClass('category-status-name-text');;
-	    	spannowat.text('Now at: ');
-	    	nowAt = getQueryVariable('c');
-	    	spancatename.text(nowAt);
-	    	cellstatusindicator.append(spannowat).append(spancatename);
+		    	cellstatusindicator = $('<div/>').addClass('table-cell').addClass('category-status-indicator');
+		    	var spannowat = $('<span/>');
+		    	var spancatename = $('<span/>').addClass('category-status-name-text');;
+		    	spannowat.text('Now at: ');
+		    	nowAt = getQueryVariable('c');
+		    	spancatename.text(nowAt);
+		    	cellstatusindicator.append(spannowat).append(spancatename);
 	    }
 	    
 	    var cellopensidemenu = $('<div class="table-cell"><img src="/assets/grey_arrow.png" class="category-status-catebtn"></div>');
 		
 	    if (settings.isShowNowAt && nowAt) {
-	    	divcatestatusindicator.append(logodivcell.append(logoimg)).append(cellstatusindicator).append(cellopensidemenu);
+	    		divcatestatusindicator.append(logodivcell.append(logoimg)).append(cellstatusindicator).append(cellopensidemenu);
 	    } else {
-	    	divcatestatusindicator.append(logodivcell.append(logoimg)).append(cellopensidemenu);
+	    		divcatestatusindicator.append(logodivcell.append(logoimg)).append(cellopensidemenu);
 	    }
 		
 		$(this).append(divcatestatusindicator);

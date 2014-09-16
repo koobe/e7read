@@ -39,7 +39,7 @@ var closeIframeHandler = function() {
 	if (is_safari_or_uiwebview) {
 		$('#display-container').css('display', '');
 		$(window).scrollTop(scrollTop);
-		gototop.remove();
+		try {gototop.remove();} catch (err) {console.log(err);}
 	}
 	backlink.remove();
 	fullframe.closeFrame();

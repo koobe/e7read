@@ -829,6 +829,22 @@ class ContentController {
 			[contentId: contentId, hashcode: hashcode, content: content]
 		}
     }
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def ajaxSendShortenMail(Content content) {
+
+        sendMail {
+            to params.to
+            subject "[E7READ] ${content.cropTitle}"
+            body """${createLink(controller: 'content', action: 'modifyByHash', params: [hash: content.editableHashcode], absolute: true)}"""
+        }
+
+        def result = [
+                result: true
+        ]
+
+        render result as JSON
+    }
 	
 	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 	def disableByHashcode() {

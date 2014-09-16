@@ -1,47 +1,47 @@
 @media screen and (min-width: 769px) {
-	
+
 	.img-logo {
 		height: 30px;
 	}
-	
+
 	.koobe-header {
 		display: table;
-		
+
 		width: 100%;
-		
+
 		margin-top: 20px;
 		margin-bottom: 15px;
 		padding-left: 40px;
 		padding-right: 0px;
-		
+
 		.header-logo {
 			display: table-cell;
 			width: 10px;
 		}
-		
+
 		.header-cate-menu {
 			display: table-cell;
 			vertical-align: bottom;
 		}
-		
+
 		.header-search {
 			display: table-cell;
 			vertical-align: bottom;
 			text-align: right;
 			width:15%;
-			
+
 			form {
 				input {
 				}
 			}
 		}
-		
+
 		.header-usermenu {
 			display: table-cell;
 			vertical-align: bottom;
 			text-align: right;
 			padding-left: 15px;
-			
+
 			width: 1%;
 		}
 	}
@@ -54,34 +54,34 @@
 	}
 
 	.koobe-header {
-		
+
 		width: 100%;
 		margin-top: 10px;
 		margin-bottom: 15px;
 		padding-left: 22px;
 		padding-right: 0px;
-		
+
 		.header-logo {
 			width: 10px;
 		}
-		
+
 		.header-cate-menu {
 			padding-top: 10px;
 			padding-bottom: 6px;
 			width: 100%;
 		}
-				
+
 		.header-search {
 			text-align: right;
 			padding-top: 5px;
 			padding-right: 22px;
 			width:100%;
-			
+
 			input {
 				height: 30px;
 			}
 		}
-		
+
 		.header-usermenu {
 			padding-top: 10px;
 			padding-bottom: 30px;
@@ -96,7 +96,7 @@
 .header-logo {
 	font-family: 'Fascinate', cursive;
 	font-size: 0.9cm;
-	
+
 	.logomark {
 		font-size: 0.7cm;
 	}

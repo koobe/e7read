@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main">
+    <meta name="layout" content="main" />
+    <meta name="sendmail-url" content="${createLink(controller: 'content', action: 'ajaxSendShortenMail', id: content.id)}" />
     <title></title>
     <style type="text/css">
     		.editing-title-switch {
@@ -43,6 +44,7 @@
         </div>
         <div class="col-xs-6">
             <button class="btn btn-default friendly-url-copy" style="display: none">Copy to clipboard</button>
+            <button class="btn btn-default send-email-button">Send Reminder E-Mail</button>
         </div>
     </div>
     
@@ -83,32 +85,45 @@
 
 <script type="text/javascript">
 
-	var onoff = false;
+    var onoff = false;
 
-    $(function() {
-        $('.friendly-url').click(function() {
+    $(function () {
+        $('.friendly-url').click(function () {
             $(this).select();
         });
-        $('.friendly-url-copy').click(function() {
+        $('.friendly-url-copy').click(function () {
         });
 
-        $('.editing-title-switch').click(function(e) {
-	    		if (onoff) {
-	    			onoff = false;
-	    			$('.editing-title-box').css('display', 'none');
-	    		} else {
-	    			onoff = true;
-	    			$('.editing-title-box').css('display', 'block');
-	    		}
-	    	});
+        $('.editing-title-switch').click(function (e) {
+            if (onoff) {
+                onoff = false;
+                $('.editing-title-box').css('display', 'none');
+            } else {
+                onoff = true;
+                $('.editing-title-box').css('display', 'block');
+            }
+        });
 
-    		$('.action-click-delete').click(function(e) {
-			var c = confirm("Are you sure to delete?");
-			if (c) {
-				var hashcode = $('.action-click-delete').data('hashcode');
-				window.location.replace("/content/disableByHashcode/" + hashcode);
-			}
-        	});
+        $('.action-click-delete').click(function (e) {
+            var c = confirm("Are you sure to delete?");
+            if (c) {
+                var hashcode = $('.action-click-delete').data('hashcode');
+                window.location.replace("/content/disableByHashcode/" + hashcode);
+            }
+        });
+
+        $('.send-email-button').click(function() {
+            var addr = prompt('Input your E-Mail address');
+            if (addr) {
+                var ajax_url = $('meta[name=sendmail-url]').attr('content');
+                $.get(ajax_url, {to: addr}).done(function(data) {
+                    if (data && data.result && data.result == true) {
+                        alert('Reminder mail sent.');
+                    }
+                });
+            }
+        });
+
     });
     
 </script>

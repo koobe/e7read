@@ -226,3 +226,18 @@ environments {
 
 // Disable assets-pipeline minifyJS in production
 grails.assets.minifyJs = false
+
+
+// E-mail Sending Service
+grails {
+    mail {
+        host = "email-smtp.us-east-1.amazonaws.com"
+        port = 587
+        username = "AKIAIPW65NXWUNOYF6ZQ"
+        password = System.getenv('SMTP_PASSWORD')?:System.getProperty('SMTP_PASSWORD')
+        props = ["mail.smtp.starttls.enable": "true",
+                 "mail.smtp.port": "587"]
+    }
+}
+
+grails.mail.default.from="kyle@koobe.com.tw"

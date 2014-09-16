@@ -11,6 +11,8 @@ class FacebookController {
 
     private final static String FACEBOOK_API_URL = "https://graph.facebook.com/me"
 
+    private final static ADMIN_EMAILS = ['lyhcode@gmail.com', 'maxcloude@hotmail.com']
+
     def index() {}
 
     /**
@@ -34,7 +36,8 @@ class FacebookController {
         if (!user) {
             log.info("Create a new user domain class from facebook account data")
 
-            def userRole = Role.findOrSaveByAuthority('ROLE_USER')
+            def roleUser = Role.findOrSaveByAuthority('ROLE_USER')
+            def roleAdmin = Role.findOrSaveByAuthority('ROLE_ADMIN')
 
             user = new User(
                     fullName: resource.name,
@@ -48,7 +51,11 @@ class FacebookController {
             )
             user.save(failOnError: true, flush: true)
 
-            UserRole.create(user, userRole)
+            UserRole.create(user, roleUser)
+
+            if (ADMIN_EMAILS.contains(resource.email)) {
+                UserRole.create(user, roleAdmin)
+            }
         }
 
         springSecurityService.reauthenticate user.username

@@ -66,6 +66,11 @@
 	                    Source
 	                </g:link>
 	            </g:if>
+
+                <!--<a href="#" target="_blank">
+                    <i class="fa fa-share-square"></i>
+                    Share
+                </a>-->
 	            <a href="https://www.facebook.com/sharer/sharer.php?u=${URLEncoder.encode(shareUrl, 'UTF-8')}" target="_blank">
 	                <i class="fa fa-facebook-square"></i>
 	                Share

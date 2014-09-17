@@ -33,6 +33,7 @@ class ContentService {
 
             String hash = hashids.encrypt(r1, r2, r3);
 
+            // FIXME performance issue for large content base
             if (Content.countByEditableHashcode(hash) == 0) {
                 content.editableHashcode = hash
             }

@@ -180,6 +180,11 @@ class ContentController {
     def modifyByHash(String hash) {
         def content = Content.findByEditableHashcode(hash)
 
+        if (content) {
+            // TODO add content allow list to session
+            //
+        }
+
         redirect action: 'modify', id: content.id
     }
 
@@ -746,7 +751,9 @@ class ContentController {
 		contentInstance.hasPicture = contentInstance.pictureSegments? true: false
 
         //TODO set as anonymous user if not logged in
-        contentInstance.user = springSecurityService.isLoggedIn()?springSecurityService.currentUser:User.findByUsername('anonymous')
+        if (!contentInstance.user) {
+            contentInstance.user = springSecurityService.isLoggedIn()?springSecurityService.currentUser:User.findByUsername('anonymous')
+        }
 
 		contentInstance.template = matchTemplate(contentInstance)
 
@@ -844,6 +851,13 @@ class ContentController {
         ]
 
         render result as JSON
+    }
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def mail(Content contentInstance) {
+
+
+        respond contentInstance
     }
 	
 	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])

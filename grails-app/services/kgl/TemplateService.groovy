@@ -121,8 +121,9 @@ class TemplateService {
     }
 
     private String appendMetadata(Document doc, Content content, OriginalTemplate template) {
-        doc.select('head').append("<meta name=\"kgl:template_grouping\" content=\"${template.grouping}\" />");
-        doc.select('head').append("<meta name=\"kgl:template_name\" content=\"${template.name}\" />");
+        doc.select('head').append("<meta name=\"kgl:template-grouping\" content=\"${template.grouping}\" />");
+        doc.select('head').append("<meta name=\"kgl:template-name\" content=\"${template.name}\" />");
+        doc.select('head').append("<meta name=\"kgl:content-id\" content=\"${content.id}\" />");
 
         def staticUrl = grailsLinkGenerator.link(controller: 'content', action: 'share', id: content.id, absolute: true)
 

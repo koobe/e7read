@@ -181,8 +181,8 @@ class ContentController {
         def content = Content.findByEditableHashcode(hash)
 
         if (content) {
-            // TODO add content allow list to session
-            //
+            // Add content allow list to session
+            session.setAttribute MyConstant.SESSION_KEY_LATEST_CONTENT_ID, content.id
         }
 
         redirect action: 'modify', id: content.id
@@ -200,7 +200,16 @@ class ContentController {
             redirect uri: '/'
             return
         }
-		
+
+        // Only allow owner modify content or anonymous post who create it.
+        if (content.user != springSecurityService.currentUser) {
+
+            if (session.getAttribute(MyConstant.SESSION_KEY_LATEST_CONTENT_ID) != content.id) {
+                response.sendError 403
+                return
+            }
+        }
+
 		def checkAction = checkContent(content)
 		if (checkAction) {
 			redirect action: checkAction

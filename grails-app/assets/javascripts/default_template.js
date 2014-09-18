@@ -42,13 +42,15 @@ $(function() {
         if (matches) {
             var youtubeId = getUrlParameter(href, 'v');
 
+            var div = $('<div class="embed-responsive embed-responsive-16by9"></div>');
             var iframe = $('<iframe type="text/html"></iframe>');
-
-            iframe.width(640).height(390).attr('frameborder', 0);
+//            iframe.width(640).height(390).attr('frameborder', 0);
             iframe.attr('src', 'http://www.youtube.com/embed/'+youtubeId);
-
-            $(iframe).insertBefore(this);
-            $('<br/>').insertAfter(iframe);
+            iframe.addClass('embed-responsive-item');
+            
+            div.append(iframe);
+            $(div).insertBefore(this);
+//            $('<br/>').insertAfter(div);
         }
     });
 });

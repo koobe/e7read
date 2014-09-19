@@ -1,12 +1,17 @@
 var s = $.spinner();
 
 $(document).ready(function() {
-	if (($(window).height() - $("#contents_container").height()) >= 0) {
-		triggerAjaxForData();
-	}
+
+	initial();
 	
 	$('body').css('height', 'auto');
 });
+
+var initial = function() {
+	if (($(window).height() - $("#contents_container").height()) >= 0) {
+		triggerAjaxForData(initial);
+	}
+}
 
 var max = 4;
 var page = 0;
@@ -45,7 +50,7 @@ function determineIFTriggerAjax() {
     }
 }
 
-function triggerAjaxForData() {
+function triggerAjaxForData(closure) {
 	if (!onCall) {
 		
 		s.loading();
@@ -66,7 +71,12 @@ function triggerAjaxForData() {
 			type:'POST',
 			data: data,
 			url:'/content/renderPersonalContentsHTML',
-			success:function(data,textStatus){onSuccessAndAppendHTMLToContentContainer(data);},
+			success:function(data,textStatus){
+				onSuccessAndAppendHTMLToContentContainer(data);
+				if (closure != null) {
+					closure();
+				}
+			},
 			error:function(XMLHttpRequest,textStatus,errorThrown){}
 		});
 	}

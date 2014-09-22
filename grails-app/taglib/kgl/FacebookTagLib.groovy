@@ -35,7 +35,6 @@ class FacebookTagLib {
 	
 	def comments = { attr, body -> 
 		def serverUrl = grailsApplication.config.grails.serverURL;
-		log.info 'server url:' + serverUrl;
 		out <<
 		"""
 			<div class="fb-comments" data-href="${serverUrl}/share/${attr.contentid}" data-width="100%" data-numposts="5" data-colorscheme="light"></div>

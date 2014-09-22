@@ -60,8 +60,12 @@ $(function() {
  * @param contentId
  */
 function showContent(contentId) {
-	var data = {};
-	data.action = 'viewContent';
-	data.contentId = contentId;
-	hashmanager.push(data);
+	if (is_safari_or_uiwebview) {
+		window.open('/share/' + contentId, '_blank'); 
+	} else {
+		var data = {};
+		data.action = 'viewContent';
+		data.contentId = contentId;
+		hashmanager.push(data);
+	}
 }

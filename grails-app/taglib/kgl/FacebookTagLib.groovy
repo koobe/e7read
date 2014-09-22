@@ -1,5 +1,7 @@
 package kgl
 
+import grails.util.Holders
+
 class FacebookTagLib {
     //static defaultEncodeAs = [taglib: 'html']
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
@@ -26,9 +28,18 @@ class FacebookTagLib {
 
     def share = { attr, body ->
         out <<
-"""
-<div class="fb-share-button" data-href="${attr.href}"></div>
-"""
+		"""
+			<div class="fb-share-button" data-href="${attr.href}"></div>
+		"""
     }
+	
+	def comments = { attr, body -> 
+		def serverUrl = grailsApplication.config.grails.serverURL;
+		log.info 'server url:' + serverUrl;
+		out <<
+		"""
+			<div class="fb-comments" data-href="${serverUrl}/share/${attr.contentid}" data-width="100%" data-numposts="5" data-colorscheme="light"></div>
+		"""
+	}
 
 }

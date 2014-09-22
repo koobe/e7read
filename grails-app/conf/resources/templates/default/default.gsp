@@ -89,6 +89,8 @@
 	    </div>
 	
 	    <div class="margin-blank"></div>
+	    
+	    <fb:comments contentid="${content.id}"/>
 	</div>
 	<g:render template="/home/footer"/>
 	

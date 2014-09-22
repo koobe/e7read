@@ -12,6 +12,7 @@
 	<g:render template="/home/google_analytics" />
 </head>
 <body data-linkify="p, .plain-text" id="content-body">
+	<fb:init/>
 
     <div class="template-container">
 
@@ -86,6 +87,8 @@
         </div>
 
         <div class="margin-blank"></div>
+        
+        <fb:comments contentid="${content.id}"/>
     </div>
     <g:render template="/home/footer" />
 

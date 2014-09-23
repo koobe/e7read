@@ -25,7 +25,12 @@ class Content {
 	Date datePosted
 
     String editableHashcode
-	
+
+    /**
+     * Kepp owner email for anonymous post
+     */
+    String ownerEmail
+
 	//TODO
 	@Deprecated
 	String fullText
@@ -61,6 +66,8 @@ class Content {
         references nullable: true
         editableHashcode nullable: true
 		datePosted nullable: true
+
+        ownerEmail nullable: true
     }
 	
 	def beforeInsert() {

@@ -199,7 +199,7 @@ elasticSearch {
             "yyyy-MM-dd'T'HH:mm:ss'Z'"
     ]
     client.hosts = [
-            [host:'localhost', port: 9300]
+            [host: 'localhost', port: 9300]
     ]
     defaultExcludedProperties = ["password"]
     disableAutoIndex = false

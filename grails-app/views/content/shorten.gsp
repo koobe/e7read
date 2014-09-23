@@ -35,19 +35,40 @@
     <p>Content code is:</p>
     <p><code style="font-size:200%;">${hashcode}</code></p>
 
+
     <p>If you need to re-edit this content in the future, please use the following url:</p>
     <p><g:link controller="content" action="modifyByHash" params="[hash: hashcode]">${createLink(controller: 'content', action: 'modifyByHash', params: [hash: hashcode], absolute: true)}</g:link></p>
 
-    <div class="row">
-        <div class="col-xs-6">
-            <input class="form-control friendly-url" type="text" value="${createLink(controller: 'content', action: 'modifyByHash', params: [hash: hashcode], absolute: true)}" readonly style="cursor: pointer" />
+
+    <!--
+    <input class="form-control friendly-url" type="text" value="${createLink(controller: 'content', action: 'modifyByHash', params: [hash: hashcode], absolute: true)}" readonly style="cursor: pointer" />
+    -->
+
+    <button class="btn btn-default friendly-url-copy" style="display: none">Copy to clipboard</button>
+    <button class="btn btn-default send-email-button">
+        <i class="fa fa-square-o"></i>
+        <i class="fa fa-check-square-o" style="display: none"></i>
+        Send E-Mail
+    </button>
+
+    <div class="col-xs-12 well send-email-container" style="margin-top: 20px;display: none">
+
+        <h3>Backup URL to your mailbox</h3>
+
+        <div class="form-group">
+            <label for="toEmailAddress">To Address:</label>
+            <input id="toEmailAddress" class="form-control" placeholder="e.g. yourname@example.com" />
         </div>
-        <div class="col-xs-6">
-            <button class="btn btn-default friendly-url-copy" style="display: none">Copy to clipboard</button>
-            <button class="btn btn-default send-email-button">Send Reminder E-Mail</button>
-        </div>
+
+        <button class="btn btn-primary send-email-submit-button">
+            <i class="fa fa-spinner fa-spin" style="display: none"></i>
+            Send Mail
+        </button>
+        <button class="btn btn-default send-email-cancel-button">Cancel</button>
     </div>
-    
+
+    <br/>
+    <br/>
     <br/>
     
     <div class="editing-title-switch">
@@ -113,15 +134,40 @@
         });
 
         $('.send-email-button').click(function() {
-            var addr = prompt('Input your E-Mail address');
-            if (addr) {
-                var ajax_url = $('meta[name=sendmail-url]').attr('content');
-                $.get(ajax_url, {to: addr}).done(function(data) {
-                    if (data && data.result && data.result == true) {
-                        alert('Reminder mail sent.');
-                    }
-                });
+
+            $('.send-email-button').hide();
+            $('.send-email-container').show();
+
+        });
+
+        $('.send-email-submit-button').click(function() {
+
+            var addr = $('#toEmailAddress').val();
+            if (!addr) {
+                alert("Must enter a valid email address.");
+                return;
             }
+
+            $('.send-email-submit-button').attr('disabled', 'disabled');
+            $('.send-email-submit-button i').show();
+
+            var ajax_url = $('meta[name=sendmail-url]').attr('content');
+            $.get(ajax_url, {to: addr}).done(function(data) {
+                if (data && data.result && data.result == true) {
+                    //alert('Reminder mail sent.');
+
+                    $('.send-email-button').show();
+                    $('.send-email-container').hide();
+
+                    $('.send-email-button i').eq(0).hide();
+                    $('.send-email-button i').eq(1).show();
+                }
+            });
+        });
+
+        $('.send-email-cancel-button').click(function() {
+            $('.send-email-button').show();
+            $('.send-email-container').hide();
         });
 
     });

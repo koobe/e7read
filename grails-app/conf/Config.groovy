@@ -240,4 +240,5 @@ grails {
     }
 }
 
+// TODO: Change this to default E7READ service email address
 grails.mail.default.from="kyle@koobe.com.tw"

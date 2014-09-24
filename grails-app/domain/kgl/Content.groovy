@@ -4,7 +4,10 @@ class Content {
 
     static searchable = {
         only = ['cropText', 'cropTitle', 'lastUpdated']
+        location geoPoint: true, component: true
     }
+
+    GeoPoint location
 
     String id
 
@@ -66,8 +69,8 @@ class Content {
         references nullable: true
         editableHashcode nullable: true
 		datePosted nullable: true
-
         ownerEmail nullable: true
+        location nullable: true
     }
 	
 	def beforeInsert() {

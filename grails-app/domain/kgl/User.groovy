@@ -23,6 +23,14 @@ class User {
 	boolean accountLocked
 	boolean passwordExpired
 
+    String lastIPAddress
+
+    GeoPoint location
+
+    static searchable = {
+        location geoPoint: true, component: true
+    }
+
     static hasMany = [oAuthIDs: OAuthID]
 
 	static transients = ['springSecurityService']
@@ -36,6 +44,9 @@ class User {
         facebookId nullable: true
 
         //contact nullable: true
+
+        location nullable: true
+        lastIPAddress nullable: true
 	}
 
 	static mapping = {

@@ -21,8 +21,13 @@
 		<meta name="robots" content="noindex">
 	</g:if>
 
-    <g:each in="${params}"><meta name="params-${it.key}" content="${it.value}"/>
+    <g:each in="${params}">
+    <meta name="params-${it.key}" content="${it.value}"/>
     </g:each>
+
+    <%-- Geo Location --%>
+    <meta name="geo-enabled" content="true" />
+    <meta name="geo-callback-url" content="${createLink(controller: 'callback', action: 'geolocation', absolute: true)}" />
 
     <link rel="shortcut icon" href="${assetPath(src: 'webicon.png')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">

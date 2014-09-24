@@ -28,6 +28,7 @@ class User {
     GeoPoint location
 
     static searchable = {
+        only = ['location', 'username', 'fullName', 'email']
         location geoPoint: true, component: true
     }
 

@@ -8,6 +8,7 @@
 //= require jquery
 //= require bootstrap
 //= require jquery.editable
+//= require e7read.geolocation
 //= require_self
 
 if (typeof jQuery !== 'undefined') {

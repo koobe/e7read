@@ -78,6 +78,13 @@
         </div>
 
         <div class="form-group">
+            <label class="col-sm-2 control-label">Location:</label>
+            <div class="col-sm-10">
+                <img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location.lat},${user.location.lon}&zoom=14&size=400x300&sensor=false" alt="google map" border="0" />
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-sm-offset-3 col-sm-10">
                 <g:link controller="user" action="modify" class="koobe-text-btn koobe-text-btn-inverse">編輯 Modify</g:link>
                 <!-- <g:link uri="/" class="btn btn-default">Done</g:link> -->

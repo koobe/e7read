@@ -1,5 +1,6 @@
 package kgl
 
+import com.maxmind.geoip.Location
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 
@@ -7,6 +8,8 @@ import grails.plugin.springsecurity.annotation.Secured
 class DebugController {
 
     def s3Service
+
+    def geoIpService
 
     def index() {
         [
@@ -56,5 +59,20 @@ class DebugController {
         ]
 
         render result as JSON
+    }
+
+    def geoip() {
+        //render "${geoIpService.getLocation("168.95.1.1").countryCode}"
+
+        def location = geoIpService.getLocation("168.95.1.1")
+        render ([
+                countryCode: location.countryCode,
+                countryName: location.countryName,
+                city: location.city,
+                region: location.region,
+                latitude: location.latitude,
+                longitude: location.longitude,
+        ] as JSON)
+
     }
 }

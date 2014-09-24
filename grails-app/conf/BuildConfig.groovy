@@ -124,5 +124,8 @@ grails.project.dependency.resolution = {
 
         // Provides Mail support to a running Grails application
         compile ":mail:1.0.7"
+
+        // Grails GeoIP Plugin
+        compile ':geoip:0.3.2'
    }
 }

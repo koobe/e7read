@@ -80,7 +80,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Location:</label>
             <div class="col-sm-10">
-                <img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location.lat},${user.location.lon}&zoom=14&size=400x300&sensor=false" alt="google map" border="0" />
+                <img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location.lat},${user.location.lon}&zoom=14&size=400x150&sensor=false" alt="google map" border="0" />
             </div>
         </div>
 

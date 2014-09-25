@@ -61,6 +61,10 @@ class DebugController {
         render result as JSON
     }
 
+    def geopoint() {
+        render GeoPoint.list() as JSON
+    }
+
     def geoip() {
         //render "${geoIpService.getLocation("168.95.1.1").countryCode}"
 

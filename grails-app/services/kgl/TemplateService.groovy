@@ -121,6 +121,11 @@ class TemplateService {
     }
 
     private String appendMetadata(Document doc, Content content, OriginalTemplate template) {
+
+        doc.select('head').append("<meta name=\"geo.region\" content=\"USA\" />");
+        doc.select('head').append("<meta name=\"geo.placename\" content=\"New York\" />");
+        doc.select('head').append("<meta name=\"geo.position\" content=\"${content.location?.lat},${content?.location?.lon}\" />");
+
         doc.select('head').append("<meta name=\"kgl:template-grouping\" content=\"${template.grouping}\" />");
         doc.select('head').append("<meta name=\"kgl:template-name\" content=\"${template.name}\" />");
         doc.select('head').append("<meta name=\"kgl:content-id\" content=\"${content.id}\" />");

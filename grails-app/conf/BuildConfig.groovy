@@ -127,5 +127,8 @@ grails.project.dependency.resolution = {
 
         // Grails GeoIP Plugin
         compile ':geoip:0.3.2'
+
+        // Google GeoCoding API
+        compile ":geocode:0.3"
    }
 }

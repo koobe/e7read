@@ -59,23 +59,9 @@
 					</g:each>
 				</div>
 	        </g:if>
-	        <div class="pull-right social-toolbar">
-	            <g:if test="${content.references}">
-	                <g:link uri="${content.references}" target="_blank">
-	                    <i class="fa fa-external-link"></i>
-	                    Source
-	                </g:link>
-	            </g:if>
 
-                <!--<a href="#" target="_blank">
-                    <i class="fa fa-share-square"></i>
-                    Share
-                </a>-->
-	            <a href="https://www.facebook.com/sharer/sharer.php?u=${URLEncoder.encode(shareUrl, 'UTF-8')}" target="_blank">
-	                <i class="fa fa-facebook-square"></i>
-	                Share
-	            </a>
-	        </div>
+            <!-- Social Toolbar -->
+            <template:socialToolbar content="${content}" />
 	    </div>
 	
 	    <div class="margin-blank"></div>

@@ -717,9 +717,9 @@ class ContentController {
                     dataIdx++
                 }
             }
-
         }
 
+        // remove existing categories
         pendingRemoves = []
         pendingRemoves.addAll contentInstance.categories
         pendingRemoves.each {
@@ -734,7 +734,7 @@ class ContentController {
 			contentInstance.categories << category
 		}
 
-        // Don't replace exists cropTitle and cropText
+        // Don't replace exists cropTitle
         if (!contentInstance.cropTitle) {
 			def cropTitle = contentService.cropTitle(firstSegment)
 			log.info 'Cropped title: ' + cropTitle
@@ -742,12 +742,33 @@ class ContentController {
 			cropTitle = cropTitle.replaceAll("#", "").replaceAll("\\*", "")
 			contentInstance.cropTitle = cropTitle
         }
+
+        // Don't replace exists cropText
         if (!contentInstance.cropText) {
             contentInstance.cropText = cropSegment
         }
 
+        // Always replace fullText
 		contentInstance.fullText = fullText
 
+        // Set content location
+        def location = session['geolocation']
+        if (location && location.lon && location.lat) {
+
+            // Set geo location
+            if (!contentInstance.location) {
+                contentInstance.location = new GeoPoint()
+            }
+
+            contentInstance.location.lat = location.lat?.toDouble()
+            contentInstance.location.lon = location.lon?.toDouble()
+
+            log.info "Update Geo Location for Content #${contentInstance.id} with lat = ${location.lat}, lon = ${location.lon}"
+
+            contentInstance.location.save(flush: true)
+        }
+
+        // Set cover image
 		if (contentInstance.pictureSegments) {
             def firstImage = contentInstance.pictureSegments.first()
 

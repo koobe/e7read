@@ -1,5 +1,7 @@
 package kgl
 
+import grails.plugin.geocode.Point
+
 import static org.springframework.http.HttpStatus.*
 
 import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 class ContentController {
 
 	def grailsApplication
+    def geocodingService
     def springSecurityService
     def templateService
     def s3Service
@@ -69,7 +72,22 @@ class ContentController {
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def create() {
-        respond new Content(params)
+
+        User user = springSecurityService.currentUser
+
+        def location
+
+        if (user && user.location) {
+            location = user.location.city
+        }
+        else if (session['geolocation']) {
+
+            def geolocation = session['geolocation']
+
+            location = geocodingService.getAddress(new Point(latitude: geolocation.lat?.toDouble(), longitude: geolocation.lon?.toDouble())).addressComponents[2].shortName
+        }
+
+        respond new Content(params), model: [location: location]
     }
 
     @Transactional
@@ -763,7 +781,7 @@ class ContentController {
             contentInstance.location.lat = location.lat?.toDouble()
             contentInstance.location.lon = location.lon?.toDouble()
 
-            log.info "Update Geo Location for Content #${contentInstance.id} with lat = ${location.lat}, lon = ${location.lon}"
+            log.info "Update Geo Location for Content #${contentInstance.cropTitle} with lat = ${location.lat}, lon = ${location.lon}"
 
             contentInstance.location.save(flush: true)
         }

@@ -65,6 +65,8 @@
 
         	<div class="button-block">
         		<div style="width: 60%">
+                    <i class="fa fa-map-marker"></i>
+                    ${location}
         		</div>
         		<div style="width: 10%" class="btn-item">
 					<g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" ><g:message code="default.button.cancel.label" /></g:link>
@@ -85,6 +87,7 @@
                 </ul>
             </g:hasErrors>
         </div>
+
         <br />
         <br />
 

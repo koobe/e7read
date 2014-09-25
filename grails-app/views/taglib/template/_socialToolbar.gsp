@@ -1,8 +1,8 @@
 <div class="pull-right social-toolbar">
 
     <i class="fa fa-map-marker"></i>
-    ${address}
-    ${content.location.lat}, ${content.location.lon}
+    ${address.addressComponents[3].shortName}
+    <!--${content.location.lat}, ${content.location.lon}-->
 
     <g:if test="${content.references}">
         <g:link uri="${content.references}" target="_blank">

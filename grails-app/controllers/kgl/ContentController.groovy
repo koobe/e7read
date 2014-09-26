@@ -314,8 +314,8 @@ class ContentController {
 		def categoryList = []
 		
 		if (params.q) {
-			log.info 'search content: {' + params.q + '}'
-			def searchResult = Content.search(params.q, [from: params.from, size: params.size])
+			log.info 'search content: {' + params.q + '}, size=${params.max}'
+			def searchResult = Content.search(params.q, [size: params.max, from: params.offset])
 			searchResult.searchResults.each { result ->
 				def content = Content.get(result.id)
 				if (content && !content.isDelete && !content.isPrivate) {
@@ -473,12 +473,12 @@ class ContentController {
 	def renderPersonalContentsHTML() {
 		
 		def contentList = []
-		
+		log.info 'offset=' + params.offset + ", max=" + params.max
 		if (params.q) {
-			def searchResult = Content.search(params.q, [from: params.from, size: params.size])
+			def searchResult = Content.search(params.q, [from: params.offset, size: params.max])
 			searchResult.searchResults.each { result ->
 				def content = Content.get(result.id)
-				if (content && !content.isDelete && !content.isPrivate) {
+				if (content && !content.isDelete) {
 					if (content.user == springSecurityService.currentUser) {
 						contentList << content
 					}

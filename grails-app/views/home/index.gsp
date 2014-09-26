@@ -12,6 +12,9 @@
 		<asset:javascript src="image.view.msghandler.js"/>
 		<asset:javascript src="jquery.hashmanager.js"/>
 		<asset:javascript src="jquery.fullframe.js"/>
+		
+		<asset:javascript src="e7read.contentloading.js"/>
+		<asset:javascript src="content_show.js"/>
 	</head>
 	<body>
 		<div id="display-container" onclick="hideCategoryMenu()"><div class="content-pane">

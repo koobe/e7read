@@ -8,7 +8,6 @@
 		<asset:stylesheet src="loadingspinner.css"/>
 	    <asset:stylesheet src="content_category_label.css"/>
 	    <asset:stylesheet src="content_personal.css"/>
-		<asset:javascript src="content_personal.js"/>
 		
 		<asset:stylesheet src="gototop.css"/>
 		<asset:javascript src="jquery.gototop.js"/>
@@ -18,6 +17,8 @@
 		<asset:javascript src="jquery.hashmanager.js"/>
 		<asset:javascript src="jquery.fullframe.js"/>
 		
+		<asset:javascript src="e7read.contentloading.js"/>
+		<asset:javascript src="content_personal.js"/>
 		<asset:javascript src="content_show.js"/>
 	</head>
 	<body>

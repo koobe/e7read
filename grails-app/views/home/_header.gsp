@@ -27,8 +27,8 @@
 						    <g:textField id="text-search" name="q" class="form-control input-search" value="${params.q? params.q: ''}"/>
 						    
 					    </div>
-					    <g:hiddenField name="from" value="0" />
-						<g:hiddenField name="size" value="5" />
+					    <!--<g:hiddenField name="from" value="0" />
+						<g:hiddenField name="size" value="5" />-->
 					</g:form>
 				</div>
 			</g:if>

@@ -1,111 +1,36 @@
-var s = $.spinner();
-
-$(document).ready(function() {
-
-	initial();
-	
-	$('body').css('height', 'auto');
-});
-
-var initial = function() {
-	if (($(window).height() - $("#contents_container").height()) >= 0) {
-		triggerAjaxForData(initial);
-	}
-}
-
-var max = 4;
-var page = 0;
-var onCall = false;
-var eof = false;
 var beforeText;
 
+var s = $.spinner();
+var data = {};
+var dataUrl = '/content/renderPersonalContentsHTML';
+
 $(function() {
-    $('#display-container')
-        .scroll(function() {
-            if (!eof) {determineIFTriggerAjax();}
-        })
-        .on({
-            'touchmove': function(e) {
-                if (!eof) {determineIFTriggerAjax();} // for mobile
-            }
-        });
+	if ($('#text-search').val() != '') {
+	    var searchString = $('#text-search').val();
+	    data = {'q': searchString};
+	}
+
+	var contentLoading = $.contentloading({
+		scrollingDivId: 'display-container',
+		contentDivId: 'contents_container',
+		dataUrl: dataUrl,
+		dataParams: data,
+		beforeLoad: function() {
+			s.loading();
+		},
+		afterLoad: function(data) {
+			addHandlers();
+			s.done();
+		}
+	});
 });
 
-function determineIFTriggerAjax() {
-
-    var scrollContainer = $('#display-container');
-    var contentPane = $('#display-container .content-pane');
-
-    var factor = scrollContainer.scrollTop() + scrollContainer.height() + 100;
-
-    //console.log('scrollContainer.scrollTop()  ' + scrollContainer.scrollTop());
-    //console.log('$(window).height()  ' + $(window).height());
-    //console.log('factor  ' + factor);
-    //console.log('$(document.body).height()  ' + $(document.body).height());
-    //console.log('$(\'#display-container\').height()  ' + $('#display-container').height());
-    //console.log(contentPane.height());
-
-    if ((contentPane.height() - factor) <= 0) {
-        triggerAjaxForData();
-    }
-}
-
-function triggerAjaxForData(closure) {
-	if (!onCall) {
-		
-		s.loading();
-		
-		onCall = true;
-		
-		page = page + 1;
-		var offset = (page * max) - max;				
-		
-		if ($('#text-search').val() != '') {
-			var searchString = $('#text-search').val();
-			data = {'q': searchString, 'from': offset, 'size': max};
-		} else {
-			data = {'max': max, 'offset': offset};
-		}
-		
-		$.ajax({
-			type:'POST',
-			data: data,
-			url:'/content/renderPersonalContentsHTML',
-			success:function(data,textStatus){
-				onSuccessAndAppendHTMLToContentContainer(data);
-				if (closure != null) {
-					closure();
-				}
-			},
-			error:function(XMLHttpRequest,textStatus,errorThrown){}
-		});
-	}
-}
-
-function onSuccessAndAppendHTMLToContentContainer(data) {
-	$("#contents_container").append(data);
-	onCall = false;
-	if (data == "") {
-		console.log('EOF');
-		eof = true;
-	} else {
-		addHandlers();
-	}
-	s.done();
-}
 
 var updateReferences = function() {
     var actionUrl = $(this).data('url');
     var contentId = $(this).data('id');
 
     var elm = $('.element-references[data-id='+contentId+']');
-
-//        var msg;
-//        if ($('a', elm).attr('href') == undefined) {
-//        	msg = '';
-//        } else {
-//        	msg = $('a', elm).attr('href');
-//        }
 
     var url = prompt('Reference URL:', $('a', elm).attr('href'));
     
@@ -121,18 +46,6 @@ var updateReferences = function() {
             },
             url: actionUrl,
             success: function(data, textStatus) {
-//                var references = data.instance.references
-//
-//                if (references) {
-//                    elm.show();
-////                        $('i', elm).show();
-//                    $('a', elm).text('Link').attr('href', references).show();
-//                }
-//                else {
-//                    elm.hide();
-////                        $('i', elm).hide();
-//                    $('a', elm).text('').attr('href', '#').hide();
-//                }
             	
             	refreshButtons(data, contentId);
             }

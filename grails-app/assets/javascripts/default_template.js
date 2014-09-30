@@ -52,5 +52,14 @@ $(function() {
             $(div).insertBefore(this);
 //            $('<br/>').insertAfter(div);
         }
+        
+        var matchsImg = href.toLowerCase().match(/.(jpg|jpeg|png|gif)$/);
+        if (matchsImg) {
+        		var img = $('<img/>');
+        		img.css('max-width','100%');
+        		img.attr('src', href);
+        		$(img).insertBefore(this);
+        		$('<br/>').insertBefore(this);
+        }
     });
 });

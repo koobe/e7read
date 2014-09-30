@@ -156,4 +156,11 @@ class TemplateController {
 		groovyPagesTemplateEngine.clearPageCache()
         redirect action: 'editor'
 	}
+	
+	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+	def pageviewdemo(Content content) {
+//		log.info 'content id: ' + params.id
+		log.info content
+		[content: content]
+	}
 }

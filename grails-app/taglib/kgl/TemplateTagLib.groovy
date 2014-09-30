@@ -14,8 +14,7 @@ class TemplateTagLib {
         out << render(
                 template: '/taglib/template/socialToolbar',
                 model: [
-                        content: attrs.content,
-                        address: geocodingService.getAddress(new Point(latitude: attrs.content?.location?.lat, longitude: attrs.content?.location?.lon))
+                        content: attrs.content
                 ]
         )
     }

@@ -84,7 +84,10 @@ class ContentController {
 
             def geolocation = session['geolocation']
 
-            location = geocodingService.getAddress(new Point(latitude: geolocation.lat?.toDouble(), longitude: geolocation.lon?.toDouble())).addressComponents[2].shortName
+            location = geocodingService.getAddress(
+                    new Point(latitude: geolocation.lat?.toDouble(), longitude: geolocation.lon?.toDouble()),
+                    [language: 'zh-TW']
+            ).addressComponents[3].shortName // index value 3 ;=> city name
         }
 
         respond new Content(params), model: [location: location]

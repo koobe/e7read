@@ -57,11 +57,11 @@
         		</div>
         	</div>
 
-            <!--
+            <%--
             <div>
                 <g:textField name="references" value="" placeholder="http://" class="form-control" />
             </div>
-            -->
+            --%>
 
         	<div class="button-block">
         		<div style="width: 60%">

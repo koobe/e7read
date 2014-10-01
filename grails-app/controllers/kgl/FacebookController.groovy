@@ -58,6 +58,7 @@ class FacebookController {
             }
         }
 
+        // Update geolocation
         def location = session['geolocation']
         if (location && location.lon && location.lat) {
             if (!user.location) {

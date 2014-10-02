@@ -8,8 +8,8 @@ import grails.plugin.springsecurity.annotation.Secured
 class DebugController {
 
     def s3Service
-
     def geoIpService
+    def whoisService
 
     def index() {
         [
@@ -68,14 +68,17 @@ class DebugController {
     def geoip() {
         //render "${geoIpService.getLocation("168.95.1.1").countryCode}"
 
-        def location = geoIpService.getLocation("168.95.1.1")
+        def remoteAddr = params.ip?:whoisService.remoteAddr
+
+        def location = geoIpService.getLocation(remoteAddr)
         render ([
-                countryCode: location.countryCode,
-                countryName: location.countryName,
-                city: location.city,
-                region: location.region,
-                latitude: location.latitude,
-                longitude: location.longitude,
+                remoteAddr: remoteAddr,
+                countryCode: location?.countryCode,
+                countryName: location?.countryName,
+                city: location?.city,
+                region: location?.region,
+                latitude: location?.latitude,
+                longitude: location?.longitude,
         ] as JSON)
 
     }

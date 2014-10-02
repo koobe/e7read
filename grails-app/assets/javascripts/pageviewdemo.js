@@ -1,59 +1,52 @@
-var pageId = 1;
-var totalPageNumber = 13;
+
 
 $(function() {
-	$("body").on({
-        'swipeleft': function(e) {
-        		e.preventDefault();
-	        	if (pageId < totalPageNumber) {
-	    			pageId++;
-	    		}
-	    		console.log("navigate to pageId: " + pageId);
-//	    		$.mobile.navigate( "#pageid-" + pageId );
-	    		$( ":mobile-pagecontainer" ).pagecontainer( "change", "#pageid-" + pageId, {
-	    			transition: "flip"
-	    		} );
-	    }
-	});
+	
+	var pageId = 0;
+	var totalPageNumber = $('.paragraphview').length;
+	var pageHash = "#pageheader";
+	
+	console.log('paragraph count: ' + totalPageNumber);
+	
+	var onSwipePage = function(e) {
+		
+		e.preventDefault();
+		
+		var data;
+		if (e.type == 'swipeleft') {
+			data = next();
+		} else if (e.type == 'swiperight') {
+			data = prev();
+		}
+		
+		console.log("navigate to page: " + pageHash);
+		$(":mobile-pagecontainer").pagecontainer("change", pageHash, data);
+		
+		function next() {
+			if (pageId < totalPageNumber) {
+    			pageId++;
+    			pageHash = "#page" + pageId;
+    		}
+    		
+    		return { transition: "flip" }
+		}
+		
+		function prev() {
+			if (pageId > 1) {
+    			pageId--;
+    			pageHash = "#page" + pageId;
+    		} else {
+    			if (pageId > 0) {
+    				pageId--;
+	    			pageHash = "#pageheader";
+    			}
+    		}
+        	
+    		return { transition: "flip", reverse: true }
+		}
+	}
 	
 	$("body").on({
-        'swiperight': function(e) {
-        		e.preventDefault();
-	        	if (pageId > 1) {
-	    			pageId--;
-	    		}
-	    		console.log("navigate to pageId: " + pageId);
-//	    		$.mobile.navigate( "#pageid-" + pageId );
-	    		$( ":mobile-pagecontainer" ).pagecontainer( "change", "#pageid-" + pageId, {
-	    			transition: "flip",
-	    			reverse: true
-	    		} );
-	    }
+        'swipeleft swiperight': onSwipePage
 	});
 })
-
-//$(document).on( "pagecreate", ".paragraphview", function() {
-//	
-//	$(document).on( "swipeleft",  "body", function(event) {
-//		if (pageId < totalPageNumber) {
-//			pageId++;
-//		}
-//		console.log("navigate to pageId: " + pageId);
-////		$.mobile.navigate( "#pageid-" + pageId );
-////		event.preventDefault();
-//		
-////		$( ":mobile-pagecontainer" ).pagecontainer( "change", "#", {
-////            transition: "slide"
-////        });
-//	});
-//	
-//	$(document).on( "swiperight",  "body", function(event) {
-//		if (pageId > 1) {
-//			pageId--;
-//		}
-//		console.log("navigate to pageId: " + pageId);
-//		$.mobile.navigate( "#pageid-" + pageId );
-//		event.preventDefault();
-//	});
-//	
-//});

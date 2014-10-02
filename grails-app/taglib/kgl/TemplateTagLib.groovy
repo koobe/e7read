@@ -19,7 +19,11 @@ class TemplateTagLib {
         )
     }
 	
-	def paragraphView = { attrs, body -> 
+	def contentHeaderView = { attrs, body ->
+		out << render(template: '/template/headerview', model: [content: attrs.content])
+	}
+	
+	def contentParagraphView = { attrs, body -> 
 		
 		def PAGEVIEWSIZE = 4
 		def textSegments = attrs.content?.textSegments.toArray()
@@ -36,14 +40,14 @@ class TemplateTagLib {
 			
 			def endIdx
 			if (currIdx+PAGEVIEWSIZE >= textSegments.size()) {
-				endIdx = textSegments.size()-1
+				endIdx = textSegments.size() - 1
 			} else {
-				endIdx = currIdx+PAGEVIEWSIZE-1
+				endIdx = currIdx+PAGEVIEWSIZE - 1
 			}
 			
 			def segments = textSegments[currIdx..endIdx]
 			out << render(template: '/template/paragraphview', 
-				model: [segments: segments, pageId: textPageId])
+				model: [segments: segments, pageId: textPageId, title: attrs.content.cropTitle])
 			
 			currIdx = currIdx + PAGEVIEWSIZE
 		}

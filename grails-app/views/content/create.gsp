@@ -23,6 +23,8 @@
         <div class="main-container" onclick="hideCategoryMenu();" style="text-align: center;">
         	<div style="text-align: center;">
 	        	<div class="content-editing-title">
+	        		<span class="anonymous-tag text-uppercase">${params.channel}</span>
+	        		&nbsp;
 	        		<div style="display:table-cell; background-color: #89E2D5; height: 30px; padding: 0px 20px 0px 10px;">
 						<span class="title-text"><g:message code="content.create.title" /></span>
 					</div>
@@ -97,6 +99,6 @@
 
         <g:render template="/home/footer" />
         
-        <g:include controller="category" action="addCategoryPanel" params="[btnaction: 'create']" />
+        <g:include controller="category" action="addCategoryPanel" params="[btnaction: 'create', channel: params.channel]" />
 	</body>
 </html>

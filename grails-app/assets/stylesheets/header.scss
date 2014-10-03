@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Fascinate);
+
 @media screen and (min-width: 769px) {
 
 	.img-logo {
@@ -92,15 +94,14 @@
 	}
 }
 
-/*
-.header-logo {
-	font-family: 'Fascinate', cursive;
-	font-size: 0.9cm;
 
-	.logomark {
-		font-size: 0.7cm;
-	}
-}*/
+.logotitle {
+	font-family: 'Fascinate', cursive;
+	font-size: 1cm;
+	line-height: 30px;
+	letter-spacing: 1px;
+	color: #5cb85c;
+}
 
 .usermenu-table {
 	float:right;

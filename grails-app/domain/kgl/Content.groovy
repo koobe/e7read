@@ -50,6 +50,7 @@ class Content {
 	static belongsTo = [
 		user: User,
 		template: OriginalTemplate,
+		channel: Channel
 	]
 
     static mapping = {

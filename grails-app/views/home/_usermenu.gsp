@@ -7,7 +7,7 @@
 		    </g:link>
 	    </div>
 	    <div>
-            <g:link controller="content" action="create" class="koobe-btn koobe-btn-normal">
+            <g:link uri="/content/create/${channel.name}" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-pencil"></i> <!-- Create -->
             </g:link>
 	    </div>
@@ -28,7 +28,7 @@
 <sec:ifNotLoggedIn>
 	<div class="usermenu-table">
         <div>
-            <g:link controller="content" action="create" class="koobe-btn koobe-btn-normal">
+            <g:link uri="/content/create/${channel.name}" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-pencil"></i> <!-- Create -->
             </g:link>
         </div>

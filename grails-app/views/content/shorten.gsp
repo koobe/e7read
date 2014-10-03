@@ -102,7 +102,7 @@
 
 <g:render template="/home/footer" />
 		
-<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home']" />
+<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home', channel: params.channel]" />
 
 <script type="text/javascript">
 

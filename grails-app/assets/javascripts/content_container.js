@@ -17,6 +17,7 @@ var dataUrl = '/content/renderContentsHTML';
 $(function() {
 	var c = getQueryVariable("c");
 	var u = getQueryVariable("u");
+	var channel = getQueryVariable("channel");
 
 	if ($('#text-search').val() != '') {
 	    var searchString = $('#text-search').val();
@@ -26,6 +27,10 @@ $(function() {
 	} else if (u) {
 	    data = {'u': u};
 	}
+	
+	data = $.extend({
+		channel: channel
+	}, data);
 
 	var contentLoading = $.contentloading({
 		scrollingDivId: 'display-container',

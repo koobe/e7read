@@ -12,6 +12,8 @@ import static org.springframework.http.HttpStatus.*
 class CategoryController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	
+	def grailsApplication
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -109,36 +111,58 @@ class CategoryController {
         }
     }
 	
+	@Deprecated
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def addCategoryMenu() {
-		def categoryList = Category.findAllByCategory(null)
-		render template: "category_panel_topmenu", model:[categorys: categoryList, active: params.c]
+//		def categoryList = Category.findAllByCategory(null)
+//		render template: "category_panel_topmenu", model:[categorys: categoryList, active: params.c]
 	}
 	
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def addCategoryPanel() {
-		def criteria = Category.createCriteria()
-		def categoryList = criteria.list () {
-			eq 'enable', true
-			isNull 'category'
-			order 'order', 'asc'
-		}
+		
+		def channelName = getChannelName(params)
+		
+		log.info "channelName = ${channelName}"
+		
+		def hql = """
+				select category 
+				from Category as category
+				where category.category is null and enable = true and channel.name = :channelName
+				order by order asc
+			"""
+		def categoryList = Category.executeQuery(hql, [channelName: channelName])
 		
 		render template: "category_panel_sidemenu", model:[categorys: categoryList, active: params.c, showpanel: params.p, btnaction: params.btnaction]
 	}
 	
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def addUIComponentCategoriesRankOnTop() {
-//		def hql = 'select Category from Category c where rankOnTop is not null order by rankOnTop'
-//		def categoryList = Category.executeQuery(hql)
 		
-		def criteria = Category.createCriteria()
-		def categoryList = criteria.list () {
-			isNotNull 'rankOnTop'
-			eq 'enable', true
-			order 'rankOnTop', 'asc'
-		}
+		def channelName = getChannelName(params)
+		
+		def hql = """
+				select category 
+				from Category as category
+				where rankOnTop is not null and enable = true and channel.name = :channelName
+				order by rankOnTop asc
+			"""
+		def categoryList = Category.executeQuery(hql, [channelName: channelName])
 
 		render template: "category_panel_rankontop", model: [categories: categoryList, activeCategoryName: params.c]
+	}
+	
+	protected String getChannelName(params) {
+		
+		def channelName
+		
+		if (params.channel) {
+			channelName = params.channel
+		} else {
+			log.info "Goto default channel"
+			channelName = grailsApplication.config.grails.application.default_channel
+		}
+		
+		return channelName
 	}
 }

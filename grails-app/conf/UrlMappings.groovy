@@ -16,6 +16,7 @@ class UrlMappings {
         }
 
         "500"(view:'/error')
+		"404"(view:'/notfound')
 
         "/me" (controller: 'user', action: 'profile')
 
@@ -28,5 +29,11 @@ class UrlMappings {
             controller = 'content'
             action = 'share'
         }
+		
+		"/$channel?" (controller: 'home', action: 'index')
+		
+		"/content/create/$channel?" (controller: 'content', action: 'create')
+		"/content/personal/$channel?" (controller: 'content', action: 'personal')
+//		"/content/shorten/$channel?" (controller: 'content', action: 'shorten')
 	}
 }

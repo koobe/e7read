@@ -22,7 +22,7 @@
 	</g:if>
 
     <g:each in="${params}">
-    <meta name="params-${it.key}" content="${it.value}"/>
+    	<meta name="params-${it.key}" content="${it.value}"/>
     </g:each>
 
     <%-- Geo Location --%>

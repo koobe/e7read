@@ -5,10 +5,16 @@ var data = {};
 var dataUrl = '/content/renderPersonalContentsHTML';
 
 $(function() {
+	var channel = getQueryVariable("channel");
+	
 	if ($('#text-search').val() != '') {
 	    var searchString = $('#text-search').val();
 	    data = {'q': searchString};
 	}
+	
+	data = $.extend({
+		channel: channel
+	}, data);
 
 	var contentLoading = $.contentloading({
 		scrollingDivId: 'display-container',

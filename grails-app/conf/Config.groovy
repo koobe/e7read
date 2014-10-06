@@ -226,7 +226,7 @@ environments {
 
 // Disable assets-pipeline minifyJS in production
 grails.assets.minifyJs = false
-
+grails.application.default_channel = 'e7read'
 
 // E-mail Sending Service
 grails {

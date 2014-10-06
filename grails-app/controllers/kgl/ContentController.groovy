@@ -15,6 +15,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
+import org.elasticsearch.common.util.concurrent.EsExecutors;
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 @Secured(["ROLE_USER"])
@@ -76,15 +77,33 @@ class ContentController {
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def create() {
+		
+		def channelName = getChannelName(params)
+		def channel = Channel.findByName(channelName)
+		
+		if (channel) {
+			session['channel'] = channel
+		} else {
+			response.sendError(404)
+		}
+		
+		if (!channel.canAnonymous) {
+			if (!springSecurityService.currentUser) {
+				redirect uri: '/login/auth'
+			}
+		}
+		
+		log.info "Enter create content page, channelName is ${channelName}"
 
         User user = springSecurityService.currentUser
 
         def location
 
         if (user && user.location) {
+			
             location = user.location.city
-        }
-        else if (session['geolocation']) {
+			
+        } else if (session['geolocation']) {
 
             def geolocation = session['geolocation']
 
@@ -94,7 +113,7 @@ class ContentController {
             ).addressComponents[3].shortName // index value 3 ;=> city name
         }
 
-        respond new Content(params), model: [location: location]
+		[location: location]
     }
 
     @Transactional
@@ -320,12 +339,14 @@ class ContentController {
 		def contentList = []
 		def categoryList = []
 		
+		def channelName = getChannelName(params)
+		
 		if (params.q) {
-			log.info 'search content: {' + params.q + '}, size=${params.max}'
+			log.info 'search content: {' + params.q + '}'
 			def searchResult = Content.search(params.q, [size: params.max, from: params.offset])
 			searchResult.searchResults.each { result ->
 				def content = Content.get(result.id)
-				if (content && !content.isDelete && !content.isPrivate) {
+				if (content && !content.isDelete && !content.isPrivate && content.channel.name.equals(channelName)) {
 					contentList << content
 				}
 			}
@@ -336,28 +357,28 @@ class ContentController {
 				def hql = """
 				select distinct content 
 				from Content as content join content.categories category 
-				where category.name in (:categories) and content.isDelete = false and content.isPrivate = false
+				where category.name in (:categories) and content.isDelete = false and content.isPrivate = false and content.channel.name = :channelName
 				order by content.datePosted desc, content.lastUpdated desc
 				"""
-				contentList = Content.executeQuery(hql, [categories: categoryList], [max: params.max, offset: params.offset])
+				contentList = Content.executeQuery(hql, [categories: categoryList, channelName: channelName], [max: params.max, offset: params.offset])
 			}
 		} else if (params.u) {
 			def hql = """
 				select content 
 				from Content as content
-				where content.user.id = :userId and content.isDelete = false and content.isPrivate = false
+				where content.user.id = :userId and content.isDelete = false and content.isPrivate = false and content.channel.name = :channelName
 				order by content.datePosted desc, content.lastUpdated desc
 			"""
 			def u = new Long(params.u)
-			contentList = Content.executeQuery(hql, [userId: u], [max: params.max, offset: params.offset])
+			contentList = Content.executeQuery(hql, [userId: u, channelName: channelName], [max: params.max, offset: params.offset])
 		} else {
-			def criteria = Content.createCriteria()
-			contentList = criteria.list (max: params.max, offset: params.offset) {
-				eq 'isDelete', false
-				eq 'isPrivate', false
-				order 'datePosted', 'desc'
-				order 'lastUpdated', 'desc'
-			}
+			def hql = """
+				select content 
+				from Content as content
+				where content.isDelete = false and content.isPrivate = false and content.channel.name = :channelName
+				order by content.datePosted desc, content.lastUpdated desc
+			"""
+			contentList = Content.executeQuery(hql, [channelName: channelName], [max: params.max, offset: params.offset])
 		}
 
 		renderContentContainerHTML(contentList)
@@ -474,13 +495,30 @@ class ContentController {
      * @return
      */
 	def personal() {
-        []
+		
+		def channelName = getChannelName(params)
+		def channel = Channel.findByName(channelName)
+		
+		if (channel) {
+			session['channel'] = channel
+		} else {
+			response.sendError(404)
+		}
+		
+		log.info "Enter personal content page, channelName is ${channelName}"
+		params.channel = channelName
+		
+        [params:params, channel:channel]
 	}
 	
 	def renderPersonalContentsHTML() {
 		
+		def channelName = getChannelName(params)
+		
+		log.info "Get personal contents where channel name is ${channelName}"
+		
 		def contentList = []
-		log.info 'offset=' + params.offset + ", max=" + params.max
+		
 		if (params.q) {
 			def searchResult = Content.search(params.q, [from: params.offset, size: params.max])
 			searchResult.searchResults.each { result ->
@@ -496,45 +534,19 @@ class ContentController {
 			contentList = criteria.list (max: params.max, offset: params.offset) {
 				eq("user", springSecurityService.currentUser)
 				eq("isDelete", false)
+				channel {
+					eq("name", channelName)
+				}
 				order 'datePosted', 'desc'
 				order 'lastUpdated', 'desc'
 			}
 		}
-		
-		// def contentList = Content.findAllByUser(springSecurityService.currentUser, [max: params.max, offset: params.offset, sort: "lastUpdated", order: "desc"]);
 
-        // Return nothing if no any contents
-        if (!contentList) {
-            render ""
-            return
-        }
-		
-		def currItem = 1
-		def hasEndDiv = false
-		
 		contentList.each { content ->
-			
-//			if (currItem.mod(2) != 0) {
-//				render '<div class="row rowmargin">'
-//				hasEndDiv = false
-//			}
-			
-			// render template: "contents_col", model:[content:content, span:6, object_template:'content_object_personal']
 			render template: "content_object_personal", bean:content
-			
-//			if (currItem.mod(2) == 0) {
-//				render "</div>"
-//				hasEndDiv = true
-//			}
-			
-			currItem++
 		}
 		
-//		if (contentSize != 0 && !hasEndDiv) {
-//			render "</div>"
-//		}
-		
-
+		render ""
 	}
 	
 	@Transactional
@@ -658,6 +670,7 @@ class ContentController {
 
             contentInstance.isDelete = false
             contentInstance.isPrivate = false
+			contentInstance.channel = session['channel']
         }
 
         def fullText = ''
@@ -887,8 +900,11 @@ class ContentController {
 			if (updateFlag) {
 				content.save flush: true
 			}
+			
+			def channel = content.channel
+			params.channel = channel.name
 	
-			[contentId: contentId, hashcode: hashcode, content: content]
+			[contentId: contentId, hashcode: hashcode, content: content, channel: channel, params: params]
 		}
     }
 
@@ -992,5 +1008,23 @@ class ContentController {
         }
         render contents as JSON
     }
+	
+	/**
+	 * Get channel name
+	 * @param params
+	 * @return
+	 */
+	protected String getChannelName(params) {
+		
+		def channelName
+		
+		if (params.channel) {
+			channelName = params.channel
+		} else {
+			channelName = grailsApplication.config.grails.application.default_channel
+		}
+		
+		return channelName
+	}
 	
 }

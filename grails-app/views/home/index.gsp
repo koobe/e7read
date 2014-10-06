@@ -23,7 +23,7 @@
 			<g:render template="footer" />
         </div></div>
 		
-		<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home']" />
+		<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home', channel: params.channel]" />
 		
 		<g:render template="/category/category_status_panel" />
 		

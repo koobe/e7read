@@ -3,7 +3,8 @@ package kgl
 class Category {
 
 	static belongsTo = [
-		category: Category
+		category: Category,
+		channel: Channel
 	]
 	
 	static hasMany = [

@@ -1,6 +1,9 @@
 package kgl
 
 import grails.plugin.geocode.Point
+import org.elasticsearch.common.unit.DistanceUnit
+import org.elasticsearch.search.sort.SortBuilders
+import org.elasticsearch.search.sort.SortOrder
 
 import static org.springframework.http.HttpStatus.*
 
@@ -24,6 +27,7 @@ class ContentController {
     def templateService
     def s3Service
     def contentService
+    def elasticSearchService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -942,5 +946,51 @@ class ContentController {
 	def locked() {
 		render view: 'haslocked'
 	}
+
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def searchByLocation() {
+
+        double lat, lon
+
+        if (session['geolocation']) {
+            lat = session['geolocation'].lat?.toDouble()
+            lon = session['geolocation'].lon?.toDouble()
+        }
+
+        Closure filter = {
+            geo_distance(
+                    'distance': '5km',
+                    'location': [lat: lat, lon: lon]
+            )
+        }
+
+        def sortBuilder = SortBuilders.geoDistanceSort("location").
+                point(lat, lon).
+                unit(DistanceUnit.KILOMETERS).
+                order(SortOrder.ASC)
+
+        def result = elasticSearchService.search(
+                [
+                        indices: Content,
+                        types: Content,
+                        sort: sortBuilder
+                ],
+                null as Closure,
+                filter)
+
+        def contents = []
+
+        result.searchResults.each {
+                def content = Content.get(it.id)
+                contents << [
+                        cropTitle: content.cropTitle,
+                        cropText: content.cropText,
+                        location: [lat: content.location?.lat, lon: content.location?.lon],
+                        shareUrl: createLink(controller: 'content', action: 'share', id: content.id, absolute: true),
+                        coverUrl: content.coverUrl
+                ]
+        }
+        render contents as JSON
+    }
 	
 }

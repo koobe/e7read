@@ -2,7 +2,7 @@
 <sec:ifLoggedIn>
 	<div class="usermenu-table">
 		<div>
-			<g:link controller="content" action="personal" class="koobe-btn koobe-btn-normal">
+			<g:link uri="/content/personal/${channel.name}" class="koobe-btn koobe-btn-normal">
 		        <i class="fa fa-archive"></i> <!-- My Contents  -->
 		    </g:link>
 	    </div>

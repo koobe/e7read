@@ -28,9 +28,11 @@ class UserController {
 
     @Secured(["ROLE_USER"])
     def profile() {
+	
+		
         def user = springSecurityService.currentUser
 
-        [user: springSecurityService.currentUser]
+        [user: springSecurityService.currentUser, params: params, channel: session['channel']]
     }
 
     @Secured(["ROLE_USER"])

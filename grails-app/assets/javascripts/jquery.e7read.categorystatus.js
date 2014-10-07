@@ -9,6 +9,8 @@
 		
 	$.fn.e7readcstatuspanel = function(options) {
 		
+		var channel = getQueryVariable("channel");
+		
 		var settings = $.extend({
 			isShowNowAt: false,
 			position: 'absolute'
@@ -20,8 +22,8 @@
 	    var logodivcell = $('<div/>').addClass('table-cell');
 	    var logoimg = $('<img src="/assets/trans_logo.png" alt="logo" class="e7read-logo" />');
 	    logoimg.click(function(e) {
-		    	window.open("/", '_top');
-		    	e.stopPropagation();
+	    	window.open("/" + channel, '_top');
+	    	e.stopPropagation();
 	    });
 	    
 	    var cellstatusindicator;
@@ -51,7 +53,7 @@
 		
 		$.ajax({
 			type:'POST',
-			data: {btnaction: 'home'},
+			data: {btnaction: 'home', channel: channel},
 			url:'/category/addCategoryPanel',
 			success:function(data,textStatus){
 				var sidemenu = $(data);
@@ -68,7 +70,7 @@
 				});
 				
 				sidemenu.find('.gotocategorylink*').removeAttr('href').css('cursor', 'pointer').click(function(e) {
-					window.open("/?c="+$(this).data('category-name'), '_top');
+					window.open("/" + channel + "?c=" + $(this).data('category-name'), '_top');
 					e.stopPropagation();
 				});
 			},
@@ -83,6 +85,8 @@
                var pair = vars[i].split("=");
                if(pair[0] == variable){return pair[1];}
        }
+       var meta = $("meta[name='params-"+variable+"']").attr('content');
+       if (meta) { return meta; }
        return(false);
 	}
     

@@ -10,6 +10,7 @@ class HomeController {
 	def grailsApplication
 
     def index(String channel) {
+		
 		log.info 'Content channel: ' + params.channel
 		
 		def myChannel

@@ -6,7 +6,7 @@ var onAuthorClick = function (event) {
 
 var onCategoryTagClick = function (event) {
     var c = $(event.target).data('categoryname');
-    location.href = "/c/" + c;
+    location.href = "?c=" + c;
     event.stopPropagation();
 };
 

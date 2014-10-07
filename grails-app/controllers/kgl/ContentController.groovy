@@ -87,8 +87,10 @@ class ContentController {
 			response.sendError(404)
 		}
 		
+		// can post content anonymously?
 		if (!channel.canAnonymous) {
 			if (!springSecurityService.currentUser) {
+				session['redirect_logged'] = "/content/create/${channelName}"
 				redirect uri: '/login/auth'
 			}
 		}

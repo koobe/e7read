@@ -74,7 +74,16 @@ class FacebookController {
         }
 
         springSecurityService.reauthenticate user.username
-
-        redirect uri: "/"
+		
+		// if redirect to...
+		if (session['redirect_logged']) {
+			def uri = session['redirect_logged']
+			log.info "redirect to ${uri}"
+			session['redirect_logged'] = null
+			redirect uri: uri
+		} else {
+			redirect uri: "/"
+		}
+        
     }
 }

@@ -1,5 +1,6 @@
 package kgl
 
+import grails.gsp.PageRenderer
 import grails.transaction.Transactional
 import grails.util.Environment
 import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine
@@ -13,7 +14,7 @@ class TemplateService {
 
     def grailsApplication
     def grailsLinkGenerator
-
+	
     GroovyPagesTemplateEngine groovyPagesTemplateEngine
 
     String render(Content content) {
@@ -89,23 +90,14 @@ class TemplateService {
 
     private String renderInGSP(Content content, OriginalTemplate template) {
 
-//        def fullText = content.fullText?.replace("\r", "")
-//        def texts = fullText?.split("\n\n")
-//        def textSegment = []
-//        texts.each {
-//            textSegment << it
-//        }
-
         def shareUrl = grailsLinkGenerator.link(controller: 'content', action: 'share', id: content.id, absolute: true)
 
         def writer = new StringWriter()
+		
+		groovyPagesTemplateEngine.createTemplate(template?.html, "template-" + template?.name)
 
-        // TODO clear cache not a good design
-		// TODO cannot clear cache every time
-//        groovyPagesTemplateEngine.clearPageCache()
-        //new GroovyPagesTemplateEngine()
         groovyPagesTemplateEngine
-                .createTemplate(template?.html, "template-" + template?.name)?.make([content: content, shareUrl: shareUrl])?.writeTo(writer)
+                .createTemplate(template?.html, "template-" + template?.name)?.make([channel: content.channel?.name ,content: content, shareUrl: shareUrl, layout: 'template'])?.writeTo(writer)
 
         // TODO provide render contact card expression support in GSP ?
 

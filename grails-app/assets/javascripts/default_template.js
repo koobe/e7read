@@ -1,4 +1,7 @@
 $(function() {
+	
+	var channel = getQueryVariable("channel");
+	var is_safari_or_uiwebview = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent);
     
     $('body').e7readcstatuspanel({});
     
@@ -6,7 +9,6 @@ $(function() {
         attrOfUrl: 'data-imageurl'
     });
     
-    var is_safari_or_uiwebview = /(iPhone|iPod|iPad).*AppleWebKit/i.test(navigator.userAgent);
     if (!is_safari_or_uiwebview) {
     	$('body').gototop({
     		containerId: 'content-body',
@@ -16,14 +18,12 @@ $(function() {
     }
     
     $('.author-click').click(function() {
-    	window.open("/?u="+$(this).data('user-id'), '_top');
+    	window.open("/" + channel + "?u="+$(this).data('user-id'), '_top');
     });
 
     $('.content-category-name').css('cursor', 'pointer').click(function() {
-    	 window.open("/?c="+$(this).data('categoryname'), '_top');
+    	window.open("/" + channel + "?c="+$(this).data('categoryname'), '_top');
     });
-
-    $('p').linkify();
 
     $('.text-container a').each(function() {
 
@@ -55,11 +55,14 @@ $(function() {
         
         var matchsImg = href.toLowerCase().match(/.(jpg|jpeg|png|gif)$/);
         if (matchsImg) {
-        		var img = $('<img/>');
-        		img.css('max-width','100%');
-        		img.attr('src', href);
-        		$(img).insertBefore(this);
-        		$('<br/>').insertBefore(this);
+    		var img = $('<img/>');
+    		img.css('max-width','100%');
+    		img.attr('src', href);
+    		$(img).insertBefore(this);
+    		$('<br/>').insertBefore(this);
         }
     });
+    
+    try {$('p').linkify();} catch(err) {console.log(err)}
+    
 });

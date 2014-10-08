@@ -27,9 +27,8 @@ class HomeController {
 		
 		session['channel'] = myChannel
 		params.channel = myChannel.name
+		session['redirect_logged'] = "/${myChannel.name}"
 		
 		[params: params, channel: myChannel]
 	}
-	
-	
 }

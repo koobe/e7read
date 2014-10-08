@@ -24,7 +24,8 @@ if (typeof jQuery !== 'undefined') {
 function confirmLogout() {
 	var r = confirm('Logout?');
 	if (r) {
-		window.location.replace("/j_spring_security_logout");
+		var channel = getQueryVariable("channel")
+		window.location.replace("/logout/index?channel=" + channel);
 	}
 }
 

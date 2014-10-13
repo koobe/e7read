@@ -6,7 +6,7 @@
 		<div>
 			<a href="/">
 				<!-- <span class="category-status-logo">E7READ.com,</span>  -->
-				<img src="/assets/trans_logo.png" class="category-status-logo">
+				<img src="/assets/trans_logo_${params.channel}.png" class="category-status-logo">
 			</a>
 		</div>
 		<div class="category-status-indicator">

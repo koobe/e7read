@@ -26,45 +26,62 @@ $(function() {
     var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
 
+    // make content layout for info window display
+    var makeHtmlContent = function(content) {
+
+        var box = $('<div class="row" />');
+
+        var left = $('<div class="col-sm-4" />');
+
+        var a = $('<a target="blank" />').attr('href', content.shareUrl);
+        a.append($('<img align="left" alt="cover" border="0" class="img-thumbnail img-responsive" />').attr('src', content.coverUrl));
+
+        left.append(a);
+
+        box.append(left);
+
+        var right = $('<div class="col-sm-8" />');
+
+        right.append($('<h4/>').text(content.cropTitle));
+        right.append($('<p/>').text(content.cropText));
+
+        box.append(right);
+
+        return box.html();
+    };
+
+    // show marker in google map
     $.get('/content/searchByLocation', function(data) {
-        if (data) {
-            for (var i = 0; i < data.length; i++) {
-                var content = data[i];
+        if (!data) { return; }
 
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(content.location.lat + (Math.random()/250), content.location.lon + (Math.random()/250)),
-                    map: map,
-                    title: content.cropTitle,
-                    draggable: true,
-                    animation: google.maps.Animation.DROP
-                });
+        var infowindow = new google.maps.InfoWindow();
 
-                var box = $('<div class="row" />');
+        var marker;
 
-                var left = $('<div class="col-sm-4" />');
+        for (var i = 0; i < data.length; i++) {
 
-                var a = $('<a target="blank" />').attr('href', content.shareUrl);
-                a.append($('<img align="left" alt="cover" border="0" class="img-thumbnail img-responsive" />').attr('src', content.coverUrl));
+            var content = data[i];
 
-                left.append(a);
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(
+                                content.location.lat + (Math.random()/250),
+                                content.location.lon + (Math.random()/250)
+                ),
+                map: map,
+                title: content.cropTitle,
+                draggable: false,
+                animation: google.maps.Animation.DROP
+            });
 
-                box.append(left);
+            google.maps.event.addListener(marker, 'click', (function(marker, html) {
 
-                var right = $('<div class="col-sm-8" />');
-
-                right.append($('<h4/>').text(content.cropTitle));
-                right.append($('<p/>').text(content.cropText));
-
-                box.append(right);
-
-                var infowindow = new google.maps.InfoWindow({ content: box.html() });
-
-                google.maps.event.addListener(marker, 'click', function() {
+                return function() {
+                    infowindow.setContent(html);
                     infowindow.open(map, marker);
-                });
 
-            }
-
+                    console.log(marker);
+                };
+            })(marker, makeHtmlContent(content)));
         }
     });
 

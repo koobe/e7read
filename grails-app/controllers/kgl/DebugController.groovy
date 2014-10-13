@@ -78,7 +78,7 @@ class DebugController {
                 city: location?.city,
                 region: location?.region,
                 latitude: location?.latitude,
-                longitude: location?.longitude,
+                longitude: location?.longitude
         ] as JSON)
 
     }

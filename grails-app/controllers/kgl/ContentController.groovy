@@ -999,7 +999,12 @@ class ContentController {
         def contents = []
 
         result.searchResults.each {
-                def content = Content.get(it.id)
+
+            log.info "Process search result: ${it.id}"
+
+            def content = Content.get(it.id)
+
+            if (content) {
                 contents << [
                         cropTitle: content.cropTitle,
                         cropText: content.cropText,
@@ -1007,6 +1012,7 @@ class ContentController {
                         shareUrl: createLink(controller: 'content', action: 'share', id: content.id, absolute: true),
                         coverUrl: content.coverUrl
                 ]
+            }
         }
         render contents as JSON
     }

@@ -17,7 +17,12 @@
                 <!-- <sec:loggedInUserInfo field="fullName"/> -->
             </g:link>
 	    </div>
-	    <div>
+        <div>
+            <g:link controller="map" action="explore" class="koobe-btn koobe-btn-normal">
+                <i class="fa fa-map-marker"></i> <!-- Explore in Map  -->
+            </g:link>
+        </div>
+        <div>
             <g:link uri="javascript: confirmLogout();" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-sign-out"></i> <!-- Logout -->
             </g:link>
@@ -32,6 +37,11 @@
                 <i class="fa fa-pencil"></i> <!-- Create -->
             </g:link>
         </div>
+        <div>
+            <g:link controller="map" action="explore" class="koobe-btn koobe-btn-normal">
+                <i class="fa fa-map-marker"></i> <!-- Explore in Map  -->
+            </g:link>
+        </div>
 		<div>
 			<oauth:connect provider="facebook" id="facebook-connect-link" class="koobe-btn koobe-btn-normal">
 		        <span class="fa fa-facebook-square"></span>
@@ -40,8 +50,4 @@
 		</div>
 		<div class="menu-blank">&nbsp;</div>
 	</div>
-		<!-- 
-		<g:link uri="/login/auth" class="btn btn-default">
-	        <i class="fa fa-sign-in"></i> <!-- Sign-in
-	    </g:link> -->
 </sec:ifNotLoggedIn>

@@ -242,12 +242,12 @@ grails {
 
 // TODO: Change this to default E7READ service email address
 grails.mail.default.from="kyle@koobe.com.tw"
-// Added by the GeoIP plugin:
-grails.plugin.geoip.data.resource = '/data/maxmind/GeoLiteCity.dat'
-
 
 google {
     api {
         key = "AIzaSyC0mLGhDiBjkk2PK_spa_zRYmzCeIUiBso"
     }
 }
+
+// Added by the GeoIP plugin:
+grails.plugin.geoip.data.resource = '/data/maxmind/GeoLiteCity.dat'

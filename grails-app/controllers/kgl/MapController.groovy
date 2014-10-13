@@ -6,10 +6,11 @@ class MapController {
 
     def index() {}
 
-    def sample() {
+    def explore() {
         [
                 lat: (session['geolocation']?.lat)?:25,
-                lon: (session['geolocation']?.lon)?:121
+                lon: (session['geolocation']?.lon)?:121,
+                zoom: session['geolocation']?15:10,
         ]
     }
 }

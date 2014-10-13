@@ -44,6 +44,7 @@ $(function() {
 
         right.append($('<h4/>').text(content.cropTitle));
         right.append($('<p/>').text(content.cropText));
+        right.append($('<a target="blank" />').attr('href', content.shareUrl).text('read more...'));
 
         box.append(right);
 
@@ -64,8 +65,8 @@ $(function() {
 
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(
-                                content.location.lat + (Math.random()/250),
-                                content.location.lon + (Math.random()/250)
+                                content.location.lat + (Math.random()/500),
+                                content.location.lon + (Math.random()/500)
                 ),
                 map: map,
                 title: content.cropTitle,

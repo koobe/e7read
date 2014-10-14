@@ -8,7 +8,7 @@
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>
 <style>
-#map-canvas { width: 480px; height: 320px; }
+#map-canvas { width: 100%; height: 320px; }
 </style>
 
 </head>
@@ -96,7 +96,16 @@
                 <i class="fa fa-map-marker"></i>
                 ${user.location.city}<br/>
 
-                <div id="map-canvas"></div>
+                <div class="col-sm-6">
+                    <div id="map-canvas"></div>
+                </div>
+                <div class="col-sm-6">
+                    <br/>
+                    <label>Search</label>
+                    <input name="customAddress" value="" class="form-control" />
+                    <br/>
+                    <a href="#" id="customAddressSubmit" class="btn btn-default btn-block">Search</a>
+                </div>
 
             </div>
         </div>
@@ -126,6 +135,8 @@ $(function() {
 
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
+    var geocoder = new google.maps.Geocoder();
+
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
@@ -150,6 +161,33 @@ $(function() {
             }
         });
     });
+
+
+    $('a#customAddressSubmit').unbind('click').click(function() {
+        var address = $('input[name=customAddress]').val();
+
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                //Got result, center the map and put it out there
+                map.setCenter(results[0].geometry.location);
+
+                marker.setPosition(results[0].geometry.location);
+    
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+
+        return false;
+    });
+
+    $('input[name=customAddress]').keydown(function(event) {
+        if ( event.which == 13 ) {
+            event.preventDefault();
+            $('a#customAddressSubmit').trigger('click');
+        }
+    });
+
 });
 </script>
 </body>

@@ -97,7 +97,7 @@ class TemplateService {
 		groovyPagesTemplateEngine.createTemplate(template?.html, "template-" + template?.name)
 
         groovyPagesTemplateEngine
-                .createTemplate(template?.html, "template-" + template?.name)?.make([channel: content.channel?.name ,content: content, shareUrl: shareUrl, layout: 'template'])?.writeTo(writer)
+                .createTemplate(template?.html, "template-" + template?.name)?.make([channel: content.channel?.name ,content: content, shareUrl: shareUrl])?.writeTo(writer)
 
         // TODO provide render contact card expression support in GSP ?
 
@@ -207,6 +207,7 @@ class TemplateService {
         try {
             def mediaCount = doc.select("meta[name=kgl:media_count]").attr("content")
             def textCount = doc.select("meta[name=kgl:text_count]").attr("content")
+			def grouping = doc.select("meta[name=kgl:grouping]").attr("content")
 
             if (mediaCount?.isInteger()) {
                 template.mediaCount = mediaCount.toInteger()
@@ -215,10 +216,13 @@ class TemplateService {
             if (textCount?.isInteger()) {
                 template.textCount = textCount.toInteger()
             }
+			
+			if (grouping) {
+				template.grouping = grouping
+			}
 
             template.save flush: true
-        }
-        catch (e) {
+        } catch (e) {
             e.printStackTrace()
         }
     }

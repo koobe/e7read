@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<g:applyLayout name="${layout}">
+<g:applyLayout name="template">
 <html>
 	<head>
 	    <meta name="kgl:media_count" content="3"/>

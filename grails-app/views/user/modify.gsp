@@ -86,6 +86,15 @@
         </div>
 
         <div class="form-group">
+            <label class="col-sm-2 control-label">Location:</label>
+            <div class="col-sm-10">
+                <i class="fa fa-map-marker"></i>
+                ${user.location.city}<br/>
+                <img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location.lat},${user.location.lon}&zoom=14&size=360x100&sensor=false" alt="google map" border="0" class="img-thumbnail"/>
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <g:submitButton name="save" value="Save" class="btn btn-default" />
                 <g:link controller="user" action="profile" class="btn btn-default">Cancel</g:link>

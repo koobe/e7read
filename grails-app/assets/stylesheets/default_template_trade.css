@@ -24,17 +24,34 @@
 		background-size: cover;
 		
 		box-shadow: 0 1px 2px 1px #ccc;
+		
+		/*-webkit-filter: contrast(1.2);*/
+		
+		/*-webkit-mask-image: -webkit-gradient(linear, left 90%, right top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
+		
+		-webkit-mask-image: -webkit-linear-gradient(left,rgba(0,0,0,1),rgba(0,0,0,1),rgba(0,0,0,0.9),rgba(0,0,0,0.6),rgba(0,0,0,0));
+		mask: -moz-linear-gradient(left,rgba(0,0,0,1),rgba(0,0,0,1),rgba(0,0,0,0.9),rgba(0,0,0,0.6),rgba(0,0,0,0));
+		
+		/*-webkit-mask-image: url(vignette-mask.png);*/
+		
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		-webkit-mask-size: cover;
    	}
    	
    	.imagetitle-text {
    		display: inline-block;
-   	
-   		color: #DDD;
+   		
 		text-shadow: -1px -1px 0 #fff,1px 1px 0 #333,1px 1px 0 #444;
 		font-size: 25px;
-		width: 100%;
+		width: 80%;
 		
 		padding: 0px 15px 10px 15px;
+   	}
+   	
+   	.imagetitle-text > a {
+   		color: #DDD;
+   		text-decoration: none;
    	}
    	
    	.image-gallery-table {

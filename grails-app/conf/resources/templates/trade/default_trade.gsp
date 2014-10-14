@@ -14,7 +14,9 @@
 	
 			<div class="imagetitle-container">
 				<div class="imagetitle-image" style="background-image:url(${content.pictureSegments[0]?.thumbnailUrl? content.pictureSegments[0]?.thumbnailUrl: content.pictureSegments[0]?.originalUrl});">
-					<div class="imagetitle-text">${content.cropTitle}</div>
+					<div class="imagetitle-text">
+						<a href="/share/${content.id}" target="_blank">${content.cropTitle}</a>
+					</div>
 				</div>
 			</div>
 			

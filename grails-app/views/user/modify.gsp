@@ -1,10 +1,15 @@
 <html>
 <head>
-    <meta name="layout" content="main"/>
-    <title>Modify User Profile</title>
+<meta name="layout" content="main"/>
+<title>Modify User Profile</title>
 
-    <script src="//cdn.ckeditor.com/4.4.1/standard/ckeditor.js"></script>
-    <script src="//cdn.ckeditor.com/4.4.1/standard/adapters/jquery.js"></script>
+<script src="//cdn.ckeditor.com/4.4.1/standard/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.4.1/standard/adapters/jquery.js"></script>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>
+<style>
+#map-canvas { width: 480px; height: 320px; }
+</style>
 
 </head>
 <body>
@@ -90,7 +95,9 @@
             <div class="col-sm-10">
                 <i class="fa fa-map-marker"></i>
                 ${user.location.city}<br/>
-                <img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location.lat},${user.location.lon}&zoom=14&size=360x100&sensor=false" alt="google map" border="0" class="img-thumbnail"/>
+
+                <div id="map-canvas"></div>
+
             </div>
         </div>
 
@@ -107,7 +114,42 @@
 
 <script type="text/javascript">
 $(function() {
-    $('textarea#description').ckeditor();
+    $('textarea[name="contact.description"]').ckeditor();
+
+    var myLatlng = new google.maps.LatLng(${user.location?.lat?:24}, ${user.location?.lon?:120});
+
+    var mapOptions = {
+        center: myLatlng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: "I'm here!!!",
+        draggable: true,
+        animation: google.maps.Animation.DROP
+    });
+
+    google.maps.event.addListener(marker, 'dragend', function(event) {
+
+        // Upload location info
+        var callbackUrl = $('meta[name=geo-callback-url]').attr('content');
+
+        $.ajax({
+            url: callbackUrl,
+            data: {
+                lat: event.latLng.lat(),
+                lon: event.latLng.lng()
+            },
+            success: function() {
+                // none
+            }
+        });
+    });
 });
 </script>
 </body>

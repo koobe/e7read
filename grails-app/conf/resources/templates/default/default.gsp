@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<g:applyLayout name="${layout}">
+<g:applyLayout name="template">
 <html>
 	<head>
 	    <meta name="kgl:media_count" content="3"/>
@@ -12,9 +12,9 @@
 		
 		    <div class="main-gallery">
 		        <div class="table-row">
-		            <g:each in="${content.pictureSegments}">
-		                <div data-toggle="lightbox" class="table-col" style="background-image:url(${it.thumbnailUrl? it.thumbnailUrl: it.originalUrl});"
-		                     data-imageurl="${it.originalUrl}"></div>
+		            <g:each in="${content.pictureSegments}" var="picture">
+		                <div data-toggle="lightbox" class="table-col" style="background-image:url(${picture.thumbnailUrl? picture.thumbnailUrl: picture.originalUrl});"
+		                     data-imageurl="${picture.originalUrl}"></div>
 		            </g:each>
 		        </div>
 		    </div>

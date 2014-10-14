@@ -322,6 +322,7 @@ class ContentController {
 	}
 	
 	// TEST
+	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def count() {
 		[content: Content.list().get(0)]
 	}
@@ -649,6 +650,8 @@ class ContentController {
 	@Transactional
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def postContent() {
+		
+		//TODO send channel parameter
 
         log.info "Content ID: ${params.id}"
 		log.info "The id list of files: ${params.s3fileId}"
@@ -672,6 +675,8 @@ class ContentController {
 
             contentInstance.isDelete = false
             contentInstance.isPrivate = false
+			
+			//TODO send channel parameter
 			contentInstance.channel = session['channel']
         }
 
@@ -842,6 +847,13 @@ class ContentController {
 	}
 
     private OriginalTemplate matchTemplate(Content content) {
+		
+		//TODO return template for trade channel
+		if (content.channel?.name.equals('trade')) {
+			def template = OriginalTemplate.findByGroupingAndName('trade', 'default_trade')
+			return template
+		}
+		
         if (content.pictureSegments == null) {
             return null
         }

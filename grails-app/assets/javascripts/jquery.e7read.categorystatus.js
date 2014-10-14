@@ -21,6 +21,7 @@
 		
 	    var logodivcell = $('<div/>').addClass('table-cell');
 	    var logoimg = $('<img src="/assets/trans_logo.png" alt="logo" class="e7read-logo" />');
+	    logoimg.attr('src', '/assets/trans_logo_' + channel + '.png');
 	    logoimg.click(function(e) {
 	    	window.open("/" + channel, '_top');
 	    	e.stopPropagation();

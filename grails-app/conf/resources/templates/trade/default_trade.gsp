@@ -11,7 +11,7 @@
 		<div class="container">
 	
 			<div class="margin-blank"></div>
-		
+	
 			<div class="imagetitle-container">
 				<div class="imagetitle-image" style="background-image:url(${content.pictureSegments[0]?.thumbnailUrl? content.pictureSegments[0]?.thumbnailUrl: content.pictureSegments[0]?.originalUrl});">
 					<div class="imagetitle-text">${content.cropTitle}</div>
@@ -53,14 +53,21 @@
 		    
 		    <div class="margin-blank"></div>
 		    
-		    <div class="text-container">
+		    <div class="list-group">
+				<a class="list-group-item active">描述</a>
+			</div>
+		    
+		    <div class="text-container padding-lr">
 		        <div>
 		            <g:each in="${content.textSegments}" var="segment">
 		                <markdown:renderHtml>${segment.text}</markdown:renderHtml>
 		            </g:each>
 		        </div>
 		    </div>
-		    
+	
+		    <div class="list-group">
+				<a class="list-group-item active">相片集</a>
+			</div>
 		    
 		    <div class="image-gallery">
 		        <div class="image-gallery-table">
@@ -74,11 +81,17 @@
 		
 		    <div class="margin-blank"></div>
 		    
-		    <img style="max-width: 100%;" src="http://maps.googleapis.com/maps/api/staticmap?center=${content.location?.lat},${content.location?.lon}&zoom=14&size=960x250&scale=2&sensor=false" alt="google map" border="0" class="img-thumbnail"/>
+		    <div class="list-group">
+				<a class="list-group-item active">地區</a>
+			</div>
+			<div style="width: 100%;">
+		    	<img style="max-width: 100%;" src="http://maps.googleapis.com/maps/api/staticmap?center=${content.location?.lat},${content.location?.lon}&zoom=14&size=960x250&scale=2&sensor=false" alt="google map" border="0" class="img-thumbnail"/>
+		    </div>
 		    
 		    <div class="margin-blank"></div>
-			
-			<fb:comments contentid="${content.id}" />
+		    
+		    <fb:comments contentid="${content.id}" />
+	    
 		</div>
 		
 	</body>

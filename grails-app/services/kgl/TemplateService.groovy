@@ -173,7 +173,7 @@ class TemplateService {
             }
         }
 
-        def groups = ['default', 'experimental']
+        def groups = ['default', 'experimental', 'trade']
 
         groups.each { grouping ->
 

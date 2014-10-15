@@ -50,7 +50,7 @@
 	<asset:javascript src="jquery.e7read.categorystatus.js"/>
 	
 	<asset:stylesheet src="default_template.css"/>
-	<asset:javascript src="default_template_trade.js"/>
+	<asset:javascript src="default_template.js"/>
 	
 	<asset:stylesheet src="default_template_trade.css"/>
     

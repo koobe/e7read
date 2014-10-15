@@ -11,8 +11,8 @@
 		<div class="container">
 	
 			<div class="margin-blank"></div>
-	
-			<template:imageTitle content="${content}" classOfImage="bg-mask-left" classOfTitle="" styleOfTitle="" />
+		
+			<template:imageTitle content="${content}" classOfImage="bg-mask-top" classOfTitle="imagetitle-text-center" styleOfTitle="padding-bottom: 40px;" />
 			
 			<div class="margin-blank"></div>
 			
@@ -59,7 +59,7 @@
 		    <div>
 		    	<fb:comments contentid="${content.id}" />
 		    </div>
-	    
+			
 		</div>
 		
 	</body>

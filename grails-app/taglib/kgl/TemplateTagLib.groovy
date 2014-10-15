@@ -11,13 +11,34 @@ class TemplateTagLib {
     //static encodeAsForTags = [tagName: [taglib:'html'], otherTagName: [taglib:'none']]
 
     def socialToolbar = { attrs, body ->
-        out << render(
-                template: '/taglib/template/socialToolbar',
-                model: [
-                        content: attrs.content
-                ]
-        )
+        out << render(template: '/taglib/template/socialToolbar', model: [content: attrs.content])
     }
+	
+	def imageTitle = { attrs, body ->
+		out << render(template: '/template/component/image_title', 
+			model: [
+				content: attrs.content,
+				classOfImage: attrs.classOfImage,
+				classOfTitle: attrs.classOfTitle,
+				styleOfTitle: attrs.styleOfTitle
+			])
+	}
+	
+	def containerTexts = { attrs, body ->
+		out << render(template: '/template/component/container_texts', model: [content: attrs.content])
+	}
+	
+	def containerPicturesType1 = { attrs, body ->
+		out << render(template: '/template/component/container_pictures_type1', model: [content: attrs.content])
+	}
+	
+	def sectionTitle = { attrs, body ->
+		out << render(template: '/template/component/section_title', model: [title: attrs.title])
+	}
+	
+	def categoriesTable = { attrs, body ->
+		out << render(template: '/template/component/categories_table', model: [content: attrs.content])
+	}
 	
 	def contentHeaderView = { attrs, body ->
 		out << render(template: '/template/headerview', model: [content: attrs.content])

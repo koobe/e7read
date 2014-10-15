@@ -5,7 +5,7 @@ $(function() {
     
     $('body').e7readcstatuspanel({});
     
-    $('.main-gallery, .pictures-container').imageview({
+    $('.main-gallery, .pictures-container, .imagetitle-container, .image-gallery').imageview({
         attrOfUrl: 'data-imageurl'
     });
     

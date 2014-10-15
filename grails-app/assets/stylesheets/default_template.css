@@ -35,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 160%;
 }
  
-.text-container>div>p , .text-container>div>ul, .text-container>div>ol {
+.text-container>p , .text-container>ul, .text-container>ol {
     font-family: "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
     font-size: 18px;
     margin-bottom: 20px;

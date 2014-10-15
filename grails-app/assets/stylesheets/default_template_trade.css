@@ -8,6 +8,14 @@
    		width: 100%;
    	}
    	
+   	.div-bg-thumbnail-cover {
+   		border-radius: 5px;
+   		box-shadow: 0 1px 2px 1px #ccc;
+   		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+   	}
+   	
    	.imagetitle-container {
    		display: table;
    		width: 100%;
@@ -17,26 +25,14 @@
    	.imagetitle-image {
    		display: table-cell;
    		vertical-align: bottom;
-   		
-   		border-radius: 5px;
-   		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		
-		box-shadow: 0 1px 2px 1px #ccc;
-		
-		/*-webkit-filter: contrast(1.2);*/
-		
-		/*-webkit-mask-image: -webkit-gradient(linear, left 90%, right top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
-		
-		-webkit-mask-image: -webkit-linear-gradient(left,rgba(0,0,0,1),rgba(0,0,0,1),rgba(0,0,0,0.9),rgba(0,0,0,0.6),rgba(0,0,0,0));
-		mask: -moz-linear-gradient(left,rgba(0,0,0,1),rgba(0,0,0,1),rgba(0,0,0,0.9),rgba(0,0,0,0.6),rgba(0,0,0,0));
-		
-		/*-webkit-mask-image: url(vignette-mask.png);*/
-		
-		-webkit-mask-repeat: no-repeat;
-		-webkit-mask-position: center;
-		-webkit-mask-size: cover;
+   	}
+   	
+   	.bg-mask-top {
+   		-webkit-mask-image: -webkit-linear-gradient(top,rgba(0,0,0,1),rgba(0,0,0,1),rgba(0,0,0,0.9),rgba(0,0,0,0.9),rgba(0,0,0,0.8),rgba(0,0,0,0.2));
+   	}
+   	
+   	.bg-mask-left {
+   		-webkit-mask-image: -webkit-linear-gradient(left,rgba(0,0,0,1),rgba(0,0,0,1),rgba(0,0,0,0.9),rgba(0,0,0,0.6),rgba(0,0,0,0));
    	}
    	
    	.imagetitle-text {
@@ -49,6 +45,11 @@
 		padding: 0px 15px 10px 15px;
    	}
    	
+   	.imagetitle-text-center {
+   		width: 100%;
+		text-align:center;
+   	}
+   	
    	.imagetitle-text > a {
    		color: #DDD;
    		text-decoration: none;
@@ -58,25 +59,20 @@
    		display: table;
    		width: 100%;
    		height: 250px;
-   		border-spacing: 5px 0px;
    	}
    	
    	.image-table-cell {
    		display: table-cell;
-   		
-   		border-radius: 5px;
-   		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		
-		box-shadow: 0 1px 2px 1px #ccc;
    	}
    	
-   	.subtitle {
-   		font-weight: 700;
-   		font-size: 18px;
-	    margin-bottom: 20px;
-	    line-height: 160%;
-	    letter-spacing: 1px;
-	    text-align: justify;
-   	}
+   	.template-section-title {
+		display:table;
+		padding-top: 5px;
+		padding-bottom: 15px;
+	}
+	
+	.template-section-title-text {
+		color: #fff;
+		font-weight: 700;
+		font-size: 1.1em;
+	}

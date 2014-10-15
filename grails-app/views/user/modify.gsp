@@ -1,10 +1,15 @@
 <html>
 <head>
-    <meta name="layout" content="main"/>
-    <title>Modify User Profile</title>
+<meta name="layout" content="main"/>
+<title>Modify User Profile</title>
 
-    <script src="//cdn.ckeditor.com/4.4.1/standard/ckeditor.js"></script>
-    <script src="//cdn.ckeditor.com/4.4.1/standard/adapters/jquery.js"></script>
+<script src="//cdn.ckeditor.com/4.4.1/standard/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.4.1/standard/adapters/jquery.js"></script>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>
+<style>
+#map-canvas { width: 100%; height: 320px; }
+</style>
 
 </head>
 <body>
@@ -86,6 +91,26 @@
         </div>
 
         <div class="form-group">
+            <label class="col-sm-2 control-label">Location:</label>
+            <div class="col-sm-10">
+                <i class="fa fa-map-marker"></i>
+                ${user.location.city}<br/>
+
+                <div class="col-sm-6">
+                    <div id="map-canvas"></div>
+                </div>
+                <div class="col-sm-6">
+                    <br/>
+                    <label>Search</label>
+                    <input name="customAddress" value="" class="form-control" />
+                    <br/>
+                    <a href="#" id="customAddressSubmit" class="btn btn-default btn-block">Search</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <g:submitButton name="save" value="Save" class="btn btn-default" />
                 <g:link controller="user" action="profile" class="btn btn-default">Cancel</g:link>
@@ -98,7 +123,71 @@
 
 <script type="text/javascript">
 $(function() {
-    $('textarea#description').ckeditor();
+    $('textarea[name="contact.description"]').ckeditor();
+
+    var myLatlng = new google.maps.LatLng(${user.location?.lat?:24}, ${user.location?.lon?:120});
+
+    var mapOptions = {
+        center: myLatlng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    var geocoder = new google.maps.Geocoder();
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: "I'm here!!!",
+        draggable: true,
+        animation: google.maps.Animation.DROP
+    });
+
+    google.maps.event.addListener(marker, 'dragend', function(event) {
+
+        // Upload location info
+        var callbackUrl = $('meta[name=geo-callback-url]').attr('content');
+
+        $.ajax({
+            url: callbackUrl,
+            data: {
+                lat: event.latLng.lat(),
+                lon: event.latLng.lng()
+            },
+            success: function() {
+                // none
+            }
+        });
+    });
+
+
+    $('a#customAddressSubmit').unbind('click').click(function() {
+        var address = $('input[name=customAddress]').val();
+
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                //Got result, center the map and put it out there
+                map.setCenter(results[0].geometry.location);
+
+                marker.setPosition(results[0].geometry.location);
+    
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        });
+
+        return false;
+    });
+
+    $('input[name=customAddress]').keydown(function(event) {
+        if ( event.which == 13 ) {
+            event.preventDefault();
+            $('a#customAddressSubmit').trigger('click');
+        }
+    });
+
 });
 </script>
 </body>

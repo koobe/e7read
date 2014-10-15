@@ -1,6 +1,8 @@
 package kgl
 
 import grails.plugin.geocode.Point
+
+import org.codenarc.rule.braces.ElseBlockBracesAstVisitor;
 import org.elasticsearch.common.unit.DistanceUnit
 import org.elasticsearch.search.sort.SortBuilders
 import org.elasticsearch.search.sort.SortOrder
@@ -848,19 +850,21 @@ class ContentController {
 
     private OriginalTemplate matchTemplate(Content content) {
 		
-		//TODO return template for trade channel
-		if (content.channel?.name.equals('trade')) {
-			def template = OriginalTemplate.findByGroupingAndName('trade', 'default_trade')
-			return template
+		//TODO match template by channel
+		
+		if (content.pictureSegments == null) {
+			return OriginalTemplate.defaultTemplate
 		}
 		
-        if (content.pictureSegments == null) {
-            return null
-        }
-
-        int mediaCount = content.pictureSegments.size()
-
-        def templates = OriginalTemplate.findAllByGroupingAndMediaCount('default', mediaCount)
+		def templates
+		
+		if (content.channel?.name.equals('trade')) {
+			templates = OriginalTemplate.findAllByGrouping('trade')
+		} else {
+		
+			int mediaCount = content.pictureSegments.size()
+			templates = OriginalTemplate.findAllByGroupingAndMediaCount('default', mediaCount)
+		}
 
         if (!templates) {
 			// gsp-default will show all text and pictures

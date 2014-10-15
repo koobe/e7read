@@ -20,6 +20,7 @@
         </sec:ifNotLoggedIn>
 
         <meta name="contentId" content="${contentInstance.id}" />
+        <meta name="params-channel" content="${contentInstance.channel.name}" />
 
 	</head>
 	<body>
@@ -111,6 +112,6 @@
 
         <g:render template="/home/footer" />
         
-        <g:include controller="category" action="addCategoryPanel" params="[btnaction: 'create']" />
+        <g:include controller="category" action="addCategoryPanel" params="[btnaction: 'create', channel: contentInstance.channel?.name]" />
 	</body>
 </html>

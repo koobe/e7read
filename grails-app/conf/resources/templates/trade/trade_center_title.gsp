@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<g:applyLayout name="template_trade">
+<g:applyLayout name="template">
 <html>
 	<head>
 	    <meta name="kgl:media_count" content="3"/>
@@ -8,7 +8,7 @@
 	</head>
 	<body>
 
-		<div class="container">
+		<div class="template-container">
 	
 			<div class="margin-blank"></div>
 		
@@ -54,11 +54,7 @@
 		    
 		    <div class="margin-blank"></div>
 		    
-		    <template:sectionTitle title="留言" />
-		    
-		    <div>
-		    	<fb:comments contentid="${content.id}" />
-		    </div>
+			<fb:comments contentid="${content.id}" />
 			
 		</div>
 		

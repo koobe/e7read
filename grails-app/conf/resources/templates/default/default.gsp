@@ -5,21 +5,15 @@
 	    <meta name="kgl:media_count" content="3"/>
 	    <meta name="kgl:text_count" content="1"/>
 	</head>
-	<body data-linkify="p, .plain-text" id="content-body">
+	<body>
 	
 		<div class="template-container">
+		    
 		    <div class="margin-blank"></div>
 		
-		    <div class="main-gallery">
-		        <div class="table-row">
-		            <g:each in="${content.pictureSegments}" var="picture">
-		                <div data-toggle="lightbox" class="table-col" style="background-image:url(${picture.thumbnailUrl? picture.thumbnailUrl: picture.originalUrl});"
-		                     data-imageurl="${picture.originalUrl}"></div>
-		            </g:each>
-		        </div>
-		    </div>
+		    <template:containerPicturesType1 content="${content}" />
 		
-		    <div class="title-container border-btm margin-lr-20">
+		    <div class="title-container border-btm">
 		        <div class="content-title">
 		            <h1>${content.cropTitle}</h1>
 		        </div>
@@ -36,34 +30,18 @@
 		        </div>
 		    </div>
 		
-		    <div class="margin-lr-20">
+		    <div class="">
 		        <g:if test="${content.categories}">
-		            <div class="content-category-tags-table text-uppercase">
-						<g:each in="${content.categories}" var="category">
-							<div>
-								<a class="content-category-name" data-categoryName="${category.name}">
-									<span data-categoryName="${category.name}" class="label">
-										<g:message code="category.name.i18n.${category.name}" default="${category.name}" />
-									</span>
-								</a>
-							</div>
-						</g:each>
-					</div>
+		        	<template:categoriesTable content="${content}" />
 		        </g:if>
-	
 	            <!-- Social Toolbar -->
 	            <template:socialToolbar content="${content}" />
 		    </div>
 		
 		    <div class="margin-blank"></div>
 		
-		    <div class="text-container padding-lr">
-		        <div>
-		            <g:each in="${content.textSegments}" var="segment">
-		                <markdown:renderHtml>${segment.text}</markdown:renderHtml>
-		            </g:each>
-		        </div>
-		    </div>
+		    <!-- texts of content -->
+			<template:containerTexts content="${content}" />
 		
 		    <div class="margin-blank"></div>
 		    

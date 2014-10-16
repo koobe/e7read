@@ -14,14 +14,15 @@
     }
     #map-page, #map-canvas { width: 100%; height: 100%; padding: 0; }
 </style>
-<meta name="params-lat" content="${lat}" />
-<meta name="params-lon" content="${lon}" />
+	<meta name="params-lat" content="${lat}" />
+	<meta name="params-lon" content="${lon}" />
+	<meta name="params-channel" content="${content.channel?.name}" />
 </head>
 <body>
 
 <div data-role="page" data-theme="b" id="map-page">
     <div data-role="header">
-        <g:link uri="/" data-icon="home" rel="external">Back</g:link>
+        <g:link uri="/${content.channel?.name}" data-icon="home" rel="external">Back</g:link>
         <h1>E7READ Explore</h1>
     </div>
     <div role="main" class="ui-content" id="map-canvas"></div>

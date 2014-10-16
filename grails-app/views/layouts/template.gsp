@@ -26,19 +26,16 @@
     <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'webicon.png')}">
     
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
     <asset:stylesheet src="header.css"/>
 
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
-
-	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>    
 	
-	<asset:javascript src="application.js" />
+	<script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
     
     <asset:stylesheet src="imageview.css"/>
 	<asset:javascript src="jquery.imageview.js"/>
@@ -56,9 +53,11 @@
     
     <g:layoutHead/>
 </head>
-<body data-linkify="p, .plain-text" id="content-body">
+<body id="content-body">
 	<fb:init/>
 	<g:layoutBody/>
 	<g:render template="/home/footer"/>
+	
+	
 </body>
 </html>

@@ -1,3 +1,9 @@
+$(document).ready(function() {
+	
+	
+});
+
+
 $(function() {
 	
 	var channel = getQueryVariable("channel");
@@ -24,8 +30,12 @@ $(function() {
     $('.content-category-name').css('cursor', 'pointer').click(function() {
     	window.open("/" + channel + "?c="+$(this).data('categoryname'), '_top');
     });
-
-    $('.text-container a').each(function() {
+    
+    $('.text-container p').linkify();
+	
+	$('.text-container a').each(function() {
+    	
+    	console.log('process link');
 
         var getUrlParameter = function(sUrl, sParam) {
             var url = sUrl.split('?')[1];
@@ -44,13 +54,11 @@ $(function() {
 
             var div = $('<div class="embed-responsive embed-responsive-16by9"></div>');
             var iframe = $('<iframe type="text/html"></iframe>');
-//            iframe.width(640).height(390).attr('frameborder', 0);
             iframe.attr('src', 'http://www.youtube.com/embed/'+youtubeId);
             iframe.addClass('embed-responsive-item');
             
             div.append(iframe);
             $(div).insertBefore(this);
-//            $('<br/>').insertAfter(div);
         }
         
         var matchsImg = href.toLowerCase().match(/.(jpg|jpeg|png|gif)$/);
@@ -60,9 +68,9 @@ $(function() {
     		img.attr('src', href);
     		$(img).insertBefore(this);
     		$('<br/>').insertBefore(this);
+    		this.remove();
         }
     });
     
-    try {$('p').linkify();} catch(err) {console.log(err)}
-    
 });
+

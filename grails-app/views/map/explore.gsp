@@ -19,7 +19,7 @@
 
 <div data-role="page" data-theme="b" id="map-page">
     <div data-role="header">
-        <g:link uri="/" data-icon="home" rel="external">Back</g:link>
+        <g:link uri="/" data-icon="home" rel="external" class="btnBack">Back</g:link>
         <h1>E7READ Explore</h1>
     </div>
     <div role="main" class="ui-content" id="map-canvas"></div>
@@ -99,6 +99,11 @@ $( document ).on( "pageinit", "#map-page", function() {
                 };
             })(marker, makeHtmlContent(content)));
         }
+    });
+
+    $('.btnBack').unbind('click').click(function() {
+        history.back();
+        return false;
     });
 
 });

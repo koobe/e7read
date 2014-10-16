@@ -1,7 +1,12 @@
 <div class="pull-right social-toolbar">
 
-    <i class="fa fa-map-marker"></i>
-    ${content.location?.city}
+    <g:if test="${content.location}">
+        <g:link controller="map" action="explore" params="[center: content.location?.lat+','+content.location?.lon]">
+            <i class="fa fa-map-marker"></i>
+            ${content.location?.city}
+        </g:link>
+    </g:if>
+
     <%--
     <!--${address?.addressComponents[3]?.shortName}-->
     <!--${content.location.lat}, ${content.location.lon}-->

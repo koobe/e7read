@@ -20,7 +20,10 @@ class TemplateTagLib {
 				content: attrs.content,
 				classOfImage: attrs.classOfImage,
 				classOfTitle: attrs.classOfTitle,
-				styleOfTitle: attrs.styleOfTitle
+				styleOfTitle: attrs.styleOfTitle,
+				classOfDate: attrs.classOfDate,
+				styleOfDate: attrs.styleOfDate,
+				showDate: attrs.showDate
 			])
 	}
 	

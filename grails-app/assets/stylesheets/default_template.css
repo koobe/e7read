@@ -1,4 +1,11 @@
 @import url("content_category_label.css");
+@import url(http://fonts.googleapis.com/css?family=Fascinate);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexhei.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexkai.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexming.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
 
 html, body {
 	width: 100%;
@@ -188,6 +195,21 @@ tr, td {
 		width: 80%;
 		
 		padding: 0px 15px 10px 15px;
+		
+		
+   	}
+   	
+   	.imagetitle-date {
+   		
+		text-shadow: -1px -1px 0 #fff,1px 1px 0 #333,1px 1px 0 #444;
+		
+		font-size: 25px;
+		color: #DDD;
+   		text-decoration: none;
+   		
+   		font-family: 'Fascinate', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+   		letter-spacing: 1px;
+   		padding: 0px 15px 10px 15px;
    	}
    	
    	.imagetitle-text-center {
@@ -198,6 +220,9 @@ tr, td {
    	.imagetitle-text > a {
    		color: #DDD;
    		text-decoration: none;
+   		letter-spacing: 1px;
+   		font-weight: 700;
+   		font-family: 'cwTeXHei', 'Fascinate', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
    	}
    	
    	.image-gallery-table {

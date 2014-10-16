@@ -12,7 +12,7 @@
 	
 			<div class="margin-blank"></div>
 		
-			<template:imageTitle content="${content}" classOfImage="bg-mask-top" classOfTitle="imagetitle-text-center" styleOfTitle="padding-bottom: 40px;" />
+			<template:imageTitle content="${content}" classOfImage="" classOfTitle="imagetitle-text-center" styleOfTitle="padding-bottom: 5px;" showDate="true" classOfDate="imagetitle-text-center" />
 			
 			<div class="margin-blank"></div>
 			

@@ -49,7 +49,7 @@ $( document ).on( "pageinit", "#map-page", function() {
         var left = $('<div class="col-sm-4" />');
 
         var a = $('<a target="blank" />').attr('href', content.shareUrl);
-        a.append($('<img align="left" alt="cover" border="0" class="img-thumbnail img-responsive" />').attr('src', content.coverUrl));
+        a.append($('<img align="left" alt="cover" border="0" class="img-thumbnail img-responsive" style="max-width: 200px; max-height: 200px; padding: 10px;" />').attr('src', content.coverUrl));
 
         left.append(a);
 
@@ -57,9 +57,9 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         var right = $('<div class="col-sm-8" />');
 
-        right.append($('<h4/>').text(content.cropTitle));
-        right.append($('<p/>').text(content.cropText));
-        right.append($('<a target="blank" />').attr('href', content.shareUrl).text('read more...'));
+        right.append($('<h4 style="color:#333;"/>').text(content.cropTitle));
+        right.append($('<p style="color:#333;"/>').text(content.cropText));
+        right.append($('<a target="blank" style="font-size: 1.1em;" />').attr('href', content.shareUrl).text('read more...'));
 
         box.append(right);
 

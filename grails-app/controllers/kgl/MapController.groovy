@@ -13,4 +13,13 @@ class MapController {
                 zoom: session['geolocation']?15:10,
         ]
     }
+	
+	def content(Content content) {
+		[
+			lat: (content.location?.lat)?:25,
+			lon: (content.location?.lon)?:121,
+			zoom: 15,
+			content: content
+		]
+	}
 }

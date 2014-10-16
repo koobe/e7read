@@ -1050,5 +1050,26 @@ class ContentController {
 		
 		return channelName
 	}
-	
+
+    def updateLocation(Content content) {
+        //todo: check user permission
+
+        if (!content) {
+            response.sendError(404)
+            return
+        }
+
+        if (!content.location) {
+            content.location = new GeoPoint()
+        }
+
+        content.location.lat = Double.parseDouble(params.lat)
+        content.location.lon = Double.parseDouble(params.lon)
+
+        content.location.save flush: true
+
+        content.save flush: true
+
+        render content.location as JSON
+    }
 }

@@ -196,7 +196,7 @@ tr, td {
 		
 		padding: 0px 15px 10px 15px;
 		
-		
+		word-break: break-all;
    	}
    	
    	.imagetitle-date {

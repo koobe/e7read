@@ -182,6 +182,8 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         var bounds = new google.maps.LatLngBounds();
 
+        var lastLocation;
+
         for (var i = 0, place; place = places[i]; i++) {
             var image = {
                 url: place.icon,
@@ -200,10 +202,12 @@ $( document ).on( "pageinit", "#map-page", function() {
 
             placesMarkers.push(marker);
 
-            bounds.extend(place.geometry.location);
+            bounds.extend(lastLocation = place.geometry.location);
         }
 
-        map.fitBounds(bounds);
+        //map.fitBounds(bounds);
+
+        map.setCenter(lastLocation);
 
         searchByLocation();
     });

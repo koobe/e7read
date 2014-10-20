@@ -1003,11 +1003,11 @@ class ContentController {
             lon = Double.parseDouble(latlon[1])
         }
 
-        log.info "Search all contents location close to ${lat}, ${lon} distance 10km"
+        log.info "Search all contents location close to ${lat}, ${lon} distance 30km"
 
         Closure filter = {
             geo_distance(
-                    'distance': '10km',
+                    'distance': '30km',
                     'location': [lat: lat, lon: lon]
             )
         }

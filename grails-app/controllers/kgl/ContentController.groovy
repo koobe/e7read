@@ -991,14 +991,29 @@ class ContentController {
             lon = session['geolocation'].lon?.toDouble()
         }
 
+        if (lat == null || lon == null) {
+            lat = message(code: 'default.location.lat').toDouble()
+            lon = message(code: 'default.location.lon').toDouble()
+        }
+
+        if (params.center) {
+            def latlon = params.center.split(',')
+
+            lat = Double.parseDouble(latlon[0])
+            lon = Double.parseDouble(latlon[1])
+        }
+
+        log.info "Search all contents location close to ${lat}, ${lon} distance 10km"
+
         Closure filter = {
             geo_distance(
-                    'distance': '5km',
+                    'distance': '10km',
                     'location': [lat: lat, lon: lon]
             )
         }
 
-        def sortBuilder = SortBuilders.geoDistanceSort("location").
+        def sortBuilder = SortBuilders.
+                geoDistanceSort("location").
                 point(lat, lon).
                 unit(DistanceUnit.KILOMETERS).
                 order(SortOrder.ASC)

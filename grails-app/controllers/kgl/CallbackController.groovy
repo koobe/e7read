@@ -8,7 +8,7 @@ class CallbackController {
 
     def geolocation() {
 
-        if (!params.lat || !params.lon) {
+        if (params.lat == null || params.lon == null) {
             render "error"
             return
         }

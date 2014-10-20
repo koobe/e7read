@@ -8,21 +8,27 @@ class MapController {
 
     def explore() {
 
-        def lat = (session['geolocation']?.lat)?:25
+        def lat = session['geolocation']?.lat
+        def lon = session['geolocation']?.lon
+        def zoom = 15
 
-        def lon = (session['geolocation']?.lon)?:121
+        if (lat == null || lon == null) {
+            lat = message(code: 'default.location.lat').toDouble()
+            lon = message(code: 'default.location.lon').toDouble()
+            zoom = 12
+        }
 
         if (params.center) {
             def latlon = params.center.split(',')
 
-            lat = latlon[0]
-            lon = latlon[1]
+            lat = latlon[0].toString().toDouble()
+            lon = latlon[1].toString().toDouble()
         }
 
         [
                 lat: lat,
                 lon: lon,
-                zoom: session['geolocation']?15:10,
+                zoom: zoom
         ]
     }
 	

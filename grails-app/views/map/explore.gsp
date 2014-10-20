@@ -108,39 +108,49 @@ $( document ).on( "pageinit", "#map-page", function() {
     };
 
     // show marker in google map
-    $.get('/content/searchByLocation', function(data) {
-        if (!data) { return; }
+    var searchByLocation = function() {
 
-        var infowindow = new google.maps.InfoWindow();
+        var center = map.getCenter();
+        var queryData = {
+            center: center.lat() + "," + center.lng()
+        };
 
-        var marker;
+        $.get('/content/searchByLocation', queryData).done(function(data) {
+            if (!data) { return; }
 
-        for (var i = 0; i < data.length; i++) {
+            var infowindow = new google.maps.InfoWindow();
 
-            var content = data[i];
+            var marker;
 
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(
-                                content.location.lat + (Math.random()/500),
-                                content.location.lon + (Math.random()/500)
-                ),
-                map: map,
-                title: content.cropTitle,
-                draggable: false,
-                animation: google.maps.Animation.DROP
-            });
+            for (var i = 0; i < data.length; i++) {
 
-            google.maps.event.addListener(marker, 'click', (function(marker, html) {
+                var content = data[i];
 
-                return function() {
-                    infowindow.setContent(html);
-                    infowindow.open(map, marker);
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(
+                                    content.location.lat + (Math.random()/500),
+                                    content.location.lon + (Math.random()/500)
+                    ),
+                    map: map,
+                    title: content.cropTitle,
+                    draggable: false,
+                    animation: google.maps.Animation.DROP
+                });
 
-                    console.log(marker);
-                };
-            })(marker, makeHtmlContent(content)));
-        }
-    });
+                google.maps.event.addListener(marker, 'click', (function(marker, html) {
+
+                    return function() {
+                        infowindow.setContent(html);
+                        infowindow.open(map, marker);
+
+                        console.log(marker);
+                    };
+                })(marker, makeHtmlContent(content)));
+            }
+        });
+    };
+
+    searchByLocation();
 
     $('.btnBack').unbind('click').click(function() {
         history.back();
@@ -153,10 +163,9 @@ $( document ).on( "pageinit", "#map-page", function() {
             document.getElementById('pac-input'));
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-    var searchBox = new google.maps.places.SearchBox(
-            /** @type {HTMLInputElement} */(input));
+    var searchBox = new google.maps.places.SearchBox(input);
 
-    var markers = [];
+    var placesMarkers = [];
 
     google.maps.event.addListener(searchBox, 'places_changed', function() {
         var places = searchBox.getPlaces();
@@ -165,13 +174,14 @@ $( document ).on( "pageinit", "#map-page", function() {
             return;
         }
 
-        for (var i = 0, marker; marker = markers[i]; i++) {
+        for (var i = 0, marker; marker = placesMarkers[i]; i++) {
             marker.setMap(null);
         }
 
-        // For each place, get the icon, place name, and location.
-        markers = [];
+        placesMarkers = [];
+
         var bounds = new google.maps.LatLngBounds();
+
         for (var i = 0, place; place = places[i]; i++) {
             var image = {
                 url: place.icon,
@@ -181,7 +191,6 @@ $( document ).on( "pageinit", "#map-page", function() {
                 scaledSize: new google.maps.Size(25, 25)
             };
 
-            // Create a marker for each place.
             var marker = new google.maps.Marker({
                 map: map,
                 icon: image,
@@ -189,17 +198,16 @@ $( document ).on( "pageinit", "#map-page", function() {
                 position: place.geometry.location
             });
 
-            markers.push(marker);
+            placesMarkers.push(marker);
 
             bounds.extend(place.geometry.location);
         }
 
         map.fitBounds(bounds);
-    });
-    // [END region_getplaces]
 
-    // Bias the SearchBox results towards places that are within the bounds of the
-    // current map's viewport.
+        searchByLocation();
+    });
+
     google.maps.event.addListener(map, 'bounds_changed', function() {
         var bounds = map.getBounds();
         searchBox.setBounds(bounds);

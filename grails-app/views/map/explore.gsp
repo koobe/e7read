@@ -28,6 +28,7 @@ body { overflow: hidden; }
     font-size: 15px;
     font-weight: 300;
     text-overflow: ellipsis;
+    opacity: .7;
 }
 
 #pac-input:focus {
@@ -35,6 +36,7 @@ body { overflow: hidden; }
     margin-left: -1px;
     padding-left: 14px;  /* Regular padding-left + 1. */
     width: 401px;
+    opacity: 1;
 }
 
 .pac-container {
@@ -77,7 +79,8 @@ $( document ).on( "pageinit", "#map-page", function() {
     var mapOptions = {
         center: myLatlng,
         zoom: ${zoom},
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: GOOGLE_MAPS_STYLES.Midnight_Commander
     };
 
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -157,13 +160,18 @@ $( document ).on( "pageinit", "#map-page", function() {
         return false;
     });
 
-    $('<input id="pac-input" class="controls" type="text" placeholder="Search Box">').appendTo($('#map-canvas'));
+    var elm = $('<input id="pac-input" class="controls" type="text" placeholder="Search Box" style="display: none">');
 
-    var input = /** @type {HTMLInputElement} */(
-            document.getElementById('pac-input'));
+    elm.appendTo($('#map-canvas'));
+
+    var input = document.getElementById('pac-input');
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     var searchBox = new google.maps.places.SearchBox(input);
+
+    setTimeout(function() {
+        elm.show(200);
+    }, 1000);
 
     var placesMarkers = [];
 

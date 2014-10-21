@@ -143,4 +143,18 @@ class UserController {
 
         render user as JSON
     }
+
+    @Secured(["ROLE_ADMIN"])
+    def location() {
+        def users = User.list()
+
+        def result = [:]
+
+        users.each {
+            result << ["${it.username}": "${it.location?.lat},${it.location?.lon}"]
+        }
+
+        render result
+    }
+
 }

@@ -1,0 +1,95 @@
+body {
+	background-color: #FAF8F5;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.conversation-container {
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+.conversation-header {
+	height: 10px;
+}
+
+.messagebox-container {
+	
+}
+
+.send-messagebox {
+	width: 100%;
+	padding: 10px 10px 10px 10px;
+	
+	button {
+		width: 100%;
+	}
+}
+
+.message-content-container {
+	overflow-y: auto;
+}
+
+.message-content {
+	font-size: 1.2em;
+	line-height: 1.3em;
+}
+
+.message-content>div {
+	vertical-align: bottom;
+	display: block;
+	margin: 10px 0 10px 0;
+	position: relative;
+}
+
+.message-content>div:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.message-content .bubble {
+	word-break: break-word;
+	margin: 5px 0 5px 60px;
+	position: relative;
+	display: block;
+	float: left;
+	clear: both;
+	max-width: 60%;
+	padding: 9px 15px;
+	border-radius: 17px;
+	transition: 0.7s all;
+}
+
+.message-content .me .bubble {
+	float: right;
+	margin: 5px 20px 5px 0px;
+	color: black;
+	background: #E5E4E4;
+}
+
+.message-content .other .bubble {
+	float: left;
+	margin: 5px 20px 5px 20px;
+	color: white;
+	background: #89E2D5;
+	font-weight: 700;
+}
+
+
+
+.layout-table {
+	display: table;
+}
+
+.layout-table-row {
+	display: table-row;
+}
+
+.layout-table-cell {
+	display: table-cell;
+}

@@ -1,0 +1,13 @@
+.table-header {
+	width: 20%;
+}
+
+.nowrap-ignore {
+	overflow : hidden;
+	text-overflow : ellipsis;
+	white-space : nowrap;
+}
+
+.open-conversation {
+	cursor: pointer;
+}

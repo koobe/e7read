@@ -60,7 +60,7 @@ body { overflow: hidden; }
 <div data-role="page" data-theme="b" id="map-page">
     <div data-role="header" data-position="fixed" class="map-header">
         <g:link uri="/" data-icon="home" rel="external" class="btnBack">Back</g:link>
-        <h1>E7READ Explore</h1>
+        <h1>Where? Where?</h1>
     </div>
     <div data-role="main" class="ui-content map-container">
         <div id="map-canvas"></div>

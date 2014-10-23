@@ -13,6 +13,8 @@
 	function Spinner($this, options) {
         this.$this = $this;
         this.options = options;
+        
+        maindiv.css('bottom', this.options.bottom);
     };
     
     Spinner.prototype.loading = function () {
@@ -25,10 +27,16 @@
      };
      
      Spinner.prototype.done = function() {
-    	 setTimeout(function(){maindiv.remove();}, 800);
+    	 setTimeout(function(){maindiv.remove();}, this.options.fadeTime);
      }
 	
 	$.spinner = function( options ) {
+		
+		var options = $.extend({
+			bottom: '20px',
+			fadeTime: 800
+        }, options );
+		
 		return new Spinner(this, options);
 	};
     

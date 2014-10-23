@@ -58,7 +58,7 @@ $(function() {
 	function fetchData() {
 		
 		isFetch = true;
-		var offset = (currPage * totalSize) - totalSize;
+		var offset = (currPage * pageSize) - pageSize;
 		
 		$.ajax({
 	        type: 'POST',

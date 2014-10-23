@@ -1,6 +1,5 @@
 
 
-<div class="">
 	<div class="other">
 		<div class="bubble">
 			<div>
@@ -13,9 +12,7 @@
 			
 		</div>
 	</div>
-</div>
 
-<div class="">
 	<div class="me">
 		<div class="bubble">
 			<div>
@@ -27,9 +24,7 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<div class="">
 	<div class="me">
 		<div class="bubble">
 			<div>
@@ -39,9 +34,7 @@
 			<div><span>請問要怎麼寄送呢？</span></div>
 		</div>
 	</div>
-</div>
 
-<div class="">
 	<div class="other">
 		<div class="bubble">
 			<div>
@@ -54,4 +47,3 @@
 			
 		</div>
 	</div>
-</div>

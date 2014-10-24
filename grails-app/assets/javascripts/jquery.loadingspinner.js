@@ -17,8 +17,12 @@
         maindiv.css('bottom', this.options.bottom);
     };
     
-    Spinner.prototype.loading = function () {
-        messagespan.text(default_msg);
+    Spinner.prototype.loading = function (message) {
+    	if (message) {
+    		messagespan.text(message);
+    	} else {
+    		 messagespan.text(default_msg);
+    	}
         
         $('body').append(maindiv.append(imgdiv).append(messagediv.append(messagespan)));
         

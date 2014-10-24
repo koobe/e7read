@@ -1,27 +1,42 @@
 $(function() {
 	
-	var s = $.spinner({bottom: '80px', fadeTime: 400});
-	var isLoading = false;
+	var s = $.spinner({bottom: '80px', fadeTime: 10});
+	var isLoadingPrev = false;
+	var isLoadingNewer = false;
 	
 	var mbId = getQueryVariable("messageBoardId");
 	var max = getQueryVariable("max");
 	var totalSize = getQueryVariable("totalSize");
 	var currPage = 0;
-	var lastTime;
-	
-	retriveData();
+	var lastPrevMsgTime;
+	var firstNewerMsgTime;
 	
 	fitContentHeight();
+	retrievePreviousMessage();
+	setInterval(function(){retrieveNewerMessage();}, 5000);
 	
-	var loadPreviousBtnClickHandler = function(e) {
-		if (!isLoading) {
+	var loadMoreMessageHandler = function(e) {
+		if (!isLoadingPrev) {
 			
 			$('.message-content-btn-loadmore').css('display', 'none');
-			retriveData();
+			retrievePreviousMessage();
 		}
 	};
 	
-	$('.message-content-btn-loadmore > button').click(loadPreviousBtnClickHandler);
+	var sendMessageHandler = function(e) {
+		if (e.type == 'click') {
+			sendMessage();
+		} else if (e.type == 'keydown') {
+			if (e.keyCode == 13) {
+				sendMessage();
+				e.preventDefault();
+			}
+		}
+	};
+	
+	$('.message-content-btn-loadmore > button').click(loadMoreMessageHandler);
+	$('.send-messagebox button').click(sendMessageHandler);
+	$('.send-messagebox textarea').keydown(sendMessageHandler);
 	
 	$(window).unbind('resize').resize(function(){
 		fitContentHeight();
@@ -36,9 +51,9 @@ $(function() {
 		$('.message-content-container').scrollTop($('.message-content').height());
 	}
 	
-	function retriveData() {
+	function retrievePreviousMessage() {
 		
-		isLoading = true;
+		isLoadingPrev = true;
 		s.loading();
 		
 		currPage++;
@@ -46,43 +61,75 @@ $(function() {
 		var offset = (currPage * max) - max;
 		
 		var data = {
-			id: mbId,
+			mbId: mbId,
 			max: max,
 			offset: offset
 		};
 		
-		if (lastTime) {
+		if (lastPrevMsgTime) {
 			data = $.extend({
-				lastTime: lastTime
+				lastPrevMsgTime: lastPrevMsgTime
 	        }, data );
 		}
 		
-		$.ajax({
-	        type: 'GET',
-	        data: data,
-	        url: '/message/getMessageData',
-	        success: function (data, textStatus) {
-	        	console.log(data);
-	        	renderHtml(data);
-	        	controlShowMoreButton();
-	        	s.done();
-	        	isLoading = false;
-	        	
-	        	if (currPage == 1) {
-	    			scrollToBottom();
-	    		}
-	        },
-	        error: function (XMLHttpRequest, textStatus, errorThrown) {
-	    		console.log(textStatus);
-	    		console.log(errorThrown);
-	        }
+		sendAjaxRequest('GET', data, '/message/getMessageData', function(data, textStatus) {
+			renderPreviousMessageHtml(data);
+        	controlShowMoreButton();
+        	s.done();
+        	isLoadingPrev = false;
+        	
+        	if (currPage == 1) {
+    			scrollToBottom();
+    		}
 		});
 	}
 	
-	function renderHtml(data) {
+	function retrieveNewerMessage(handler) {
 		
-		if (!lastTime) {
-			lastTime = data.lastTime;
+		if (!isLoadingNewer) {
+			
+			isLoadingNewer = true;
+			
+			var data = {
+				mbId: mbId,
+				lastPrevMsgTime: lastPrevMsgTime,
+				newer: true
+			};
+			
+			if (firstNewerMsgTime) {
+				data = $.extend({
+					firstNewerMsgTime: firstNewerMsgTime
+		        }, data );
+			}
+			
+			sendAjaxRequest('GET', data, '/message/getMessageData', function(data, textStatus) {
+				
+				var factor = $('.message-content-container').scrollTop() + $('.message-content-container').height();
+				
+				var isScrollToBottom = false;
+				if (factor >= ($('.message-content').height() - 50)) {
+					isScrollToBottom = true;
+				}
+				
+				renderNewerMessageHtml(data);
+				if (handler) {
+					handler();
+				}
+				
+				if (isScrollToBottom) {
+					scrollToBottom();
+				}
+				
+				isLoadingNewer = false;
+			});
+		}
+		
+	}
+	
+	function renderPreviousMessageHtml(data) {
+		
+		if (!lastPrevMsgTime) {
+			lastPrevMsgTime = data.lastPrevMsgTime;
 		}
 		
 		var results = data.results;
@@ -93,19 +140,29 @@ $(function() {
 			var side = element.side;
 			var sender = element.sender;
 			
-			var divMsgEntry = $('<div/>').addClass(side);
-			var divMsgBubble = $('<div/>').addClass('bubble');
+			var msgBubble = getMessageBubble(side, message, sender);
 			
-			var divUser = $('<div class="message-author" />')
-				.append($('<i class="fa fa-user"></i>'))
-				.append("&nbsp;")
-				.append($('<span>' + sender + '</span>'));
+			$('.message-content-anchor').after(msgBubble);
+		});
+	}
+	
+	function renderNewerMessageHtml(data) {
+		
+		if (data.firstNewerMsgTime) {
+			firstNewerMsgTime = data.firstNewerMsgTime
+		}
+		
+		var results = data.results;
+		
+		results.forEach(function(element, index, array) {
 			
-			var divMsg = $('<div/>').append($('<span>' + message + '</span>'));
+			var message = element.message;
+			var side = element.side;
+			var sender = element.sender;
+			var msgBubble = getMessageBubble(side, message, sender);
 			
-			divMsgEntry.append(divMsgBubble.append(divUser).append(divMsg));
-			
-			$('.message-content-anchor').after(divMsgEntry);
+//			$('.message-content-anchor-last').after(messageBubble);
+			$('.message-content').append(msgBubble);
 		});
 	}
 	
@@ -117,8 +174,61 @@ $(function() {
 		}
 	}
 	
-	function postMessage() {
+	function sendMessage() {
 		
+		var message = $('#messagebox-textarea').val().trim();
+		
+		if (!(message == '')) {
+			
+			s.loading('Sending...');
+			
+			var data = {
+				mbId: mbId,
+				message: message
+			};
+			
+			sendAjaxRequest('POST', data, '/message/postMessageData', function(data, textStatus) {
+
+				$('#messagebox-textarea').val('');
+				
+				var handler = function() {
+					scrollToBottom();
+					s.done();
+				};
+				
+				retrieveNewerMessage(handler);
+			});
+		}
+	}
+	
+	function sendAjaxRequest(type, data, url, callbackSuccess) {
+		$.ajax({
+	        type: type,
+	        data: data,
+	        url: url,
+	        success: callbackSuccess,
+	        error: function (XMLHttpRequest, textStatus, errorThrown) {
+	    		console.log(textStatus);
+	    		console.log(errorThrown);
+	        }
+		});
+	}
+	
+	function getMessageBubble(side, message, sender) {
+		
+		var divMsgEntry = $('<div/>').addClass(side);
+		var divMsgBubble = $('<div/>').addClass('bubble');
+		
+		var divUser = $('<div class="message-author"/>')
+			.append($('<i class="fa fa-user"/>'))
+			.append("&nbsp;")
+			.append($('<span/>').html(sender));
+		
+		var divMsg = $('<div/>').append($('<span/>').html(message));
+		
+		divMsgEntry.append(divMsgBubble.append(divUser).append(divMsg));
+		
+		return divMsgEntry;
 	}
 });
 

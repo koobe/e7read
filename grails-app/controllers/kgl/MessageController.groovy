@@ -1,6 +1,7 @@
 package kgl
 
 import grails.converters.JSON
+
 import org.springframework.security.access.annotation.Secured
 
 @Secured(["ROLE_USER"])
@@ -65,43 +66,78 @@ class MessageController {
 	 */
 	def getMessageData() {
 		
-		log.info "message board id: ${params.id}, lastTimeStamp: ${params.lastTime}, max: ${params.max}, offset: ${params.offset}"
+		def mbId = params.mbId
+		def lastPrevMsgTime = params.lastPrevMsgTime
+		def newer = params.newer	// true or false
+		def firstNewerMsgTime = params.firstNewerMsgTime
+		def max = params.max
+		def offset = params.offset
+		
+//		log.info """
+//			message board id: ${mbId}, 
+//			lastPrevMsgTime: ${lastPrevMsgTime}, 
+//			max: ${max}, offset: ${offset},
+//			newer: ${newer}, firstNewerMsgTime: ${firstNewerMsgTime}
+//		"""
 		
 		def messageList
 		def jsonDataMap = [:]
 		def jsonMessageList = []
 		
-		jsonDataMap.put('lastTime', null)
+		jsonDataMap.put('lastPrevMsgTime', null)
+		jsonDataMap.put('firstNewerMsgTime', null)
 		jsonDataMap.put('results', jsonMessageList)
 		
-		if (params.lastTime) {
+		if (newer) {
 			
-			Long stamp = Long.parseLong(params.lastTime)
+			if (!firstNewerMsgTime) {
+				firstNewerMsgTime = lastPrevMsgTime
+			}
+			
+			Long stamp = Long.parseLong(firstNewerMsgTime)
+			Date date = new Date(stamp)
+//			log.info "Fetch newer: ${date.getTime()}"
+			
+			messageList = Message.findAllByMessageBoardAndSendTimeGreaterThan(
+				MessageBoard.findById(mbId),
+				date,
+				[
+					sort: 'sendTime',
+					order: 'asc'
+				])
+			
+			if (messageList.size() > 0) {
+				Date lastTime = messageList.get(messageList.size()-1).sendTime
+				jsonDataMap.put('firstNewerMsgTime', lastTime.getTime())
+			}
+		} else if (lastPrevMsgTime) {
+//			log.info "Fetch Before ${lastPrevMsgTime}"
+			Long stamp = Long.parseLong(lastPrevMsgTime)
 			Date date = new Date(stamp)
 			
 			messageList = Message.findAllByMessageBoardAndSendTimeLessThanEquals(
-				MessageBoard.findById(params.id),
+				MessageBoard.findById(mbId),
 				date,
 				[
 					sort: 'sendTime',
 					order: 'desc',
-					max: params.max,
-					offset: params.offset
+					max: max,
+					offset: offset
 				])
 		} else {
 		
 			messageList = Message.findAllByMessageBoard(
-				MessageBoard.findById(params.id),
+				MessageBoard.findById(mbId),
 				[
 					sort: 'sendTime',
 					order: 'desc',
-					max: params.max,
-					offset: params.offset
+					max: max,
+					offset: offset
 				])
 			
 			if (messageList.size() > 0) {
 				Date lastTime = messageList.get(0).sendTime
-				jsonDataMap.put('lastTime', lastTime.getTime())
+				jsonDataMap.put('lastPrevMsgTime', lastTime.getTime())
 			}
 		}
 		
@@ -144,7 +180,14 @@ class MessageController {
 			def message = new Message(message: msg, messageBoard: messageBoard, sendTime: date, user: currUser, isRead: false)
 			message.save flush: true
 			
-			render [:] as JSON
+			def dataMap = [:]
+			dataMap.put('messageId', message.id)
+			dataMap.put('message', message.message)
+			dataMap.put('sendTime', message.sendTime.getTime())
+			dataMap.put('senderId', message.user.id)
+			dataMap.put('sender', message.user.fullName)
+			
+			render dataMap as JSON
 			
 		} else {
 			response.sendError 403

@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui" />
+
     <title>${content.cropTitle}</title>
     <meta name="kgl:media_count" content="3"/>
     <meta name="kgl:text_count" content="1"/>
+    
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
+    
     <asset:stylesheet src="default_template.css"/>
+    
+    <asset:stylesheet src="default_template_trade.css"/>
+    
 </head>
 <body>
-<div class="template-container">
 
-    <div class="pictures-container">
-    	<table class="picture-rtable">
-			<tr>
-			  <td>
-				<div class="picture-native" style="background-image:url(${content.pictureSegments[0]?.originalUrl});"></div>
-			  </td>
-			  <td rowspan="2">
-			  	<div class="picture-native" style="background-image:url(${content.pictureSegments[1]?.originalUrl});"></div>
-			  </td>
-			</tr>
-			<tr>
-			  <td>
-			  	<div class="picture-native" style="background-image:url(${content.pictureSegments[2]?.originalUrl});"></div>
-			  </td>
-			</tr>
-		</table>
-	</div>
+	<fb:init/>
+
+	<div class="container">
 	
-	<div class="title-container border-btm margin-lr-20">
-		<div class="content-title">
-            <h1>${content.cropTitle}</h1>
-        </div>
-        <div class="content-author">
-        	<span>${content.user.fullName}</span>
-        </div>
-	</div>
+		<div class="margin-blank"></div>
 	
-	<div class="margin-blank"></div>
-	
-    <div class="text-container padding-lr">
-        <div>
-        	<g:each in="${content.textSegments}" var="segment">
-                <p style="text-align:justify;">${segment.text}</p>
-            </g:each>
-        </div>
-    </div>
-    
-    <div class="vcard-container padding-lr">
-    	<div class="vcard-cell-body">
-    		<div class="content-contact">
-			    <ul class="basic">
-			        <li class="avatar"><img src="//graph.facebook.com/${content.user.facebookId}/picture" alt="facebook-avatar" /></li>
-			        <li class="fullName">${content.user.fullName}</li>
-			    </ul>
-			    <ul class="advanced">
-			    	<g:if test="${content.user.email}">
-			        	<li class="email">Email: ${content.user.email}</li>
-			        </g:if>
-			        <g:if test="${content.user.contact?.phone}">
-			        	<li class="phone">Phone: ${content.user.contact?.phone}</li>
-			        </g:if>
-			        <g:if test="${content.user.contact?.skypeId}">
-			        	<li class="phone"> Skype: ${content.user.contact?.skypeId}</li>
-			        </g:if>
-			        <g:if test="${content.user.contact?.lineId}">
-			        	<li class="lineId">Line: ${content.user.contact?.lineId}</li>
-			        </g:if>
-			    </ul>
+		<template:imageTitle content="${content}" classOfImage="bg-mask-top" classOfTitle="imagetitle-text-center" styleOfTitle="padding-bottom: 40px;" />
+		
+		<div class="margin-blank"></div>
+		
+		<div class="border-btm">
+			<div style="display:table; width:100%;">
+			    <div class="content-author" style="display:table-cell;">
+			        <span class="author-click" data-user-id="${content.user.id}">${content.user.fullName}</span>
+			    </div>
+			
+			    <div class="content-author" style="display:table-cell; text-align: right;">
+			        <span style="font-size: 0.7em; color: #333;"><g:formatDate date="${content.datePosted}" format="yyyy/MM/dd HH:mm:ss"/></span>
+			    </div>
 			</div>
-    	</div>
-    </div>
-</div>
+		</div>
+		
+		<div class="">
+	        <g:if test="${content.categories}">
+	        	<template:categoriesTable content="${content}" />
+	        </g:if>
+            <template:socialToolbar content="${content}" />
+	    </div>
+	    
+	    <div class="margin-blank"></div>
+	    
+	    <!-- texts of content -->
+		<template:containerTexts content="${content}" />
+	    
+	    <template:sectionTitle title="相片" />
+	    
+	    <template:containerPicturesType1 content="${content}" />
+	
+	    <div class="margin-blank"></div>
+	    
+	    <template:sectionTitle title="地圖" />
+	    
+		<div style="width: 100%;">
+	    	<img style="max-width: 100%;" src="http://maps.googleapis.com/maps/api/staticmap?center=${content.location?.lat},${content.location?.lon}&zoom=14&size=960x250&scale=2&sensor=false" alt="google map" border="0" class="img-thumbnail"/>
+	    </div>
+	    
+	    <div class="margin-blank"></div>
+	    
+	    <template:sectionTitle title="留言" />
+	    
+	    <div>
+	    	<fb:comments contentid="${content.id}" />
+	    </div>
+		
+	</div>
+
 </body>
 </html>

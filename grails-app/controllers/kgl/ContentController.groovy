@@ -102,22 +102,32 @@ class ContentController {
         User user = springSecurityService.currentUser
 
         def location
+        def lat, lon
 
         if (user && user.location) {
 			
             location = user.location.city
+
+            lat = user.location.lat
+            lon = user.location.lon
 			
         } else if (session['geolocation']) {
 
             def geolocation = session['geolocation']
 
+            lat = geolocation.lat?.toDouble()
+            lon = geolocation.lon?.toDouble()
+
             location = geocodingService.getAddress(
-                    new Point(latitude: geolocation.lat?.toDouble(), longitude: geolocation.lon?.toDouble()),
+                    new Point(latitude: lat, longitude: lon),
                     [language: 'zh-TW']
             ).addressComponents[3].shortName // index value 3 ;=> city name
         }
 
-		[location: location]
+		[
+                location: location,
+                lat: lat, lon: lon
+        ]
     }
 
     @Transactional

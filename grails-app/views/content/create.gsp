@@ -48,7 +48,7 @@
 
         <g:textArea id="content-editing-textarea" class="content-editing-textarea form-control" name="text" placeholder="Write something here..." rows="15"></g:textArea>
 
-    <g:render template="editing_tips" />
+        <g:render template="editing_tips" />
 
         <div id="PictureContainer" class="content-editing-picture">
             <div class="picture-cell">
@@ -75,6 +75,10 @@
 
         <div class="button-block">
             <div style="width: 60%">
+
+                <input type="text" name="lat" value="${lat}" />
+                <input type="text" name="lon" value="${lon}" />
+
                 <g:link controller="map" action="prompt" class="location-link" target="_blank">
                     <i class="fa fa-map-marker"></i>
                     ${location}

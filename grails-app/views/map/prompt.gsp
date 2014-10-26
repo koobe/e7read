@@ -127,7 +127,7 @@ $( document ).on( "pageinit", "#map-page", function() {
     $('.btnDone').unbind('click').click(function() {
         var lat = marker.getPosition().lat();
         var lng = marker.getPosition().lng();
-        console.log(lat + ", " + lng);
+
         return false;
     });
 

@@ -128,6 +128,13 @@ $( document ).on( "pageinit", "#map-page", function() {
         var lat = marker.getPosition().lat();
         var lng = marker.getPosition().lng();
 
+        console.log(window.parent.$('input[name=lat]'));
+
+        window.opener.$('input[name=lat]').val(lat);
+        window.opener.$('input[name=lon]').val(lng);
+
+        window.close();
+
         return false;
     });
 

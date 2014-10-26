@@ -929,8 +929,13 @@ class ContentController {
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def ajaxSendShortenMail(Content content) {
 
+        def toAddress = params.to
+
+        content.ownerEmail = toAddress
+        content.save flush: true
+
         sendMail {
-            to params.to
+            to toAddress
             subject "[E7READ] ${content.cropTitle}"
             body """${createLink(controller: 'content', action: 'modifyByHash', params: [hash: content.editableHashcode], absolute: true)}"""
         }

@@ -59,8 +59,9 @@ body { overflow: hidden; }
 <body>
 <div data-role="page" data-theme="b" id="map-page">
     <div data-role="header" data-position="fixed" class="map-header">
-        <g:link uri="/" data-icon="home" rel="external" class="btnBack">Back</g:link>
+        <g:link uri="/" data-icon="back" rel="external" class="btnCancel">Cancel</g:link>
         <h1>Where? Where?</h1>
+        <g:link uri="/" data-icon="check" rel="external" class="btnDone">Done</g:link>
     </div>
     <div data-role="main" class="ui-content map-container">
         <div id="map-canvas"></div>
@@ -110,53 +111,21 @@ $( document ).on( "pageinit", "#map-page", function() {
         return box.html();
     };
 
-    // show marker in google map
-    var searchByLocation = function() {
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: "You're Here",
+        draggable: true,
+        animation: google.maps.Animation.DROP
+    });
 
-        var center = map.getCenter();
-        var queryData = {
-            center: center.lat() + "," + center.lng()
-        };
+    $('.btnCancel').unbind('click').click(function() {
+        window.close();
+        return false;
+    });
 
-        $.get('/content/searchByLocation', queryData).done(function(data) {
-            if (!data) { return; }
+    $('.btnDone').unbind('click').click(function() {
 
-            var infowindow = new google.maps.InfoWindow();
-
-            var marker;
-
-            for (var i = 0; i < data.length; i++) {
-
-                var content = data[i];
-
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(
-                                    content.location.lat + (Math.random()/500),
-                                    content.location.lon + (Math.random()/500)
-                    ),
-                    map: map,
-                    title: content.cropTitle,
-                    draggable: false,
-                    animation: google.maps.Animation.DROP
-                });
-
-                google.maps.event.addListener(marker, 'click', (function(marker, html) {
-
-                    return function() {
-                        infowindow.setContent(html);
-                        infowindow.open(map, marker);
-
-                        console.log(marker);
-                    };
-                })(marker, makeHtmlContent(content)));
-            }
-        });
-    };
-
-    searchByLocation();
-
-    $('.btnBack').unbind('click').click(function() {
-        history.back();
         return false;
     });
 

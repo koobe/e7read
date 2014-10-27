@@ -73,6 +73,9 @@ body { overflow: hidden; }
     -->
 </div>
 <script type="text/javascript">
+
+//var callbackFunction = null;
+
 $( document ).on( "pageinit", "#map-page", function() {
 
     var myLatlng = new google.maps.LatLng(${lat}, ${lon});
@@ -132,6 +135,12 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         window.opener.$('input[name=lat]').val(lat);
         window.opener.$('input[name=lon]').val(lng);
+        window.opener.$('input[name=geolocation]').val(lat+","+lng);
+        window.opener.$('input[name=geolocation]').trigger('change');
+
+//        if (callbackFunction) {
+//            callbackFunction(lat, lng);
+//        }
 
         window.close();
 

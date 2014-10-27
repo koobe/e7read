@@ -1,10 +1,13 @@
 package kgl
 
 import grails.converters.JSON
+import grails.plugin.geocode.Point
 
 class CallbackController {
 
     def springSecurityService
+
+    def geocodingService
 
     def geolocation() {
 
@@ -37,7 +40,21 @@ class CallbackController {
             }
         }
 
-        session['geolocation'] = [lat: params.lat, lon: params.lon]
+        def lat = Float.parseFloat(params.lat)
+        def lon = Float.parseFloat(params.lon)
+
+        def addr = geocodingService.getAddress(new Point(latitude: lat, longitude: lon), [language: 'zh-TW'])
+
+        def country = addr.addressComponents[4].shortName //4
+        def city = addr.addressComponents[3].shortName //3
+        def region = addr.addressComponents[2].shortName //2
+        def address = addr.addressComponents[0].shortName //0
+
+        session['geolocation'] = [
+                lat: lat,
+                lon: lon,
+                display: "${city}${region}"
+        ]
 
         render session['geolocation'] as JSON
     }

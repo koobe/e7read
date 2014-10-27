@@ -61,7 +61,7 @@ body { overflow: hidden; }
     <div data-role="header" data-position="fixed" class="map-header">
         <g:link uri="/" data-icon="back" rel="external" class="btnCancel">Cancel</g:link>
         <h1>Where? Where?</h1>
-        <g:link uri="/" data-icon="check" rel="external" class="btnDone">Done</g:link>
+        <g:link uri="#" data-icon="check" rel="external" class="btnDone">Done</g:link>
     </div>
     <div data-role="main" class="ui-content map-container">
         <div id="map-canvas"></div>

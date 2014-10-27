@@ -9,15 +9,20 @@ $(function() {
 
     console.log('[E7READ] Geo Location module initialized...');
 
-    var update_location = function(lat, lon) {
+    var update_location = function(lat, lon, callback) {
         console.log("Update Location: " + lat + ", " + lon);
+
+        if (callback == null) {
+            callback = function(data) {
+                // none
+                console.log(data);
+            };
+        }
+
         $.ajax({
             url: callbackUrl,
             data: {lat: lat, lon: lon},
-            success: function(data) {
-                // none
-                console.log(data);
-            }
+            success: callback
         });
     };
 
@@ -25,10 +30,11 @@ $(function() {
 
         var options = $.extend({
             lat: null,
-            lon: null
-        }, options );
+            lon: null,
+            callback: null
+        }, options);
 
-        update_location(options.lat, options.lon);
+        update_location(options.lat, options.lon, options.callback);
     };
 
     navigator.geolocation.getCurrentPosition(function(position) {

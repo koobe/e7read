@@ -76,14 +76,14 @@
     <div class="button-block">
         <div style="width: 60%">
 
-            <input type="text" name="lat" value="${lat}" />
-            <input type="text" name="lon" value="${lon}" />
-            <input type="text" name="geolocation" value="${lat},${lon}" />
+            <input type="hidden" name="lat" value="${lat}" />
+            <input type="hidden" name="lon" value="${lon}" />
+            <input type="hidden" name="geolocation" value="${lat},${lon}" />
 
 
             <g:link controller="map" action="prompt" class="location-link" target="_blank">
                 <i class="fa fa-map-marker"></i>
-                ${location?:'地點未設定'}
+                <span id="locationDisplayName">${location?:'地點未設定'}</span>
             </g:link>
         </div>
         <div style="width: 10%" class="btn-item">
@@ -121,7 +121,13 @@
 $(function() {
     $('input[name=geolocation]').change(function() {
         var geolocation = $(this).val();
-        $.geoupdate({lat: $('input[name=lat]').val(), lon: $('input[name=lon]').val()});
+        $.geoupdate({
+            lat: $('input[name=lat]').val(),
+            lon: $('input[name=lon]').val(),
+            callback: function(data) {
+                $('#locationDisplayName').text(data.display);
+            }
+        });
     });
 });
 </script>

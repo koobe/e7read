@@ -76,9 +76,26 @@ body {
 	font-weight: 700;
 }
 
+.message-content .me .message-sendtime {
+	float: right;
+	padding-right: 20px;
+}
 
-.message-author {
+.message-content .other .message-sendtime {
+	float: left;
+}
+
+
+.message-content .message-author {
 	font-size: 0.8em;
+}
+
+.message-content .message-sendtime {
+
+	font-size: 0.7em;
+	color: #777;
+	
+	padding-top: 5px;
 }
 
 

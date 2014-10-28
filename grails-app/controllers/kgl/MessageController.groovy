@@ -7,7 +7,7 @@ import org.springframework.security.access.annotation.Secured
 @Secured(["ROLE_USER"])
 class MessageController {
 	
-	def static MSGBOARD_PAGESIZE = 10;
+	def static MSGBOARD_PAGESIZE = 8;
 	static MESSAGE_PAGESIZE = 6;
 	
 	def springSecurityService
@@ -24,11 +24,80 @@ class MessageController {
 		]
 	}
 	
+	/**
+	 * Open conversation view, if message board is not found than create new one
+	 * @param id
+	 * @return
+	 */
 	def conversation(String id) {
+		
+		def messageCount
+		def messageBoardId
+		
+		if (!id) {
+			
+			def contentId = params.contentId
+			def meId = springSecurityService.currentUser.id
+			
+			def content = Content.get(contentId)
+			
+			if (content) {
+				
+				def query = """
+					from MessageBoard
+					where content.id = :contentId 
+					and ((userA.id = :userAId and userB.id = :userBId) or (userA.id = :userBId and userB.id = :userAId))
+				"""
+				
+				def messageBoardList = MessageBoard.executeQuery(query,
+					[
+						contentId: contentId,
+						userAId: content.user.id,
+						userBId: meId
+					]
+				)
+				
+				if (messageBoardList.size() > 0) {
+					
+					messageBoardId = messageBoardList.get(0).id
+					messageCount = Message.countByMessageBoard(messageBoardList.get(0))
+					
+				} else {
+					
+					if (content.user == springSecurityService.currentUser) {
+						
+						render view: 'nocontacter'
+					} else {
+						
+						log.info 'create new message board...'
+						
+						def messageBoard = new MessageBoard(
+							content: content,
+							userA: springSecurityService.currentUser,
+							userB: content.user
+						);
+						messageBoard.save flush: true
+						log.info messageBoard.errors
+						
+						messageBoardId = messageBoard.id
+						messageCount = 0
+					}
+					
+				}
+				
+			} else {
+				response.sendError(404)
+			}
+			
+		} else {
+			messageBoardId	= id
+			messageCount = Message.countByMessageBoard(MessageBoard.get(id))
+		}
+		
 		[
 			max: MESSAGE_PAGESIZE,
-			totalSize: Message.countByMessageBoard(MessageBoard.get(id)),
-			messageBoardId: id
+			totalSize: messageCount,
+			messageBoardId: messageBoardId
 		]
 	}
 	
@@ -38,19 +107,43 @@ class MessageController {
 	 */
 	def renderMessageBoardTable() {
 		
-		def messageBoardList = MessageBoard.findAllByUserAOrUserB(
-			springSecurityService.currentUser,
-			springSecurityService.currentUser,
+		def query = """
+			from MessageBoard
+			where (userA.id = :meId or userB.id = :meId) and lastMessageDate is not null
+			order by lastMessageDate desc
+		"""
+		
+		def messageBoardList = MessageBoard.executeQuery(query, [meId: springSecurityService.currentUser.id], 
 			[
-				sort: 'lastMessageDate',
-				order: 'desc',
 				max: params.max,
 				offset: params.offset
 			])
 		
+//		def messageBoardList = MessageBoard.findAllByUserAOrUserBAndLastMessageDateIsNotNull(
+//			springSecurityService.currentUser,
+//			springSecurityService.currentUser,
+//			[
+//				sort: 'lastMessageDate',
+//				order: 'desc',
+//				max: params.max,
+//				offset: params.offset
+//			])
+		
 		messageBoardList.each { messageBoard ->
-			def count = Message.countByMessageBoardAndIsRead(messageBoard, false);
+			def count = Message.countByMessageBoardAndUserNotEqualAndIsRead(messageBoard, springSecurityService.currentUser, false);
 			messageBoard.unread = count
+			
+//			def lastMessage = Message.findByMessageBoard(
+//				messageBoard, 
+//				[
+//					sort: 'sendTime', 
+//					order: 'desc',
+//					max: 1,
+//					offset: 0
+//				])
+//			
+//			messageBoard.lastMessage = lastMessage.message
+//			messageBoard.lastMessageDate = lastMessage.sendTime
 		}
 		
 		if (messageBoardList.size() > 0) {
@@ -84,19 +177,22 @@ class MessageController {
 		def jsonDataMap = [:]
 		def jsonMessageList = []
 		
-		jsonDataMap.put('lastPrevMsgTime', null)
-		jsonDataMap.put('firstNewerMsgTime', null)
-		jsonDataMap.put('results', jsonMessageList)
+		jsonDataMap.lastPrevMsgTime = null
+		jsonDataMap.firstNewerMsgTime = null
+		jsonDataMap.results = jsonMessageList
 		
 		if (newer) {
 			
 			if (!firstNewerMsgTime) {
-				firstNewerMsgTime = lastPrevMsgTime
+				if (!lastPrevMsgTime) {
+					firstNewerMsgTime = new Date(0).getTime()
+				} else {
+					firstNewerMsgTime = lastPrevMsgTime	
+				}
 			}
 			
-			Long stamp = Long.parseLong(firstNewerMsgTime)
+			Long stamp = new Long(firstNewerMsgTime)
 			Date date = new Date(stamp)
-//			log.info "Fetch newer: ${date.getTime()}"
 			
 			messageList = Message.findAllByMessageBoardAndSendTimeGreaterThan(
 				MessageBoard.findById(mbId),
@@ -108,10 +204,10 @@ class MessageController {
 			
 			if (messageList.size() > 0) {
 				Date lastTime = messageList.get(messageList.size()-1).sendTime
-				jsonDataMap.put('firstNewerMsgTime', lastTime.getTime())
+				jsonDataMap.firstNewerMsgTime = lastTime.getTime()
 			}
 		} else if (lastPrevMsgTime) {
-//			log.info "Fetch Before ${lastPrevMsgTime}"
+		
 			Long stamp = Long.parseLong(lastPrevMsgTime)
 			Date date = new Date(stamp)
 			
@@ -137,26 +233,28 @@ class MessageController {
 			
 			if (messageList.size() > 0) {
 				Date lastTime = messageList.get(0).sendTime
-				jsonDataMap.put('lastPrevMsgTime', lastTime.getTime())
+				jsonDataMap.lastPrevMsgTime = lastTime.getTime()
 			}
 		}
 		
 		messageList.each { message ->
 			
 			def dataMap = [:]
-			dataMap.put('messageId', message.id)
-			dataMap.put('message', message.message)
-			dataMap.put('sendTime', message.sendTime.getTime())
-			dataMap.put('senderId', message.user.id)
-			dataMap.put('sender', message.user.fullName)
+			dataMap.messageId = message.id
+			dataMap.message = message.message
+			dataMap.sendTime = message.sendTime.getDateTimeString()
+			dataMap.senderId = message.user.id
+			dataMap.sender = message.user.fullName
 			
 			def side
 			if (springSecurityService?.currentUser == message.user) {
 				side = 'me'
 			} else {
 				side = 'other'
+				message.isRead = true
+				message.save flush: true	// make message read
 			}
-			dataMap.put('side', side)
+			dataMap.side = side
 			
 			jsonMessageList << dataMap
 		}
@@ -181,18 +279,33 @@ class MessageController {
 			message.save flush: true
 			
 			def dataMap = [:]
-			dataMap.put('messageId', message.id)
-			dataMap.put('message', message.message)
-			dataMap.put('sendTime', message.sendTime.getTime())
-			dataMap.put('senderId', message.user.id)
-			dataMap.put('sender', message.user.fullName)
+			dataMap.messageId = message.id
+			dataMap.message = message.message
+			dataMap.sendTime = message.sendTime.getTime()
+			dataMap.senderId = message.user.id
+			dataMap.sender = message.user.fullName
+			
+			messageBoard.lastMessage = message.message
+			messageBoard.lastMessageDate = message.sendTime
 			
 			render dataMap as JSON
 			
 		} else {
 			response.sendError 403
 		}
+	}
+	
+	/**
+	 * [AJAX] get unread message count
+	 * @return
+	 */
+	def getUnreadMessageCount() {
 		
+		def count = Message.countByUserNotEqualAndIsRead(springSecurityService.currentUser, false);
+		def jsonDataMap = [:]
+		jsonDataMap.unreadMessageCount = count
+		
+		render jsonDataMap as JSON
 	}
 	
 }

@@ -4,6 +4,8 @@ class MessageBoard {
 	
 	transient springSecurityService
 	
+	static transients = ['communicateUser', 'unread']
+	
 	String id
 	
 	String lastMessage
@@ -25,9 +27,9 @@ class MessageBoard {
     static constraints = {
 		// if content is null, this is a personal message not related to a content
 		content nullable: true
+		lastMessage nullable: true
+		lastMessageDate nullable: true
     }
-	
-	static transients = ['communicateUser', 'unread']
 	
 	User getCommunicateUser() {
 		if (springSecurityService?.currentUser == userA) {

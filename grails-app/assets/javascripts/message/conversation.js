@@ -11,9 +11,39 @@ $(function() {
 	var lastPrevMsgTime;
 	var firstNewerMsgTime;
 	
+	var minWaitTimeout = 6500;
+	var maxWaitTimeout = 30000;
+	var currTimeout = 15000;
+	var hasNewMessage = false;
+	
 	fitContentHeight();
 	retrievePreviousMessage();
-	setInterval(function(){retrieveNewerMessage();}, 5000);
+	
+//	var timeoutFunc = function() {
+//		console.log('Set retrieve new message timeout: ' + currTimeout);
+//		setTimeout(function() {
+//			retrieveNewerMessage(function() {
+//				
+//				if (hasNewMessage) {
+//					currTimeout = Math.ceil(currTimeout / 2.5);
+//					if (currTimeout < minWaitTimeout) {
+//						currTimeout = minWaitTimeout;
+//					}
+//				} else {
+//					currTimeout = Math.ceil(currTimeout * 1.5);
+//					if (currTimeout > maxWaitTimeout) {
+//						currTimeout = maxWaitTimeout;
+//					}
+//				}
+//				
+//				timeoutFunc();
+//			});
+//		}, currTimeout);
+//	};
+//	
+//	timeoutFunc();
+	
+	setInterval(function(){retrieveNewerMessage();}, 10000);
 	
 	var loadMoreMessageHandler = function(e) {
 		if (!isLoadingPrev) {
@@ -112,6 +142,7 @@ $(function() {
 				}
 				
 				renderNewerMessageHtml(data);
+				
 				if (handler) {
 					handler();
 				}
@@ -136,11 +167,7 @@ $(function() {
 		
 		results.forEach(function(element, index, array) {
 			
-			var message = element.message;
-			var side = element.side;
-			var sender = element.sender;
-			
-			var msgBubble = getMessageBubble(side, message, sender);
+			var msgBubble = getMessageBubble(element);
 			
 			$('.message-content-anchor').after(msgBubble);
 		});
@@ -156,14 +183,17 @@ $(function() {
 		
 		results.forEach(function(element, index, array) {
 			
-			var message = element.message;
-			var side = element.side;
-			var sender = element.sender;
-			var msgBubble = getMessageBubble(side, message, sender);
+			var msgBubble = getMessageBubble(element);
 			
 //			$('.message-content-anchor-last').after(messageBubble);
 			$('.message-content').append(msgBubble);
 		});
+		
+		if (results.length == 0) {
+			hasNewMessage = false;
+		} else {
+			hasNewMessage = true;
+		}
 	}
 	
 	function controlShowMoreButton() {
@@ -214,7 +244,12 @@ $(function() {
 		});
 	}
 	
-	function getMessageBubble(side, message, sender) {
+	function getMessageBubble(message) {
+		
+		var msg = message.message;
+		var side = message.side;
+		var sender = message.sender;
+		var sendTime = message.sendTime;
 		
 		var divMsgEntry = $('<div/>').addClass(side);
 		var divMsgBubble = $('<div/>').addClass('bubble');
@@ -224,9 +259,11 @@ $(function() {
 			.append("&nbsp;")
 			.append($('<span/>').html(sender));
 		
-		var divMsg = $('<div/>').append($('<span/>').html(message));
+		var divMsg = $('<div/>').append($('<span/>').html(msg));
+		var divSendTime = $('<div class="message-sendtime"/>').append($('<span/>').html(sendTime));
 		
 		divMsgEntry.append(divMsgBubble.append(divUser).append(divMsg));
+		divMsgEntry.append(divSendTime);
 		
 		return divMsgEntry;
 	}

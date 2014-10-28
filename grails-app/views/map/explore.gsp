@@ -80,7 +80,7 @@ $( document ).on( "pageinit", "#map-page", function() {
         center: myLatlng,
         zoom: ${zoom},
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: GOOGLE_MAPS_STYLES.Midnight_Commander
+        styles: GOOGLE_MAPS_STYLES.Cool_Grey
     };
 
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);

@@ -84,7 +84,7 @@ $( document ).on( "pageinit", "#map-page", function() {
         center: myLatlng,
         zoom: ${zoom},
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: GOOGLE_MAPS_STYLES.Midnight_Commander
+        styles: GOOGLE_MAPS_STYLES.Cool_Grey
     };
 
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -114,7 +114,7 @@ $( document ).on( "pageinit", "#map-page", function() {
         return box.html();
     };
 
-    var marker = new google.maps.Marker({
+    var mymarker = new google.maps.Marker({
         position: myLatlng,
         map: map,
         title: "You're Here",
@@ -128,8 +128,8 @@ $( document ).on( "pageinit", "#map-page", function() {
     });
 
     $('.btnDone').unbind('click').click(function() {
-        var lat = marker.getPosition().lat();
-        var lng = marker.getPosition().lng();
+        var lat = mymarker.getPosition().lat();
+        var lng = mymarker.getPosition().lng();
 
         console.log(window.parent.$('input[name=lat]'));
 
@@ -202,9 +202,9 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         //map.fitBounds(bounds);
 
-        map.setCenter(lastLocation);
+        mymarker.setPosition(lastLocation);
 
-        searchByLocation();
+        map.setCenter(lastLocation);
     });
 
     google.maps.event.addListener(map, 'bounds_changed', function() {

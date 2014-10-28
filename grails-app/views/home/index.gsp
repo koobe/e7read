@@ -37,20 +37,6 @@
 				containerId: 'display-container',
 				z_index: 300
 			});
-
-			$.ajax({
-		        type: 'GET',
-		        data: {},
-		        url: '/message/getUnreadMessageCount',
-		        success: function(data) {
-					$('#unread-message-count').html(data.unreadMessageCount);
-				},
-		        error: function (XMLHttpRequest, textStatus, errorThrown) {
-		    		console.log(textStatus);
-		    		console.log(errorThrown);
-		        }
-			});
-			
 		</script>
 	</body>
 </html>

@@ -28,7 +28,7 @@
 	            position: relative; 
 	            bottom:20px; 
 	            right: 5px; 
-	            float: right;"></span>
+	            float: right;">${unreadMsgCount}</span>
 	    </div>
         <div>
             <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">

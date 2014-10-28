@@ -8,6 +8,8 @@ import grails.plugin.springsecurity.annotation.Secured
 class HomeController {
 	
 	def grailsApplication
+	
+	def springSecurityService
 
     def index(String channel) {
 		
@@ -29,6 +31,11 @@ class HomeController {
 		params.channel = myChannel.name
 		session['redirect_logged'] = "/${myChannel.name}"
 		
-		[params: params, channel: myChannel]
+		def unreadCount
+		if (springSecurityService.currentUser) {
+			unreadCount = Message.countByUserNotEqualAndIsRead(springSecurityService.currentUser, false)
+		}
+		
+		[params: params, channel: myChannel, unreadMsgCount: unreadCount]
 	}
 }

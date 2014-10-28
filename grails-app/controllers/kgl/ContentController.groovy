@@ -1018,13 +1018,21 @@ class ContentController {
             lon = Double.parseDouble(latlon[1])
         }
 
-        log.info "Search all contents location close to ${lat}, ${lon} distance 30km"
+        log.info "Search all contents location close to ${lat}, ${lon} distance 30km, filter by channel = ${params.channel}"
+
+
+        def channel = Channel.findByName(params.channel)
+
+        log.info "Filter by channel = ${channel?.name}"
 
         Closure filter = {
             geo_distance(
                     'distance': '30km',
                     'location': [lat: lat, lon: lon]
             )
+            must {
+                term('channel': channel)
+            }
         }
 
         def sortBuilder = SortBuilders.
@@ -1050,13 +1058,14 @@ class ContentController {
 
             def content = Content.get(it.id)
 
-            if (content) {
+            if (content && content.channel?.equals(channel)) {
                 contents << [
                         cropTitle: content.cropTitle,
                         cropText: content.cropText,
                         location: [lat: content.location?.lat, lon: content.location?.lon],
                         shareUrl: createLink(controller: 'content', action: 'share', id: content.id, absolute: true),
-                        coverUrl: content.coverUrl
+                        coverUrl: content.coverUrl,
+                        channel: content.channel?.name
                 ]
             }
         }

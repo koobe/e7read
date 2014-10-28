@@ -115,6 +115,7 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         var center = map.getCenter();
         var queryData = {
+            channel: $('meta[name=params-channel]').attr('content'),
             center: center.lat() + "," + center.lng()
         };
 

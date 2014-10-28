@@ -31,7 +31,7 @@
 	            float: right;"></span>
 	    </div>
         <div>
-            <g:link controller="map" action="explore" params="[channel: 'e7read']" class="koobe-btn koobe-btn-normal">
+            <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-map-marker"></i> <!-- Explore in Map  -->
             </g:link>
         </div>
@@ -51,7 +51,7 @@
             </g:link>
         </div>
         <div>
-            <g:link controller="map" action="explore" params="[channel: 'e7read']" class="koobe-btn koobe-btn-normal">
+            <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-map-marker"></i> <!-- Explore in Map  -->
             </g:link>
         </div>

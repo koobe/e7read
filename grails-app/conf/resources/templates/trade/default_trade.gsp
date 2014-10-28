@@ -56,6 +56,13 @@
 		    
 		    <div class="margin-blank"></div>
 		    
+		    <div style="text-align: center;">
+		    	<g:link class="btn btn-default btn-contact-me" target="_blank"
+		    	uri="/message/conversation?contentId=${content.id}">跟我聯絡</g:link>
+		    </div>
+		    
+		    <div class="margin-blank"></div>
+		    
 		    <fb:comments contentid="${content.id}" />
 	    
 		</div>

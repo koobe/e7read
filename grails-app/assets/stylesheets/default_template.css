@@ -246,3 +246,23 @@ tr, td {
 		font-weight: 700;
 		font-size: 1.1em;
 	}
+	
+.btn-contact-me {
+	background-color: #89E2D5;
+	border-color: #89E2EE;
+	color: #FFF;
+	font-weight: 700;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+.btn-contact-me:hover, 
+.btn-contact-me:focus, 
+.btn-contact-me:active, 
+.btn-contact-me.active
+{ 
+	color: #FFF; 
+	background-color: #247A7A; 
+	border-color: #33CCCC; 
+	text-decoration: none !important;
+} 

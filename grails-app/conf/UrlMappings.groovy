@@ -35,5 +35,7 @@ class UrlMappings {
 		"/content/create/$channel?" (controller: 'content', action: 'create')
 		"/content/personal/$channel?" (controller: 'content', action: 'personal')
 //		"/content/shorten/$channel?" (controller: 'content', action: 'shorten')
+
+        "/explore/$channel?" (controller: 'map', action: 'explore')
 	}
 }

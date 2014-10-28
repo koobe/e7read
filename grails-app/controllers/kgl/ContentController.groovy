@@ -1046,7 +1046,7 @@ class ContentController {
 
         result.searchResults.each {
 
-            log.info "Process search result: ${it.id}"
+            //log.info "Process search result: ${it.id}"
 
             def content = Content.get(it.id)
 

@@ -40,3 +40,6 @@ function getQueryVariable(variable) {
    if (meta) { return meta; }
    return(false);
 }
+
+var E7READ = {};
+E7READ.CHANNEL = getQueryVariable('channel');

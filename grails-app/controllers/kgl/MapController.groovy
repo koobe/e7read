@@ -6,7 +6,9 @@ class MapController {
 
     def index() {}
 
-    def explore() {
+    def explore(String channel) {
+
+        log.info "Open map/explore with channel=${channel}"
 
         def lat = session['geolocation']?.lat
         def lon = session['geolocation']?.lon
@@ -65,4 +67,14 @@ class MapController {
 			content: content
 		]
 	}
+
+    /**
+     * Get channel name
+     * @param params
+     * @return
+     */
+    protected String getChannelName(params) {
+        params.channel?:grailsApplication.config.grails.application.default_channel
+    }
+
 }

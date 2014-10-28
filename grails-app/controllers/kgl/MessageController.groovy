@@ -49,7 +49,7 @@ class MessageController {
 			])
 		
 		messageBoardList.each { messageBoard ->
-			def count = Message.countByMessageBoardAndIsRead(messageBoard, false);
+			def count = Message.countByMessageBoardAndUserNotEqualAndIsRead(messageBoard, springSecurityService.currentUser, false);
 			messageBoard.unread = count
 		}
 		
@@ -84,9 +84,9 @@ class MessageController {
 		def jsonDataMap = [:]
 		def jsonMessageList = []
 		
-		jsonDataMap.put('lastPrevMsgTime', null)
-		jsonDataMap.put('firstNewerMsgTime', null)
-		jsonDataMap.put('results', jsonMessageList)
+		jsonDataMap.lastPrevMsgTime = null
+		jsonDataMap.firstNewerMsgTime = null
+		jsonDataMap.results = jsonMessageList
 		
 		if (newer) {
 			
@@ -96,7 +96,6 @@ class MessageController {
 			
 			Long stamp = Long.parseLong(firstNewerMsgTime)
 			Date date = new Date(stamp)
-//			log.info "Fetch newer: ${date.getTime()}"
 			
 			messageList = Message.findAllByMessageBoardAndSendTimeGreaterThan(
 				MessageBoard.findById(mbId),
@@ -108,10 +107,10 @@ class MessageController {
 			
 			if (messageList.size() > 0) {
 				Date lastTime = messageList.get(messageList.size()-1).sendTime
-				jsonDataMap.put('firstNewerMsgTime', lastTime.getTime())
+				jsonDataMap.firstNewerMsgTime = lastTime.getTime()
 			}
 		} else if (lastPrevMsgTime) {
-//			log.info "Fetch Before ${lastPrevMsgTime}"
+		
 			Long stamp = Long.parseLong(lastPrevMsgTime)
 			Date date = new Date(stamp)
 			
@@ -137,26 +136,28 @@ class MessageController {
 			
 			if (messageList.size() > 0) {
 				Date lastTime = messageList.get(0).sendTime
-				jsonDataMap.put('lastPrevMsgTime', lastTime.getTime())
+				jsonDataMap.lastPrevMsgTime = lastTime.getTime()
 			}
 		}
 		
 		messageList.each { message ->
 			
 			def dataMap = [:]
-			dataMap.put('messageId', message.id)
-			dataMap.put('message', message.message)
-			dataMap.put('sendTime', message.sendTime.getTime())
-			dataMap.put('senderId', message.user.id)
-			dataMap.put('sender', message.user.fullName)
+			dataMap.messageId = message.id
+			dataMap.message = message.message
+			dataMap.sendTime = message.sendTime.getDateTimeString()
+			dataMap.senderId = message.user.id
+			dataMap.sender = message.user.fullName
 			
 			def side
 			if (springSecurityService?.currentUser == message.user) {
 				side = 'me'
 			} else {
 				side = 'other'
+				message.isRead = true
+				message.save flush: true	// make message read
 			}
-			dataMap.put('side', side)
+			dataMap.side = side
 			
 			jsonMessageList << dataMap
 		}
@@ -181,18 +182,30 @@ class MessageController {
 			message.save flush: true
 			
 			def dataMap = [:]
-			dataMap.put('messageId', message.id)
-			dataMap.put('message', message.message)
-			dataMap.put('sendTime', message.sendTime.getTime())
-			dataMap.put('senderId', message.user.id)
-			dataMap.put('sender', message.user.fullName)
+			dataMap.messageId = message.id
+			dataMap.message = message.message
+			dataMap.sendTime = message.sendTime.getTime()
+			dataMap.senderId = message.user.id
+			dataMap.sender = message.user.fullName
 			
 			render dataMap as JSON
 			
 		} else {
 			response.sendError 403
 		}
+	}
+	
+	/**
+	 * [AJAX] get unread message count
+	 * @return
+	 */
+	def getUnreadMessageCount() {
 		
+		def count = Message.countByUserNotEqualAndIsRead(springSecurityService.currentUser, false);
+		def jsonDataMap = [:]
+		jsonDataMap.unreadMessageCount = count
+		
+		render jsonDataMap as JSON
 	}
 	
 }

@@ -6,7 +6,7 @@
 <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>-->
 <style type="text/css">
 body { overflow: hidden; }
-.map-container { width: 100%; height: 100%; padding: 0; }
+.ui-panel-wrapper, .map-container { width: 100%; height: 100%; padding: 0; }
 #map-page {width: 100%; height: 100%; }
 #map-canvas { width: 100%; height: 100%; }
 .controls {
@@ -57,10 +57,11 @@ body { overflow: hidden; }
 </style>
 </head>
 <body>
-<div data-role="page" data-theme="b" id="map-page">
+<div data-role="page" data-theme="b" id="map-page" class="ui-responsive-panel">
     <div data-role="header" data-position="fixed" class="map-header">
         <g:link uri="/" data-icon="home" rel="external" class="btnBack">Back</g:link>
         <h1>E7READ Explore</h1>
+        <a href="#nav-panel" data-icon="bullets" rel="external" class="ui-btn ui-icon-bullets ui-btn-icon-notext ui-corner-all"></a>
     </div>
     <div data-role="main" class="ui-content map-container">
         <div id="map-canvas"></div>
@@ -70,6 +71,25 @@ body { overflow: hidden; }
         <input id="pac-input" class="controls" type="text" placeholder="Search Box"/>
     </div>
     -->
+    <div data-role="panel" id="nav-panel">
+        <ul data-role="listview">
+            <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+
+            <g:each in="${categories}" var="category">
+                <!--
+                <div class="ontop-category-item">
+                    <g:link controller="home" action="index" params="${[c: category.name]}" target="_top" class="category-link-item${category.name?.equalsIgnoreCase("${activeCategoryName}")?' active':''}" data-category="${category.name}">
+                        <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+                    </g:link>
+                </div>-->
+                <li>
+                    <a href="#panel-responsive-page2">
+                        <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+                    </a>
+                </li>
+            </g:each>
+        </ul>
+    </div><!-- /panel -->
 </div>
 <script type="text/javascript">
 $( document ).on( "pageinit", "#map-page", function() {

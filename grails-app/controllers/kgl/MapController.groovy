@@ -27,10 +27,18 @@ class MapController {
             lon = latlon[1].toString().toDouble()
         }
 
+        final String __CATEGORIES_QUERY = """
+				select category
+				from Category as category
+				where rankOnTop is not null and enable = true and channel.name = :c
+				order by rankOnTop asc
+			"""
+
         [
                 lat: lat,
                 lon: lon,
-                zoom: zoom
+                zoom: zoom,
+                categories: Category.executeQuery(__CATEGORIES_QUERY, [c: channel])
         ]
     }
 

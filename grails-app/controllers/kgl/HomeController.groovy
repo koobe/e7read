@@ -33,7 +33,15 @@ class HomeController {
 		
 		def unreadCount
 		if (springSecurityService.currentUser) {
-			unreadCount = Message.countByUserNotEqualAndIsRead(springSecurityService.currentUser, false)
+			
+			def query = """
+				select count(m) from Message m
+				where (m.messageBoard.userA.id = :userId or m.messageBoard.userB.id = :userId)
+				and m.isRead = :isRead
+			"""
+			
+			def count = Message.executeQuery(query, [userId: springSecurityService.currentUser.id, isRead: false])
+			unreadCount = count.get(0)
 		}
 		
 		[params: params, channel: myChannel, unreadMsgCount: unreadCount]

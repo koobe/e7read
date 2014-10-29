@@ -37,7 +37,7 @@ class HomeController {
 			def query = """
 				select count(m) from Message m
 				where (m.messageBoard.userA.id = :userId or m.messageBoard.userB.id = :userId)
-				and m.isRead = :isRead
+				and m.isRead = :isRead and m.user.id <> :userId
 			"""
 			
 			def count = Message.executeQuery(query, [userId: springSecurityService.currentUser.id, isRead: false])

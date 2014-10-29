@@ -1,0 +1,87 @@
+@import url(http://fonts.googleapis.com/css?family=Fascinate);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexhei.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexkai.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexming.css);
+@import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+.div-bg-thumbnail-cover {
+	border-radius: 5px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.content-cover-block-square {
+	
+	padding: 5px 5px 5px 5px;
+	
+	.block-body {
+	
+		border-radius: 5px;
+		border: 1px solid #AAA;
+		padding: 8px 8px 8px 8px;
+		cursor: pointer;
+		
+		/*background-color: #FAF8F5;*/
+		
+		.block-title-image {
+			text-align: center;
+			
+			.block-image-title {
+				position: relative;
+				top: 120px;
+				padding: 0px 10px 0px 10px;
+				
+				font-family: 'cwTeXHei', 'Fascinate', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+				
+				.title {
+					font-family: 'cwTeXHei', 'Fascinate', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+					color: #FFF;
+					font-weight: 700;
+					
+					overflow : hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+				
+				.location {
+					font-family: 'cwTeXHei', 'Fascinate', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+					color: #FFF;
+					font-size: 0.7em;
+				}
+			}
+		}
+		
+		.block-title {
+			padding-top: 10px;
+			padding-right: 5px;
+			font-weight: 700;
+			font-size: 1.1em;
+			
+			overflow : hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		
+		.block-separator {
+			border-bottom: 1px solid #94E6DA;
+		}
+		
+		.content-cover-author {
+			font-size: 0.9em;
+			padding-top: 10px;
+			text-align: right;
+		}
+	}
+}
+
+/*
+.content-cover-block-square:hover {
+
+	padding: 9px 9px 9px 9px;
+
+	.block-body {
+		padding: 4px 4px 4px 4px;
+	}
+}*/

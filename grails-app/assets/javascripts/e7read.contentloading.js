@@ -39,7 +39,7 @@
     
     ScrollLoad.prototype.loadmore = function(closure) {
     	
-    		var me = this;
+    	var me = this;
     	
 		if (isLoadMore(me.options) && !me.onCall && !me.eof) {
 			
@@ -63,23 +63,25 @@
 	    	        data: data,
 	    	        url: me.options.dataUrl,
 	    	        success: function (data, textStatus) {
-	    	        		var dataobj = $(data);
-	    	        		
-		    	        	if (data == "") {
-		    	        		me.eof = true;
-		    	        		console.log('eof');
-		    	        	} else {
-		    	            $("#" + me.options.contentDivId).append(dataobj);
-		    	        	}
+    	        		var dataobj = $(data);
+    	        		
+	    	        	if (data == "") {
+	    	        		me.eof = true;
+	    	        		console.log('eof');
+	    	        	} else {
+	    	            $("#" + me.options.contentDivId).append(dataobj);
+	    	        	}
+	    	        	
+	    	        	if (me.options.afterLoad) {
+    		    			me.options.afterLoad(dataobj);
+    		    		}
+	    	        	
+	    	        	me.onCall = false;
+	    	        	
+	    	        	if (closure) {
+    	            		closure();
+	    	        	}
 		    	        	
-		    	        	if (me.options.afterLoad) {
-	    		    			me.options.afterLoad(dataobj);
-	    		    		}
-		    	        	if (closure) {
-	    	            		closure();
-	    	            }
-		    	        	
-		    	        	me.onCall = false;
 	    	        },
 	    	        error: function (XMLHttpRequest, textStatus, errorThrown) {
 	    	        		console.log(textStatus);
@@ -97,7 +99,7 @@
 			if ((contentDiv.height() - factor) <= 0) {
 		        return true;
 		    } else {
-		    		return false;
+		    	return false;
 		    }
 		}
     };

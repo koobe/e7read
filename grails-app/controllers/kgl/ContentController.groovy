@@ -395,8 +395,12 @@ class ContentController {
 			"""
 			contentList = Content.executeQuery(hql, [channelName: channelName], [max: params.max, offset: params.offset])
 		}
-
-		renderContentContainerHTML(contentList)
+		
+		if (channelName.equals('trade')) {
+			renderContentCoverBlockSquare(contentList)
+		} else {
+			renderContentContainerHTML(contentList)
+		}
 	}
 	
 	/**
@@ -503,6 +507,13 @@ class ContentController {
 		if (contentSize == 0) {
 			render ""
 		}
+	}
+	
+	protected void renderContentCoverBlockSquare(contentList) {
+		contentList.each { content ->
+			render template: "content_cover_block_square", model:[content: content]
+		}
+		render ""
 	}
 
     /**

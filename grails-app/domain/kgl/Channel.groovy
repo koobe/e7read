@@ -11,6 +11,10 @@ class Channel {
 	String logoImg
 	
 	Boolean canAnonymous
+
+    static searchable = {
+        root false
+    }
 	
     static constraints = {
 		id maxSize: 32

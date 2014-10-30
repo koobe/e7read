@@ -1036,14 +1036,23 @@ class ContentController {
 
         log.info "Filter by channel = ${channel?.name}"
 
+        Closure query
+        query = {
+            //term('cropTitle': 'e7read title')
+            bool {
+                must {
+                    query_string(query: "channel.name:${channel?.name?:'*'}")
+                    //term (cropTitle: '*title')
+                }
+            }
+        }
+        //query = null as Closure
+
         Closure filter = {
             geo_distance(
                     'distance': '30km',
                     'location': [lat: lat, lon: lon]
             )
-            must {
-                term('channel': channel)
-            }
         }
 
         def sortBuilder = SortBuilders.
@@ -1052,14 +1061,13 @@ class ContentController {
                 unit(DistanceUnit.KILOMETERS).
                 order(SortOrder.ASC)
 
-        def result = elasticSearchService.search(
-                [
-                        indices: Content,
-                        types: Content,
-                        sort: sortBuilder
-                ],
-                null as Closure,
-                filter)
+        Map searchParams = [
+                indices: Content,
+                types: Content,
+                sort: sortBuilder
+        ]
+
+        def result = elasticSearchService.search(searchParams, query, filter)
 
         def contents = []
 
@@ -1069,7 +1077,8 @@ class ContentController {
 
             def content = Content.get(it.id)
 
-            if (content && content.channel?.equals(channel)) {
+            //if (content && content.channel?.equals(channel)) {
+            if (content) {
                 contents << [
                         cropTitle: content.cropTitle,
                         cropText: content.cropText,

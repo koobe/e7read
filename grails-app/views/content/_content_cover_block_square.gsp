@@ -7,7 +7,7 @@
 		">
 			<div class="block-image-title">
 				<div class="title">${content.cropTitle}</div>
-				<div class="location">Taipei</div>
+				<div class="location">${content.location?.city}</div>
 			</div>
 		</div>
 		<div class="block-title">

@@ -73,17 +73,12 @@ body { overflow: hidden; }
     -->
     <div data-role="panel" id="nav-panel">
         <ul data-role="listview">
+            <!--
             <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-
+            -->
             <g:each in="${categories}" var="category">
-                <!--
-                <div class="ontop-category-item">
-                    <g:link controller="home" action="index" params="${[c: category.name]}" target="_top" class="category-link-item${category.name?.equalsIgnoreCase("${activeCategoryName}")?' active':''}" data-category="${category.name}">
-                        <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
-                    </g:link>
-                </div>-->
                 <li>
-                    <a href="#panel-responsive-page2">
+                    <a href="#" class="category-menu-item" data-category="${category.name}">
                         <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
                     </a>
                 </li>
@@ -130,17 +125,31 @@ $( document ).on( "pageinit", "#map-page", function() {
         return box.html();
     };
 
+    var searchMarkers = [];
+
+    var clearLatestSearch = function() {
+        for (var i = 0, marker; marker = searchMarkers[i]; i++) {
+            marker.setMap(null);
+        }
+        searchMarkers = [];
+    };
+
     // show marker in google map
-    var searchByLocation = function() {
+    var searchByLocation = function(channel, category) {
 
         var center = map.getCenter();
         var queryData = {
-            channel: $('meta[name=params-channel]').attr('content'),
+            channel: channel,
+            category: category,
             center: center.lat() + "," + center.lng()
         };
 
         $.get('/content/searchByLocation', queryData).done(function(data) {
             if (!data) { return; }
+
+
+            // Clear previous search results
+            clearLatestSearch();
 
             var infowindow = new google.maps.InfoWindow();
 
@@ -161,6 +170,8 @@ $( document ).on( "pageinit", "#map-page", function() {
                     animation: google.maps.Animation.DROP
                 });
 
+                searchMarkers.push(marker);
+
                 google.maps.event.addListener(marker, 'click', (function(marker, html) {
 
                     return function() {
@@ -174,7 +185,17 @@ $( document ).on( "pageinit", "#map-page", function() {
         });
     };
 
-    searchByLocation();
+    var currentChannel = $('meta[name=params-channel]').attr('content');
+    searchByLocation(currentChannel, '*');
+
+    /*
+     * re-search with category filter
+     */
+    $('.category-menu-item').unbind('click').click(function() {
+        var category = $(this).data('category');
+        searchByLocation(currentChannel, category);
+        return false;
+    });
 
     $('.btnBack').unbind('click').click(function() {
         history.back();

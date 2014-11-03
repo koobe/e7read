@@ -14,6 +14,7 @@ class Channel {
 
     static searchable = {
         root false
+        only = ['name']
     }
 	
     static constraints = {

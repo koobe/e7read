@@ -1029,24 +1029,26 @@ class ContentController {
             lon = Double.parseDouble(latlon[1])
         }
 
-        log.info "Search all contents location close to ${lat}, ${lon} distance 30km, filter by channel = ${params.channel}"
-
+        log.info "Search contents ${lat}, ${lon} distance 30km, filter by channel = ${params.channel}, category = ${params.category}"
 
         def channel = Channel.findByName(params.channel)
+        def category = Category.findByChannelAndName(channel, params.category)
 
-        log.info "Filter by channel = ${channel?.name}"
+        log.info "Filter by channel = ${channel?.name}, category = ${category?.name}"
 
         Closure query
-        query = {
-            //term('cropTitle': 'e7read title')
-            bool {
-                must {
-                    query_string(query: "channel.name:${channel?.name?:'*'}")
-                    //term (cropTitle: '*title')
-                }
-            }
-        }
-        //query = null as Closure
+
+        // Still has problems with query filter.
+//        query = {
+//            //term('cropTitle': 'e7read title')
+//            bool {
+//                must {
+//                    query_string(query: "channel.name:${channel?.name?:'*'}")
+//                    //term (cropTitle: '*title')
+//                }
+//            }
+//        }
+        query = null as Closure
 
         Closure filter = {
             geo_distance(
@@ -1077,16 +1079,18 @@ class ContentController {
 
             def content = Content.get(it.id)
 
-            //if (content && content.channel?.equals(channel)) {
-            if (content) {
-                contents << [
-                        cropTitle: content.cropTitle,
-                        cropText: content.cropText,
-                        location: [lat: content.location?.lat, lon: content.location?.lon],
-                        shareUrl: createLink(controller: 'content', action: 'share', id: content.id, absolute: true),
-                        coverUrl: content.coverUrl,
-                        channel: content.channel?.name
-                ]
+            if (content && content.channel?.equals(channel)) {
+                if (!category || content.categories?.contains(category)) {
+                    //if (content) {
+                    contents << [
+                            cropTitle: content.cropTitle,
+                            cropText: content.cropText,
+                            location: [lat: content.location?.lat, lon: content.location?.lon],
+                            shareUrl: createLink(controller: 'content', action: 'share', id: content.id, absolute: true),
+                            coverUrl: content.coverUrl,
+                            channel: content.channel?.name
+                    ]
+                }
             }
         }
         render contents as JSON

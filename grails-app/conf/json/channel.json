@@ -1,0 +1,15 @@
+{
+	"channel": [
+		{
+			"name" : "e7read",
+			"isDefault" : true,
+			"logoImg": "/assets/e7logo.png",
+			"canAnonymous": true
+		},
+		{
+			"name" : "trade",
+			"isDefault" : false,
+			"canAnonymous": false
+		}
+	]
+}

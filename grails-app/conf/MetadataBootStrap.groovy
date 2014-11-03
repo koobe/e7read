@@ -7,12 +7,13 @@ import kgl.*
  *
  */
 class MetadataBootStrap {
+	
+	def grailsApplication
 
     def init = { servletContext ->
 		
 		bootstrapChannelData()
 		bootstrapCategoryData()
-        
     }
 	
     def destroy = {
@@ -21,24 +22,6 @@ class MetadataBootStrap {
 	protected void bootstrapChannelData() {
 		
 		log.info "Create default channel data."
-		
-		def channelJson = """
-		{
-			"channel": [
-				{
-					"name" : "e7read",
-					"isDefault" : true,
-					"logoImg": "/assets/e7logo.png",
-					"canAnonymous": true
-				},
-				{
-					"name" : "trade",
-					"isDefault" : false,
-					"canAnonymous": false
-				}
-			]
-		}
-		"""
 				
 		def enrollChannel = { channelList ->
 			if (channelList.size() != 0 ) {
@@ -71,8 +54,12 @@ class MetadataBootStrap {
 				}
 			}
 		}
-				
-		def json = new JsonSlurper().parseText(channelJson)
+		
+		def jsonFile = grailsApplication.getParentContext().getResource("classpath:json/channel.json").file
+		def jsonStr = jsonFile.text
+		log.info jsonStr	
+		
+		def json = new JsonSlurper().parseText(jsonStr)
 		def channelList = json.channel
 		enrollChannel(channelList)
 	}
@@ -80,96 +67,6 @@ class MetadataBootStrap {
 	protected void bootstrapCategoryData() {
 		
 		log.info "Create default content category."
-		
-		def categoryJson = """
-		{
-			"category": [
-				{
-					"name" : "life",
-					"child" : [],
-					"rankOnTop" : 1,
-					"enable": true,
-					"order": 1,
-					"channel": "e7read"
-				},
-				{
-					"name" : "tech",
-					"child" : [],
-					"rankOnTop" : 2,
-					"enable": true,
-					"order": 2,
-					"channel": "e7read"
-				},
-				{
-					"name" : "entertainment",
-					"child" : [],
-					"rankOnTop" : 3,
-					"enable": true,
-					"order": 3,
-					"channel": "e7read"
-				},
-				{
-					"name" : "opinion",
-					"child" : [],
-					"enable": true,
-					"order": 4,
-					"channel": "e7read"
-				},
-				{
-					"name" : "industry",
-					"child" : [],
-					"enable": true,
-					"order": 5,
-					"channel": "e7read"
-				},
-				{
-					"name" : "report",
-					"child" : [],
-					"enable": true,
-					"order": 6,
-					"channel": "e7read"
-				},
-				{
-					"name" : "share",
-					"child" : [],
-					"enable": true,
-					"order": 7,
-					"channel": "e7read"
-				},
-				{
-					"name" : "free",
-					"child" : [],
-					"rankOnTop" : 1,
-					"enable": true,
-					"order": 1,
-					"channel": "trade"
-				},
-				{
-					"name" : "3c",
-					"child" : [],
-					"enable": true,
-					"order": 3,
-					"channel": "trade"
-				},
-				{
-					"name" : "game",
-					"child" : [],
-					"rankOnTop" : 2,
-					"enable": true,
-					"order": 2,
-					"channel": "trade"
-				},
-				{
-					"name" : "home",
-					"child" : [],
-					"rankOnTop" : 3,
-					"enable": true,
-					"order": 4,
-					"channel": "trade"
-				}
-			]
-		}
-		"""
 				
 		def enrollCategories = { parent, childList ->
 			if (childList.size() != 0 ) {
@@ -205,8 +102,12 @@ class MetadataBootStrap {
 				}
 			}
 		}
+		
+		def jsonFile = grailsApplication.getParentContext().getResource("classpath:json/category.json").file
+		def jsonStr = jsonFile.text
+		log.info jsonStr
 				
-		def json = new JsonSlurper().parseText(categoryJson)
+		def json = new JsonSlurper().parseText(jsonStr)
 		def category = json.category
 		enrollCategories(null, category)
 	}

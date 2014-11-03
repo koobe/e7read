@@ -1,0 +1,123 @@
+{
+	"category": [
+		{
+			"name" : "life",
+			"child" : [],
+			"rankOnTop" : 1,
+			"enable": true,
+			"order": 1,
+			"channel": "e7read"
+		},
+		{
+			"name" : "tech",
+			"child" : [],
+			"rankOnTop" : 2,
+			"enable": true,
+			"order": 2,
+			"channel": "e7read"
+		},
+		{
+			"name" : "entertainment",
+			"child" : [],
+			"rankOnTop" : 3,
+			"enable": true,
+			"order": 3,
+			"channel": "e7read"
+		},
+		{
+			"name" : "opinion",
+			"child" : [],
+			"enable": true,
+			"order": 4,
+			"channel": "e7read"
+		},
+		{
+			"name" : "industry",
+			"child" : [],
+			"enable": true,
+			"order": 5,
+			"channel": "e7read"
+		},
+		{
+			"name" : "report",
+			"child" : [],
+			"enable": true,
+			"order": 6,
+			"channel": "e7read"
+		},
+		{
+			"name" : "share",
+			"child" : [],
+			"enable": true,
+			"order": 7,
+			"channel": "e7read"
+		},
+		
+		{
+			"name" : "digital",
+			"child" : [],
+			"rankOnTop" : 1,
+			"enable": true,
+			"order": 1,
+			"channel": "trade"
+		},
+		{
+			"name" : "clothes",
+			"child" : [],
+			"rankOnTop" : 2,
+			"enable": true,
+			"order": 2,
+			"channel": "trade"
+		},
+		{
+			"name" : "makeup",
+			"child" : [],
+			"rankOnTop" : 3,
+			"enable": true,
+			"order": 3,
+			"channel": "trade"
+		},
+		{
+			"name" : "food",
+			"child" : [],
+			"enable": true,
+			"order": 4,
+			"channel": "trade"
+		},
+		{
+			"name" : "living",
+			"child" : [],
+			"enable": true,
+			"order": 5,
+			"channel": "trade"
+		},
+		{
+			"name" : "books",
+			"child" : [],
+			"enable": true,
+			"order": 6,
+			"channel": "trade"
+		},
+		{
+			"name" : "sports",
+			"child" : [],
+			"enable": true,
+			"order": 7,
+			"channel": "trade"
+		},
+		{
+			"name" : "collection",
+			"child" : [],
+			"enable": true,
+			"order": 8,
+			"channel": "trade"
+		},
+		{
+			"name" : "others",
+			"child" : [],
+			"enable": true,
+			"order": 9,
+			"channel": "trade"
+		}
+	]
+}

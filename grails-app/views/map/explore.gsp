@@ -77,14 +77,8 @@ body { overflow: hidden; }
             <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
             -->
             <g:each in="${categories}" var="category">
-                <!--
-                <div class="ontop-category-item">
-                    <g:link controller="home" action="index" params="${[c: category.name]}" target="_top" class="category-link-item${category.name?.equalsIgnoreCase("${activeCategoryName}")?' active':''}" data-category="${category.name}">
-                        <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
-                    </g:link>
-                </div>-->
                 <li>
-                    <a href="#panel-responsive-page2">
+                    <a href="#" class="category-menu-item" data-name="${category.name}">
                         <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
                     </a>
                 </li>
@@ -132,11 +126,12 @@ $( document ).on( "pageinit", "#map-page", function() {
     };
 
     // show marker in google map
-    var searchByLocation = function() {
+    var searchByLocation = function(channel, category) {
 
         var center = map.getCenter();
         var queryData = {
-            channel: $('meta[name=params-channel]').attr('content'),
+            channel: channel,
+            category: category,
             center: center.lat() + "," + center.lng()
         };
 
@@ -175,7 +170,8 @@ $( document ).on( "pageinit", "#map-page", function() {
         });
     };
 
-    searchByLocation();
+    var currentChannel = $('meta[name=params-channel]').attr('content');
+    searchByLocation(currentChannel, 'industry');
 
     $('.btnBack').unbind('click').click(function() {
         history.back();

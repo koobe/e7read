@@ -78,7 +78,7 @@ body { overflow: hidden; }
             -->
             <g:each in="${categories}" var="category">
                 <li>
-                    <a href="#" class="category-menu-item" data-name="${category.name}">
+                    <a href="#" class="category-menu-item" data-category="${category.name}">
                         <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
                     </a>
                 </li>
@@ -125,6 +125,15 @@ $( document ).on( "pageinit", "#map-page", function() {
         return box.html();
     };
 
+    var searchMarkers = [];
+
+    var clearLatestSearch = function() {
+        for (var i = 0, marker; marker = searchMarkers[i]; i++) {
+            marker.setMap(null);
+        }
+        searchMarkers = [];
+    };
+
     // show marker in google map
     var searchByLocation = function(channel, category) {
 
@@ -137,6 +146,10 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         $.get('/content/searchByLocation', queryData).done(function(data) {
             if (!data) { return; }
+
+
+            // Clear previous search results
+            clearLatestSearch();
 
             var infowindow = new google.maps.InfoWindow();
 
@@ -157,6 +170,8 @@ $( document ).on( "pageinit", "#map-page", function() {
                     animation: google.maps.Animation.DROP
                 });
 
+                searchMarkers.push(marker);
+
                 google.maps.event.addListener(marker, 'click', (function(marker, html) {
 
                     return function() {
@@ -171,7 +186,16 @@ $( document ).on( "pageinit", "#map-page", function() {
     };
 
     var currentChannel = $('meta[name=params-channel]').attr('content');
-    searchByLocation(currentChannel, 'industry');
+    searchByLocation(currentChannel, '*');
+
+    /*
+     * re-search with category filter
+     */
+    $('.category-menu-item').unbind('click').click(function() {
+        var category = $(this).data('category');
+        searchByLocation(currentChannel, category);
+        return false;
+    });
 
     $('.btnBack').unbind('click').click(function() {
         history.back();

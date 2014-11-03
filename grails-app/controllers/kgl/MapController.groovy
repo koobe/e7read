@@ -30,7 +30,7 @@ class MapController {
         final String __CATEGORIES_QUERY = """
 				select category
 				from Category as category
-				where rankOnTop is not null and enable = true and channel.name = :c
+				where enable = true and channel.name = :c
 				order by rankOnTop asc
 			"""
 

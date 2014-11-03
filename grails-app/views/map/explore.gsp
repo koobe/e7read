@@ -73,8 +73,9 @@ body { overflow: hidden; }
     -->
     <div data-role="panel" id="nav-panel">
         <ul data-role="listview">
+            <!--
             <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-
+            -->
             <g:each in="${categories}" var="category">
                 <!--
                 <div class="ontop-category-item">

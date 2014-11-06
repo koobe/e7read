@@ -3,8 +3,11 @@ package kgl
 class Content {
 
     static searchable = {
-        only = ['cropText', 'cropTitle', 'lastUpdated', 'location']
-        location geoPoint: true, component: true
+        only = ['cropTitle', 'cropText', 'lastUpdated', 'datePosted', 'location', 'channel', 'categories']
+        
+		location geoPoint: true, component: true
+		channel parent: true, component: true
+		categories component: true
     }
 
     GeoPoint location

@@ -2,6 +2,13 @@ package kgl
 
 class Channel {
 	
+	static searchable = {
+//		root false
+		only = ['id', 'name']
+	}
+	
+//	static searchable = true
+	
 	String id
 	
 	String name
@@ -11,11 +18,6 @@ class Channel {
 	String logoImg
 	
 	Boolean canAnonymous
-
-    static searchable = {
-        root false
-        only = ['name']
-    }
 	
     static constraints = {
 		id maxSize: 32

@@ -116,7 +116,7 @@ grails.project.dependency.resolution = {
         // Grails Resources Plugin
         //runtime ':resources:1.2.8'
 
-        compile ":elasticsearch:0.0.3.3"
+        compile ":elasticsearch:0.0.3.5"
         //compile ":searchable:0.6.8"
 		
 		// markdown plugin

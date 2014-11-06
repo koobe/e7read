@@ -1,6 +1,11 @@
 package kgl
 
 class Category {
+	
+	static searchable = {
+		root false
+		only = ['id', 'name']
+	}
 
 	static belongsTo = [
 		category: Category,
@@ -10,6 +15,8 @@ class Category {
 	static hasMany = [
 		categorys: Category
 	]
+	
+	Long id
 	
     String name
 	

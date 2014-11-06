@@ -4,6 +4,7 @@
 <meta name="layout" content="jqm14" />
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>-->
+<meta name="e7read-default-icon" content="${assetPath(src: 'e7logo-marker-icon1-32x32.png', absolute: true)}" />
 <style type="text/css">
 body { overflow: hidden; }
 .ui-panel-wrapper, .map-container { width: 100%; height: 100%; padding: 0; }
@@ -167,7 +168,8 @@ $( document ).on( "pageinit", "#map-page", function() {
                     map: map,
                     title: content.cropTitle,
                     draggable: false,
-                    animation: google.maps.Animation.DROP
+                    animation: google.maps.Animation.DROP,
+                    icon: $('meta[name=e7read-default-icon]').attr('content')
                 });
 
                 searchMarkers.push(marker);

@@ -12,7 +12,7 @@ class WhoisFilters {
                 if (!session['geolocation']) {
                     def remoteAddr = whoisService.remoteAddr
 
-					if (!remoteAddr.equals("127.0.0.1")) {
+					if (!remoteAddr.equals("127.0.0.1") && !remoteAddr.equals("0:0:0:0:0:0:0:1")) {
 					
 	                    def location = geoIpService.getLocation(remoteAddr)
 	

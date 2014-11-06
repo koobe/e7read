@@ -90,9 +90,9 @@
 
     <div class="button-block">
         <div style="width: 60%">
-            <input type="hidden" name="lat" value="${lat}" />
-            <input type="hidden" name="lon" value="${lon}" />
-            <input type="hidden" name="geolocation" value="${lat},${lon}" />
+            <input type="hidden" name="lat" value="${contentInstance.location?.lat}" />
+            <input type="hidden" name="lon" value="${contentInstance.location?.lon}" />
+            <input type="hidden" name="geolocation" value="${contentInstance.location?.lat},${contentInstance.location?.lon}" />
 
             <g:link controller="map" action="prompt" class="location-link" target="_blank">
                 <i class="fa fa-map-marker"></i>

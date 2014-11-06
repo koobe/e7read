@@ -80,6 +80,14 @@ $( document ).on( "pageinit", "#map-page", function() {
 
     var myLatlng = new google.maps.LatLng(${lat}, ${lon});
 
+    var openerLat = window.opener.$('input[name=lat]').val();
+    var openerLon = window.opener.$('input[name=lon]').val();
+
+    if (openerLat && openerLon) {
+        myLatlng = new google.maps.LatLng(openerLat, openerLon);
+    }
+
+
     var mapOptions = {
         center: myLatlng,
         zoom: ${zoom},

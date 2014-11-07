@@ -5,6 +5,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>-->
 <meta name="e7read-default-icon" content="${assetPath(src: 'e7logo-marker-icon1-32x32.png', absolute: true)}" />
+<meta name="e7read-search-content-api-url" content="${createLink(controller: 'search', action: 'content')}" />
 <style type="text/css">
 body { overflow: hidden; }
 .ui-panel-wrapper, .map-container { width: 100%; height: 100%; padding: 0; }
@@ -135,19 +136,20 @@ $( document ).on( "pageinit", "#map-page", function() {
         searchMarkers = [];
     };
 
+    var __SEARCH_CONTENT_API_URL = $('meta[name=e7read-search-content-api-url]').attr('content');
+
     // show marker in google map
     var searchByLocation = function(channel, category) {
 
         var center = map.getCenter();
         var queryData = {
             channel: channel,
-            category: category,
-            center: center.lat() + "," + center.lng()
+            c: category,
+            geo: center.lat() + "," + center.lng()
         };
 
-        $.get('/content/searchByLocation', queryData).done(function(data) {
+        $.get(__SEARCH_CONTENT_API_URL, queryData).done(function(data) {
             if (!data) { return; }
-
 
             // Clear previous search results
             clearLatestSearch();

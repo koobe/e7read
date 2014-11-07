@@ -64,7 +64,7 @@ class SearchService {
         def filters = []
 
         // when give category name than add filter
-        if (categoryName) {
+        if (categoryName && categoryName != '*') {
             def categoryQuery = QueryBuilders
                     .boolQuery()
                     .must(QueryBuilders.matchQuery("categories.name", categoryName))

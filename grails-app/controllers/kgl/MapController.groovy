@@ -6,7 +6,9 @@ class MapController {
 
     def index() {}
 
-    def explore(String channel) {
+    def explore() {
+
+        String channel = getChannelName(params)
 
         log.info "Open map/explore with channel=${channel}"
 

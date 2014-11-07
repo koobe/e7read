@@ -37,12 +37,13 @@ class SearchController {
 
         render searchService.searchContent(channelName, categoryName, queryString, geoPoint, distance, params).collect {
             [
-                    cropTitle: it.cropTitle,
-                    cropText : it.cropText,
-                    location : [lat: it.location?.lat, lon: it.location?.lon],
-                    shareUrl: createLink(controller: 'content', action: 'share', id: it.id, absolute: true),
-                    coverUrl : it.coverUrl,
-                    channel  : it.channel?.name
+                    cropTitle  : it.cropTitle,
+                    cropText   : it.cropText,
+                    location   : [lat: it.location?.lat, lon: it.location?.lon],
+                    shareUrl   : createLink(controller: 'content', action: 'share', id: it.id, absolute: true),
+                    coverUrl   : it.coverUrl,
+                    channel    : it.channel?.name,
+                    categories : it.categories?.collect { it.name }
             ]
         } as JSON
     }

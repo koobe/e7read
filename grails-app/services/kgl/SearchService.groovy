@@ -1,5 +1,6 @@
 package kgl
 
+import grails.converters.JSON
 import grails.transaction.Transactional
 
 import org.elasticsearch.action.search.SearchRequest
@@ -12,113 +13,102 @@ import org.elasticsearch.index.query.QueryBuilders
 import org.elasticsearch.search.builder.SearchSourceBuilder
 import org.elasticsearch.search.sort.SortBuilders
 import org.elasticsearch.search.sort.SortOrder
-import org.grails.plugins.elasticsearch.ElasticSearchService
 
 @Transactional
 class SearchService {
-	
-	ElasticSearchService elasticSearchService
-	
-	/**
-	 * Search content by given parameters
-	 * @param channelName
-	 * @param categoryName
-	 * @param queryString
-	 * @param geoPoint
-	 * @return
-	 */
-    def searchContent(params) {
-		
-		def channelName = params.channel
-		def categoryName = params.c
-		def queryString = params.q
-		def geoPoint = params.geo
-		def distance = params.distance
-		
-		def lat
-		def lon
-		
-		def sortByPostDate = SortBuilders.fieldSort("datePosted").order(SortOrder.DESC)
-		def sortByNear
-		
-		if (geoPoint) {
-			def latlon = params.geo.split(',')
-			lat = latlon[0] as double
-			lon = latlon[1] as double
-			log.info "${lat} , ${lon}"
-			
-			sortByNear = SortBuilders.
-				geoDistanceSort("location").
-				point(lat, lon).
-				unit(DistanceUnit.KILOMETERS).
-				order(SortOrder.ASC)
-		}
-		
-		// must have channel name
-		def query = QueryBuilders.boolQuery()
-			.must(QueryBuilders.hasParentQuery("channel", QueryBuilders.matchQuery("name", channelName)))
-			
-		if (queryString) {
-			query = query.must(QueryBuilders.queryString(queryString))
-		}
-		
-		def filter
-		
-		if (categoryName || geoPoint) {
-			
-			def filterList = []
-			
-			def categoryFilter
-			// when give category name than add filter
-			if (categoryName) {
-				categoryFilter = FilterBuilders.nestedFilter("categories",
-					QueryBuilders.boolQuery()
-						.must(QueryBuilders.matchQuery("categories.name", categoryName)))
-				
-				filterList << categoryFilter
-			}
-			
 
-			def geoDistanceFilter
-			if (geoPoint) {
-				geoDistanceFilter = FilterBuilders.geoDistanceFilter("location")
-				    .point(lat, lon)
-				    .distance(distance? distance as double: 100, DistanceUnit.KILOMETERS)
-				    .optimizeBbox("memory")
-				    .geoDistance(GeoDistance.ARC);
-						
-				filterList << geoDistanceFilter
-			}
-			
-			filter = FilterBuilders.andFilter(filterList.toArray(new FilterBuilder[0]))
-			
-//			log.info filter
-		}
-		
-		SearchSourceBuilder source = new SearchSourceBuilder()
-		source.from(params.offset? params.offset as int: 0)
-		source.size(params.size? params.size as int: 100)
-		
-		if (sortByNear) {
-			source.sort(sortByNear)
-		}
-		source.sort(sortByPostDate)
-		
-		source.query(query)
-		
-		if (filter) {
-			source.postFilter(filter)
-		}
-		
-		SearchRequest request = new SearchRequest()
-		request.searchType SearchType.DFS_QUERY_THEN_FETCH
-		request.source(source)
-		
-		def result = elasticSearchService.search(request, [
-			indices: Content,
-			types: Content
-		])
-		
-		return result
-	}
+    private final static double __DEFAULT_DISTANCE = 100;
+
+    def elasticSearchService
+
+    def grailsApplication
+
+    /**
+     * Search content by given parameters
+     * @param channelName
+     * @param categoryName
+     * @param queryString
+     * @param geoPoint
+     * @param distance
+     * @param params include offset, size
+     * @return
+     */
+    def searchContent(String channelName, String categoryName, String queryString, GeoPoint geoPoint, Double distance, params) {
+
+        // default sort by datePosted
+        def sortByPostDate = SortBuilders.fieldSort("datePosted").order(SortOrder.DESC)
+
+        // setup geo search sorter
+        def sortByNear = null
+        if (geoPoint) {
+            log.info "Sort by GeoPoint(lat: ${geoPoint.lat} , lon: ${geoPoint.lon})"
+
+            sortByNear = SortBuilders.
+                    geoDistanceSort("location").
+                    point(geoPoint.lat, geoPoint.lon).
+                    unit(DistanceUnit.KILOMETERS).
+                    order(SortOrder.ASC)
+        }
+
+        // must have channel name
+        def query = QueryBuilders
+                .boolQuery()
+                .must(QueryBuilders
+                .hasParentQuery("channel", QueryBuilders.matchQuery("name", channelName)))
+
+        // has a query string
+        if (queryString) {
+            query = query.must(QueryBuilders.queryString(queryString))
+        }
+
+        def filters = []
+
+        // when give category name than add filter
+        if (categoryName) {
+            def categoryQuery = QueryBuilders
+                    .boolQuery()
+                    .must(QueryBuilders.matchQuery("categories.name", categoryName))
+
+            filters << FilterBuilders.nestedFilter("categories", categoryQuery)
+        }
+
+        // when give geoPoint than add distance filter
+        if (geoPoint) {
+            filters << FilterBuilders.geoDistanceFilter("location")
+                    .point(geoPoint.lat, geoPoint.lon)
+                    .distance(distance?:__DEFAULT_DISTANCE, DistanceUnit.KILOMETERS)
+                    .optimizeBbox("memory")
+                    .geoDistance(GeoDistance.ARC)
+        }
+
+        SearchSourceBuilder source = new SearchSourceBuilder()
+
+        source.from(params.offset ? params.offset as int : 0)
+        source.size(params.size ? params.size as int : 100)
+
+        source.query(query)
+
+        if (sortByNear) {
+            source.sort(sortByNear)
+        }
+
+        source.sort(sortByPostDate)
+
+        // setup post filters
+        if (filters) {
+            source.postFilter(FilterBuilders.andFilter(filters.toArray(new FilterBuilder[0])))
+        }
+
+        SearchRequest request = new SearchRequest()
+        request.searchType SearchType.DFS_QUERY_THEN_FETCH
+        request.source(source)
+
+        def results = elasticSearchService.search(request, [
+                indices: Content,
+                types  : Content
+        ])
+
+        // get missing fields in search result
+        results.searchResults.collect { Content.get(it.id) }
+    }
 }

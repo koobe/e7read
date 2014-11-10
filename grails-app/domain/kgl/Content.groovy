@@ -25,6 +25,8 @@ class Content {
 
     Boolean isShowContact = false
 
+    Boolean isShowLocation = true
+
     Date dateCreated
     Date lastUpdated
 	

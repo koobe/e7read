@@ -79,6 +79,12 @@ function controlUploader() {
 }
 
 function postContent() {
+
+    var contentText = $('#content-editing-textarea').val();
+    if (!contentText || $.trim(contentText)=='') {
+        alert("Please write some text in the editing area.");
+        return;
+    }
 	
 	console.log('images: ' + s3fileId);
 	console.log('categorys: ' + categorys);
@@ -101,11 +107,12 @@ function postContent() {
 			s3fileId: s3fileids,
 			categorysData: categorysData,
             references: $('input[name=references]').val(),
-			contentText: $('#content-editing-textarea').val()
+			contentText: $('#content-editing-textarea').val(),
+            isShowLocation: $('input[name=isShowLocation]:checked').val()
 		},
 		success:function(data,textStatus){
 			var channel = getQueryVariable("channel");
-            window.location.replace($('meta[name=url2redirect]').attr('content') + "/" + channel);
+            //window.location.replace($('meta[name=url2redirect]').attr('content') + "/" + channel);
             console.log(data);
         },
 		error:function(XMLHttpRequest,textStatus,errorThrown){alert('error');}

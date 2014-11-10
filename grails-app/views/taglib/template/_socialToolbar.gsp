@@ -1,6 +1,6 @@
 <div class="pull-right social-toolbar">
 
-    <g:if test="${content.location}">
+    <g:if test="${content.location&&content.isShowLocation}">
         <g:link controller="map" action="explore" params="[center: content.location?.lat+','+content.location?.lon]">
             <i class="fa fa-map-marker"></i>
             ${content.location?.city}

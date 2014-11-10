@@ -112,7 +112,7 @@ function postContent() {
 		},
 		success:function(data,textStatus){
 			var channel = getQueryVariable("channel");
-            //window.location.replace($('meta[name=url2redirect]').attr('content') + "/" + channel);
+            window.location.replace($('meta[name=url2redirect]').attr('content') + "/" + channel);
             console.log(data);
         },
 		error:function(XMLHttpRequest,textStatus,errorThrown){alert('error');}

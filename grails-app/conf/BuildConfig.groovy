@@ -71,6 +71,12 @@ grails.project.dependency.resolution = {
 
         // Thumbnailator - a thumbnail generation library for Java
         compile 'net.coobird:thumbnailator:0.4.7'
+
+
+        // for markdown plugin dependencies
+        //runtime 'org.parboiled:parboiled-core:1.1.6'
+        //runtime 'org.parboiled:parboiled-java:1.1.6'
+        runtime 'org.pegdown:pegdown:1.4.2'
     }
 
     plugins {
@@ -116,11 +122,15 @@ grails.project.dependency.resolution = {
         // Grails Resources Plugin
         //runtime ':resources:1.2.8'
 
-        compile ":elasticsearch:0.0.3.3"
+        compile ":elasticsearch:0.0.3.5"
         //compile ":searchable:0.6.8"
 		
 		// markdown plugin
-		compile ":markdown:1.1.1"
+		compile (":markdown:1.1.1") {
+            //excludes 'asm', 'asm-util', 'asm-tree', 'asm-analysis'
+            //excludes 'parboiled-core', 'parboiled-java'
+            excludes 'pegdown'
+        }
 
         // Provides Mail support to a running Grails application
         compile ":mail:1.0.7"

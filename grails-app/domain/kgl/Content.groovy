@@ -91,17 +91,25 @@ class Content {
         ownerEmail nullable: true
         location nullable: true
     }
+
+    def beforeValidate() {
+        __field_initialize()
+    }
 	
 	def beforeInsert() {
-		//if (datePosted == null) {
+        __field_initialize()
+	}
+
+    private void __field_initialize() {
+        //if (datePosted == null) {
         if (datePosted == NULL_DATE) {
-			datePosted = new Date()
-		}
-		if (isShowContact == null) {
-			isShowContact = false
-		}
+            datePosted = new Date()
+        }
+        if (isShowContact == null) {
+            isShowContact = false
+        }
         if (isShowLocation == null) {
             isShowLocation = true
         }
-	 }
+    }
 }

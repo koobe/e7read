@@ -4,6 +4,8 @@ import grails.plugin.geocode.Point
 
 class TemplateTagLib {
 
+    def markdownService
+
     def geocodingService
 
     static namespace = "template"
@@ -28,7 +30,9 @@ class TemplateTagLib {
 	}
 	
 	def containerTexts = { attrs, body ->
-		out << render(template: '/template/component/container_texts', model: [content: attrs.content])
+        //def contentTexts = attrs.content?.textSegments?.collect { markdownService.sanitize(it.text) }
+		//out << render(template: '/template/component/container_texts', model: [contentTexts: contentTexts])
+        out << render(template: '/template/component/container_texts', model: [content: attrs.content])
 	}
 	
 	def containerPicturesType1 = { attrs, body ->

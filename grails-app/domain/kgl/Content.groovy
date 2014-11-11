@@ -97,10 +97,10 @@ class Content {
         if (datePosted == NULL_DATE) {
 			datePosted = new Date()
 		}
-		if (isShowContact === null) {
+		if (isShowContact == null) {
 			isShowContact = false
 		}
-        if (isShowLocation === null) {
+        if (isShowLocation == null) {
             isShowLocation = true
         }
 	 }

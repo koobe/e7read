@@ -94,10 +94,28 @@
             <input type="hidden" name="lon" value="${contentInstance.location?.lon}" />
             <input type="hidden" name="geolocation" value="${contentInstance.location?.lat},${contentInstance.location?.lon}" />
 
+            <span>所在位置</span>
+
+            &nbsp;
+
             <g:link controller="map" action="prompt" class="location-link" target="_blank">
                 <i class="fa fa-map-marker"></i>
                 <span id="locationDisplayName">${contentInstance.location?.city?:'地點未設定'}</span>
             </g:link>
+
+            &nbsp;
+
+            <div class="btn-group" data-toggle="buttons" style="display: inline-block">
+                <label class="btn btn-default ${contentInstance.isShowLocation?'active':''}">
+                    <input type="radio" name="isShowLocation" id="isShowLocation1" value="true" autocomplete="off" ${contentInstance.isShowLocation?'checked':''} />
+                    顯示
+                </label>
+                <label class="btn btn-default ${contentInstance.isShowLocation?'':'active'}">
+                    <input type="radio" name="isShowLocation" id="isShowLocation2" value="false" autocomplete="off" ${contentInstance.isShowLocation?'':'checked'} />
+                    隱藏
+                </label>
+            </div>
+
         </div>
         <div style="width: 10%" class="btn-item">
             <g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" ><g:message code="default.button.cancel.label" /></g:link>

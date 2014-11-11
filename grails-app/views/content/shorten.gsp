@@ -35,6 +35,12 @@
     <p>Content code is:</p>
     <p><code style="font-size:200%;">${hashcode}</code></p>
 
+    <p>
+        <a href="${createLink(controller: 'content', action: 'modifyByHash', params: [hash: hashcode], absolute: true)}" class="btn btn-default">
+            <i class="fa fa-edit"></i>
+            Edit Content
+        </a>
+    </p>
 
     <p>If you need to re-edit this content in the future, please use the following url:</p>
     <p><g:link controller="content" action="modifyByHash" params="[hash: hashcode]">${createLink(controller: 'content', action: 'modifyByHash', params: [hash: hashcode], absolute: true)}</g:link></p>

@@ -94,7 +94,7 @@ class TemplateService {
 
         def writer = new StringWriter()
 		
-		groovyPagesTemplateEngine.createTemplate(template?.html, "template-" + template?.name)
+		//groovyPagesTemplateEngine.createTemplate(template?.html, "template-" + template?.name)
 
         groovyPagesTemplateEngine
                 .createTemplate(template?.html, "template-" + template?.name)?.make([channel: content.channel?.name ,content: content, shareUrl: shareUrl])?.writeTo(writer)

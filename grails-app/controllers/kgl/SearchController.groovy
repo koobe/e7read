@@ -21,6 +21,8 @@ class SearchController {
      * @return
      */
     def content() {
+		
+		log.info(params);
 
         String channelName = params.channel?:grailsApplication.config.grails.application.default_channel
         String categoryName = params.c
@@ -34,18 +36,60 @@ class SearchController {
             double lon = latlon[1] as double
             geoPoint = new GeoPoint(lat: lat, lon: lon)
         }
-
-        render searchService.searchContent(channelName, categoryName, queryString, geoPoint, distance, params).collect {
+		
+		def searchResult = searchService.searchContent(channelName, categoryName, queryString, geoPoint, distance, params);
+		
+		def contents = searchResult.searchResults.collect { Content.get(it.id) }
+		
+		render contents.collect {
             [
-                    cropTitle  : it.cropTitle,
-                    cropText   : it.cropText,
-                    location   : [lat: it.location?.lat, lon: it.location?.lon],
-                    shareUrl   : createLink(controller: 'content', action: 'share', id: it.id, absolute: true),
-                    coverUrl   : it.coverUrl,
-                    channel    : it.channel?.name,
-                    categories : it.categories?.collect { it.name }
+                cropTitle  : it.cropTitle,
+                cropText   : it.cropText,
+                location   : [lat: it.location?.lat, lon: it.location?.lon],
+                shareUrl   : createLink(controller: 'content', action: 'share', id: it.id, absolute: true),
+                coverUrl   : it.coverUrl,
+                channel    : it.channel?.name,
+                categories : it.categories?.collect { it.name }
             ]
         } as JSON
     }
+	
+	def contents() {
+		
+		log.info(params);
+		
+		String channelName = params.channel?:grailsApplication.config.grails.application.default_channel
+		String categoryName = params.c
+		def queryString = params.q
+		GeoPoint geoPoint = null
+		def distance = params.distance
 
+		if (params.geo) {
+			def latlon = params.geo.split(',')
+			double lat = latlon[0] as double
+			double lon = latlon[1] as double
+			geoPoint = new GeoPoint(lat: lat, lon: lon)
+		}
+		
+		def searchResult = searchService.searchContent(channelName, categoryName, queryString, geoPoint, distance, params);
+		
+		searchResult.searchResults.each { result ->
+//			def content = Content.get(result.id)
+//			if (content && !content.isDelete && !content.isPrivate && content.channel.name.equals(channelName)) {
+//				contentList << content
+//			}
+			log.info result.id
+			log.info "user name: ${result.user.fullName}"
+			
+			log.info result.user as JSON
+			
+			log.info result.location.city
+			result.categories.each {
+				log.info it.name
+			}
+		}
+
+		JSON.use("deep")
+		render searchResult.searchResults as JSON
+	}
 }

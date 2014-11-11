@@ -3,6 +3,18 @@ package kgl
 import grails.plugin.geocode.Point
 
 class GeoPoint {
+	
+	def geocodingService
+	
+	static searchable = {
+		root false
+//		only = ['id', 'lat', 'lon', 'country', 'city']
+//		
+//		country index: "no"
+//		city index: "no"
+	}
+	
+	Long id
 
     Double lat
     Double lon
@@ -11,12 +23,6 @@ class GeoPoint {
     String city
     String region
     String address
-
-    def geocodingService
-
-    static searchable = {
-        root false
-    }
 
     static constraints = {
         country nullable: true

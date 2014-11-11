@@ -3,7 +3,20 @@ package kgl
 class User {
 
 	transient springSecurityService
+	
+	static searchable = {
+		only = [
+			'id', 
+//			'location', 
+			'username', 
+			'fullName', 
+			'email'
+		]
+//		location geoPoint: true, component: true
+	}
 
+	Long id
+	
 	String username
 	String password
 
@@ -26,11 +39,6 @@ class User {
     String lastIPAddress
 
     GeoPoint location
-
-    static searchable = {
-        only = ['location', 'username', 'fullName', 'email']
-        location geoPoint: true, component: true
-    }
 
     static hasMany = [oAuthIDs: OAuthID]
 

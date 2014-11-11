@@ -109,6 +109,6 @@ class SearchService {
         ])
 
         // get missing fields in search result
-        results.searchResults.collect { Content.get(it.id) }
+        results //.searchResults.collect { Content.get(it.id) }
     }
 }

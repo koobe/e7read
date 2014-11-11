@@ -3,19 +3,30 @@ package kgl
 class Content {
 
     static searchable = {
-        only = ['cropTitle', 'cropText', 'lastUpdated', 'datePosted', 'location', 'channel', 'categories']
-        
-		location geoPoint: true, component: true
+        only = [
+			'user', 
+			'cropTitle', 'cropText', 'lastUpdated', 'datePosted', 
+			'location', 'channel', 'categories', 
+			'coverUrl', 'isPrivate', 'isDelete'
+		]
+		
+		
 		channel parent: true, component: true
+		user component: true
 		categories component: true
+		location geoPoint: true, component: true
+		
+		coverUrl index: "no"
+		isPrivate index: "not_analyzed"
+		isDelete index: "not_analyzed"
     }
-
-    GeoPoint location
 
     String id
 
 	String cropTitle
 	String cropText
+	
+	GeoPoint location
 	
 	String coverUrl
 	
@@ -23,7 +34,7 @@ class Content {
 	Boolean isPrivate
 	Boolean isDelete
 
-    Boolean isShowContact = false
+    Boolean isShowContact
 
     Date dateCreated
     Date lastUpdated
@@ -80,6 +91,9 @@ class Content {
 	def beforeInsert() {
 		if (datePosted == null) {
 			datePosted = new Date()
+		}
+		if (isShowContact == null) {
+			isShowContact = false
 		}
 	 }
 }

@@ -859,6 +859,8 @@ class ContentController {
             contentInstance.references = params.references
         }
 
+        contentInstance.isShowLocation = params.getBoolean('isShowLocation')
+
 		contentInstance.validate()
 		log.info contentInstance.errors
 		

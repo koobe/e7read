@@ -81,10 +81,27 @@
             <input type="hidden" name="geolocation" value="${lat},${lon}" />
 
 
+            <span>所在位置</span>
+
+            &nbsp;
+
             <g:link controller="map" action="prompt" class="location-link" target="_blank">
                 <i class="fa fa-map-marker"></i>
                 <span id="locationDisplayName">${location?:'地點未設定'}</span>
             </g:link>
+
+            &nbsp;
+
+            <div class="btn-group" data-toggle="buttons" style="display: inline-block">
+                <label class="btn btn-default active">
+                    <input type="radio" name="isShowLocation" id="isShowLocation1" value="true" autocomplete="off" checked>
+                    顯示
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="isShowLocation" id="isShowLocation2" value="false" autocomplete="off">
+                    隱藏
+                </label>
+            </div>
         </div>
         <div style="width: 10%" class="btn-item">
             <g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" ><g:message code="default.button.cancel.label" /></g:link>
@@ -128,6 +145,10 @@ $(function() {
                 $('#locationDisplayName').text(data.display);
             }
         });
+    });
+
+    $('input[name=isShowLocation]').unbind('click').change(function() {
+        //do nothing
     });
 });
 </script>

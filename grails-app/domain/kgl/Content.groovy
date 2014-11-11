@@ -2,6 +2,8 @@ package kgl
 
 class Content {
 
+    private static final Date NULL_DATE = new Date(0)
+
     static searchable = {
         only = [
 			'user', 
@@ -36,7 +38,7 @@ class Content {
 
     Boolean isShowContact
 
-    Boolean isShowLocation = true
+    Boolean isShowLocation
 
     Date dateCreated
     Date lastUpdated
@@ -91,11 +93,15 @@ class Content {
     }
 	
 	def beforeInsert() {
-		if (datePosted == null) {
+		//if (datePosted == null) {
+        if (datePosted == NULL_DATE) {
 			datePosted = new Date()
 		}
-		if (isShowContact == null) {
+		if (isShowContact === null) {
 			isShowContact = false
 		}
+        if (isShowLocation === null) {
+            isShowLocation = true
+        }
 	 }
 }

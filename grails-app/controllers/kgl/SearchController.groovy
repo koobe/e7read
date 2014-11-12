@@ -42,12 +42,24 @@ class SearchController {
 		def contents = searchResult.searchResults.collect { Content.get(it.id) }
 		
 		render contents.collect {
+
+            def iconUrl = it.iconUrl
+
+            if (!iconUrl) {
+                iconUrl = it.categories?.getAt(0)?.iconUrl
+            }
+
+            if (!iconUrl) {
+                iconUrl = it.channel?.iconUrl
+            }
+
             [
                 cropTitle  : it.cropTitle,
                 cropText   : it.cropText,
                 location   : [lat: it.location?.lat, lon: it.location?.lon],
                 shareUrl   : createLink(controller: 'content', action: 'share', id: it.id, absolute: true),
                 coverUrl   : it.coverUrl,
+                iconUrl    : iconUrl,
                 channel    : it.channel?.name,
                 categories : it.categories?.collect { it.name }
             ]

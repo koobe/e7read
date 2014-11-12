@@ -52,6 +52,14 @@ class MetadataBootStrap {
 							channel.canAnonymous = node.canAnonymous
 						}
 					}
+
+                    if (node.iconUrl) {
+                        channel.iconUrl = node.iconUrl
+                    }
+                    else {
+                        // use default icon
+                        channel.iconUrl = grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
+                    }
 					
 					channel.save flush: true
 				}

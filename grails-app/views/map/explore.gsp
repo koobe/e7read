@@ -171,7 +171,7 @@ $( document ).on( "pageinit", "#map-page", function() {
                     title: content.cropTitle,
                     draggable: false,
                     animation: google.maps.Animation.DROP,
-                    icon: $('meta[name=e7read-default-icon]').attr('content')
+                    icon: content.iconUrl?content.iconUrl:$('meta[name=e7read-default-icon]').attr('content')
                 });
 
                 searchMarkers.push(marker);

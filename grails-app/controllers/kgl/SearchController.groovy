@@ -88,21 +88,21 @@ class SearchController {
 		
 		def searchResult = searchService.searchContent(channelName, categoryName, queryString, geoPoint, distance, params);
 		
-		searchResult.searchResults.each { result ->
-//			def content = Content.get(result.id)
-//			if (content && !content.isDelete && !content.isPrivate && content.channel.name.equals(channelName)) {
-//				contentList << content
+//		searchResult.searchResults.each { result ->
+////			def content = Content.get(result.id)
+////			if (content && !content.isDelete && !content.isPrivate && content.channel.name.equals(channelName)) {
+////				contentList << content
+////			}
+//			log.info result.id
+//			log.info "user name: ${result.user.fullName}"
+//			
+//			log.info result.user as JSON
+//			
+//			log.info result.location.city
+//			result.categories.each {
+//				log.info it.name
 //			}
-			log.info result.id
-			log.info "user name: ${result.user.fullName}"
-			
-			log.info result.user as JSON
-			
-			log.info result.location.city
-			result.categories.each {
-				log.info it.name
-			}
-		}
+//		}
 
 		JSON.use("deep")
 		render searchResult.searchResults as JSON

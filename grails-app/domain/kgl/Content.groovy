@@ -104,7 +104,7 @@ class Content {
 
     private void __field_initialize() {
         //if (datePosted == null) {
-        if (datePosted == NULL_DATE) {
+        if (datePosted == null) {
             datePosted = new Date()
         }
         if (isShowContact == null) {

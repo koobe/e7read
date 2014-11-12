@@ -1,8 +1,11 @@
 package kgl
 
-import grails.plugin.springsecurity.annotation.Secured
+import grails.converters.JSON
+import grails.plugin.geocode.Point
 
 class MapController {
+	
+	def geocodingService
 
     def index() {}
 
@@ -76,6 +79,23 @@ class MapController {
 			zoom: 15,
 			content: content
 		]
+	}
+	
+	def geocoding() {
+		
+		def lat = params.lat as double
+		def lon = params.lon as double
+		
+		def addr = geocodingService.getAddress(new Point(latitude: lat, longitude: lon), [language: 'zh-TW'])
+		
+		def data = [:]
+		
+		data.country = addr.addressComponents[4].shortName //4
+		data.city = addr.addressComponents[3].shortName //3
+		data.region = addr.addressComponents[2].shortName //2
+		data.address = addr.addressComponents[0].shortName //0
+
+		render data as JSON
 	}
 
     /**

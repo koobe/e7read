@@ -1,5 +1,6 @@
 import groovy.json.JsonSlurper
-import kgl.*
+import kgl.Category
+import kgl.Channel
 
 /**
  * 
@@ -9,6 +10,8 @@ import kgl.*
 class MetadataBootStrap {
 	
 	def grailsApplication
+
+    def grailsLinkGenerator
 
     def init = { servletContext ->
 		
@@ -96,6 +99,16 @@ class MetadataBootStrap {
 						def channel = Channel.findByName(node.channel)
 						category.channel = channel
 					}
+
+                    if (node.iconUrl) {
+                        category.iconUrl = node.iconUrl
+                    }
+                    else {
+                        // use default icon
+                        category.iconUrl = grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
+                    }
+
+                    log.info "Icon URL: ${category.iconUrl}"
 					
 					category.save flush: true
 					owner.call(node.name, node.child)

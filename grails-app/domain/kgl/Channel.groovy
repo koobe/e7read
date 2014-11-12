@@ -16,6 +16,8 @@ class Channel {
 	Boolean isDefault
 	
 	String logoImg
+
+    String iconUrl      // icon for google map marker
 	
 	Boolean canAnonymous
 	
@@ -23,6 +25,7 @@ class Channel {
 		id maxSize: 32
 		logoImg nullable: true
 		canAnonymous nullable: true
+        iconUrl nullable: true, blank: true
     }
 	
 	static mapping = {

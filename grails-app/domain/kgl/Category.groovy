@@ -26,11 +26,14 @@ class Category {
 	
 	Integer order
 
+    String iconUrl      // icon for google map marker
+
     static constraints = {
         name size: 2..15, blank: false, unique: true
 		rankOnTop nullable: true
 		enable nullable: true
 		order nullable: true
+        iconUrl nullable: true, blank: true
     }
 	
 	static mapping = {

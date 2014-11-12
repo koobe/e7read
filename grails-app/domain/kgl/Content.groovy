@@ -31,6 +31,7 @@ class Content {
 	GeoPoint location
 	
 	String coverUrl
+    String iconUrl      // icon for google map marker
 	
 	Boolean hasPicture
 	Boolean isPrivate
@@ -90,6 +91,7 @@ class Content {
 		datePosted nullable: true
         ownerEmail nullable: true
         location nullable: true
+        iconUrl nullable: true, blank: true
     }
 
     def beforeValidate() {

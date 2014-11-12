@@ -2,6 +2,10 @@
 	<head>
 	    <meta name="layout" content="main"/>
 	    <title></title>
+	    
+	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+	    <script src="//code.angularjs.org/1.3.2/angular-resource.min.js"></script>
+	    
 	    <asset:javascript src="jquery.messagemanager.js"/>
 	    <asset:javascript src="jquery.loadingspinner.js"/>
 		<asset:stylesheet src="loadingspinner.css"/>
@@ -17,11 +21,23 @@
 		<asset:javascript src="content_show.js"/>
 	</head>
 	<body>
-		<div id="display-container" onclick="hideCategoryMenu()"><div class="content-pane">
-			<g:render template="header" model="[showcategorymenu: true, showsearchbar: true]" />
-			<g:render template="/content/contents_container" />
-			<g:render template="footer" />
-        </div></div>
+		<div id="display-container" onclick="hideCategoryMenu()" 
+			${params.channel=='trade'? 'ng-app=coverFlowApp scrolling': ''}>
+			<div class="content-pane">
+				
+				<g:render template="header" model="[showcategorymenu: true, showsearchbar: true]" />
+				
+				<g:if test="${params.channel == 'trade'}">
+					<g:render template="/content/content_coverflow_container"></g:render>
+				</g:if>
+				<g:else>
+					<g:render template="/content/contents_container" />
+				</g:else>
+				
+				<g:render template="footer" />
+				
+	        </div>
+        </div>
 		
 		<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home', channel: params.channel]" />
 		

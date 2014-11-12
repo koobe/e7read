@@ -1,9 +1,23 @@
-@import url(http://fonts.googleapis.com/css?family=Fascinate);
 @import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
 @import url(http://fonts.googleapis.com/earlyaccess/cwtexhei.css);
 @import url(http://fonts.googleapis.com/earlyaccess/cwtexkai.css);
 @import url(http://fonts.googleapis.com/earlyaccess/cwtexming.css);
 @import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+@import url(http://fonts.googleapis.com/css?family=Stardos+Stencil:400,700);
+
+@media screen and (min-width: 769px) {
+	.flow-container {
+		max-width: 960px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.flow-container {
+		max-width: 500px;
+	}
+}
+
 
 .div-bg-thumbnail-cover {
 	border-radius: 5px;
@@ -30,15 +44,19 @@
 			
 			.block-image-title {
 				position: relative;
-				top: 120px;
-				padding: 0px 10px 0px 10px;
+				top: 85px;
+				padding: 12px 10px 12px 10px;
+				margin-left: 30px;
 				
-				font-family: 'cwTeXHei', 'Fascinate', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+				background-color: rgba(120, 120, 120, 0.6);
 				
+				font-family: 'cwTeXHei', 'Stardos Stencil', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+
 				.title {
-					font-family: 'cwTeXHei', 'Fascinate', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+					font-family: 'cwTeXHei', 'Stardos Stencil', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
 					color: #FFF;
 					font-weight: 700;
+					text-align: left;
 					
 					overflow : hidden;
 					white-space: nowrap;
@@ -46,9 +64,11 @@
 				}
 				
 				.location {
-					font-family: 'cwTeXHei', 'Fascinate', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+					padding-top: 5px;
+					font-family: 'cwTeXHei', 'Stardos Stencil', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
 					color: #FFF;
 					font-size: 0.7em;
+					text-align: left;
 				}
 			}
 		}

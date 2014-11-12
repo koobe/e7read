@@ -19,6 +19,10 @@
 		
 		<asset:javascript src="e7read.contentloading.js"/>
 		<asset:javascript src="content_show.js"/>
+		
+		<g:if test="${params.channel != 'trade'}">
+			<asset:javascript src="e7read.geolocation.js"/>
+		</g:if>
 	</head>
 	<body>
 		<div id="display-container" onclick="hideCategoryMenu()" 

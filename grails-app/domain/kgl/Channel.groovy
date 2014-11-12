@@ -4,7 +4,7 @@ class Channel {
 	
 	static searchable = {
 //		root false
-		only = ['id', 'name']
+		only = ['id', 'name', 'iconUrl']
 	}
 	
 //	static searchable = true

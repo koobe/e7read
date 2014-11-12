@@ -39,9 +39,9 @@ class SearchController {
 		
 		def searchResult = searchService.searchContent(channelName, categoryName, queryString, geoPoint, distance, params);
 		
-		def contents = searchResult.searchResults.collect { Content.get(it.id) }
+		//def contents = searchResult.searchResults.collect { Content.get(it.id) }
 		
-		render contents.collect {
+		render searchResult.searchResults.collect {
 
             def iconUrl = it.iconUrl
 
@@ -53,6 +53,8 @@ class SearchController {
                 iconUrl = it.channel?.iconUrl
             }
 
+            println it.channel
+
             [
                 cropTitle  : it.cropTitle,
                 cropText   : it.cropText,
@@ -63,6 +65,7 @@ class SearchController {
                 channel    : it.channel?.name,
                 categories : it.categories?.collect { it.name }
             ]
+
         } as JSON
     }
 	

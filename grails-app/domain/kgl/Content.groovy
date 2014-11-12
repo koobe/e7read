@@ -9,7 +9,7 @@ class Content {
 			'user', 
 			'cropTitle', 'cropText', 'lastUpdated', 'datePosted', 
 			'location', 'channel', 'categories', 
-			'coverUrl', 'isPrivate', 'isDelete'
+			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete'
 		]
 		
 		

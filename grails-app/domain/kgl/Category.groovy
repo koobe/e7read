@@ -4,7 +4,7 @@ class Category {
 	
 	static searchable = {
 		root false
-		only = ['id', 'name']
+		only = ['id', 'name', 'iconUrl']
 	}
 
 	static belongsTo = [

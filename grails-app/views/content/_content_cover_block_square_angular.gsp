@@ -1,10 +1,9 @@
 <div class="content-cover-block-square col-xs-12 col-sm-4 col-md-3" ng-repeat="content in contents">
 	<div class="block-body" ng-click="openContent(content.id)">
 		<div class="div-bg-thumbnail-cover block-title-image" style="
-			background-image:url({{ content.coverUrl }});
 			height: 170px;
-			width: 100%;
-		">
+			width: 100%;"
+			ng-style="{ 'background-image': 'url(' + content.coverUrl + ')' }">
 			<div class="block-image-title">
 				<div class="title">{{ content.cropTitle }}</div>
 				<div class="location">

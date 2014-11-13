@@ -22,30 +22,22 @@
 			<g:render template="/category/category_panel" />
 		</div>
 	</g:if>
-	
-	<!-- 
-	<div class="header-search-usermenu">
-		<div class="display-table">
-		 -->
-		 	<g:if test="${showsearchbar}">
-				<div class="header-search">
-			        <g:form uri="" role="search" class="" method="get">
-			        	<div class="input-group">
-			        	<span class="input-group-addon koobe-bg-color">
-						        <i class="fa fa-search"></i>
-						    </span>
-						    <g:textField id="text-search" name="q" class="form-control input-search" value="${params.q? params.q: ''}"/>
-						    
-					    </div>
-					    <!--<g:hiddenField name="from" value="0" />
-						<g:hiddenField name="size" value="5" />-->
-					</g:form>
-				</div>
-			</g:if>
-			<div class="header-usermenu">
-				<g:render template="/home/usermenu" />
+		
+	<div class="header-usermenu">
+		<g:if test="${showsearchbar}">
+			<div class="search-form">
+				<g:form uri="" role="search" class="" method="get">
+		        	<div class="input-group">
+		        	<span class="input-group-addon koobe-bg-color">
+					        <i class="fa fa-search"></i>
+					    </span>
+					    <g:textField id="text-search" name="q" class="form-control input-search" value="${params.q? params.q: ''}"/>
+				    </div>
+				</g:form>
 			</div>
-			<!-- 
-		</div>
-	</div> -->
+		</g:if>
+		
+		<g:render template="/home/usermenu" />
+	</div>
+			
 </div>

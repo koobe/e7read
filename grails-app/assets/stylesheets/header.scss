@@ -26,16 +26,18 @@
 			vertical-align: bottom;
 		}
 
-		.header-search {
+		/* .header-search {
+			border: 1px solid red;
 			display: table-cell;
 			vertical-align: bottom;
 			text-align: right;
 			width:15%;
-
-			form {
-				input {
-				}
-			}
+		} */
+		
+		.search-form {
+			display: inline-block;
+			max-width: 150px;
+			padding-right: 10px;
 		}
 
 		.header-usermenu {
@@ -43,8 +45,6 @@
 			vertical-align: bottom;
 			text-align: right;
 			padding-left: 15px;
-
-			width: 1%;
 		}
 	}
 }
@@ -73,6 +73,7 @@
 			width: 100%;
 		}
 
+		/*
 		.header-search {
 			text-align: right;
 			padding-top: 5px;
@@ -82,6 +83,11 @@
 			input {
 				height: 30px;
 			}
+		} */
+		
+		.search-form {
+			padding-bottom: 10px;
+			padding-right: 20px;
 		}
 
 		.header-usermenu {
@@ -104,11 +110,15 @@
 }
 
 .usermenu-table {
+	display: inline-block;
 	float:right;
-	display: table;
 	background-color: #94E6DA;
 	div {
-		display: table-cell;
+		display: inline-block;
+		a {
+			padding-right: 7px;
+			padding-left: 7px;	
+		}
 	}
 }
 

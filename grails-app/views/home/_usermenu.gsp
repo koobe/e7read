@@ -17,18 +17,18 @@
                 <!-- <sec:loggedInUserInfo field="fullName"/> -->
             </g:link>
 	    </div>
-	    <div style="height: 34px; overflow: auto;">
+	    <div style="margin-bottom: -20px; margin-right: -20px">
             <g:link uri="/message/index" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-envelope"></i>
             </g:link>
-            <span id="unread-message-count" style="
+            <div id="unread-message-count" style="
 	            color: red; 
 	            font-size: 0.6em; 
 	            font-weight: 700; 
 	            position: relative; 
-	            bottom:20px; 
-	            right: 5px; 
-	            float: right;">${unreadMsgCount}</span>
+	            top: 7px;
+	            left: -20px;
+	            ">${unreadMsgCount}</div>
 	    </div>
         <div>
             <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">

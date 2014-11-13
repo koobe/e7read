@@ -12,6 +12,8 @@
 <asset:javascript src="jquery.form.min.js"/>
 <asset:javascript src="category_menu.js"/>
 
+<asset:javascript src="e7read.geolocation.js"/>
+
 <sec:ifLoggedIn>
     <meta name="url2redirect" content="${createLink(controller: 'content', action: 'personal')}">
 </sec:ifLoggedIn>

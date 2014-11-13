@@ -86,7 +86,8 @@ class SearchController {
 			geoPoint = new GeoPoint(lat: lat, lon: lon)
 		}
 		
-		def searchResult = searchService.searchContent(channelName, categoryName, queryString, geoPoint, distance, params);
+		def searchResult = searchService.searchContent(channelName, categoryName, queryString, 
+			geoPoint, distance? distance as double: null, params);
 		
 //		searchResult.searchResults.each { result ->
 ////			def content = Content.get(result.id)

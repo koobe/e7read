@@ -21,6 +21,7 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 	// create search parameters
 	var params = {};
 	params.channel = channel;
+	params.distance = 5000;
 	if (categoryName) {
 		params.c = categoryName
 	}

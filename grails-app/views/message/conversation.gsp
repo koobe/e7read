@@ -14,19 +14,9 @@
 	</head>
 	<body id="mybody">
 			<nav>
-				<div class="layout-table" style="padding: 10px 0px 15px 0px;">
-					<div class="layout-table-cell" style="background-color: #89E2D5; 
-							height: 30px; font-size:1.4em; color: white; font-weight: 700;
-							padding: 0px 70px 0px 50px; vertical-align:middle;">
-						<i class="fa fa-envelope"></i>
-						<span>訊息</span>
-					</div>
-					<div class="layout-table-cell" style="vertical-align:middle;">
-						<img src="/assets/arrow_30.png">
-					</div>
-				</div>	
+				<g:render template="/home/section_title" model="[sectionTitle: '訊息', fontAwesome:'fa-envelope']"></g:render>
 			</nav>
-		
+			
 			<div class="message-content-container">
 				<div class="message-content">
 					<div class="message-content-btn-loadmore" style="text-align:center; display: none;">

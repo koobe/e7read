@@ -6,19 +6,6 @@
 
 @import url(http://fonts.googleapis.com/css?family=Stardos+Stencil:400,700);
 
-@media screen and (min-width: 769px) {
-	.flow-container {
-		max-width: 960px;
-	}
-}
-
-@media screen and (max-width: 768px) {
-	.flow-container {
-		max-width: 500px;
-	}
-}
-
-
 .div-bg-thumbnail-cover {
 	border-radius: 5px;
 	background-position: center;

@@ -31,7 +31,7 @@
 		});
 	});
 </script>
-<div class="container flow-container" ng-controller="CoverFlowController">
+<div class="container" ng-controller="CoverFlowController">
 	<div style="border: 1px solid white; padding: 10px 5px 10px 4px;">
 		
 		<div style="display:inline-block; vertical-align: middle;" ng-controller="GPlacesAutoCompCtrl">

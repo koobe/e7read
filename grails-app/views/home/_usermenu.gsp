@@ -17,7 +17,7 @@
                 <!-- <sec:loggedInUserInfo field="fullName"/> -->
             </g:link>
 	    </div>
-	    <div style="margin-bottom: -20px; margin-right: -20px">
+	    <div style="margin-bottom: -20px; margin-right: -16px">
             <g:link uri="/message/index" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-envelope"></i>
             </g:link>
@@ -27,8 +27,8 @@
 	            font-weight: 700; 
 	            position: relative; 
 	            top: 7px;
-	            left: -20px;
-	            ">${unreadMsgCount}</div>
+	            left: -16px;
+	            ">0</div>
 	    </div>
         <div>
             <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">

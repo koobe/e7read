@@ -46,9 +46,11 @@
 <sec:ifNotLoggedIn>
 	<div class="usermenu-table">
         <div>
-            <g:link uri="/content/create/${channel.name}" class="koobe-btn koobe-btn-normal">
-                <i class="fa fa-pencil"></i> <!-- Create -->
-            </g:link>
+        	<g:if test="${channel.canAnonymous}">
+	            <g:link uri="/content/create/${channel.name}" class="koobe-btn koobe-btn-normal">
+	                <i class="fa fa-pencil"></i> <!-- Create -->
+	            </g:link>
+            </g:if>
         </div>
         <div>
             <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">
@@ -56,10 +58,14 @@
             </g:link>
         </div>
 		<div>
+			<!-- 
 			<oauth:connect provider="facebook" id="facebook-connect-link" class="koobe-btn koobe-btn-normal">
 		        <span class="fa fa-facebook-square"></span>
-		        <!-- Sign-in with Facebook -->
-		    </oauth:connect>
+		        <!-- Sign-in with Facebook
+		    </oauth:connect> -->
+		    <g:link uri="/login/auth" class="koobe-btn koobe-btn-normal">
+                <i class="fa fa-sign-in"></i>
+            </g:link>
 		</div>
 		<div class="menu-blank">&nbsp;</div>
 	</div>

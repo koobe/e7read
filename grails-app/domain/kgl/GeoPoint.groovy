@@ -47,4 +47,28 @@ class GeoPoint {
         region = addr.addressComponents[2].shortName //2
         address = addr.addressComponents[0].shortName //0
     }
+	
+	def getLocationName() {
+		
+		def locationName = ''
+		
+		if (country == null && city == null && region == null && address == null) {
+			geocoding()
+		}
+		
+		def ls = []
+		
+		
+		if (region) {
+			ls.add(region)
+		}
+		if (city) {
+			ls.add(city)
+		}
+		if (country) {
+			ls.add(country)
+		}
+		
+		return ls.join(' ')
+	}
 }

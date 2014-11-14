@@ -20,7 +20,8 @@ class MessageController {
     def index() {
 		[
 			max: MSGBOARD_PAGESIZE,
-			totalSize: MessageBoard.countByUserAOrUserB(springSecurityService.currentUser, springSecurityService.currentUser)
+			totalSize: MessageBoard.countByUserAOrUserB(springSecurityService.currentUser, springSecurityService.currentUser),
+			channel: session['channel']
 		]
 	}
 	

@@ -15,11 +15,10 @@
 	    </style>
 	</head>
 	<body id="mybody">
-		<nav>
-			<g:render template="/home/section_title" model="[sectionTitle: '訊息', fontAwesome:'fa-envelope']"></g:render>
-		</nav>
+		<g:render template="/home/header" model="[showcategorymenu: false, showsearchbar: false]" />
 	
 		<div class="container">
+			<g:render template="/home/section_title" model="[sectionTitle: '訊息', fontAwesome:'fa-envelope']"></g:render>
 		
 			<div id="messageboard-table">
 				<g:render template="messageboard_table"></g:render>

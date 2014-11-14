@@ -16,7 +16,7 @@
 <div class="container" style="max-width: 900px;">
 
 	<nav>
-		<g:render template="/home/section_title" model="[sectionTitle: 'Profile', fontAwesome: '']"></g:render>
+		<g:render template="/home/section_title" model="[sectionTitle: 'Profile', fontAwesome: 'fa-user']"></g:render>
 	</nav>
 
     <form class="form-horizontal" role="form">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-group">
-            <label class="col-xs-3 control-label">E-Mail:</label>
+            <label class="col-xs-3 control-label">Email:</label>
             <div class="col-xs-9">
                 <p class="form-control-static">${user.email}</p>
             </div>

@@ -21,11 +21,11 @@ if (typeof jQuery !== 'undefined') {
 }
 
 function confirmLogout() {
-	var r = confirm('Logout?');
-	if (r) {
+//	var r = confirm('Logout?');
+//	if (r) {
 		var channel = getQueryVariable("channel")
 		window.location.replace("/logout/index?channel=" + channel);
-	}
+//	}
 }
 
 function getQueryVariable(variable) {

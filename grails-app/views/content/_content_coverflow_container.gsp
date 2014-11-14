@@ -32,18 +32,17 @@
 	});
 </script>
 <div class="container" ng-controller="CoverFlowController">
-	<div style="border: 1px solid white; padding: 10px 5px 10px 4px;">
+	<div style="padding: 10px 5px 10px 4px;">
 		
 		<div style="display:inline-block; vertical-align: middle;" ng-controller="GPlacesAutoCompCtrl">
-			<span>附近：</span>
+			<a href="javascript:void(0);" ng-click="returnMyLocation()">我的位置</a>：
+			
 			<button id="place_button" class="btn btn-default" style="padding: 2px 11px 2px 11px;">
 				{{ locationName? locationName : '正在取得位置資訊...' }}
 			</button>
 			
 			<input id="place_input" type="text" class="gplaces-input" id="Autocomplete" ng-autocomplete="result" 
 				details="details" options="options" />
-				
-			<a href="javascript:void(0);" ng-click="returnMyLocation()">我的位置</a>
 		</div>
 		
 		<div style="display:inline-block; float:right; vertical-align: middle;">

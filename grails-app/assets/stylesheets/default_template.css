@@ -235,6 +235,7 @@ tr, td {
    	
    	.imagetitle-date {
 		
+		color: #fff;
 		font-size: 0.9em;
 		text-align: center;
 		
@@ -251,7 +252,7 @@ tr, td {
    	}
    	
    	.imagetitle-text > a {
-   		color: #DDD;
+   		color: #fff;
    		text-decoration: none;
    		letter-spacing: 1px;
    		font-weight: 700;

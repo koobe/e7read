@@ -117,10 +117,10 @@ class MetadataBootStrap {
 
                     if (node.iconUrl) {
                         if (node.iconUrl.startsWith('http://') || node.iconUrl.startsWith('https://')) {
-                            channel.iconUrl = node.iconUrl
+                            category.iconUrl = node.iconUrl
                         }
                         else {
-                            channel.iconUrl = grailsLinkGenerator.asset(src: "marker-32/${node.iconUrl}", absolute: true)
+                            category.iconUrl = grailsLinkGenerator.asset(src: "marker-32/${node.iconUrl}", absolute: true)
                         }
                     }
                     else {

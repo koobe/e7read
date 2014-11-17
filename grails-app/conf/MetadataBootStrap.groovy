@@ -65,6 +65,8 @@ class MetadataBootStrap {
                         // use default icon
                         channel.iconUrl = grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
                     }
+
+                    log.info "channel.iconUrl = ${channel.iconUrl}"
 					
 					channel.save flush: true
 				}
@@ -114,7 +116,12 @@ class MetadataBootStrap {
 					}
 
                     if (node.iconUrl) {
-                        category.iconUrl = node.iconUrl
+                        if (node.iconUrl.startsWith('http://') || node.iconUrl.startsWith('https://')) {
+                            channel.iconUrl = node.iconUrl
+                        }
+                        else {
+                            channel.iconUrl = grailsLinkGenerator.asset(src: "marker-32/${node.iconUrl}", absolute: true)
+                        }
                     }
                     else {
                         // use default icon

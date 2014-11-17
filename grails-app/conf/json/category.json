@@ -67,7 +67,8 @@
 			"rankOnTop" : 2,
 			"enable": true,
 			"order": 2,
-			"channel": "trade"
+			"channel": "trade",
+            "iconUrl": "clothes.png"
 		},
 		{
 			"name" : "makeup",
@@ -96,28 +97,32 @@
 			"child" : [],
 			"enable": true,
 			"order": 6,
-			"channel": "trade"
+			"channel": "trade",
+            "iconUrl": "book.png"
 		},
 		{
 			"name" : "sports",
 			"child" : [],
 			"enable": true,
 			"order": 7,
-			"channel": "trade"
+			"channel": "trade",
+            "iconUrl": "sport.png"
 		},
 		{
 			"name" : "collection",
 			"child" : [],
 			"enable": true,
 			"order": 8,
-			"channel": "trade"
+			"channel": "trade",
+            "iconUrl": "collection.png"
 		},
 		{
 			"name" : "others",
 			"child" : [],
 			"enable": true,
 			"order": 9,
-			"channel": "trade"
+			"channel": "trade",
+            "iconUrl": "others.png"
 		}
 	]
 }

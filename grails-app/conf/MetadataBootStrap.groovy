@@ -54,7 +54,12 @@ class MetadataBootStrap {
 					}
 
                     if (node.iconUrl) {
-                        channel.iconUrl = node.iconUrl
+                        if (node.iconUrl.startsWith('http://') || node.iconUrl.startsWith('https://')) {
+                            channel.iconUrl = node.iconUrl
+                        }
+                        else {
+                            channel.iconUrl = grailsLinkGenerator.asset(src: "marker-32/${node.iconUrl}", absolute: true)
+                        }
                     }
                     else {
                         // use default icon

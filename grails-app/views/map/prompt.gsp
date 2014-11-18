@@ -139,11 +139,9 @@ $( document ).on( "pageinit", "#map-page", function() {
         var lat = mymarker.getPosition().lat();
         var lng = mymarker.getPosition().lng();
 
-        console.log(window.parent.$('input[name=lat]'));
-
         window.opener.$('input[name=lat]').val(lat);
         window.opener.$('input[name=lon]').val(lng);
-        window.opener.$('input[name=geolocation]').val(lat+","+lng);
+        window.opener.$('input[name=geolocation]').val(lat + ',' + lng);
         window.opener.$('input[name=geolocation]').trigger('change');
 
 //        if (callbackFunction) {

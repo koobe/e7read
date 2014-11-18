@@ -51,6 +51,17 @@ class UserController {
 
         userInstance.properties = params
 
+        if (!userInstance.location) {
+            userInstance.location = new GeoPoint();
+        }
+
+        if (params.lat && params.lon) {
+            log.info "Update user location (${params.lat}, ${params.lon})"
+            userInstance.location.lat = Float.parseFloat(params.lat)
+            userInstance.location.lon = Float.parseFloat(params.lon)
+            userInstance.location.save flush: true
+        }
+
         if (userInstance.validate()) {
             userInstance.save flush: true
         }

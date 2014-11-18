@@ -7,7 +7,10 @@
 <script src="//cdn.ckeditor.com/4.4.1/standard/adapters/jquery.js"></script>
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>
-<style>
+
+<asset:javascript src="e7read.geolocation.js"/>
+
+<style type="text/css">
 #map-canvas { width: 100%; height: 320px; }
 </style>
 
@@ -91,11 +94,22 @@
         </div>
 
         <div class="form-group">
+
+            <input type="hidden" name="lat" value="${user.location?.lat}" />
+            <input type="hidden" name="lon" value="${user.location?.lon}" />
+            <input type="hidden" name="geolocation" value="${user.location?.lat},${user.location?.lon}" />
+
+
             <label class="col-sm-2 control-label">Location:</label>
             <div class="col-sm-10">
-                <i class="fa fa-map-marker"></i>
-                ${user.location.city}<br/>
 
+                <!-- Display Location -->
+                <g:link controller="map" action="prompt" class="location-link" target="_blank" title="Click to modify">
+                    <i class="fa fa-map-marker"></i>
+                    <span id="locationDisplayName">${user.location?.city}</span>
+                </g:link>
+
+                <!--
                 <div class="col-sm-6">
                     <div id="map-canvas"></div>
                 </div>
@@ -106,6 +120,7 @@
                     <br/>
                     <a href="#" id="customAddressSubmit" class="btn btn-default btn-block">Search</a>
                 </div>
+                -->
 
             </div>
         </div>
@@ -125,6 +140,7 @@
 $(function() {
     $('textarea[name="contact.description"]').ckeditor();
 
+    /*
     var myLatlng = new google.maps.LatLng(${user.location?.lat?:24}, ${user.location?.lon?:120});
 
     var mapOptions = {
@@ -186,6 +202,18 @@ $(function() {
             event.preventDefault();
             $('a#customAddressSubmit').trigger('click');
         }
+    });
+    */
+
+    $('input[name=geolocation]').change(function() {
+        var geolocation = $(this).val();
+        $.geoupdate({
+            lat: $('input[name=lat]').val(),
+            lon: $('input[name=lon]').val(),
+            callback: function(data) {
+                $('#locationDisplayName').text(data.display);
+            }
+        });
     });
 
 });

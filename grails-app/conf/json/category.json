@@ -59,7 +59,8 @@
 			"rankOnTop" : 1,
 			"enable": true,
 			"order": 1,
-			"channel": "trade"
+			"channel": "trade",
+			"iconUrl": "digital.png"
 		},
 		{
 			"name" : "clothes",
@@ -76,21 +77,24 @@
 			"rankOnTop" : 3,
 			"enable": true,
 			"order": 3,
-			"channel": "trade"
+			"channel": "trade",
+			"iconUrl": "cosmtic.png"
 		},
 		{
 			"name" : "food",
 			"child" : [],
 			"enable": true,
 			"order": 4,
-			"channel": "trade"
+			"channel": "trade",
+			"iconUrl": "food.png"
 		},
 		{
 			"name" : "living",
 			"child" : [],
 			"enable": true,
 			"order": 5,
-			"channel": "trade"
+			"channel": "trade",
+			"iconUrl": "home.png"
 		},
 		{
 			"name" : "books",

@@ -34,23 +34,18 @@ class ContentController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 5, 100)
-		def datas = Content.list(params)
-		println params.max
-        respond datas, model:[contentInstanceCount: Content.count()]
+    def index() {
+		[]
     }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def show(Content contentInstance) {
-//        respond contentInstance
 
         if (!contentInstance) {
             notFound()
             return
         }
 
-		//TODO FOR TEST
 		[
 			content: contentInstance
         ]
@@ -62,7 +57,11 @@ class ContentController {
 		def checkAction = checkContent(contentInstance)
 		
 		if (checkAction) {
-			redirect action: checkAction
+			if (checkAction.equals('deteted')) {
+				render view: 'hasdeleted', model: [channel: contentInstance.channel]
+			} else {
+				render view: 'haslocked', model: [channel: contentInstance.channel]
+			}
 		} else {
 		
 			def template = OriginalTemplate.get(params.template?.id)
@@ -210,7 +209,11 @@ class ContentController {
 		
 		def checkAction = checkContent(contentInstance)
 		if (checkAction) {
-			redirect action: checkAction
+			if (checkAction.equals('deteted')) {
+				render view: 'hasdeleted', model: [channel: contentInstance.channel]
+			} else {
+				render view: 'haslocked', model: [channel: contentInstance.channel]
+			}
 		} else {
 			render contentType: 'text/html', text: templateService.render(contentInstance)
 		}
@@ -997,16 +1000,6 @@ class ContentController {
 		} else if (content.isPrivate && (content.user != springSecurityService.currentUser)) {
 			action = 'locked'
 		}
-	}
-	
-	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-	def deteted() {
-		render view: 'hasdeleted'
-	}
-	
-	@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
-	def locked() {
-		render view: 'haslocked'
 	}
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])

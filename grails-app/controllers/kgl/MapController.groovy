@@ -7,6 +7,8 @@ class MapController {
 	
 	def geocodingService
 
+    def categoryService
+
     def index() {}
 
     def explore() {
@@ -32,18 +34,11 @@ class MapController {
             lon = latlon[1].toString().toDouble()
         }
 
-        final String __CATEGORIES_QUERY = """
-				select category
-				from Category as category
-				where enable = true and channel.name = :c
-				order by order asc
-			"""
-
         [
                 lat: lat,
                 lon: lon,
                 zoom: zoom,
-                categories: Category.executeQuery(__CATEGORIES_QUERY, [c: channel])
+                categories: categoryService.list(channel)
         ]
     }
 

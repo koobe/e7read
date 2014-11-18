@@ -9,7 +9,7 @@ class Content {
 			'user', 
 			'cropTitle', 'cropText', 'lastUpdated', 'datePosted', 
 			'location', 'channel', 'categories', 
-			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete'
+			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation'
 		]
 		
 		
@@ -21,6 +21,7 @@ class Content {
 		coverUrl index: "no"
 		isPrivate index: "not_analyzed"
 		isDelete index: "not_analyzed"
+		isShowLocation index: "not_analyzed"
     }
 
     String id

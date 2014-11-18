@@ -69,6 +69,7 @@ class FacebookController {
             user.location.lon = location.lon?.toDouble()
 
             log.info "Update Geo Location for ${user.username} with lat = ${location.lat}, lon = ${location.lon}"
+
             user.location.save(flush: true)
             user.save(flush: true)
         }

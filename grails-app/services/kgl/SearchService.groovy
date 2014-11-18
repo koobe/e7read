@@ -51,10 +51,14 @@ class SearchService {
         }
 
         // must have channel name
-        def query = QueryBuilders
-                .boolQuery()
-                .must(QueryBuilders
-                .hasParentQuery("channel", QueryBuilders.matchQuery("name", channelName)))
+        def query = QueryBuilders.boolQuery()
+                .must(QueryBuilders.hasParentQuery("channel", QueryBuilders.matchQuery("name", channelName)))
+				.must(QueryBuilders.matchQuery("isPrivate", false))
+				.must(QueryBuilders.matchQuery("isDelete", false))
+				
+		if (geoPoint) {
+			query.must(QueryBuilders.matchQuery("isShowLocation", true))
+		}
 
         // has a query string
         if (queryString) {

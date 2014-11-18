@@ -136,7 +136,8 @@ grails.project.dependency.resolution = {
         compile ":mail:1.0.7"
 
         // Grails GeoIP Plugin
-        compile ':geoip:0.3.2'
+        // Disabled. See #48 issue for reasons.
+        //compile ':geoip:0.3.2'
 
         // Google GeoCoding API
         compile ":geocode:0.3"

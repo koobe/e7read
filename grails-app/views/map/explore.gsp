@@ -73,7 +73,7 @@ body { overflow: hidden; }
         <input id="pac-input" class="controls" type="text" placeholder="Search Box"/>
     </div>
     -->
-    <div data-role="panel" id="nav-panel">
+    <div data-role="panel" id="nav-panel" data-position="right">
         <ul data-role="listview">
             <!--
             <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>

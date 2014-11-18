@@ -36,7 +36,7 @@ class MapController {
 				select category
 				from Category as category
 				where enable = true and channel.name = :c
-				order by rankOnTop asc
+				order by order asc
 			"""
 
         [

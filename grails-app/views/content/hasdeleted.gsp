@@ -4,10 +4,7 @@
 	    <title></title>
 	</head>
 	<body>
-		
-		<div id="display-container">
-			<g:render template="/home/header" model="[showcategorymenu: true]" />
-		</div>
+		<g:render template="/home/header" />
 	
 		<div class="container" style="padding-top: 40px;">
 		    <div style="text-align: center;" class="alert alert-warning">

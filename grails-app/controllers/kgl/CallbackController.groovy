@@ -22,6 +22,7 @@ class CallbackController {
 //        }
 
         // Update location after login process
+        /*
         if (springSecurityService.isLoggedIn()) {
             User user =  springSecurityService.currentUser
 
@@ -39,22 +40,25 @@ class CallbackController {
                 user.save flush: true
             }
         }
+        */
 
-        def lat = Float.parseFloat(params.lat)
-        def lon = Float.parseFloat(params.lon)
+        if (!session['geolocation']) {
+            def lat = Float.parseFloat(params.lat)
+            def lon = Float.parseFloat(params.lon)
 
-        def addr = geocodingService.getAddress(new Point(latitude: lat, longitude: lon), [language: 'zh-TW'])
+            def addr = geocodingService.getAddress(new Point(latitude: lat, longitude: lon), [language: 'zh-TW'])
 
-        def country = addr.addressComponents[4].shortName //4
-        def city = addr.addressComponents[3].shortName //3
-        def region = addr.addressComponents[2].shortName //2
-        def address = addr.addressComponents[0].shortName //0
+            def country = addr.addressComponents[4].shortName //4
+            def city = addr.addressComponents[3].shortName //3
+            def region = addr.addressComponents[2].shortName //2
+            def address = addr.addressComponents[0].shortName //0
 
-        session['geolocation'] = [
-                lat: lat,
-                lon: lon,
-                display: "${city}${region}"
-        ]
+            session['geolocation'] = [
+                    lat: lat,
+                    lon: lon,
+                    display: "${city}${region}"
+            ]
+        }
 
         render session['geolocation'] as JSON
     }

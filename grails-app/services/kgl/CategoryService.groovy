@@ -6,13 +6,15 @@ import grails.transaction.Transactional
 class CategoryService {
 
     private static final String ___CATEGORIES_QUERY = """
-				select category
-				from Category as category
-				where enable = true and channel.name = :c
-				order by order asc
-			"""
+        select category
+        from Category as category
+        where category.category is null
+            and enable = true
+            and channel.name = :channelName
+        order by order asc
+    """
 
     def list(String channelName) {
-        Category.executeQuery(___CATEGORIES_QUERY, [c: channelName])
+        Category.executeQuery(___CATEGORIES_QUERY, [channelName: channelName])
     }
 }

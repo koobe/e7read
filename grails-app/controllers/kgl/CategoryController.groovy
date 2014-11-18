@@ -15,6 +15,8 @@ class CategoryController {
 	
 	def grailsApplication
 
+    def categoryService
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Category.list(params), model:[categoryInstanceCount: Category.count()]
@@ -124,14 +126,8 @@ class CategoryController {
 		def channelName = getChannelName(params)
 		
 		log.info "channelName = ${channelName}"
-		
-		def hql = """
-				select category 
-				from Category as category
-				where category.category is null and enable = true and channel.name = :channelName
-				order by order asc
-			"""
-		def categoryList = Category.executeQuery(hql, [channelName: channelName])
+
+		def categoryList = categoryService.list(channelName)
 		
 		render template: "category_panel_sidemenu", model:[categorys: categoryList, active: params.c, showpanel: params.p, btnaction: params.btnaction]
 	}

@@ -58,6 +58,15 @@ body { overflow: hidden; }
     font-size: 13px;
     font-weight: 300;
 }
+
+#nav-panel {
+    box-shadow: none;
+}
+
+.ui-btn-flat {
+    border: none !important;
+    box-shadow: none !important;
+}
 </style>
 </head>
 <body>
@@ -65,7 +74,9 @@ body { overflow: hidden; }
     <div data-role="header" data-position="fixed" class="map-header">
         <g:link uri="/" data-icon="home" rel="external" class="btnBack">Back</g:link>
         <h1>E7READ Explore</h1>
-        <a href="#nav-panel" data-icon="bullets" rel="external" class="ui-btn ui-icon-bullets ui-btn-icon-notext ui-corner-all"></a>
+        <a href="#nav-panel" data-icon="bullets" rel="external" class="ui-btn ui-btn-icon-notext ui-corner-all">
+            <i class="fa fa-play"></i>
+        </a>
     </div>
     <div data-role="main" class="ui-content map-container">
         <div id="map-canvas"></div>

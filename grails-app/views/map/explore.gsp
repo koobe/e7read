@@ -6,6 +6,8 @@
 <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>-->
 <meta name="e7read-default-icon" content="${assetPath(src: 'e7logo-marker-icon1-32x32.png', absolute: true)}" />
 <meta name="e7read-search-content-api-url" content="${createLink(controller: 'search', action: 'content')}" />
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="/jquery-mobile-theme/themes/e7read.min.css" rel="stylesheet" />
 <style type="text/css">
 body { overflow: hidden; }
 .ui-panel-wrapper, .map-container { width: 100%; height: 100%; padding: 0; }
@@ -59,7 +61,7 @@ body { overflow: hidden; }
 </style>
 </head>
 <body>
-<div data-role="page" data-theme="b" id="map-page" class="ui-responsive-panel">
+<div data-role="page" data-theme="c" id="map-page" class="ui-responsive-panel">
     <div data-role="header" data-position="fixed" class="map-header">
         <g:link uri="/" data-icon="home" rel="external" class="btnBack">Back</g:link>
         <h1>E7READ Explore</h1>
@@ -74,13 +76,14 @@ body { overflow: hidden; }
     </div>
     -->
     <div data-role="panel" id="nav-panel" data-position="right">
-        <ul data-role="listview">
-            <!--
-            <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-            -->
+        <ul data-role="listview" data-icon="false">
+            <li data-icon="delete">
+                <a href="#" data-rel="close">分類</a>
+            </li>
             <g:each in="${categories}" var="category">
                 <li>
                     <a href="#" class="category-menu-item" data-category="${category.name}">
+                        <i class="fa fa-map-marker"></i>&nbsp;&nbsp;
                         <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
                     </a>
                 </li>

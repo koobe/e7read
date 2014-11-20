@@ -17,14 +17,12 @@
 	<div class="header-usermenu">
 		<g:if test="${showsearchbar}">
 			<div class="search-form">
-				<g:form uri="" role="search" class="" method="get">
-		        	<div class="input-group">
-		        	<span class="input-group-addon koobe-bg-color">
-					        <i class="fa fa-search"></i>
-					    </span>
-					    <g:textField id="text-search" name="q" class="form-control input-search" value="${params.q? params.q: ''}"/>
-				    </div>
-				</g:form>
+	        	<div class="input-group">
+	        		<span class="input-group-addon koobe-bg-color">
+				        <i class="fa fa-search"></i>
+				    </span>
+				    <input type="text" ng-keypress="search($event);" id="text-search" class="form-control input-search">
+			    </div>
 			</div>
 		</g:if>
 		

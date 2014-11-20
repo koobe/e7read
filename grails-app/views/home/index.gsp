@@ -24,9 +24,8 @@
 	</head>
 	<body>
 		
-		<div id="display-container" onclick="hideCategoryMenu()" 
-			${params.channel=='trade'? 'ng-app=coverFlowApp scrolling': ''}>
-			<div class="content-pane">
+		<div id="display-container" onclick="hideCategoryMenu()" ${params.channel=='trade'? 'ng-app=coverFlowApp scrolling': ''}>
+			<div class="content-pane" ${params.channel=='trade'? 'ng-controller=CoverFlowController': ''}>
 				
 				<g:render template="header" model="[showcategorymenu: true, showsearchbar: true, showChannelButton: true]" />
 				

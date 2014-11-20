@@ -41,6 +41,8 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 	
 	$scope.locationName;
 	
+	$scope.keyword = null;
+	
 	$scope.size = 12;
 	$scope.page = 0;
 	
@@ -61,7 +63,7 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 		$scope.page++;
 		var offset = ($scope.page * $scope.size) - $scope.size;
 		
-		SearchContentRestService.search({size: $scope.size, offset: offset, geo: geo}, function(contents){
+		SearchContentRestService.search({size: $scope.size, offset: offset, geo: geo, q: $scope.keyword}, function(contents){
 			if (contents.length == 0) {
 				console.log('eof');
 				eof = true;
@@ -79,6 +81,45 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 			s.done();
 		});
 	};
+	
+	var searchInput;
+	
+	$scope.search = function(e) {
+		
+		if (e.keyCode == 13) {
+			var target = angular.element(e.target);
+			
+			searchInput = target;
+			
+			console.log(target.val());
+			
+			$scope.contents = [];
+			$scope.page = 0;
+			eof = false;
+			
+			if (target.val() == null || target.val().trim() == '') {
+				$scope.keyword = null;
+			} else {
+				$scope.keyword = target.val().trim();
+			}
+			
+			$scope.loadContents($scope.searchLat, $scope.searchLon);
+			
+			target.blur();
+		}
+	}
+	
+	$scope.removeKeyword = function() {
+		
+		searchInput.val(null);
+		
+		$scope.contents = [];
+		$scope.page = 0;
+		eof = false;
+		$scope.keyword = null;
+		
+		$scope.loadContents($scope.searchLat, $scope.searchLon);
+	}
 	
 	s.loading('正在取得位置資訊...');
 	
@@ -122,6 +163,7 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 			$scope.contents = [];
 			$scope.page = 0;
 			eof = false;
+//			$scope.keyword = null;
 			
 			$scope.searchLat = gPlacesAutoCompCtrlScope.details.geometry.location.k;
 			$scope.searchLon = gPlacesAutoCompCtrlScope.details.geometry.location.B;
@@ -151,6 +193,7 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 			$scope.contents = [];
 			$scope.page = 0;
 			eof = false;
+//			$scope.keyword = null;
 			
 			$scope.searchLat = $scope.myLat;
 			$scope.searchLon = $scope.myLon;

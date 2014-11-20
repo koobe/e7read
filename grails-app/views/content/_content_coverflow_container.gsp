@@ -31,10 +31,10 @@
 		});
 	});
 </script>
-<div class="container" ng-controller="CoverFlowController">
+<div class="container">
 	<div style="padding: 10px 5px 10px 4px;">
 		
-		<div style="display:inline-block; vertical-align: middle;" ng-controller="GPlacesAutoCompCtrl">
+		<div style="display:inline-block; vertical-align: middle; margin-top: 10px;" ng-controller="GPlacesAutoCompCtrl">
 			<a href="javascript:void(0);" ng-click="returnMyLocation()">我的位置</a>：
 			
 			<button id="place_button" class="btn btn-default" style="padding: 2px 11px 2px 11px;">
@@ -45,18 +45,27 @@
 				details="details" options="options" />
 		</div>
 		
-		<div style="display:inline-block; float:right; vertical-align: middle;">
-			<span>排序：</span>
-			<div class="btn-group" data-toggle="buttons" >
-	            <label id="btnSortByDistance" class="btn btn-default active" style="padding: 2px 11px 2px 11px;" ng-click="orderByNear()">
-	                <input type="radio" name="sorting" id="sortByDistance" value="true" autocomplete="off" checked>
-	                距離
-	            </label>
-	            <label id="btnSortByNewest" class="btn btn-default" style="padding: 2px 11px 2px 11px;" ng-click="orderByDate()">
-	                <input type="radio" name="sorting" id="sortByNewest" value="false" autocomplete="off" >
-	                最新
-	            </label>
-	        </div>
+		<div style="display:inline-block; float:right; vertical-align: middle; margin-top: 10px;">
+			<div style="display:inline-block; padding-right: 10px;" ng-if="keyword">
+				<span ng-click="removeKeyword();" class="btn btn-default" style="
+					padding-top: 1px;
+					padding-bottom: 1px;
+					border-radius: 12px;
+				">{{ keyword }} <i class="fa fa-times"></i></span>
+			</div>
+			<div style="display:inline-block;">
+				<span>排序：</span>
+				<div class="btn-group" data-toggle="buttons" >
+		            <label id="btnSortByDistance" class="btn btn-default active" style="padding: 2px 11px 2px 11px;" ng-click="orderByNear()">
+		                <input type="radio" name="sorting" id="sortByDistance" value="true" autocomplete="off" checked>
+		                距離
+		            </label>
+		            <label id="btnSortByNewest" class="btn btn-default" style="padding: 2px 11px 2px 11px;" ng-click="orderByDate()">
+		                <input type="radio" name="sorting" id="sortByNewest" value="false" autocomplete="off" >
+		                最新
+		            </label>
+		        </div>
+			</div>
         </div>
 	
 	</div>

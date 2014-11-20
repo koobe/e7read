@@ -71,7 +71,7 @@ grails.project.dependency.resolution = {
 
         // Thumbnailator - a thumbnail generation library for Java
         compile 'net.coobird:thumbnailator:0.4.7'
-
+        //compile 'org.imgscalr:imgscalr-lib:4.2'
 
         // for markdown plugin dependencies
         //runtime 'org.parboiled:parboiled-core:1.1.6'

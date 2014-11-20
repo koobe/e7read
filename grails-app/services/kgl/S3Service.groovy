@@ -25,6 +25,8 @@ class S3Service {
 
     def grailsApplication
 
+    def imageService
+
     String accessKey
     String secretKey
     String bucket
@@ -106,7 +108,7 @@ class S3Service {
             //fromFile << inputStream
 
             ByteArrayOutputStream os = new ByteArrayOutputStream()
-            Thumbnails.of(file.inputStream).size(640, 640).outputQuality(0.7).rendering(Rendering.QUALITY).toOutputStream(os)
+            imageService.thumbnail(file.inputStream, os)
             ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray())
 
             metadata = new ObjectMetadata()

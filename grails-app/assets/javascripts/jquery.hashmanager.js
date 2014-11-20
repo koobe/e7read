@@ -29,6 +29,10 @@
 	        		}
         		} catch (err) {
         			console.log(err);
+        			var handler = handlers['hashmanager_defaulthandler'];
+        			if (handler) {
+        				handler();
+        			}
         		}
         };
         this.$onhashchange = onhashchange;

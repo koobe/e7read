@@ -39,7 +39,9 @@ class MetadataBootStrap {
 							name: node.name,
 							isDefault: node.isDefault,
 							logoImg: node.logoImg,
-							canAnonymous: node.canAnonymous);
+							canAnonymous: node.canAnonymous,
+							showInPanel: node.showInPanel,
+							order: node.order);
 					} else {
 						
 						if (node.isDefault) {
@@ -51,6 +53,9 @@ class MetadataBootStrap {
 						if (node.canAnonymous) {
 							channel.canAnonymous = node.canAnonymous
 						}
+						
+						channel.showInPanel = node.showInPanel
+						channel.order = node.order
 					}
 
                     if (node.iconUrl) {

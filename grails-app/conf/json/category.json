@@ -127,6 +127,32 @@
 			"order": 9,
 			"channel": "trade",
             "iconUrl": "others.png"
+		},
+		
+		{
+			"name" : "discussion",
+			"child" : [],
+			"rankOnTop" : 1,
+			"enable": true,
+			"order": 1,
+			"channel": "ewc",
+		},
+		{
+			"name" : "suggestion",
+			"child" : [],
+			"rankOnTop" : 2,
+			"enable": true,
+			"order": 2,
+			"channel": "ewc",
+		},
+		{
+			"name" : "exchange",
+			"child" : [],
+			"rankOnTop" : 3,
+			"enable": true,
+			"order": 3,
+			"channel": "ewc",
 		}
+		
 	]
 }

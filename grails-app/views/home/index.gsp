@@ -25,11 +25,12 @@
 		</g:if>
 	</head>
 	<body>
+		
 		<div id="display-container" onclick="hideCategoryMenu()" 
 			${params.channel=='trade'? 'ng-app=coverFlowApp scrolling': ''}>
 			<div class="content-pane">
 				
-				<g:render template="header" model="[showcategorymenu: true, showsearchbar: true]" />
+				<g:render template="header" model="[showcategorymenu: true, showsearchbar: true, showChannelButton: true]" />
 				
 				<g:if test="${params.channel == 'trade'}">
 					<g:render template="/content/content_coverflow_container"></g:render>
@@ -44,6 +45,8 @@
         </div>
 		
 		<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home', channel: params.channel]" />
+		
+		<g:include controller="channel" action="addChannelPanel" params="" />
 		
 		<g:render template="/category/category_status_panel" />
 		

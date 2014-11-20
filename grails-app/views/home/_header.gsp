@@ -5,16 +5,7 @@
 			<span style="color: #d9534f;">E</span><span style="color: #5cb85c;">7</span><span style="color: #1A0B79;">R</span><span style="color: #5bc0de;">E</span><span style="color: #5cb85c;">A</span><span style="color: #F7B81B;">D</span>
 			<span style="vertical-align: super; font-size: 0.5em;">beta</span> -->
 			
-			<g:img class="img-logo" uri="/assets/logo_${channel.name}.png" />
-			
-			<!-- 
-			<g:if test="${channel.logoImg}">
-				<g:img class="img-logo" uri="${channel.logoImg}" />
-			</g:if>
-			<g:else>
-				<span class="text-uppercase logotitle">${channel.name}</span>
-			</g:else>
-			 -->
+			<g:img class="img-logo" uri="${channel.logoImg}" />
 		</g:link>
 	</div>
 	<g:if test="${showcategorymenu}">

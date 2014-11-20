@@ -3,13 +3,26 @@
 		{
 			"name" : "e7read",
 			"isDefault" : true,
-			"logoImg": "/assets/e7logo.png",
-			"canAnonymous": true
+			"logoImg": "/assets/logo_e7read.png",
+			"canAnonymous": true,
+			"showInPanel": true,
+			"order": 1
 		},
 		{
 			"name" : "trade",
 			"isDefault" : false,
-			"canAnonymous": false
+			"logoImg": "/assets/logo_trade.png",
+			"canAnonymous": false,
+			"showInPanel": true,
+			"order": 2
+		},
+		{
+			"name" : "ewc",
+			"isDefault" : false,
+			"logoImg": "/assets/logo_e7read.png",
+			"canAnonymous": false,
+			"showInPanel": true,
+			"order": 3
 		}
 	]
 }

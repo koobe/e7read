@@ -3,11 +3,8 @@ package kgl
 class Channel {
 	
 	static searchable = {
-//		root false
 		only = ['id', 'name', 'iconUrl']
 	}
-	
-//	static searchable = true
 	
 	String id
 	
@@ -21,6 +18,10 @@ class Channel {
 	
 	Boolean canAnonymous
 	
+	Boolean showInPanel
+	
+	Integer order
+	
     static constraints = {
 		id maxSize: 32
 		logoImg nullable: true
@@ -29,6 +30,7 @@ class Channel {
     }
 	
 	static mapping = {
+		order column: '`order`'
 		id generator: 'uuid'
 	}
 }

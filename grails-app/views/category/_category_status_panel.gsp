@@ -4,7 +4,7 @@
 	
 	<div class="category-status-panel">
 		<div>
-			<a href="/">
+			<a href="/${params.channel}">
 				<!-- <span class="category-status-logo">E7READ.com,</span>  -->
 				<img src="/assets/trans_logo_${params.channel}.png" class="category-status-logo">
 			</a>

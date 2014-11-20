@@ -3,7 +3,7 @@
 	<div class="side-menu-header">
 		<div class="side-menu-title">
 			<span>
-				Channel
+				頻道
 			</span>
 		</div>
 		<div class="back-button">

@@ -117,6 +117,10 @@ class S3Service {
 
             s3file.thumbnailObjectKey = "${keyPrefix}/thumbnail-${s3file.originalFilename}"
 
+            if (!s3file.thumbnailObjectKey.toLowerCase().endsWith('.jpg') || !s3file.thumbnailObjectKey.toLowerCase().endsWith('.jpeg')) {
+                s3file.thumbnailObjectKey = "${s3file.thumbnailObjectKey}.jpg"
+            }
+
             request = new PutObjectRequest(s3file.bucket, "${s3file.thumbnailObjectKey}", is, metadata)
 
             if (s3file.isPublic) {

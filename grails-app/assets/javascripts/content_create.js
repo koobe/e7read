@@ -53,7 +53,7 @@ function showResponse(responseText, statusText, xhr, $form, uploadId)  {
 	s3fileId.push(responseText.id);
 	console.log(s3fileId);
 	$('#' + uploadId)
-        .css('background-image', 'url(' + responseText.url + ')')
+        .css('background-image', 'url(' + responseText.thumbnailUrl + ')')
         .removeClass('picture-onupload')
         .addClass('picture-block')
         .click( function() { removeImage(uploadId, responseText.id); });

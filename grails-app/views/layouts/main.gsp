@@ -47,6 +47,10 @@
     }
     </style>
     
+    <asset:stylesheet src="loadingspinner.css"/>
+    <asset:javascript src="jquery.loadingspinner.js"/>
+    <asset:javascript src="home/header_menu.js"/>
+    
     <g:render template="/home/google_analytics" />
 </head>
 

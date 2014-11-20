@@ -1,5 +1,5 @@
 <div class="koobe-header">
-	<div class="header-logo">
+	<div class="header-logo header-menu-return">
 		<g:link url="/${channel.name}" style="text-decoration: none !important;" target="_top">
 			<!-- <span class="glyphicon glyphicon-book logomark"></span>
 			<span style="color: #d9534f;">E</span><span style="color: #5cb85c;">7</span><span style="color: #1A0B79;">R</span><span style="color: #5bc0de;">E</span><span style="color: #5cb85c;">A</span><span style="color: #F7B81B;">D</span>

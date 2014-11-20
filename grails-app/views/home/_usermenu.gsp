@@ -2,30 +2,30 @@
 <sec:ifLoggedIn>
 	<div class="usermenu-table">
 		<g:if test="${showChannelButton}">
-			<div>
+			<div class="header-menu-channel">
 				<g:link uri="javascript:showChannelMenu();" class="koobe-btn koobe-btn-normal">
 			        <i class="fa fa-bookmark"></i> <!-- My Contents  -->
 			    </g:link>
 		    </div>
 		</g:if>
 	    
-		<div>
+		<div class="header-menu-personal">
 			<g:link uri="/content/personal/${channel.name}" class="koobe-btn koobe-btn-normal">
 		        <i class="fa fa-archive"></i> <!-- My Contents  -->
 		    </g:link>
 	    </div>
-	    <div>
+	    <div class="header-menu-create" >
             <g:link uri="/content/create/${channel.name}" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-pencil"></i> <!-- Create -->
             </g:link>
 	    </div>
-	    <div>
+	    <div class="header-menu-profile" >
             <g:link uri="/me" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-user"></i>
                 <!-- <sec:loggedInUserInfo field="fullName"/> -->
             </g:link>
 	    </div>
-	    <div style="margin-bottom: -20px; margin-right: -16px">
+	    <div class="header-menu-message"  style="margin-bottom: -20px; margin-right: -16px">
             <g:link uri="/message/index" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-envelope"></i>
             </g:link>
@@ -38,12 +38,12 @@
 	            left: -16px;
 	            ">0</div>
 	    </div>
-        <div>
+        <div class="header-menu-map" >
             <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-map-marker"></i> <!-- Explore in Map  -->
             </g:link>
         </div>
-        <div>
+        <div class="header-menu-logout" >
             <g:link uri="javascript: confirmLogout();" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-sign-out"></i> <!-- Logout -->
             </g:link>
@@ -54,26 +54,26 @@
 <sec:ifNotLoggedIn>
 	<div class="usermenu-table">
 		<g:if test="${showChannelButton}">
-			<div>
+			<div class="header-menu-channel" >
 				<g:link uri="javascript:showChannelMenu();" class="koobe-btn koobe-btn-normal">
 			        <i class="fa fa-bookmark"></i> <!-- My Contents  -->
 			    </g:link>
 		    </div>
 		</g:if>
 	
-        <div>
-        	<g:if test="${channel.canAnonymous}">
+		<g:if test="${channel.canAnonymous}">
+	        <div class="header-menu-create" >
 	            <g:link uri="/content/create/${channel.name}" class="koobe-btn koobe-btn-normal">
 	                <i class="fa fa-pencil"></i> <!-- Create -->
 	            </g:link>
-            </g:if>
-        </div>
-        <div>
+	        </div>
+        </g:if>
+        <div class="header-menu-map">
             <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-map-marker"></i> <!-- Explore in Map  -->
             </g:link>
         </div>
-		<div>
+		<div class="header-menu-login">
 			<!-- 
 			<oauth:connect provider="facebook" id="facebook-connect-link" class="koobe-btn koobe-btn-normal">
 		        <span class="fa fa-facebook-square"></span>

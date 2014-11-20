@@ -6,7 +6,7 @@
             </g:link>
 		</div>
 	</g:each>
-	<div class="ontop_category_btn">
+	<div class="ontop_category_btn header-menu-category">
 		<a href="javascript: showCategoryMenu();">
 			<g:img class="btn-opensidemenu" uri="/assets/arrow.png"/>
 		</a>

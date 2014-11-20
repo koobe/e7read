@@ -21,7 +21,7 @@
 	display: table;
 	cursor: pointer;
 	width:100%;
-	height:20em;
+	height: 12.8em;
 	
 	.content-cell-image {
 		display: table-cell;
@@ -69,8 +69,8 @@
 	padding-top: 0.8em;
 	padding-bottom: 1em;
 	color: #333;
-	max-height: 11.6em;
-	min-height: 11.6em;
+	max-height: 6.4em;
+	min-height: 6.4em;
 	min-width:100%;
 	overflow: hidden;
 	
@@ -79,7 +79,7 @@
 		letter-spacing: 1px;
 		text-overflow: ellipsis;
 		display: -webkit-box;
-		-webkit-line-clamp: 6;
+		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		word-break: break-all;
 	}	

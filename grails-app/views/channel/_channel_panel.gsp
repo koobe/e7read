@@ -1,4 +1,4 @@
-<<asset:javascript src="channel/channel_panel.js"/>
+<asset:javascript src="channel/channel_panel.js"/>
 <div class="channel-menu-float" style="display:none;">
 	<div class="side-menu-header">
 		<div class="side-menu-title">

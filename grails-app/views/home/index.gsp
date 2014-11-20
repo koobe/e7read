@@ -7,8 +7,6 @@
 	    <script src="//code.angularjs.org/1.3.2/angular-resource.min.js"></script>
 	    
 	    <asset:javascript src="jquery.messagemanager.js"/>
-	    <asset:javascript src="jquery.loadingspinner.js"/>
-		<asset:stylesheet src="loadingspinner.css"/>
 		<asset:stylesheet src="gototop.css"/>
 		<asset:javascript src="jquery.gototop.js"/>
 		<asset:stylesheet src="imageview.css"/>
@@ -49,11 +47,6 @@
 		<g:include controller="channel" action="addChannelPanel" params="" />
 		
 		<g:render template="/category/category_status_panel" />
-		
-		<!-- 
-		<a href="javascript: scrollDisplayContainerToTop();" class="koobe-btn koobe-btn-normal top-btn-pos">
-			<i class="fa fa-caret-up"></i>
-		</a> -->
 		
 		<script type="text/javascript">
 			$('body').gototop({

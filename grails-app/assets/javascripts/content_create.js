@@ -50,13 +50,18 @@ function startUpload(uploadId) {
 function showResponse(responseText, statusText, xhr, $form, uploadId)  {
 	$('#uploadImageInput').val('');
 	console.log(responseText);
-	s3fileId.push(responseText.id);
-	console.log(s3fileId);
+
+    s3fileId.push(responseText.id);
+	//console.log(s3fileId);
+
+    var imageUrl = ('url(' + (responseText.dataUrl?responseText.dataUrl:responseText.thumbnailUrl) + ')');
+    console.log(imageUrl);
+
 	$('#' + uploadId)
-        .css('background-image', 'url(' + responseText.thumbnailUrl + ')')
         .removeClass('picture-onupload')
         .addClass('picture-block')
-        .click( function() { removeImage(uploadId, responseText.id); });
+        .click( function() { removeImage(uploadId, responseText.id); })
+        .css('background-image', imageUrl);
 }
 
 function removeImage(uploadId, id) {

@@ -25,7 +25,6 @@ $(function() {
 	
 	if (categoryName) {
 		var target = $("a[data-category-name='" + categoryName + "']");
-		console.log(target.html());
 		registerHoverEvent('search-form', '在' + target.html() + '類別中搜尋');
 	} else {
 		registerHoverEvent('search-form', '搜尋');

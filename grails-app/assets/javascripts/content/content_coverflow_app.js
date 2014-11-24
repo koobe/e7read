@@ -42,6 +42,12 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 	$scope.locationName;
 	
 	$scope.keyword = null;
+	$scope.category = categoryName;
+	
+	if (categoryName) {
+		var target = $("a[data-category-name='" + categoryName + "']");
+		$scope.categoryName = target.html().trim();
+	}
 	
 	$scope.size = 12;
 	$scope.page = 0;

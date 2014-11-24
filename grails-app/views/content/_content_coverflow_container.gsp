@@ -46,6 +46,13 @@
 		</div>
 		
 		<div style="display:inline-block; float:right; vertical-align: middle; margin-top: 10px;">
+			<div style="display:inline-block; padding-right: 5px;" ng-if="category">
+				<span class="btn btn-default" style="
+					padding-top: 1px;
+					padding-bottom: 1px;
+					border-radius: 12px;
+				">{{ categoryName }}</span>
+			</div>
 			<div style="display:inline-block; padding-right: 10px;" ng-if="keyword">
 				<span ng-click="removeKeyword();" class="btn btn-default" style="
 					padding-top: 1px;

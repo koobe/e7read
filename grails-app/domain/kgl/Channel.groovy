@@ -13,10 +13,14 @@ class Channel {
 	Boolean isDefault
 	
 	String logoImg
+	
+	String smallLogoUrl
 
     String iconUrl      // icon for google map marker
 	
 	Boolean canAnonymous
+	
+	String themeType
 	
 	Boolean showInPanel
 	
@@ -25,8 +29,9 @@ class Channel {
     static constraints = {
 		id maxSize: 32
 		logoImg nullable: true
-		canAnonymous nullable: true
+		smallLogoUrl nullable: true
         iconUrl nullable: true, blank: true
+		themeType nullable: true
     }
 	
 	static mapping = {

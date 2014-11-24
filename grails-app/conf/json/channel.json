@@ -4,7 +4,9 @@
 			"name" : "e7read",
 			"isDefault" : true,
 			"logoImg": "/assets/logo_e7read.png",
+			"smallLogoUrl": "/assets/trans_logo_e7read.png",
 			"canAnonymous": true,
+			"themeType": "article",
 			"showInPanel": true,
 			"order": 1
 		},
@@ -12,7 +14,9 @@
 			"name" : "trade",
 			"isDefault" : false,
 			"logoImg": "/assets/logo_trade.png",
+			"smallLogoUrl": "/assets/trans_logo_trade.png",
 			"canAnonymous": false,
+			"themeType": "square",
 			"showInPanel": true,
 			"order": 2
 		},
@@ -20,7 +24,9 @@
 			"name" : "ewc",
 			"isDefault" : false,
 			"logoImg": "/assets/logo_e7read.png",
+			"smallLogoUrl": "/assets/trans_logo.png",
 			"canAnonymous": false,
+			"themeType": "square",
 			"showInPanel": true,
 			"order": 3
 		}

@@ -39,21 +39,17 @@ class MetadataBootStrap {
 							name: node.name,
 							isDefault: node.isDefault,
 							logoImg: node.logoImg,
+							smallLogoUrl: node.smallLogoUrl,
 							canAnonymous: node.canAnonymous,
+							themeType: node.themeType,
 							showInPanel: node.showInPanel,
 							order: node.order);
 					} else {
-						
-						if (node.isDefault) {
-							channel.isDefault = node.isDefault
-						}
-						if (node.logoImg) {
-							channel.logoImg = node.logoImg
-						}
-						if (node.canAnonymous) {
-							channel.canAnonymous = node.canAnonymous
-						}
-						
+						channel.isDefault = node.isDefault
+						channel.logoImg = node.logoImg
+						channel.canAnonymous = node.canAnonymous
+						channel.themeType = node.themeType
+						channel.smallLogoUrl = node.smallLogoUrl
 						channel.showInPanel = node.showInPanel
 						channel.order = node.order
 					}

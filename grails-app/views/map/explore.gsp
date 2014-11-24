@@ -283,6 +283,9 @@ $( document ).on( "pageinit", "#map-page", function() {
     google.maps.event.addListener(map, 'bounds_changed', function() {
         var bounds = map.getBounds();
         searchBox.setBounds(bounds);
+
+        //searchByLocation(currentChannel, '*');
+
     });
 
 });

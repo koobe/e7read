@@ -2,21 +2,44 @@ class BootStrap {
 
     def s3Service
 
+    def grailsApplication
+
     def elasticSearchAdminService
 
     def init = { servletContext ->
 
+        // Create default s3 bucket
+
         log.info 'Create default S3 bucket if not exists'
 
-        // Create default s3 bucket
         if (!s3Service.doesBucketExist()) {
             s3Service.createBucket()
         }
 
-        log.info 'Remove Elasticsearch indexes'
+        environments {
+            development {
 
-        //elasticSearchAdminService.deleteIndex()
+                // Cleanup Elasticsearch caches
 
+                //log.info 'Remove Elasticsearch indexes'
+
+                //elasticSearchAdminService.deleteIndex()
+
+                log.info 'Remove Elasticsearch cache directories'
+
+                File rootPath = grailsApplication.parentContext.getResource("classpath:.").file
+
+                File dataPath = new File(rootPath, 'data/elasticsearch')
+
+                if (dataPath.exists() && dataPath.isDirectory()) {
+                    log.info "Delete data directory ${dataPath}"
+
+                    boolean result = dataPath.deleteDir()
+
+                    log.info "Delete result: ${result}"
+                }
+            }
+        }
     }
 
     def destroy = {

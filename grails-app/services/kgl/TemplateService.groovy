@@ -158,7 +158,7 @@ class TemplateService {
 
     void loadBuiltIn() {
 
-        def templates = grailsApplication.getParentContext().getResource("classpath:resources/templates").file
+        def templates = grailsApplication.parentContext.getResource("classpath:resources/templates").file
 
         // Load from project source directory in DEV mode
         Environment.executeForCurrentEnvironment {

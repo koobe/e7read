@@ -78,7 +78,7 @@ class MetadataBootStrap {
 			}
 		}
 		
-		def jsonFile = grailsApplication.getParentContext().getResource("classpath:json/channel.json").file
+		def jsonFile = grailsApplication.parentContext.getResource("classpath:json/channel.json").file
 		def jsonStr = jsonFile.text
 		log.info jsonStr	
 		
@@ -141,7 +141,7 @@ class MetadataBootStrap {
 			}
 		}
 		
-		def jsonFile = grailsApplication.getParentContext().getResource("classpath:json/category.json").file
+		def jsonFile = grailsApplication.parentContext.getResource("classpath:json/category.json").file
 		def jsonStr = jsonFile.text
 		log.info jsonStr
 				

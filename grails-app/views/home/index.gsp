@@ -18,18 +18,18 @@
 		<asset:javascript src="e7read.contentloading.js"/>
 		<asset:javascript src="content_show.js"/>
 		
-		<g:if test="${params.channel != 'trade'}">
+		<g:if test="${(params.channel != 'trade' && params.channel != 'ewc')}">
 			<asset:javascript src="e7read.geolocation.js"/>
 		</g:if>
 	</head>
 	<body>
 		
-		<div id="display-container" onclick="hideCategoryMenu()" ${params.channel=='trade'? 'ng-app=coverFlowApp scrolling': ''}>
-			<div class="content-pane" ${params.channel=='trade'? 'ng-controller=CoverFlowController': ''}>
+		<div id="display-container" onclick="hideCategoryMenu()" ${(params.channel=='trade' || params.channel=='ewc')? 'ng-app=coverFlowApp scrolling': ''}>
+			<div class="content-pane" ${(params.channel=='trade' || params.channel=='ewc')? 'ng-controller=CoverFlowController': ''}>
 				
 				<g:render template="header" model="[showcategorymenu: true, showsearchbar: true, showChannelButton: true]" />
 				
-				<g:if test="${params.channel == 'trade'}">
+				<g:if test="${(params.channel=='trade' || params.channel=='ewc')}">
 					<g:render template="/content/content_coverflow_container"></g:render>
 				</g:if>
 				<g:else>

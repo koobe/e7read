@@ -27,6 +27,8 @@ class S3File {
      */
     String url
 
+    String dataUrl
+
     /**
      * The URL to the objectKey in the bucket given, using the client's scheme and endpoint.
      */
@@ -53,6 +55,8 @@ class S3File {
 
     static mapping = {
         id generator: 'uuid'
+
+        dataUrl type: 'text'
     }
 
     static constraints = {
@@ -62,6 +66,8 @@ class S3File {
 
         thumbnailObjectKey nullable: true
         thumbnailUrl nullable: true
+
+        dataUrl nullable: true
     }
 
     void setFile(CommonsMultipartFile file) {

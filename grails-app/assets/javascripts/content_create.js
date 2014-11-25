@@ -109,6 +109,8 @@ function postContent() {
 		type:'POST',
 		data: {
             id: $('meta[name=contentId]').attr('content'),
+            lat: $('input[name=lat]').val(),
+            lon: $('input[name=lon]').val(),
 			s3fileId: s3fileids,
 			categorysData: categorysData,
             references: $('input[name=references]').val(),

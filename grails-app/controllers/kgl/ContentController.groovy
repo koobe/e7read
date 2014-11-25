@@ -815,20 +815,19 @@ class ContentController {
 		contentInstance.fullText = fullText
 
         // Set content location
-        def location = session['geolocation']
-        if (location && location.lon && location.lat) {
+        if (params.lat && params.lon) {
+
+            log.info "Setup content location (${params.lat}, ${params.lon})"
 
             // Set geo location
             if (!contentInstance.location) {
                 contentInstance.location = new GeoPoint()
             }
 
-            contentInstance.location.lat = location.lat?.toDouble()
-            contentInstance.location.lon = location.lon?.toDouble()
+            contentInstance.location.lat = Float.parseFloat(params.lat)
+            contentInstance.location.lon = Float.parseFloat(params.lon)
 
-            log.info "Update Geo Location for Content #${contentInstance.cropTitle} with lat = ${location.lat}, lon = ${location.lon}"
-
-            contentInstance.location.save(flush: true)
+            contentInstance.location.save flush: true
         }
 
         // Set cover image

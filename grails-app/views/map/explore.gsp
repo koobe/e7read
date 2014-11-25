@@ -155,6 +155,8 @@ $( document ).on( "pageinit", "#map-page", function() {
     // show marker in google map
     var searchByLocation = function(channel, category) {
 
+        console.log('request for search results...');
+
         var center = map.getCenter();
         var queryData = {
             channel: channel,
@@ -286,6 +288,10 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         //searchByLocation(currentChannel, '*');
 
+    });
+
+    google.maps.event.addListener(map, 'dragend', function() {
+        searchByLocation(currentChannel, '*');
     });
 
 });

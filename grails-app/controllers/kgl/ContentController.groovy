@@ -700,7 +700,7 @@ class ContentController {
             contentInstance.categories = []
 
             contentInstance.isDelete = false
-            contentInstance.isPrivate = false
+            contentInstance.isPrivate = Boolean.parseBoolean(params.isLocked)
 			
 			//TODO send channel parameter
 			contentInstance.channel = session['channel']

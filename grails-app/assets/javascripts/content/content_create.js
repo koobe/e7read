@@ -1,6 +1,7 @@
 var imageLimit = 3;
 var s3fileId = [];
 var currItem = 0;
+var isPost = false;
 
 //function appendUploadForm() {
 //	var value = new Date().getTime();
@@ -83,12 +84,34 @@ function controlUploader() {
 	}
 }
 
-function postContent() {
+function loading() {
+	var s = $.spinner();
+	s.loading("儲存中 ...");
+	
+	$('#button-post-cancel').addClass("active");
+	$('#button-post-locked').addClass("active");
+	$('#button-post').addClass("active");
+}
+
+function postContent(isPublish) {
+	
+	if (isPost) {
+		return;
+	}
+	
+	isPost = true;
+	
+	loading();
 
     var contentText = $('#content-editing-textarea').val();
     if (!contentText || $.trim(contentText)=='') {
         alert("Please write some text in the editing area.");
         return;
+    }
+    
+    var locked = false;
+    if (!isPublish) {
+    	locked = true;
     }
 	
 	console.log('images: ' + s3fileId);
@@ -115,12 +138,12 @@ function postContent() {
 			categorysData: categorysData,
             references: $('input[name=references]').val(),
 			contentText: $('#content-editing-textarea').val(),
-            isShowLocation: $('input[name=isShowLocation]:checked').val()
+            isShowLocation: $('input[name=isShowLocation]:checked').val(),
+            isLocked: locked
 		},
 		success:function(data,textStatus){
 			var channel = getQueryVariable("channel");
             window.location.replace($('meta[name=url2redirect]').attr('content') + "/" + channel);
-            console.log(data);
         },
 		error:function(XMLHttpRequest,textStatus,errorThrown){alert('error');}
 	});

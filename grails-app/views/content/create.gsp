@@ -8,7 +8,9 @@
 <asset:stylesheet src="create.css"/>
 <asset:stylesheet src="category_sidemenu.css"/>
 
-<asset:javascript src="content_create.js"/>
+<asset:javascript src="jquery.loadingspinner.js"/>
+
+<asset:javascript src="content/content_create.js"/>
 <asset:javascript src="jquery.form.min.js"/>
 <asset:javascript src="category_menu.js"/>
 
@@ -74,26 +76,20 @@
         <g:textField name="references" value="" placeholder="http://" class="form-control" />
     </div>
     --%>
-
-    <div class="button-block">
-        <div style="width: 60%">
-
-            <input type="hidden" name="lat" value="${lat}" />
-            <input type="hidden" name="lon" value="${lon}" />
-            <input type="hidden" name="geolocation" value="${lat},${lon}" />
-
-
-            <span>所在位置</span>
-
+    
+    <div style="text-align: left; padding: 0px 0px 0px 0px;">
+    	<input type="hidden" name="lat" value="${lat}" />
+        <input type="hidden" name="lon" value="${lon}" />
+        <input type="hidden" name="geolocation" value="${lat},${lon}" />
+        
+    	<div style="display:inline-block; padding: 10px 0px 0px 0px;">
+			<span>所在位置</span>
             &nbsp;
-
             <g:link controller="map" action="prompt" class="location-link" target="_blank">
                 <i class="fa fa-map-marker"></i>
                 <span id="locationDisplayName">${location?:'地點未設定'}</span>
             </g:link>
-
             &nbsp;
-
             <div class="btn-group" data-toggle="buttons" style="display: inline-block">
                 <label class="btn btn-default active">
                     <input type="radio" name="isShowLocation" id="isShowLocation1" value="true" autocomplete="off" checked>
@@ -104,12 +100,19 @@
                     隱藏
                 </label>
             </div>
-        </div>
-        <div style="width: 10%" class="btn-item">
-            <g:link class="koobe-text-btn koobe-text-btn-inverse" uri="javascript:cancelPost();" ><g:message code="default.button.cancel.label" /></g:link>
-        </div>
-        <div style="width: 30%" class="btn-item">
-            <g:link id="button-post" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent();"><g:message code="default.button.post.label" /></g:link>
+		</div>
+    	<div style="display:inline-block; float:right; padding: 10px 0px 0px 0px;">
+	    	<div style="display:inline-block;" class="btn-item">
+	            <g:link id="button-post-cancel" class="koobe-text-btn koobe-text-btn-inverse" style="width:90px;" uri="javascript:cancelPost();" ><g:message code="default.button.cancel.label" /></g:link>
+	        </div>
+	        <sec:ifLoggedIn>
+		        <div style="display:inline-block;" class="btn-item">
+		            <g:link id="button-post-locked" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent(false);">儲存但不發佈</g:link>
+		        </div>
+	        </sec:ifLoggedIn>
+	        <div style="display:inline-block;" class="btn-item">
+	            <g:link id="button-post" class="koobe-text-btn koobe-text-btn-default" style="width:90px;" uri="javascript: postContent(true);"><g:message code="default.button.post.label" /></g:link>
+	        </div>
         </div>
     </div>
 
@@ -144,6 +147,7 @@ $(function() {
             lat: $('input[name=lat]').val(),
             lon: $('input[name=lon]').val(),
             callback: function(data) {
+                console.log(data);
                 $('#locationDisplayName').text(data.display);
             }
         });

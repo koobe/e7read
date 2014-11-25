@@ -152,17 +152,37 @@ $( document ).on( "pageinit", "#map-page", function() {
 
     var __SEARCH_CONTENT_API_URL = $('meta[name=e7read-search-content-api-url]').attr('content');
 
+    var radar = null;
+
     // show marker in google map
     var searchByLocation = function(channel, category) {
 
         console.log('request for search results...');
 
         var center = map.getCenter();
+
+        // Clear previous radar
+        if (radar != null) {
+            radar.setMap(null);
+        }
+
+        var radarOptions = {
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.35,
+            strokeWeight: 1,
+            fillColor: '#FF0000',
+            fillOpacity: 0.15,
+            map: map,
+            center: center,
+            radius: 10 * 1000
+        };
+        radar = new google.maps.Circle(radarOptions);
+
         var queryData = {
             channel: channel,
             c: category,
             geo: center.lat() + "," + center.lng(),
-            distance: 5
+            distance: 10
         };
 
         $.get(__SEARCH_CONTENT_API_URL, queryData).done(function(data) {

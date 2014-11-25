@@ -161,7 +161,8 @@ $( document ).on( "pageinit", "#map-page", function() {
         var queryData = {
             channel: channel,
             c: category,
-            geo: center.lat() + "," + center.lng()
+            geo: center.lat() + "," + center.lng(),
+            distance: 5
         };
 
         $.get(__SEARCH_CONTENT_API_URL, queryData).done(function(data) {

@@ -227,6 +227,7 @@ environments {
 // Disable assets-pipeline minifyJS in production
 grails.assets.minifyJs = false
 grails.application.default_channel = 'e7read'
+grails.application.bootstrap_meta = true //Boolean.parseBoolean(System.getenv('BOOTSTRAP_META')?:System.getProperty('BOOTSTRAP_META'))
 
 // E-mail Sending Service
 grails {
@@ -248,6 +249,3 @@ google {
         key = "AIzaSyC0mLGhDiBjkk2PK_spa_zRYmzCeIUiBso"
     }
 }
-
-// Added by the GeoIP plugin:
-grails.plugin.geoip.data.resource = '/data/maxmind/GeoLiteCity.dat'

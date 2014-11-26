@@ -87,14 +87,14 @@
         <div class="form-group">
             <label class="col-xs-3 control-label">Location:</label>
             <div class="col-xs-9">
-                <div class="form-control-static"><i class="fa fa-map-marker"></i> ${user.location.city}<br/></div>
+                <div class="form-control-static"><i class="fa fa-map-marker"></i> ${user.location?.city}<br/></div>
             </div>
         </div>
 
     </form>
     
     <div>
-    	<img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location.lat},${user.location.lon}&zoom=14&size=960x250&scale=2&sensor=false" alt="google map" border="0" class="img-thumbnail" style="width:100%;"/>
+    	<img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location?.lat},${user.location?.lon}&zoom=14&size=960x250&scale=2&sensor=false" alt="google map" border="0" class="img-thumbnail" style="width:100%;"/>
     </div>
     
     <div class="" style="float:right; padding-top: 20px;">

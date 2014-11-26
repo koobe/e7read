@@ -15,22 +15,22 @@ body { overflow: hidden; }
 #map-page {width: 100%; height: 100%; }
 #map-canvas { width: 100%; height: 100%; }
 .controls {
-    margin-top: 16px;
+    margin-top: 25px;
     border: 1px solid transparent;
     border-radius: 2px 0 0 2px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
-    height: 32px;
+    height: 24px;
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 #pac-input {
     background-color: #fff;
-    padding: 0 11px 0 13px;
-    width: 400px;
+    padding: 0 7px 0 7px;
+    width: 260px;
     font-family: Roboto;
-    font-size: 15px;
+    font-size: 11px;
     font-weight: 300;
     text-overflow: ellipsis;
     opacity: .7;
@@ -39,8 +39,8 @@ body { overflow: hidden; }
 #pac-input:focus {
     border-color: #4d90fe;
     margin-left: -1px;
-    padding-left: 14px;  /* Regular padding-left + 1. */
-    width: 401px;
+    padding-left: 8px;  /* Regular padding-left + 1. */
+    width: 261px;
     opacity: 1;
 }
 
@@ -81,6 +81,11 @@ body { overflow: hidden; }
     border: none;
     white-space: nowrap;
     opacity: .75;
+}
+
+.extra-map-options {
+    color: #333;
+    padding: 5px;
 }
 </style>
 </head>
@@ -126,7 +131,15 @@ $( document ).on( "pageinit", "#map-page", function() {
         center: myLatlng,
         zoom: ${zoom},
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: GOOGLE_MAPS_STYLES.Cool_Grey
+        styles: GOOGLE_MAPS_STYLES.Cool_Grey,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+        },
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.SMALL
+        }
     };
 
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -169,6 +182,32 @@ $( document ).on( "pageinit", "#map-page", function() {
 
     var radar = null;
 
+    var showRadar = function(center) {
+        // Clear previous radar
+        if (radar != null) {
+            radar.setMap(null);
+        }
+
+        if (center == null) {
+            center = map.getCenter();
+        }
+
+        if ($('input#isEnableRadar').is(':checked')) {
+            var radarOptions = {
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.35,
+                strokeWeight: 1,
+                fillColor: '#FF0000',
+                fillOpacity: 0.15,
+                map: map,
+                center: center,
+                radius: 10 * 1000
+            };
+
+            radar = new google.maps.Circle(radarOptions);
+        }
+    };
+
     // show marker in google map
     var searchByLocation = function(channel, category) {
 
@@ -176,22 +215,7 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         var center = map.getCenter();
 
-        // Clear previous radar
-        if (radar != null) {
-            radar.setMap(null);
-        }
-
-        var radarOptions = {
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.35,
-            strokeWeight: 1,
-            fillColor: '#FF0000',
-            fillOpacity: 0.15,
-            map: map,
-            center: center,
-            radius: 10 * 1000
-        };
-        radar = new google.maps.Circle(radarOptions);
+        showRadar(center);
 
         var queryData = {
             channel: channel,
@@ -263,18 +287,36 @@ $( document ).on( "pageinit", "#map-page", function() {
         return false;
     });
 
-    var elm = $('<input id="pac-input" class="controls" type="text" placeholder="Search Box" style="display: none">');
+    var searchBox;
 
-    elm.appendTo($('#map-canvas'));
+    (function() {
+        // add search box
+        var elm = $('<input id="pac-input" class="controls" type="text" placeholder="Search Box" style="display: none">');
 
-    var input = document.getElementById('pac-input');
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        elm.appendTo($('#map-canvas'));
 
-    var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(elm.get(0));
 
-    setTimeout(function() {
-        elm.show(200);
-    }, 1000);
+        searchBox = new google.maps.places.SearchBox(elm.get(0));
+
+        setTimeout(function() {
+            elm.show(200);
+        }, 1000);
+    })();
+
+    (function() {
+        // add search box
+        var elm = $('<label class="extra-map-options"><input id="isEnableRadar" type="checkbox" /> 雷達</label>');
+
+        elm.appendTo($('#map-canvas'));
+
+        elm.click(function() {
+            showRadar();
+        });
+
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(elm.get(0));
+
+    })();
 
     var placesMarkers = [];
 

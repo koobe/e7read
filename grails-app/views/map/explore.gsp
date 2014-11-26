@@ -127,6 +127,15 @@ $( document ).on( "pageinit", "#map-page", function() {
 
     var myLatlng = new google.maps.LatLng(${lat}, ${lon});
 
+    if (typeof(Storage) != "undefined") {
+        var lastCenterLat = parseFloat(localStorage.getItem('map.explorer.center.lat'));
+        var lastCenterLon = parseFloat(localStorage.getItem('map.explorer.center.lon'));
+
+        if (lastCenterLat && lastCenterLon) {
+            myLatlng = new google.maps.LatLng(lastCenterLat, lastCenterLon);
+        }
+    }
+
     var mapOptions = {
         center: myLatlng,
         zoom: ${zoom},
@@ -382,6 +391,14 @@ $( document ).on( "pageinit", "#map-page", function() {
 
     google.maps.event.addListener(map, 'dragend', function() {
         searchByLocation(currentChannel, '*');
+
+        var center = map.getCenter();
+        console.log(center);
+        if (typeof(Storage) != "undefined") {
+            localStorage.setItem('map.explorer.center', center);
+            localStorage.setItem('map.explorer.center.lat', center.lat());
+            localStorage.setItem('map.explorer.center.lon', center.lng());
+        }
     });
 
 });

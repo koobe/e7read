@@ -28,7 +28,8 @@ class SearchController {
         String categoryName = params.c
         def queryString = params.q
         GeoPoint geoPoint = null
-        def distance = params.distance
+
+        def distance = params.getDouble('distance', 25d)
 
         if (params.geo) {
             def latlon = params.geo.split(',')

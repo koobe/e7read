@@ -108,7 +108,7 @@ class S3Service {
             //fromFile << inputStream
 
             ByteArrayOutputStream os = new ByteArrayOutputStream()
-            imageService.thumbnail(file.inputStream, os, 600, 600)
+            imageService.thumbnail(file.inputStream, os, KglConstant.THUMBNAIL_MAX_WIDTH, KglConstant.THUMBNAIL_MAX_HEIGHT)
             ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray())
 
             metadata = new ObjectMetadata()
@@ -135,7 +135,7 @@ class S3Service {
 
             // make smaller thumbnail for dataUrl
             os = new ByteArrayOutputStream()
-            imageService.thumbnail(file.inputStream, os, 320, 320)
+            imageService.thumbnail(file.inputStream, os, KglConstant.THUMBNAIL_TINY_MAX_WIDTH, KglConstant.THUMBNAIL_TINY_MAX_HEIGHT)
             s3file.dataUrl = "data:${s3file.contentType};base64,${os.toByteArray().encodeBase64().toString()}"
 
             log.info "Thumbnail URL: ${s3file.thumbnailUrl}"

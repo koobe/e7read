@@ -109,7 +109,7 @@
     
 
     <div style="margin-top: 30px">
-        <g:link uri="javascript: history.back();" class="btn btn-default">Back</g:link>
+        <g:link uri="javascript: history.back();" class="btn btn-default btn-block">Back</g:link>
     </div>
 </div>
 <script type='text/javascript'>

@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="layout" content="jqm14" />
+<meta name="e7read-default-icon" content="${assetPath(src: 'e7logo-marker-icon1-48x48.png', absolute: true)}" />
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>-->
 <style type="text/css">
@@ -127,6 +128,7 @@ $( document ).on( "pageinit", "#map-page", function() {
         map: map,
         title: "You're Here",
         draggable: true,
+        icon: $('meta[name=e7read-default-icon]').attr('content'),
         animation: google.maps.Animation.DROP
     });
 
@@ -194,14 +196,14 @@ $( document ).on( "pageinit", "#map-page", function() {
                 scaledSize: new google.maps.Size(25, 25)
             };
 
-            var marker = new google.maps.Marker({
-                map: map,
-                icon: image,
-                title: place.name,
-                position: place.geometry.location
-            });
-
-            placesMarkers.push(marker);
+//            var marker = new google.maps.Marker({
+//                map: map,
+//                icon: image,
+//                title: place.name,
+//                position: place.geometry.location
+//            });
+//
+//            placesMarkers.push(marker);
 
             bounds.extend(lastLocation = place.geometry.location);
         }

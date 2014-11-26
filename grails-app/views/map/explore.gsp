@@ -3,8 +3,9 @@
 <head>
 <meta name="layout" content="jqm14" />
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+<script src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerwithlabel/1.1.9/markerwithlabel/src/markerwithlabel_packed.js"></script>
 <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=${grailsApplication.config.google.api.key}&sensor=false"></script>-->
-<meta name="e7read-default-icon" content="${assetPath(src: 'e7logo-marker-icon1-32x32.png', absolute: true)}" />
+<meta name="e7read-default-icon" content="${assetPath(src: 'e7logo-marker-icon1-48x48.png', absolute: true)}" />
 <meta name="e7read-search-content-api-url" content="${createLink(controller: 'search', action: 'content')}" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
 <link href="/jquery-mobile-theme/themes/e7read.min.css" rel="stylesheet" />
@@ -66,6 +67,20 @@ body { overflow: hidden; }
 .ui-btn-flat {
     border: none !important;
     box-shadow: none !important;
+}
+.labels {
+    color: #333;
+    background-color: white;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    width: auto;
+    max-width: 100px;
+    text-overflow: ellipsis;
+    border: none;
+    white-space: nowrap;
+    opacity: .75;
 }
 </style>
 </head>
@@ -152,14 +167,37 @@ $( document ).on( "pageinit", "#map-page", function() {
 
     var __SEARCH_CONTENT_API_URL = $('meta[name=e7read-search-content-api-url]').attr('content');
 
+    var radar = null;
+
     // show marker in google map
     var searchByLocation = function(channel, category) {
 
+        console.log('request for search results...');
+
         var center = map.getCenter();
+
+        // Clear previous radar
+        if (radar != null) {
+            radar.setMap(null);
+        }
+
+        var radarOptions = {
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.35,
+            strokeWeight: 1,
+            fillColor: '#FF0000',
+            fillOpacity: 0.15,
+            map: map,
+            center: center,
+            radius: 10 * 1000
+        };
+        radar = new google.maps.Circle(radarOptions);
+
         var queryData = {
             channel: channel,
             c: category,
-            geo: center.lat() + "," + center.lng()
+            geo: center.lat() + "," + center.lng(),
+            distance: 10
         };
 
         $.get(__SEARCH_CONTENT_API_URL, queryData).done(function(data) {
@@ -176,7 +214,7 @@ $( document ).on( "pageinit", "#map-page", function() {
 
                 var content = data[i];
 
-                marker = new google.maps.Marker({
+                marker = new MarkerWithLabel({
                     position: new google.maps.LatLng(
                                     content.location.lat + (Math.random()/500),
                                     content.location.lon + (Math.random()/500)
@@ -184,8 +222,13 @@ $( document ).on( "pageinit", "#map-page", function() {
                     map: map,
                     title: content.cropTitle,
                     draggable: false,
-                    animation: google.maps.Animation.DROP,
-                    icon: content.iconUrl?content.iconUrl:$('meta[name=e7read-default-icon]').attr('content')
+                    /*animation: google.maps.Animation.DROP,*/
+                    icon: content.iconUrl?content.iconUrl:$('meta[name=e7read-default-icon]').attr('content'),
+                    labelContent: content.cropTitle,
+                    labelAnchor: new google.maps.Point(-10, 15),
+                    labelClass: "labels",
+                    labelStyle: {opacity: 0.75}
+
                 });
 
                 searchMarkers.push(marker);
@@ -286,6 +329,17 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         //searchByLocation(currentChannel, '*');
 
+    });
+
+    google.maps.event.addListener(map, 'dragstart', function() {
+        // Clear previous radar
+        if (radar != null) {
+            radar.setMap(null);
+        }
+    });
+
+    google.maps.event.addListener(map, 'dragend', function() {
+        searchByLocation(currentChannel, '*');
     });
 
 });

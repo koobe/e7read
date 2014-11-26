@@ -1,23 +1,15 @@
 package kgl
 
 import grails.plugin.geocode.Point
-
-import org.codenarc.rule.braces.ElseBlockBracesAstVisitor;
 import org.elasticsearch.common.unit.DistanceUnit
 import org.elasticsearch.search.sort.SortBuilders
 import org.elasticsearch.search.sort.SortOrder
 
 import static org.springframework.http.HttpStatus.*
 
-import java.awt.GraphicsConfiguration.DefaultBufferCapabilities;
-
-import javax.sound.midi.MidiDevice.Info;
-
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
-
-import org.elasticsearch.common.util.concurrent.EsExecutors;
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 @Secured(["ROLE_USER"])
@@ -243,7 +235,7 @@ class ContentController {
 
         if (content) {
             // Add content allow list to session
-            session.setAttribute MyConstant.SESSION_KEY_LATEST_CONTENT_ID, content.id
+            session.setAttribute KglConstant.SESSION_KEY_LATEST_CONTENT_ID, content.id
         }
 
         redirect action: 'modify', id: content.id
@@ -265,7 +257,7 @@ class ContentController {
         // Only allow owner modify content or anonymous post who create it.
         if (content.user != springSecurityService.currentUser) {
 
-            if (session.getAttribute(MyConstant.SESSION_KEY_LATEST_CONTENT_ID) != content.id) {
+            if (session.getAttribute(KglConstant.SESSION_KEY_LATEST_CONTENT_ID) != content.id) {
                 response.sendError 403
                 return
             }
@@ -823,20 +815,19 @@ class ContentController {
 		contentInstance.fullText = fullText
 
         // Set content location
-        def location = session['geolocation']
-        if (location && location.lon && location.lat) {
+        if (params.lat && params.lon) {
+
+            log.info "Setup content location (${params.lat}, ${params.lon})"
 
             // Set geo location
             if (!contentInstance.location) {
                 contentInstance.location = new GeoPoint()
             }
 
-            contentInstance.location.lat = location.lat?.toDouble()
-            contentInstance.location.lon = location.lon?.toDouble()
+            contentInstance.location.lat = Float.parseFloat(params.lat)
+            contentInstance.location.lon = Float.parseFloat(params.lon)
 
-            log.info "Update Geo Location for Content #${contentInstance.cropTitle} with lat = ${location.lat}, lon = ${location.lon}"
-
-            contentInstance.location.save(flush: true)
+            contentInstance.location.save flush: true
         }
 
         // Set cover image
@@ -869,7 +860,7 @@ class ContentController {
 		
 		contentInstance.save flush: true
 
-        session.setAttribute(MyConstant.SESSION_KEY_LATEST_CONTENT_ID, contentInstance.id)
+        session.setAttribute(KglConstant.SESSION_KEY_LATEST_CONTENT_ID, contentInstance.id)
 		
 		render contentInstance as JSON
 	}
@@ -913,7 +904,7 @@ class ContentController {
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def shorten() {
-        def contentId = session.getAttribute(MyConstant.SESSION_KEY_LATEST_CONTENT_ID)
+        def contentId = session.getAttribute(KglConstant.SESSION_KEY_LATEST_CONTENT_ID)
 
         if (!contentId) {
             redirect uri: '/'

@@ -10,6 +10,9 @@ class MapController {
     def categoryService
 
     def index() {}
+	
+	def welcome() {
+	}
 
     def explore() {
 

@@ -2,6 +2,7 @@ package kgl
 
 import grails.converters.JSON
 import grails.plugin.geocode.Point
+import grails.plugin.springsecurity.annotation.Secured
 
 class MapController {
 	
@@ -11,6 +12,7 @@ class MapController {
 
     def index() {}
 	
+	@Secured(["ROLE_USER"])
 	def welcome() {
 	}
 

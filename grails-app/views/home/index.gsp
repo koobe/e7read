@@ -17,10 +17,6 @@
 		
 		<asset:javascript src="e7read.contentloading.js"/>
 		<asset:javascript src="content_show.js"/>
-		
-		<g:if test="${channel.themeType == 'article'}">
-			<asset:javascript src="e7read.geolocation.js"/>
-		</g:if>
 	</head>
 	<body>
 		
@@ -28,6 +24,21 @@
 			<div class="content-pane" ${(channel.themeType == 'square')? 'ng-controller=CoverFlowController': ''}>
 				
 				<g:render template="header" model="[showcategorymenu: true, showsearchbar: true, showChannelButton: true]" />
+				
+				<g:if test="${showSetLocationTip}">
+					<div class="container">
+			        	<div style="
+				        	display: inline-block;
+				        	background-color: rgba(148, 230, 218, 0.5);
+				        	border-radius: 4px;
+				        	padding: 2px 10px 2px 10px;
+				        	font-size: 0.9em;
+				        	color: #555;
+				        	float:right;">
+			        		您尚未設定個人位置，請<a href="/map/welcome">設定</a>
+			        	</div>
+		        	</div>
+		        </g:if>
 				
 				<g:if test="${(channel.themeType == 'square')}">
 					<g:render template="/content/content_coverflow_container"></g:render>
@@ -40,6 +51,8 @@
 				
 	        </div>
         </div>
+        
+        
 		
 		<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home', channel: params.channel]" />
 		

@@ -58,7 +58,16 @@ mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', fun
 		if (isReady) {
 			s.loading('儲存中 ...');
 			console.log('Save my location: ' + $scope.locationLat + ',' + $scope.locationLon);
+			callUpdateMyLocationService($scope.locationLat, $scope.locationLon, function() {
+				window.location.replace("/");
+			});
 		}
+	};
+	
+	$scope.skipSetLocation = function() {
+		callSkipSetLocation(function() {
+			window.location.replace("/");
+		});
 	};
 	
 	// pre-loading location from sensor
@@ -83,6 +92,24 @@ mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', fun
 		});
 	}
 	
+	function callUpdateMyLocationService(lat, lon, callback) {
+		var service = $resource('/user/setLocation',{},{
+			setLocation: {method:'GET'}
+		});
+		service.setLocation({lat: lat, lon: lon}, function() {
+			callback();
+		});
+	}
+	
+	function callSkipSetLocation(callback) {
+		var service = $resource('/user/skipSetLocation',{},{
+			skipSetLocation: {method:'GET'}
+		});
+		service.skipSetLocation({}, function() {
+			callback();
+		});
+	}
+	
 }]);
 
 mapWelcomeApp.controller("GooglePlaceAutoCompleteController", ['$scope', function ($scope) {
@@ -99,14 +126,3 @@ mapWelcomeApp.controller("GooglePlaceAutoCompleteController", ['$scope', functio
 		scopeMapWelcomeMainController.setLocation(lat, lon, name);
 	};
 }]);
-
-//$(function() {
-//    $('input[name=geolocation]').change(function() {
-//    	var lat = $('input[name=lat]').val();
-//        var lon = $('input[name=lon]').val();
-//        
-//    	console.log('Set location: ' + lat + ',' + lon);
-//    	
-//        scopeMapWelcomeMainController.setLocation(lat, lon, '');
-//    });
-//});

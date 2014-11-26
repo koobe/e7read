@@ -121,7 +121,7 @@
      		<div style="display: table; padding-top: 40px; width:100%;">
      			<div style="display:table-cell; vertical-align:middle;">
      				<div style="float:right; padding-right:10px;">
-     					<a id="button-ignore" href="/">下次再提醒我</a>
+     					<a id="button-ignore" href="javascript:void(0);" ng-click="skipSetLocation()">下次再提醒我</a>
      				</div>
      			</div>
 				<div style="display:table-cell;">

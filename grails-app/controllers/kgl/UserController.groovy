@@ -167,5 +167,46 @@ class UserController {
 
         render result
     }
-
+	
+	@Secured(["ROLE_USER"])
+	def setLocation() {
+		
+		def lat = params.lat as double
+		def lon = params.lon as double
+		
+		def user = springSecurityService.currentUser
+		
+		if (user.location) {
+			user.location.lat = lat;
+			user.location.lon = lon;
+		} else {
+			def geoPoint = new GeoPoint(lat: lat, lon: lon)
+			user.location = geoPoint;
+			geoPoint.save flush: true
+		}
+		
+		user.save flush: true
+		
+		render [:] as JSON
+	}
+	
+	@Secured(["ROLE_USER"])
+	def getLocation() {
+		
+		def user = springSecurityService.currentUser
+		
+		def result = [:]
+		
+		result.lat = user.location?.lat
+		result.lon = user.location?.lon
+		result.name = user.location?.getLocationName()
+		
+		render result as JSON
+	}
+	
+	@Secured(["ROLE_USER"])
+	def skipSetLocation() {
+		session['skipSetLocation'] = true
+		render [:] as JSON
+	}
 }

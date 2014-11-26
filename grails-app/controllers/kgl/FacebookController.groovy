@@ -59,20 +59,20 @@ class FacebookController {
         }
 
         // Update geolocation
-        def location = session['geolocation']
-        if (location && location.lon && location.lat) {
-            if (!user.location) {
-                user.location = new GeoPoint()
-            }
-
-            user.location.lat = location.lat?.toDouble()
-            user.location.lon = location.lon?.toDouble()
-
-            log.info "Update Geo Location for ${user.username} with lat = ${location.lat}, lon = ${location.lon}"
-
-            user.location.save(flush: true)
-            user.save(flush: true)
-        }
+//        def location = session['geolocation']
+//        if (location && location.lon && location.lat) {
+//            if (!user.location) {
+//                user.location = new GeoPoint()
+//            }
+//
+//            user.location.lat = location.lat?.toDouble()
+//            user.location.lon = location.lon?.toDouble()
+//
+//            log.info "Update Geo Location for ${user.username} with lat = ${location.lat}, lon = ${location.lon}"
+//
+//            user.location.save(flush: true)
+//            user.save(flush: true)
+//        }
 
         springSecurityService.reauthenticate user.username
 		

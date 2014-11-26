@@ -31,6 +31,7 @@ class HomeController {
 		params.channel = myChannel.name
 		session['redirect_logged'] = "/${myChannel.name}"
 		
+		def showSetLocationTip = false;
 		def unreadCount
 		if (springSecurityService.currentUser) {
 			
@@ -42,8 +43,21 @@ class HomeController {
 			
 			def count = Message.executeQuery(query, [userId: springSecurityService.currentUser.id, isRead: false])
 			unreadCount = count.get(0)
+			
+			if (!springSecurityService.currentUser.location) {
+				if (session['skipSetLocation']) {
+					showSetLocationTip = true;
+				} else {
+					redirect (controller: 'map', action: 'welcome')
+				}
+			}
 		}
 		
-		[params: params, channel: myChannel, unreadMsgCount: unreadCount]
+		[
+			params: params, 
+			channel: myChannel, 
+			unreadMsgCount: unreadCount, 
+			showSetLocationTip: showSetLocationTip
+		]
 	}
 }

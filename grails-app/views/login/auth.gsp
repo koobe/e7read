@@ -8,6 +8,7 @@
     	}
     	
     	.title {
+    		display: inline-block;
     		padding-top: 18px;
     		padding-bottom: 18px;
     		
@@ -19,13 +20,15 @@
     	}
     	
     	.sub-title {
+    		display: inline-block;
+    		font-family: Arial,sans-serif;
+	    	font-style: italic;
     		font-size: 1.1em;
     		font-weight: 300;
     		letter-spacing: 1px;
-    		padding-bottom: 30px;
     		color: #888;
-    		
-    		font-family: Arial,sans-serif;
+    		padding-left: 10px;
+	    	padding-bottom: 30px;
     	}
     	
     	.tip {
@@ -55,15 +58,10 @@
 		<g:render template="/home/section_title" model="[sectionTitle: 'Sign in', fontAwesome: '']"></g:render>
 	</nav>
 	
-	<!-- 
-    <div class="page-header">
-        <h3><g:message code="springSecurity.login.header"/></h3>
-    </div>
-     -->
-     
-     <div class="title">Welcome to E7LIFE.</div>
-     
-     <div class="sub-title">Share everything around your nearby locations</div>
+	<div>
+		<div class="title">Welcome to E7LIFE.</div>
+		<div class="sub-title">-Share everything around your nearby locations</div>
+	</div>
      
      <div class="login-block">
      	<oauth:connect provider="facebook" id="facebook-connect-link" class="btn btn-default">

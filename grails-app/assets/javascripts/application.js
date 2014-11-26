@@ -24,7 +24,11 @@ function confirmLogout() {
 //	var r = confirm('Logout?');
 //	if (r) {
 		var channel = getQueryVariable("channel")
-		window.location.replace("/logout/index?channel=" + channel);
+		if (channel) {
+			window.location.replace("/logout/index?channel=" + channel);
+		} else {
+			window.location.replace("/logout/index?channel=e7read");
+		}
 //	}
 }
 

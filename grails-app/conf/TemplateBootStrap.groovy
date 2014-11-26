@@ -7,10 +7,11 @@ class TemplateBootStrap {
     def templateService
 
     def init = { servletContext ->
-
-        log.info "Load all built-in templates (TemplateBootStrap)"
-
-        templateService.loadBuiltIn()
+		
+		if (grailsApplication.config.grails.application.bootstrap_meta) {
+			log.info "Load all built-in templates (TemplateBootStrap)"
+			templateService.loadBuiltIn()
+		}
 
         // Create Original Template
 
@@ -24,9 +25,8 @@ class TemplateBootStrap {
 //            template1.save flush: true
 //        }
 
-
-
     }
+	
     def destroy = {
     }
 }

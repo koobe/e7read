@@ -14,9 +14,10 @@ class MetadataBootStrap {
     def grailsLinkGenerator
 
     def init = { servletContext ->
-		
-		bootstrapChannelData()
-		bootstrapCategoryData()
+		if (grailsApplication.config.grails.application.bootstrap_meta) {
+			bootstrapChannelData()
+			bootstrapCategoryData()
+		}
     }
 	
     def destroy = {

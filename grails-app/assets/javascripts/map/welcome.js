@@ -75,6 +75,11 @@ mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$mapService', '
 		});
 	};
 	
+	$scope.openPromptMap = function() {
+//		window.open('/map/prompt?center=' + $scope.locationLat + ',' + $scope.locationLon, '_blank');
+		window.open('/map/prompt', '_blank');
+	};
+	
 	// pre-loading location from sensor
 	$scope.setLocationBySensor();
 }]);

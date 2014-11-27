@@ -99,12 +99,12 @@
 						options="options" ng-model="locationName" />
 				</div>
 				<div>
-	     			<a href="/map/prompt" style="white-space: nowrap; padding-left: 5px;" target="_blank">開啟地圖</a>
+	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="openPromptMap()">開啟地圖</a>
 	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="setLocationBySensor()">自動定位</a>
 	     		</div>
 	     		
-	     		<input type="hidden" name="lat" ng-value="locationLon" />
-				<input type="hidden" name="lon" ng-value="locationLat" />
+	     		<input style="display:none;" type="input" name="lat" ng-model="locationLat" />
+				<input style="display:none;" type="input" name="lon" ng-model="locationLon" />
 				<input style="display:none;" type="input" name="geolocation" ng-change="setLocationByMap()" ng-model="geolocation" />
      		</div>
      		

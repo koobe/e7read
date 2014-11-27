@@ -24,11 +24,23 @@ class ContentController {
     def contentService
     def elasticSearchService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [get: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     def index() {
 		[]
     }
+	
+	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+	def get() {
+		def id = params.id;
+		def content = Content.get(id);
+		
+		if (checkContent(content)) {
+			render [:] as JSON
+		} else {
+			render content as JSON
+		}
+	}
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def show(Content contentInstance) {

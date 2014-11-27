@@ -17,13 +17,14 @@
 	<meta name="params-lat" content="${lat}" />
 	<meta name="params-lon" content="${lon}" />
 	<meta name="params-channel" content="${content.channel?.name}" />
+	<meta name="params-contentId" content="${content.id}" />
 </head>
 <body>
 
 <div data-role="page" data-theme="b" id="map-page">
     <div data-role="header">
         <g:link uri="/${content.channel?.name}" data-icon="home" rel="external">Back</g:link>
-        <h1>E7READ Explore</h1>
+        <h1>${content.channel?.name.toUpperCase()} Explore</h1>
     </div>
     <div role="main" class="ui-content" id="map-canvas"></div>
 </div>
@@ -44,59 +45,66 @@ $( document ).on( "pageinit", "#map-page", function() {
 
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-    // make content layout for info window display
-    var makeHtmlContent = function() {
-
-        var box = $('<div class="row" />');
-
-        var left = $('<div class="col-sm-4" />');
-
-        var a = $('<a target="blank" />').attr('href', '/share/${content.id}');
-        a.append($('<img align="left" alt="cover" border="0" class="img-thumbnail img-responsive" style="max-width: 200px; max-height: 200px; padding: 10px;" />').attr('src', '${content.coverUrl}'));
-
-        left.append(a);
-
-        box.append(left);
-
-        var right = $('<div class="col-sm-8" />');
-
-        right.append($('<h4 style="color:#333;"/>').text('${content.cropTitle}'));
-        right.append($('<p style="color:#333;"/>').text('${content.cropText}'));
-        right.append($('<a target="blank" style="font-size: 1.1em;" />').attr('href', '/share/${content.id}').text('more...'));
-
-        box.append(right);
-
-        return box.html();
-    };
+	var contentId = '${content.id}';
 
 
-    var infowindow = new google.maps.InfoWindow();
+    $.ajax({
+        type: 'GET',
+        data: {id: contentId},
+        url: '/content/get',
+        success: function (data, textStatus) {
 
-    var marker;
+         	// make content layout for info window display
+            var makeHtmlContent = function() {
+                var box = $('<div class="row" />');
+                var left = $('<div class="col-sm-4" />');
+                var a = $('<a target="blank" />').attr('href', '/share/${content.id}');
+                a.append($('<img align="left" alt="cover" border="0" class="img-thumbnail img-responsive" style="max-width: 200px; max-height: 200px; padding: 10px;" />').attr('src', '${content.coverUrl}'));
+                left.append(a);
+                box.append(left);
+                var right = $('<div class="col-sm-8" />');
+                right.append($('<h4 style="color:#333;"/>').text(data.cropTitle));
+                right.append($('<p style="color:#333;"/>').text(data.cropText));
+                right.append($('<a target="blank" style="font-size: 1.1em;" />').attr('href', '/share/' + data.id).text('more...'));
+                box.append(right);
+                return box.html();
+            };
 
-    marker = new google.maps.Marker({
-        position: new google.maps.LatLng(
-        		${lat} + (Math.random()/500),
-        		${lon} + (Math.random()/500)
-        ),
-        map: map,
-        title: '${contentTitle}',
-        draggable: false,
-        animation: google.maps.Animation.DROP
-    });
+            var infowindow = new google.maps.InfoWindow();
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(
+                		${lat} + (Math.random()/500),
+                		${lon} + (Math.random()/500)
+                ),
+                map: map,
+                title: data.cropTitle,
+                draggable: false,
+                animation: google.maps.Animation.DROP
+            });
 
-    google.maps.event.addListener(marker, 'click', (function(marker, html) {
+            google.maps.event.addListener(marker, 'click', (function(marker, html) {
 
-        return function() {
-            infowindow.setContent(html);
+                return function() {
+                    infowindow.setContent(html);
+                    infowindow.open(map, marker);
+
+                    console.log(marker);
+                };
+            })(marker, makeHtmlContent()));
+
+            infowindow.setContent(makeHtmlContent());
             infowindow.open(map, marker);
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        		console.log(textStatus);
+        		console.log(errorThrown);
+        }
+	});
 
-            console.log(marker);
-        };
-    })(marker, makeHtmlContent()));
+    
 
-    infowindow.setContent(makeHtmlContent());
-    infowindow.open(map, marker);
+
+    
 
 });
 </script>

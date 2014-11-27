@@ -66,6 +66,9 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 		if (lat && lon) {
 			geo = lat + ',' + lon;
 			console.log('Search near: ' + geo);
+			$scope.lastSearchLocation.lat = lat;
+			$scope.lastSearchLocation.lon = lon;
+			$scope.lastSearchLocation.name = $scope.searchLocation.name;
 		} else {
 			$scope.locationName = lastName;
 		}
@@ -126,6 +129,7 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 		
 		s.loading('正在取得位置資訊...');
 		isGeoReady = false;
+		resetContent();
 		
 		$mapService.getCurrentPosition(function(position) {
 			
@@ -157,6 +161,8 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 		
 		s.loading('正在取得位置資訊...');
 		isGeoReady = false;
+		resetContent();
+		
 		$userService.getLocation(function(location) {
 			var lat = location.lat;
 			var lon = location.lon;
@@ -205,9 +211,6 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 	
 	$scope.orderByDate = function() {
 		if (isGeoReady) {
-			$scope.lastSearchLocation.lat = $scope.searchLocation.lat;
-			$scope.lastSearchLocation.lon = $scope.searchLocation.lon;
-			$scope.lastSearchLocation.name = $scope.searchLocation.name;
 			$scope.searchLocation = {};
 			$scope.loadContents(true);
 		} else {

@@ -5,12 +5,12 @@
 
 var s = $.spinner({fadeTime:100});
 
-var mapWelcomeApp = angular.module('MapWelcomeApp', ['ngResource', 'ngAutocomplete', 'mapService', 'userService']);
+var mapWelcomeApp = angular.module('MapWelcomeApp', ['ngAutocomplete', 'mapService', 'userService']);
 
 var scopeMapWelcomeMainController;
 
-mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', '$mapService', '$userService', 
-                                              function($scope, $resource, $mapService, $userService) {
+mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$mapService', '$userService', 
+                                              function($scope, $mapService, $userService) {
 	
 	scopeMapWelcomeMainController = $scope;
 	
@@ -38,10 +38,9 @@ mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', '$m
 		
 		s.loading('正在取得位置資訊 ...');
 		
-		navigator.geolocation.getCurrentPosition(function(position) {
+		$mapService.getCurrentPosition(function(position) {
 			var lat = position.coords.latitude;
 			var lon = position.coords.longitude;
-			
 			$scope.locationLat = lat;
 			$scope.locationLon = lon;
 			

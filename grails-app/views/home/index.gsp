@@ -3,7 +3,7 @@
 	    <meta name="layout" content="main"/>
 	    <title></title>
 	    
-	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 	    <script src="//code.angularjs.org/1.3.2/angular-resource.min.js"></script>
 	    
 	    <asset:javascript src="jquery.messagemanager.js"/>
@@ -17,6 +17,10 @@
 		
 		<asset:javascript src="e7read.contentloading.js"/>
 		<asset:javascript src="content_show.js"/>
+		
+		<asset:javascript src="service/angular_map_service.js"/>
+		<asset:javascript src="service/angular_user_service.js"/>
+		<asset:javascript src="service/angular_search_service.js"/>
 	</head>
 	<body>
 		

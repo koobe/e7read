@@ -1,43 +1,36 @@
 var channel = getQueryVariable("channel");
 var categoryName = getQueryVariable("c");
 
-var coverFlowApp = angular.module('coverFlowApp', ['ngResource', 'ngAutocomplete']);
-
-coverFlowApp.config(function($provide, $compileProvider, $filterProvider) {
-});
+var coverFlowApp = angular.module('coverFlowApp', ['ngAutocomplete', 'userService', 'mapService', 'searchService']);
 
 var s = $.spinner();
 
-var coverFlowControllerScope;
-var gPlacesAutoCompCtrlScope;
+var scopeCoverFlowController;
+var scopeGPlacesAutoCompController;
 var onCall = false;
 var eof = false;
 var isGeoReady = false;
 
-coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', function($scope, $resource, $log) {
-	
-	coverFlowControllerScope = $scope;
+var defaultDistance = 10000;
 
-	// create search parameters
-	var params = {};
-	params.channel = channel;
-	params.distance = 5000;
+coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userService', '$searchService', 
+                                                function($scope, $mapService, $userService, $searchService) {
+	
+	scopeCoverFlowController = $scope;
+	
+	var searchInput;
+
+	// default search parameters
+	var defaultSearchParams = {};
+	defaultSearchParams.channel = channel;
+	defaultSearchParams.distance = defaultDistance;
 	if (categoryName) {
-		params.c = categoryName
+		defaultSearchParams.c = categoryName
 	}
-	var SearchContentRestService = $resource('/search/contents', {}, {
-		search: {method:'GET', params:params, isArray: true}
-	});
 	
-	var GeocodingRestService = $resource('/map/geocoding',{},{
-		geocoding: {method:'GET'}
-	});
-	
-	$scope.myLat = null;
-	$scope.myLon = null;
-	
-	$scope.searchLat = null;
-	$scope.searchLon = null;
+	$scope.myLocation = {};
+	$scope.sensorLocation = {};
+	$scope.searchLocation = {};
 	
 	$scope.locationName;
 	
@@ -51,57 +44,63 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 	
 	$scope.size = 12;
 	$scope.page = 0;
-	
 	$scope.contents = [];
 	
-	$scope.loadContents = function(lat, lon) {
-		$log.log('Load... ' + $scope.page + ', ' + $scope.size);
-		onCall = true;
+	$scope.loadContents = function(reset) {
 		
+		onCall = true;
 		s.loading();
+		
+		if (reset) {
+			resetContent();
+		}
+		console.log('Load... ' + $scope.page + ', ' + $scope.size);
+		
+		var lastName = $scope.locationName;
+		
+		var lat = $scope.searchLocation.lat;
+		var lon = $scope.searchLocation.lon;
+		$scope.locationName = $scope.searchLocation.name;
 		
 		var geo = null;
 		if (lat && lon) {
 			geo = lat + ',' + lon;
 			console.log('Search near: ' + geo);
+		} else {
+			$scope.locationName = lastName;
 		}
 		
 		$scope.page++;
 		var offset = ($scope.page * $scope.size) - $scope.size;
 		
-		SearchContentRestService.search({size: $scope.size, offset: offset, geo: geo, q: $scope.keyword}, function(contents){
+		var data = {size: $scope.size, offset: offset, geo: geo, q: $scope.keyword};
+		angular.extend(data, defaultSearchParams);
+		
+		$searchService.searchContent(data, function(contents){
 			if (contents.length == 0) {
 				console.log('eof');
 				eof = true;
 			}
 			angular.forEach(contents, function(content){
 				if (geo != null) {
-					content.distance = distance(lat, lon,
-							content.location.lat, content.location.lon, 'K');
+					content.distance = $mapService.distance(lat, lon, content.location.lat, content.location.lon, 'K');
 				}
-				
 				$scope.contents.push(content);
 			});
-			
 			onCall = false;
 			s.done();
 		});
 	};
 	
-	var searchInput;
-	
+	/**
+	 * trigger search action by Enter key
+	 */
 	$scope.search = function(e) {
-		
 		if (e.keyCode == 13) {
 			var target = angular.element(e.target);
-			
 			searchInput = target;
 			
-			console.log(target.val());
-			
-			$scope.contents = [];
-			$scope.page = 0;
-			eof = false;
+			resetContent();
 			
 			if (target.val() == null || target.val().trim() == '') {
 				$scope.keyword = null;
@@ -110,104 +109,91 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 			}
 			
 			$scope.loadContents($scope.searchLat, $scope.searchLon);
-			
 			target.blur();
 		}
 	}
 	
+	/**
+	 * remove search keyword
+	 */
 	$scope.removeKeyword = function() {
-		
 		searchInput.val(null);
-		
-		$scope.contents = [];
-		$scope.page = 0;
-		eof = false;
 		$scope.keyword = null;
-		
-		$scope.loadContents($scope.searchLat, $scope.searchLon);
+		$scope.loadContents(true);
 	}
 	
-	s.loading('正在取得位置資訊...');
-	
-	//TODO Get geo point from user profile
-	navigator.geolocation.getCurrentPosition(function(position) {
-		var lat = position.coords.latitude;
-		var lon = position.coords.longitude;
+	$scope.setLocationBySensor = function() {
 		
-		$scope.myLat = lat;
-		$scope.myLon = lon;
+		s.loading('正在取得位置資訊...');
+		isGeoReady = false;
 		
-		$scope.searchLat = lat;
-		$scope.searchLon = lon;
-		
-		s.done();
-		
-		$scope.loadContents(lat, lon);
-		
-		GeocodingRestService.geocoding({lat:lat, lon:lon}, function(data) {
+		$mapService.getCurrentPosition(function(position) {
 			
-			$scope.myLocationName = '';
-			if (data.city) {
-				$scope.myLocationName = $scope.myLocationName + data.city;
-			}
-			if (data.region) {
-				$scope.myLocationName = $scope.myLocationName + data.region;
-			}
+			var lat = position.coords.latitude;
+			var lon = position.coords.longitude;
 			
-			if ($scope.myLocationName == '') {
-				$scope.myLocationName = data.country;
-			}
-			
-			$scope.locationName = $scope.myLocationName;
-			
-			isGeoReady = true;
+			$mapService.geocoding(lat, lon, function(name) {
+				
+				$scope.sensorLocation.lat = lat;
+				$scope.sensorLocation.lon = lon;
+				$scope.sensorLocation.name = name;
+				
+				s.done();
+				isGeoReady = true;
+				
+				$scope.searchLocation = $scope.sensorLocation;
+				$scope.loadContents(true);
+			});
 		});
-	});
-	
-	$scope.resetParameters = function() {	
-		if (gPlacesAutoCompCtrlScope.choosePlace) {
-			$scope.contents = [];
-			$scope.page = 0;
-			eof = false;
-//			$scope.keyword = null;
-			
-			$scope.searchLat = gPlacesAutoCompCtrlScope.details.geometry.location.k;
-			$scope.searchLon = gPlacesAutoCompCtrlScope.details.geometry.location.B;
-			
-			$scope.locationName = gPlacesAutoCompCtrlScope.details.name;
-			
-			$scope.loadContents($scope.searchLat, $scope.searchLon);
-			
-			$('#btnSortByDistance').addClass('active');
-			$('#btnSortByNewest').removeClass('active');
-		} else {
-//			$scope.contents = [];
-//			$scope.page = 0;
-//			eof = false;
-//			
-//			$scope.loadContents();
-			
-//			$scope.returnMyLocation();
-		}
+		
+		$('#btnSortByDistance').addClass('active');
+		$('#btnSortByNewest').removeClass('active');
 	};
 	
+	/**
+	 * Set query location by user profile
+	 */
+	$scope.setLocationByUserProfile = function() {
+		
+		s.loading('正在取得位置資訊...');
+		isGeoReady = false;
+		$userService.getLocation(function(location) {
+			var lat = location.lat;
+			var lon = location.lon;
+			var name = location.name;
+			
+			if (lat != null && lon != null) {
+				$scope.myLocation.lat = lat;
+				$scope.myLocation.lon = lon;
+				$scope.myLocation.name = name;
+				
+				s.done();
+				$scope.searchLocation = $scope.myLocation;
+				$scope.loadContents(true);
+				isGeoReady = true;
+			} else {
+				if ($scope.sensorLocation.lat) {
+					s.done();
+					$scope.searchLocation = $scope.sensorLocation;
+					$scope.loadContents(true);
+					isGeoReady = true;
+				} else {
+					// set location by sensor
+					$scope.setLocationBySensor();
+				}
+			}
+		});
+		
+		$('#btnSortByDistance').addClass('active');
+		$('#btnSortByNewest').removeClass('active');
+	};
+	
+	/**
+	 * return to my location
+	 */
 	$scope.returnMyLocation = function() {
 		if (isGeoReady) {
-			
-			gPlacesAutoCompCtrlScope.details = {};
-			
-			$scope.contents = [];
-			$scope.page = 0;
-			eof = false;
-//			$scope.keyword = null;
-			
-			$scope.searchLat = $scope.myLat;
-			$scope.searchLon = $scope.myLon;
-			
-			$scope.locationName = $scope.myLocationName;
-			
-			$scope.loadContents($scope.myLat, $scope.myLon);
-			
+			$scope.setLocationByUserProfile();
 			$('#btnSortByDistance').addClass('active');
 			$('#btnSortByNewest').removeClass('active');
 		} else {
@@ -215,18 +201,15 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 		}
 	};
 	
+	$scope.lastSearchLocation = {};
+	
 	$scope.orderByDate = function() {
 		if (isGeoReady) {
-			
-			$scope.contents = [];
-			$scope.page = 0;
-			eof = false;
-			
-			$scope.searchLat = null;
-			$scope.searchLon = null;
-			
-			$scope.loadContents();
-			
+			$scope.lastSearchLocation.lat = $scope.searchLocation.lat;
+			$scope.lastSearchLocation.lon = $scope.searchLocation.lon;
+			$scope.lastSearchLocation.name = $scope.searchLocation.name;
+			$scope.searchLocation = {};
+			$scope.loadContents(true);
 		} else {
 			console.log('My location is not ready');
 		}
@@ -234,24 +217,23 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 	
 	$scope.orderByNear = function() {
 		if (isGeoReady) {
-			
-			$scope.contents = [];
-			$scope.page = 0;
-			eof = false;
-			
-			if (gPlacesAutoCompCtrlScope.details.geometry) {
-				$scope.searchLat = gPlacesAutoCompCtrlScope.details.geometry.location.k;
-				$scope.searchLon = gPlacesAutoCompCtrlScope.details.geometry.location.B;
-			} else {
-				$scope.searchLat = $scope.myLat;
-				$scope.searchLon = $scope.myLon;
-			}
-			
-			$scope.loadContents($scope.searchLat, $scope.searchLon);
-			
+			$scope.searchLocation = $scope.lastSearchLocation;
+			$scope.loadContents(true);
 		} else {
 			console.log('My location is not ready');
 		}
+	};
+	
+	$scope.searchSelectedLocation = function(details) {
+		console.log(details);
+		
+		$scope.searchLocation.lat = details.geometry.location.k;
+		$scope.searchLocation.lon = details.geometry.location.B;
+		$scope.searchLocation.name = details.name;
+		$scope.loadContents(true);
+		
+		$('#btnSortByDistance').addClass('active');
+		$('#btnSortByNewest').removeClass('active');
 	};
 	
 	$scope.openContent = function(contentId) {
@@ -263,25 +245,24 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$resource', '$log', f
 		console.log('Click userId: ' + userId);
 	};
 	
-	function distance(lat1, lon1, lat2, lon2, unit) {
-	    var radlat1 = Math.PI * lat1/180
-	    var radlat2 = Math.PI * lat2/180
-	    var radlon1 = Math.PI * lon1/180
-	    var radlon2 = Math.PI * lon2/180
-	    var theta = lon1-lon2
-	    var radtheta = Math.PI * theta/180
-	    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-	    dist = Math.acos(dist)
-	    dist = dist * 180/Math.PI
-	    dist = dist * 60 * 1.1515
-	    if (unit=="K") { dist = dist * 1.609344 }
-	    if (unit=="N") { dist = dist * 0.8684 }
-	    return dist
+	$scope.initLocation = function() {
+		$scope.setLocationByUserProfile();
+	};
+	
+	$scope.initLocation();
+	
+	function resetContent() {
+		$scope.contents = [];
+		$scope.page = 0;
+		eof = false;
 	}
 }])
 
 coverFlowApp.directive('scrolling', function() {
 	
+	/**
+	 * determine if load more data
+	 */
 	function shouldLoadMore(scrollingObj, contentObj) {
 		var factor = scrollingObj.scrollTop() + scrollingObj.height() + 100;
 		if ((contentObj.height() - factor) <= 0) { return true; } else { return false; }
@@ -295,13 +276,13 @@ coverFlowApp.directive('scrolling', function() {
 			
 			element.scroll(function() {
 					if (shouldLoadMore(element, contentPane) && !onCall && !eof) {
-						coverFlowControllerScope.loadContents(coverFlowControllerScope.searchLat, coverFlowControllerScope.searchLon);
+						scopeCoverFlowController.loadContents();
 					}
 		        });
 			element.on({
 		            'touchmove': function(e) {
 		            	if (shouldLoadMore(element, contentPane) && !onCall && !eof) {
-							coverFlowControllerScope.loadContents(coverFlowControllerScope.searchLat, coverFlowControllerScope.searchLon);
+		            		scopeCoverFlowController.loadContents();
 						}
 		            }
 		        });
@@ -309,12 +290,18 @@ coverFlowApp.directive('scrolling', function() {
 	};
 });
 
-coverFlowApp.controller("GPlacesAutoCompCtrl", ['$scope', function ($scope) {
+coverFlowApp.controller("GPlacesAutoCompController", ['$scope', function ($scope) {
 	
-	gPlacesAutoCompCtrlScope = $scope;
+	scopeGPlacesAutoCompController = $scope;
 	
 	$scope.result = '';
 	$scope.options = null;
 	$scope.details = '';
 	$scope.choosePlace = false;
+	
+	$scope.callback = function() {
+		if ($scope.choosePlace) {
+			$scope.searchSelectedLocation($scope.details);
+		}
+	}
 }]);

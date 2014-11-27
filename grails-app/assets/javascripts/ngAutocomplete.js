@@ -78,13 +78,10 @@ angular.module( "ngAutocomplete", [])
             scope.$apply(function() {
             	
                 if (scope.gPlace.getPlace() != undefined && scope.gPlace.getPlace().geometry != undefined) {
-                	
                 	scope.details = scope.gPlace.getPlace();
                     console.log('Choose: ' + scope.details.geometry.location.k + ', ' + scope.details.geometry.location.B);
                     scope.ngAutocomplete = element.val();
                     scope.choosePlace = true;
-                    
-                    try { coverFlowControllerScope.resetParameters(); } catch(e) {}
                     try { scope.callback(); } catch(e) {}
                 } else {
                 	console.log('no choose');
@@ -93,7 +90,7 @@ angular.module( "ngAutocomplete", [])
             });
           })
         }
-        newAutocomplete()
+        newAutocomplete();
 
         //watch options provided to directive
         scope.watchOptions = function () {

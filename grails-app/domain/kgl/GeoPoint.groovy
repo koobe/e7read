@@ -58,17 +58,16 @@ class GeoPoint {
 		
 		def ls = []
 		
-		
-		if (region) {
-			ls.add(region)
+		if (country) {
+			ls.add(country)
 		}
 		if (city) {
 			ls.add(city)
 		}
-		if (country) {
-			ls.add(country)
+		if (region) {
+			ls.add(region)
 		}
 		
-		return ls.join(' ')
+		return ls.join('')
 	}
 }

@@ -34,7 +34,7 @@
 <div class="container">
 	<div style="padding: 10px 5px 10px 4px;">
 		
-		<div style="display:inline-block; vertical-align: middle; margin-top: 10px;" ng-controller="GPlacesAutoCompCtrl">
+		<div style="display:inline-block; vertical-align: middle; margin-top: 10px;" ng-controller="GPlacesAutoCompController">
 			<a href="javascript:void(0);" ng-click="returnMyLocation()">我的位置</a>：
 			
 			<button id="place_button" class="btn btn-default" style="padding: 2px 11px 2px 11px;">
@@ -43,6 +43,8 @@
 			
 			<input id="place_input" type="text" class="gplaces-input" id="Autocomplete" ng-autocomplete="result" 
 				details="details" options="options" />
+				
+			<a href="javascript:void(0);" ng-click="setLocationBySensor()">自動定位</a>
 		</div>
 		
 		<div style="display:inline-block; float:right; vertical-align: middle; margin-top: 10px;">

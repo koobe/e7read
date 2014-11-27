@@ -875,12 +875,11 @@ class ContentController {
 		
 		def templates
 		
-		if (content.channel?.name.equals('trade')) {
-			templates = OriginalTemplate.findAllByGrouping('trade')
-		} else {
-		
+		if (content.channel?.name.equals(grailsApplication.config.grails.application.default_channel)) {
 			int mediaCount = content.pictureSegments.size()
 			templates = OriginalTemplate.findAllByGroupingAndMediaCount('default', mediaCount)
+		} else {
+			templates = OriginalTemplate.findAllByGrouping(content.channel.name)
 		}
 
         if (!templates) {

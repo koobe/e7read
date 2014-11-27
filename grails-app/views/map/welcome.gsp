@@ -3,9 +3,11 @@
 	    <meta name="layout" content="main"/>
 	    <title></title>
 	    
-	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 		<script src="//code.angularjs.org/1.3.2/angular-resource.min.js"></script>
 	    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+	    
+	    
 	    
 	    <style type="text/css">
 	    	body {
@@ -133,6 +135,8 @@
 		
 		<g:render template="/home/footer" />
 		
+		<asset:javascript src="service/angular_map_service.js"/>
+		<asset:javascript src="service/angular_user_service.js"/>
 	    <asset:javascript src="ngAutocomplete.js"/>
 	    <asset:javascript src="map/welcome.js"/>
 	</body>

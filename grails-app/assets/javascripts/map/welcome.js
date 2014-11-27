@@ -1,11 +1,16 @@
+/**
+ * @license AngularJS v1.3.2
+ * @author cloude
+ */
 
 var s = $.spinner({fadeTime:100});
 
-var mapWelcomeApp = angular.module('MapWelcomeApp', ['ngResource', 'ngAutocomplete']);
+var mapWelcomeApp = angular.module('MapWelcomeApp', ['ngResource', 'ngAutocomplete', 'mapService', 'userService']);
 
 var scopeMapWelcomeMainController;
 
-mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', function($scope, $resource) {
+mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', '$mapService', '$userService', 
+                                              function($scope, $resource, $mapService, $userService) {
 	
 	scopeMapWelcomeMainController = $scope;
 	
@@ -22,9 +27,10 @@ mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', fun
 		$scope.locationLat = lat;
 		$scope.locationLon = lon;
 		
-		callGeocodingService(lat, lon, function(locationName) {
+		$mapService.geocoding(lat, lon, function(locationName) {
 			$scope.locationName = locationName;
 			s.done();
+			isReady = true;
 		});
 	}
 	
@@ -39,7 +45,7 @@ mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', fun
 			$scope.locationLat = lat;
 			$scope.locationLon = lon;
 			
-			callGeocodingService(lat, lon, function(locationName) {
+			$mapService.geocoding(lat, lon, function(locationName) {
 				$scope.locationName = locationName;
 				s.done();
 				isReady = true;
@@ -58,58 +64,20 @@ mapWelcomeApp.controller("MapWelcomeMainController", ['$scope', '$resource', fun
 		if (isReady) {
 			s.loading('儲存中 ...');
 			console.log('Save my location: ' + $scope.locationLat + ',' + $scope.locationLon);
-			callUpdateMyLocationService($scope.locationLat, $scope.locationLon, function() {
+			$userService.setLocation($scope.locationLat, $scope.locationLon, function() {
 				window.location.replace("/");
 			});
 		}
 	};
 	
 	$scope.skipSetLocation = function() {
-		callSkipSetLocation(function() {
+		$userService.skipSetLocation(function() {
 			window.location.replace("/");
 		});
 	};
 	
 	// pre-loading location from sensor
 	$scope.setLocationBySensor();
-	
-	function callGeocodingService(lat, lon, callback) {
-		var GeocodingRestService = $resource('/map/geocoding',{},{
-			geocoding: {method:'GET'}
-		});
-		GeocodingRestService.geocoding({lat:lat, lon:lon}, function(data) {
-			var locationName = '';
-			if (data.country) {
-				locationName = locationName + data.country;
-			}
-			if (data.city) {
-				locationName = locationName + data.city;
-			}
-			if (data.region) {
-				locationName = locationName + data.region;
-			}
-			callback(locationName);
-		});
-	}
-	
-	function callUpdateMyLocationService(lat, lon, callback) {
-		var service = $resource('/user/setLocation',{},{
-			setLocation: {method:'GET'}
-		});
-		service.setLocation({lat: lat, lon: lon}, function() {
-			callback();
-		});
-	}
-	
-	function callSkipSetLocation(callback) {
-		var service = $resource('/user/skipSetLocation',{},{
-			skipSetLocation: {method:'GET'}
-		});
-		service.skipSetLocation({}, function() {
-			callback();
-		});
-	}
-	
 }]);
 
 mapWelcomeApp.controller("GooglePlaceAutoCompleteController", ['$scope', function ($scope) {

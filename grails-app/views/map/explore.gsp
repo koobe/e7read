@@ -247,10 +247,10 @@ $( document ).on( "pageinit", "#map-page", function() {
 
                 var content = data[i];
 
-                marker = new MarkerWithLabel({
+                var config = {
                     position: new google.maps.LatLng(
-                                    content.location.lat + (Math.random()/500),
-                                    content.location.lon + (Math.random()/500)
+                            content.location.lat, /* + (Math.random()/500), */
+                            content.location.lon  /* + (Math.random()/500)  */
                     ),
                     map: map,
                     title: content.cropTitle,
@@ -261,8 +261,16 @@ $( document ).on( "pageinit", "#map-page", function() {
                     labelAnchor: new google.maps.Point(-10, 15),
                     labelClass: "labels",
                     labelStyle: {opacity: 0.75}
+                };
 
-                });
+                if ($('input#isEnableCaption').is(':checked')) {
+                    // with caption
+                    marker = new MarkerWithLabel(config);
+                }
+                else {
+                    // without caption
+                    marker = new google.maps.Marker(config);
+                }
 
                 searchMarkers.push(marker);
 
@@ -314,13 +322,25 @@ $( document ).on( "pageinit", "#map-page", function() {
     })();
 
     (function() {
-        // add search box
         var elm = $('<label class="extra-map-options"><input id="isEnableRadar" type="checkbox" /> 雷達</label>');
 
         elm.appendTo($('#map-canvas'));
 
         elm.click(function() {
             showRadar();
+        });
+
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(elm.get(0));
+
+    })();
+
+    (function() {
+        var elm = $('<label class="extra-map-options"><input id="isEnableCaption" type="checkbox" /> 標題</label>');
+
+        elm.appendTo($('#map-canvas'));
+
+        elm.click(function() {
+            searchByLocation(currentChannel, '*');
         });
 
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(elm.get(0));
@@ -371,7 +391,7 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         map.setCenter(lastLocation);
 
-        searchByLocation();
+        searchByLocation(currentChannel, '*');
     });
 
     google.maps.event.addListener(map, 'bounds_changed', function() {

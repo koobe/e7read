@@ -203,11 +203,11 @@ $( document ).on( "pageinit", "#map-page", function() {
 
         if ($('input#isEnableRadar').is(':checked')) {
             var radarOptions = {
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.35,
+                strokeColor: 'rgb(148, 230, 218)',
+                strokeOpacity: 0.45,
                 strokeWeight: 1,
-                fillColor: '#FF0000',
-                fillOpacity: 0.15,
+                fillColor: 'rgb(148, 230, 218)',
+                fillOpacity: 0.2,
                 map: map,
                 center: center,
                 radius: 10 * 1000

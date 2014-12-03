@@ -1,12 +1,10 @@
 <footer>
-	<br />
 	<div class="container-fluid koobe-footer"
 		style="background-color: #D1D1D1">
 		<h6 style="text-align: center;">
-			<g:link uri="/" class="copyright-text"
-				style="color: #FFFFFF; font-size: 0.9em; font-weight: 700"
-				data-text-original="E7READ.com, 2014"
-				data-text-onload="More is being loaded...">E7READ.com, 2014</g:link>
+			<g:link uri="/" class="copyright-text"style="color: #FFFFFF; font-size: 0.8em; font-weight: 600">
+				E7READ.com, 2014
+			</g:link>
 		</h6>
 	</div>
 </footer>

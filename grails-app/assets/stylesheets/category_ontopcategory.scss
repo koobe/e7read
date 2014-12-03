@@ -2,6 +2,8 @@
 
 	display: table;
 	
+	margin-bottom: -5px;
+	
 	div {
 		display: table-cell;
 		vertical-align: bottom;
@@ -48,9 +50,13 @@
 }
 
 @media screen and (min-width: 769px) {
+	.ontop_category_table {
+		
+	}	
+
   .ontop-category-item {
     letter-spacing: 1px;
-    font-size: 1.2em;
+    font-size: 1.1em;
     font-weight: 600;
   }
 
@@ -79,11 +85,11 @@
 
   .ontop-category-item:first-child {
     border-left: 1px solid #fff;
+    padding-left: 10px;
   }
 
   .ontop-category-item:first-child a {
     padding-left: 0px;
-
   }
 
   a.active {

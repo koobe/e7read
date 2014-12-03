@@ -15,7 +15,7 @@
 	    </style>
 	</head>
 	<body id="mybody">
-		<g:render template="/home/header" model="[showcategorymenu: false, showsearchbar: false]" />
+		<g:render template="/home/header_v2" />
 	
 		<div class="container">
 			<g:render template="/home/section_title" model="[sectionTitle: '訊息', fontAwesome:'fa-envelope']"></g:render>

@@ -1,13 +1,14 @@
 <%-- User Login --%>
 <sec:ifLoggedIn>
 	<div class="usermenu-table">
+		<!-- 
 		<g:if test="${showChannelButton}">
 			<div class="header-menu-channel">
 				<g:link uri="javascript:showChannelMenu();" class="koobe-btn koobe-btn-normal">
-			        <i class="fa fa-bookmark"></i> <!-- My Contents  -->
+			        <i class="fa fa-bookmark"></i>
 			    </g:link>
 		    </div>
-		</g:if>
+		</g:if> -->
 	    
 		<div class="header-menu-personal">
 			<g:link uri="/content/personal/${channel.name}" class="koobe-btn koobe-btn-normal">
@@ -53,13 +54,14 @@
 </sec:ifLoggedIn>
 <sec:ifNotLoggedIn>
 	<div class="usermenu-table">
+		<!-- 
 		<g:if test="${showChannelButton}">
 			<div class="header-menu-channel" >
 				<g:link uri="javascript:showChannelMenu();" class="koobe-btn koobe-btn-normal">
-			        <i class="fa fa-bookmark"></i> <!-- My Contents  -->
+			        <i class="fa fa-bookmark"></i>
 			    </g:link>
 		    </div>
-		</g:if>
+		</g:if> -->
 	
 		<g:if test="${channel.canAnonymous}">
 	        <div class="header-menu-create" >

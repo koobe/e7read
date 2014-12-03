@@ -1,25 +1,46 @@
 var channel = getQueryVariable("channel");
 var categoryName = getQueryVariable("c");
-
-var coverFlowApp = angular.module('coverFlowApp', ['ngAutocomplete', 'userService', 'mapService', 'searchService']);
-
 var s = $.spinner();
 
-var scopeCoverFlowController;
-var scopeGPlacesAutoCompController;
+
+var mapOptions = {
+    zoom: 8,
+    center: new google.maps.LatLng(-34.397, 150.644)
+};
+
 var onCall = false;
 var eof = false;
 var isGeoReady = false;
 
 var defaultDistance = 10000;
+var defaultZoom = 14;
 
-coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userService', '$searchService', 
+var scopeContentFlowController;
+
+var mapHomeApp = angular.module('MapHomeApp', ['userService', 'mapService', 'searchService']);
+
+mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userService', '$searchService', 
                                                 function($scope, $mapService, $userService, $searchService) {
 	
-	scopeCoverFlowController = $scope;
+	scopeContentFlowController = $scope;
 	
-	var searchInput;
-
+	$scope.googlemap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);;
+	
+	$scope.colXs = 12;
+	$scope.colSm = 6;
+	$scope.colMd = 4;
+	
+	$scope.myLocation = {};
+	$scope.sensorLocation = {};
+	$scope.searchLocation = {};
+	$scope.lastSearchLocation = {};
+	
+	$scope.keyword = null;
+	
+	$scope.size = 12;
+	$scope.page = 0;
+	$scope.contents = [];
+	
 	// default search parameters
 	var defaultSearchParams = {};
 	defaultSearchParams.channel = channel;
@@ -27,28 +48,6 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 	if (categoryName) {
 		defaultSearchParams.c = categoryName
 	}
-	
-	$scope.colXs = 12;
-	$scope.colSm = 4;
-	$scope.colMd = 3;
-	
-	$scope.myLocation = {};
-	$scope.sensorLocation = {};
-	$scope.searchLocation = {};
-	
-	$scope.locationName;
-	
-	$scope.keyword = null;
-	$scope.category = categoryName;
-	
-	if (categoryName) {
-		var target = $("a[data-category-name='" + categoryName + "']");
-		$scope.categoryName = target.html().trim();
-	}
-	
-	$scope.size = 12;
-	$scope.page = 0;
-	$scope.contents = [];
 	
 	$scope.loadContents = function(reset) {
 		
@@ -93,41 +92,22 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 					content.distance = $mapService.distance(lat, lon, content.location.lat, content.location.lon, 'K');
 				}
 				$scope.contents.push(content);
+				
+				var myLatlng = new google.maps.LatLng(content.location.lat, content.location.lon);
+				
+				var iconUrl = content.iconUrl? content.iconUrl: content.channel.iconUrl
+				
+				var marker = new google.maps.Marker({
+				      position: myLatlng,
+				      map: $scope.googlemap,
+				      title: content.cropTitle,
+				      icon: iconUrl
+				});
 			});
 			onCall = false;
 			s.done();
 		});
 	};
-	
-	/**
-	 * trigger search action by Enter key
-	 */
-	$scope.search = function(e) {
-		if (e.keyCode == 13) {
-			var target = angular.element(e.target);
-			searchInput = target;
-			
-			resetContent();
-			
-			if (target.val() == null || target.val().trim() == '') {
-				$scope.keyword = null;
-			} else {
-				$scope.keyword = target.val().trim();
-			}
-			
-			$scope.loadContents($scope.searchLat, $scope.searchLon);
-			target.blur();
-		}
-	}
-	
-	/**
-	 * remove search keyword
-	 */
-	$scope.removeKeyword = function() {
-		searchInput.val(null);
-		$scope.keyword = null;
-		$scope.loadContents(true);
-	}
 	
 	$scope.setLocationBySensor = function() {
 		
@@ -139,6 +119,8 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 			
 			var lat = position.coords.latitude;
 			var lon = position.coords.longitude;
+			
+			moveToLocation(lat, lon, defaultZoom);
 			
 			$mapService.geocoding(lat, lon, function(name) {
 				
@@ -177,6 +159,8 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 				$scope.myLocation.lon = lon;
 				$scope.myLocation.name = name;
 				
+				moveToLocation(lat, lon, defaultZoom);
+				
 				s.done();
 				$scope.searchLocation = $scope.myLocation;
 				$scope.loadContents(true);
@@ -198,60 +182,6 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 		$('#btnSortByNewest').removeClass('active');
 	};
 	
-	/**
-	 * return to my location
-	 */
-	$scope.returnMyLocation = function() {
-		if (isGeoReady) {
-			$scope.setLocationByUserProfile();
-			$('#btnSortByDistance').addClass('active');
-			$('#btnSortByNewest').removeClass('active');
-		} else {
-			console.log('My location is not ready');
-		}
-	};
-	
-	$scope.lastSearchLocation = {};
-	
-	$scope.orderByDate = function() {
-		if (isGeoReady) {
-			$scope.searchLocation = {};
-			$scope.loadContents(true);
-		} else {
-			console.log('My location is not ready');
-		}
-	};
-	
-	$scope.orderByNear = function() {
-		if (isGeoReady) {
-			$scope.searchLocation = $scope.lastSearchLocation;
-			$scope.loadContents(true);
-		} else {
-			console.log('My location is not ready');
-		}
-	};
-	
-	$scope.searchSelectedLocation = function(details) {
-		console.log(details);
-		
-		$scope.searchLocation.lat = details.geometry.location.k;
-		$scope.searchLocation.lon = details.geometry.location.B;
-		$scope.searchLocation.name = details.name;
-		$scope.loadContents(true);
-		
-		$('#btnSortByDistance').addClass('active');
-		$('#btnSortByNewest').removeClass('active');
-	};
-	
-	$scope.openContent = function(contentId) {
-		showContent(contentId);
-	};
-	
-	$scope.showAuthor = function(userId) {
-		//TODO
-		console.log('Click userId: ' + userId);
-	};
-	
 	$scope.initLocation = function() {
 		$scope.setLocationByUserProfile();
 	};
@@ -263,9 +193,20 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 		$scope.page = 0;
 		eof = false;
 	}
-}])
+	
+	
+	
+	
+	function moveToLocation(lat, lng, zoom){
+	    var center = new google.maps.LatLng(lat, lng);
+	    $scope.googlemap.panTo(center);
+	    $scope.googlemap.setZoom(zoom);
+	}
+	
+}]);
 
-coverFlowApp.directive('scrolling', function() {
+
+mapHomeApp.directive('scrolling', function() {
 	
 	/**
 	 * determine if load more data
@@ -283,32 +224,16 @@ coverFlowApp.directive('scrolling', function() {
 			
 			element.scroll(function() {
 					if (shouldLoadMore(element, contentPane) && !onCall && !eof) {
-						scopeCoverFlowController.loadContents();
+						scopeContentFlowController.loadContents();
 					}
 		        });
 			element.on({
 		            'touchmove': function(e) {
 		            	if (shouldLoadMore(element, contentPane) && !onCall && !eof) {
-		            		scopeCoverFlowController.loadContents();
+		            		scopeContentFlowController.loadContents();
 						}
 		            }
 		        });
 		}
 	};
 });
-
-coverFlowApp.controller("GPlacesAutoCompController", ['$scope', function ($scope) {
-	
-	scopeGPlacesAutoCompController = $scope;
-	
-	$scope.result = '';
-	$scope.options = null;
-	$scope.details = '';
-	$scope.choosePlace = false;
-	
-	$scope.callback = function() {
-		if ($scope.choosePlace) {
-			$scope.searchSelectedLocation($scope.details);
-		}
-	}
-}]);

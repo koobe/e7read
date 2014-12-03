@@ -1,7 +1,10 @@
 <style type="text/css">
+	nav {
+	}
+
 	.header {
 		/*box-shadow: 0 1px 2px 1px #ccc;*/
-		padding: 0px 0px 0px 0px;
+		padding: 0px 0px 5px 0px;
 	}
 
 	.header-inline-element {
@@ -43,9 +46,9 @@
 		</div>
 		
 		<div class="header-inline-element" >
-			<a>
+			<g:link url="/${channel.name}" style="text-decoration: none !important;" target="_top">
 				<g:img uri="${channel.logoImg}" style="height: 30px;"/>
-			</a>
+			</g:link>
 		</div>
 		
 		<g:if test="${showcategorymenu}">

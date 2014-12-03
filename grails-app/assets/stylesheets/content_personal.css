@@ -1,0 +1,136 @@
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
+
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
+
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
+
+  Mixins available:
+    -   background-gradient     - arguments: Start Color: #3C3C3C, End Color: #999999
+    -   background-size         - arguments: Width: 100%, Height: 100%
+    -   border-radius           - arguments: Radius: 5px
+    -   border-radius-separate  - arguments: Top Left: 5px, Top Left: 5px, Bottom Left: 5px, Bottom Right: 5px
+    -   box                     - arguments: Orientation: horizontal, Pack: center, Align: center
+    -   box-rgba                - arguments: R: 60, G: 3, B: 12, Opacity: 0.23, Color: #3C3C3C
+    -   box-shadow              - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   box-sizing              - arguments: Type: border-box
+    -   columns                 - arguments: Count: 3, Gap: 10
+    -   double-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Radius: 0
+    -   flex                    - arguments: Value: 1
+    -   flip                    - arguments: ScaleX: -1
+    -   font-face               - arguments: Font Family: myFont, Eot File Src: myFont.eot, Woff File Src: myFont.woff, Ttf File Src: myFont.ttf
+    -   opacity                 - arguments: Opacity: 0.5
+    -   outline radius          - arguments: Radius: 5px
+    -   resize                  - arguments: Direction: both
+    -   rotate                  - arguments: Degree: 0, M11: 0, M12: 0, M21: 0, M22: 0
+    CSS Matrix Rotation Calculator http://www.boogdesign.com/examples/transforms/matrix-calculator.html
+    -   text-shadow             - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   transform               - arguments: Parameters: null
+    -   transition              - arguments: What: all, Length: 1s, Easing: ease-in-out
+    -   triple-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Color Three: #000000, Radius: 0
+
+------------------------------------------------------------- */
+/* BACKGROUND GRADIENT */
+/* BACKGROUND SIZE */
+/* BORDER RADIUS */
+/* BOX */
+/* BOX RGBA */
+/* BOX SHADOW */
+/* BOX SIZING */
+/* COLUMNS */
+/* DOUBLE BORDERS */
+/* FLEX */
+/* FLIP */
+/* FONT FACE */
+/* OPACITY */
+/* OUTLINE RADIUS */
+/* RESIZE */
+/* ROTATE*/
+/* TEXT SHADOW */
+/* TRANSFORM  */
+/* TRANSITION */
+/* TRIPLE BORDERS */
+.hovercontent {
+  padding: 5px;
+  border: 1px solid #fff; }
+
+.hovercontent:hover {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.075);
+  transition: border-color ease-in-out .10s,box-shadow ease-in-out .1s; }
+
+@media screen and (min-width: 768px) {
+  .contents-container {
+    margin-left: 20px;
+    margin-right: 20px; } }
+@media screen and (max-width: 767px) {
+  .contents-container {
+    margin-left: 0px;
+    margin-right: 0px; } }
+.editing-title:focus {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color ease-in-out .10s; }
+
+.resetmargin {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px; }
+
+.item-editing-menu {
+  background: #94e6da;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: #fff;
+  display: none; }
+
+.status-div {
+  display: inline;
+  position: absolute;
+  left: 5px;
+  top: 5px; }
+  .status-div div {
+    display: inline-block; }
+
+.status-item-div {
+  cursor: default;
+  background: rgba(148, 230, 218, 0.8); }
+
+.content-element .content-element-header {
+  margin-top: 10px; }
+  .content-element .content-element-header .element-title {
+    text-shadow: 1px 1px 2px #aaaaaa;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    padding: 0 0 5px 0;
+    border-bottom: 1px solid #94E6DA;
+    word-break: break-all; }
+  .content-element .content-element-header .element-date {
+    font-size: 10px;
+    line-height: 1.5em;
+    margin: 0; }
+.content-element .content-element-body {
+  margin-top: 10px; }
+  .content-element .content-element-body .element-text {
+    /*font-size: 11px;*/
+    padding: 5px;
+    word-break: break-all; }
+  .content-element .content-element-body .element-text:hover {
+    background: #eeeeee; }
+  .content-element .content-element-body .element-references {
+    padding: 5px; }
+    .content-element .content-element-body .element-references a {
+      font-size: 11px;
+      color: #00015d; }

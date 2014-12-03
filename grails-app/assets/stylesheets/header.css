@@ -1,0 +1,91 @@
+@import url(http://fonts.googleapis.com/css?family=Fascinate);
+@media screen and (min-width: 769px) {
+  .img-logo {
+    height: 30px; }
+
+  .koobe-header {
+    display: table;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    padding-left: 40px;
+    padding-right: 0px;
+    /* .header-search {
+    	border: 1px solid red;
+    	display: table-cell;
+    	vertical-align: bottom;
+    	text-align: right;
+    	width:15%;
+    } */ }
+    .koobe-header .header-logo {
+      display: table-cell;
+      width: 10px; }
+    .koobe-header .header-cate-menu {
+      display: table-cell;
+      vertical-align: bottom; }
+    .koobe-header .search-form {
+      display: inline-block;
+      max-width: 150px;
+      padding-right: 10px; }
+    .koobe-header .header-usermenu {
+      display: table-cell;
+      vertical-align: bottom;
+      text-align: right;
+      padding-left: 15px; } }
+@media screen and (max-width: 768px) {
+  .img-logo {
+    height: 27px; }
+
+  .koobe-header {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding-left: 22px;
+    padding-right: 0px;
+    		/*
+    		.header-search {
+    			text-align: right;
+    			padding-top: 5px;
+    			padding-right: 22px;
+    			width:100%;
+    
+    			input {
+    				height: 30px;
+    			}
+    		} */ }
+    .koobe-header .header-logo {
+      width: 10px; }
+    .koobe-header .header-cate-menu {
+      padding-top: 10px;
+      padding-bottom: 6px;
+      width: 100%; }
+    .koobe-header .search-form {
+      padding-bottom: 10px;
+      padding-right: 20px; }
+    .koobe-header .header-usermenu {
+      padding-top: 10px;
+      padding-bottom: 30px;
+      margin-right: 22px;
+      width: 100%;
+      text-align: center; } }
+.logotitle {
+  font-family: 'Fascinate', cursive;
+  font-size: 1cm;
+  line-height: 30px;
+  letter-spacing: 1px;
+  color: #5cb85c; }
+
+.usermenu-table {
+  display: inline-block;
+  float: right;
+  padding-left: 5px;
+  background-color: #94E6DA; }
+  .usermenu-table div {
+    display: inline-block; }
+    .usermenu-table div a {
+      padding-right: 7px;
+      padding-left: 7px; }
+
+.koobe-bg-color {
+  background-color: #94E6DA;
+  color: #FFF; }

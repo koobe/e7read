@@ -1,0 +1,154 @@
+@charset "UTF-8";
+body {
+  background-color: #F8F8F8;
+  /*
+  .koobe-footer {
+  	position: fixed;
+  	left: 0px;
+  	bottom: 0px;
+  	width: 100%;
+  }*/ }
+
+@media screen and (min-width: 768px) {
+  .main-container {
+    background-color: #F8F8F8;
+    padding-left: 45px;
+    padding-right: 45px; } }
+@media screen and (max-width: 767px) {
+  .main-container {
+    background-color: #F8F8F8;
+    padding-left: 15px;
+    padding-right: 15px; } }
+.content-editing-title {
+  padding-top: 13px;
+  padding-bottom: 9px;
+  text-align: center;
+  background-color: #F8F8F8;
+  /*font-size: 20px;
+  font-weight: bold;*/
+  color: #FFF;
+  vertical-align: middle;
+  font-weight: 700;
+  font-size: 1.4em;
+  display: table;
+  margin: 0 auto; }
+  .content-editing-title .title-text {
+    vertical-align: middle; }
+  .content-editing-title .anonymous-tag {
+    padding: 4px 4px 3px 4px;
+    vertical-align: middle;
+    color: #777;
+    font-size: 0.9em;
+    padding-left: 10px; }
+
+.content-editing-textarea {
+  width: 100%;
+  height: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: auto; }
+
+.content-editing-textarea:empty:not(:focus):before {
+  content: attr(placeholder);
+  color: #888; }
+
+.content-editing-picture {
+  margin-top: 15px;
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: table;
+  border-spacing: 10px;
+  background-color: #FFF; }
+
+.picture-cell {
+  display: table-cell;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle; }
+
+.picture-add {
+  display: table-cell;
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  background-color: #ECEFF5;
+  box-shadow: 0 1px 2px 1px #ccc; }
+
+.picture-onupload {
+  display: table-cell;
+  width: 70px;
+  height: 70px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  vertical-align: middle;
+  text-align: center;
+  background-image: url(/assets/spinner.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 1px 2px 1px #ccc; }
+
+.picture-block {
+  display: table-cell;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  border-radius: 5px;
+  /* background-image:url(http://s3.e7read.com.s3.amazonaws.com/development/2/a111ff65-34c0-478e-9dd7-5eff41bcf288/32470.jpg);*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 1px 2px 1px #ccc; }
+
+.button-block {
+  margin-top: 15px;
+  display: table;
+  border-spacing: 0px 0px;
+  width: 100%;
+  height: auto; }
+  .button-block div {
+    display: table-cell; }
+    .button-block div a {
+      width: 100%; }
+  .button-block .btn-item {
+    min-width: 105px;
+    padding-left: 13px; }
+
+.content-editing-category {
+  display: table;
+  margin-top: 15px;
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  border-spacing: 10px;
+  background-color: #FFF; }
+  .content-editing-category .category-cell {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle; }
+    .content-editing-category .category-cell .category-add, .content-editing-category .category-cell .category-item {
+      display: table-cell;
+      width: auto;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      vertical-align: middle;
+      text-align: center;
+      cursor: pointer;
+      background-color: #ECEFF5;
+      font: 600 15px/1 "微軟正黑體","Helvetica Neue",Helvetica,"Heiti TC","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+      text-shadow: 1px 1px 1px #aaa;
+      letter-spacing: 1px;
+      box-shadow: 0 1px 2px 1px #ccc;
+      padding: 5px 4px 5px 4px; }
+    .content-editing-category .category-cell .category-item {
+      text-transform: uppercase;
+      color: #FFF;
+      background-color: #f0ad4e; }

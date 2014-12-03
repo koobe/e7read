@@ -1,0 +1,69 @@
+@charset "UTF-8";
+.channel-menu-float {
+  left: 0 !important;
+  max-width: 35%; }
+
+.side-menu-float, .channel-menu-float {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  height: 100%;
+  min-width: 26%;
+  border-radius: 1px;
+  background-color: #94E6DA;
+  opacity: 0.8;
+  overflow: auto; }
+  .side-menu-float .side-menu-header, .channel-menu-float .side-menu-header {
+    width: 100%;
+    font-size: 1.4em;
+    font-weight: 700;
+    background-color: #8ACCC3;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*padding-right: 0px;
+    margin-right: 0px;*/
+    display: table; }
+    .side-menu-float .side-menu-header div, .channel-menu-float .side-menu-header div {
+      display: table-cell;
+      vertical-align: middle;
+      /*border: 1px solid blue;*/ }
+    .side-menu-float .side-menu-header .side-menu-title, .channel-menu-float .side-menu-header .side-menu-title {
+      padding-left: 20px; }
+    .side-menu-float .side-menu-header .back-button, .channel-menu-float .side-menu-header .back-button {
+      text-align: right; }
+  .side-menu-float .side-menu, .channel-menu-float .side-menu {
+    padding-right: 30px; }
+    .side-menu-float .side-menu ul, .channel-menu-float .side-menu ul {
+      list-style-type: none;
+      padding-left: 20px;
+      margin-left: 10px; }
+    .side-menu-float .side-menu li, .channel-menu-float .side-menu li {
+      font: 600 18px/1.5 "微軟正黑體","Helvetica Neue",Helvetica,"Heiti TC","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
+      border-bottom: 1px solid #ccc;
+      text-transform: uppercase; }
+    .side-menu-float .side-menu li:last-child, .channel-menu-float .side-menu li:last-child {
+      border: none; }
+    .side-menu-float .side-menu li a, .channel-menu-float .side-menu li a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+      -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+      -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+      -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+      -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+      transition: font-size 0.3s ease, background-color 0.3s ease; }
+    .side-menu-float .side-menu li a:hover, .channel-menu-float .side-menu li a:hover {
+      font-size: 21px;
+      background: #DDD; }
+
+.active-item {
+  font-size: 22px;
+  background-color: #8ACCC3;
+  font-weight: bold !important; }
+
+.active-item li {
+  font-size: 22px;
+  background-color: #8ACCC3;
+  font-weight: bold !important; }

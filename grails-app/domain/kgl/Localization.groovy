@@ -31,6 +31,6 @@ class Localization {
     }
 
     static mapping = {
-        order column: '`order`'
+        group column: '`group`'
     }
 }

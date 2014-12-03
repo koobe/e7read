@@ -47,7 +47,8 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
 
         // Obtains scribe framework
-        mavenRepo "http://repo.desirableobjects.co.uk/"
+        //mavenRepo "http://repo.desirableobjects.co.uk/"
+        mavenRepo 'http://codenvycorp.com/repository/'
     }
 
     dependencies {
@@ -59,7 +60,7 @@ grails.project.dependency.resolution = {
         compile "org.springframework:spring-orm:$springVersion"
 
         // OAuth required scribe framework
-        runtime "org.scribe:scribe:1.3.5"
+        //runtime "org.scribe:scribe:1.3.5"
 
         // AWS ...
         runtime 'com.amazonaws:aws-java-sdk:1.7.12'
@@ -94,21 +95,20 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.11.1"
 
         // OAuth
-        compile (":oauth:2.5") {
-            exclude "scribe"
-        }
+        //compile ":oauth:2.5"
+            //exclude "scribe"
 
         // Spring Security
         compile ":spring-security-core:2.0-SNAPSHOT"
         //compile "org.grails.plugins:spring-security-facebook:0.15.2-CORE2"
-        compile ":spring-security-oauth:2.1.0-RC4"
+        compile ":spring-security-oauth:2.1.0-SNAPSHOT"
         compile ":spring-security-oauth-facebook:0.2"
 
         // Twitter Bootstrap
-        runtime ":twitter-bootstrap:3.2.0.2"
+        runtime ":twitter-bootstrap:3.3.1"
 
         // Uncomment these to enable additional asset-pipeline capabilities
-        compile ":sass-asset-pipeline:1.9.0"
+        compile ":sass-asset-pipeline:1.9.1"
         //compile ":less-asset-pipeline:1.7.0"
         //compile ":coffee-asset-pipeline:1.7.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
@@ -122,7 +122,7 @@ grails.project.dependency.resolution = {
         // Grails Resources Plugin
         //runtime ':resources:1.2.8'
 
-        compile ":elasticsearch:0.0.3.5"
+        compile ":elasticsearch:0.0.3.7"
         //compile ":searchable:0.6.8"
 		
 		// markdown plugin

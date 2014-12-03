@@ -19,12 +19,21 @@ class GeoPoint {
     Double lat
     Double lon
 
+    String custom
+    String place
+
+    String postalCode
+
     String country
     String city
     String region
     String address
 
     static constraints = {
+        custom nullable: true, blank: true
+        place nullable: true, blank: true
+        postalCode nullable: true, blank: true
+
         country nullable: true
         city nullable: true
         region nullable: true
@@ -42,10 +51,31 @@ class GeoPoint {
     protected void geocoding() {
         def addr = geocodingService.getAddress(new Point(latitude: lat, longitude: lon), [language: 'zh-TW'])
 
-        country = addr.addressComponents[4].shortName //4
-        city = addr.addressComponents[3].shortName //3
-        region = addr.addressComponents[2].shortName //2
-        address = addr.addressComponents[0].shortName //0
+        addr.addressComponents.each { component ->
+
+            if (component.types.contains('postal_code')) {
+                postalCode = component.shortName
+            }
+            else if (component.types.contains('political')) {
+                if (component.types.contains('country')) {
+                    country = component.longName
+                }
+                else if (component.types.contains('administrative_area_level_1')) {
+                    city = component.longName
+                }
+                else if (component.types.contains('administrative_area_level_2')) {
+                    city = component.longName
+                }
+                else if (component.types.contains('administrative_area_level_3')) {
+                    region = component.longName
+                }
+            }
+            else if (component.types.contains('route')) {
+                address = component.longName
+            }
+        }
+
+        place = addr.formattedAddress
     }
 	
 	def getLocationName() {

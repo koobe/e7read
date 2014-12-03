@@ -11,6 +11,11 @@ class Localization {
     String lang
 
     /**
+     * Group
+     */
+    String group
+
+    /**
      * key
      */
     String code
@@ -23,5 +28,9 @@ class Localization {
     static constraints = {
         id composite: ['lang', 'code']
         content nullable: true, blank: true
+    }
+
+    static mapping = {
+        order column: '`order`'
     }
 }

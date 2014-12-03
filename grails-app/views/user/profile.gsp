@@ -11,7 +11,7 @@
     
 </head>
 <body>
-<g:render template="/home/header" />
+<g:render template="/home/header_v2" />
 
 <div class="container" style="max-width: 900px;">
 

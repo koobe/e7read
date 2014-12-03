@@ -99,8 +99,8 @@
 						options="options" ng-model="locationName" />
 				</div>
 				<div>
-	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="openPromptMap()">開啟地圖</a>
-	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="setLocationBySensor()">自動定位</a>
+	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="openPromptMap()">開啟地圖設定</a>
+	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="setLocationBySensor()">重新定位</a>
 	     		</div>
 	     		
 	     		<input style="display:none;" type="input" name="lat" ng-model="locationLat" />

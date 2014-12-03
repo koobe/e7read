@@ -179,12 +179,16 @@ tr, td {
    	
    	@media screen and (min-width: 769px) {
 	   	.imagetitle-block {
-	   		margin-left: 45%;
+	   		margin-left: 20%;
 	   	}
 	   	
 		.imagetitle-container {
 	   		width: 100%;
 	   		height: 300px;
+	   	}
+	   	
+	   	.imagetitle-align-image {
+			height: 300px;
 	   	}
    	}
    	
@@ -196,6 +200,10 @@ tr, td {
 	   	.imagetitle-container {
 	   		width: 100%;
 	   		height: 250px;
+	   	}
+	   	
+	   	.imagetitle-align-image {
+			height: 230px;
 	   	}
 	}
 	
@@ -258,6 +266,12 @@ tr, td {
    		font-weight: 700;
    		font-family: 'cwTeXYen', 'Stardos Stencil', "Helvetica Neue",Helvetica,"Heiti TC","微軟正黑體","Microsoft Sans Serif",Helvetica,Geneva,sans-serif;
    	}
+   	
+   	.imagetitle-align-image {
+   		border: 5px solid #fff;
+		margin: 5px 5px 0px 5px;
+   	}
+   	
    	
    	.image-gallery-table {
    		display: table;

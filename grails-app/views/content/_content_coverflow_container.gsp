@@ -44,7 +44,7 @@
 			<input id="place_input" type="text" class="gplaces-input" id="Autocomplete" ng-autocomplete="result" 
 				details="details" options="options" />
 				
-			<a href="javascript:void(0);" ng-click="setLocationBySensor()">自動定位</a>
+			<a href="javascript:void(0);" ng-click="setLocationBySensor()">重新定位</a>
 		</div>
 		
 		<div style="display:inline-block; float:right; vertical-align: middle; margin-top: 10px;">

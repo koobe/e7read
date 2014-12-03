@@ -4,7 +4,7 @@
 	    <title></title>
 	    
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
-	    <script src="//code.angularjs.org/1.3.2/angular-resource.min.js"></script>
+	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-resource.min.js"></script>
 	    
 	    <asset:javascript src="jquery.messagemanager.js"/>
 		<asset:stylesheet src="gototop.css"/>
@@ -27,7 +27,7 @@
 		<div id="display-container" onclick="hideCategoryMenu()" ${(channel.themeType == 'square')? 'ng-app=coverFlowApp scrolling': ''}>
 			<div class="content-pane" ${(channel.themeType == 'square')? 'ng-controller=CoverFlowController': ''}>
 				
-				<g:render template="header" model="[showcategorymenu: true, showsearchbar: true, showChannelButton: true]" />
+				<g:render template="/home/header_v2" model="[showcategorymenu: true, showsearchbar: true, showChannelButton: true]" />
 				
 				<g:if test="${showSetLocationTip}">
 					<div class="container">

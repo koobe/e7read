@@ -29,6 +29,19 @@ class TemplateTagLib {
 			])
 	}
 	
+	def imageMapTitle = { attrs, body ->
+		out << render(template: '/template/component/image_map_title',
+			model: [
+				content: attrs.content,
+				classOfImage: attrs.classOfImage,
+				classOfTitle: attrs.classOfTitle,
+				styleOfTitle: attrs.styleOfTitle,
+				classOfDate: attrs.classOfDate,
+				styleOfDate: attrs.styleOfDate,
+				showDate: attrs.showDate
+			])
+	}
+	
 	def containerTexts = { attrs, body ->
         //def contentTexts = attrs.content?.textSegments?.collect { markdownService.sanitize(it.text) }
 		//out << render(template: '/template/component/container_texts', model: [contentTexts: contentTexts])

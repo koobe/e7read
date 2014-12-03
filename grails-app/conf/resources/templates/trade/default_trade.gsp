@@ -11,8 +11,8 @@
 		<div class="template-container">
 	
 			<div class="margin-blank"></div>
-	
-			<template:imageTitle content="${content}" classOfImage="" classOfTitle="" styleOfTitle="" showDate="true" />
+			
+			<template:imageMapTitle content="${content}" />
 			
 			<div class="margin-blank"></div>
 			
@@ -43,16 +43,6 @@
 		    <template:sectionTitle title="相片" />
 		    
 		    <template:containerPicturesType1 content="${content}" />
-		
-		    <div class="margin-blank"></div>
-		    
-		    <template:sectionTitle title="地圖" />
-		    
-			<div style="width: 100%;">
-				<a href="/map/content/${content.id}" target="_blank">
-		    		<img style="max-width: 100%;" src="http://maps.googleapis.com/maps/api/staticmap?center=${content.location?.lat},${content.location?.lon}&zoom=14&size=960x250&scale=2&sensor=false&markers=color:blue%7Clabel:H%7C${content.location?.lat},${content.location?.lon}" alt="google map" border="0" class="img-thumbnail"/>
-		    	</a>
-		    </div>
 		    
 		    <div class="margin-blank"></div>
 		    

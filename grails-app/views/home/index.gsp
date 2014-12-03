@@ -4,7 +4,7 @@
 	    <title></title>
 	    
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
-	    <script src="//code.angularjs.org/1.3.2/angular-resource.min.js"></script>
+	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-resource.min.js"></script>
 	    
 	    <asset:javascript src="jquery.messagemanager.js"/>
 		<asset:stylesheet src="gototop.css"/>

@@ -136,7 +136,7 @@ $( document ).on( "pageinit", "#map-page", function() {
         }
     }
 
-    var mapStyle = ${raw(kgl.MapStyle.get(1)?.content)};
+    var mapStyle = ${raw(mapStyleContent)};
 
     var mapOptions = {
         center: myLatlng,

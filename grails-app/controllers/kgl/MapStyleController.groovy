@@ -1,13 +1,8 @@
 package kgl
 
 import grails.converters.JSON
-import org.jsoup.Jsoup
-import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
 
-import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
-
 
 /**
  * e.g. /mapStyleFromSnazzy/15/subtle-grayscale
@@ -26,6 +21,8 @@ class MapStyleController {
     def snazzy(int id, String name) {
 
         def style = mapStyleService.loadFromSnazzyMaps(id, name)
+
+        log.info "Fetched ${style}"
 
         render style as JSON
     }
@@ -48,7 +45,7 @@ class MapStyleController {
                 text: stringify(MapStyle.findByName(params.id).content)
     }
 
-    def raw() {
+    def debugRaw() {
         render contentType: 'text/plain', text: MapStyle.findByName(params.id).content
     }
 

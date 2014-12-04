@@ -22,6 +22,7 @@ class BootStrap {
         log.info 'Load some map styles from SnazzyMaps'
 
         mapStyleService.loadAllFromSnazzyMapsFeed(5)
+        mapStyleService.loadFromSnazzyMaps(80, 'cool-grey') //default
 
 
         // process for different environments

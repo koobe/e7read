@@ -39,11 +39,16 @@ class MapController {
             lon = latlon[1].toString().toDouble()
         }
 
+        def mapStyle = params.mapStyle?MapStyle.findByName(params.mapStyle):MapStyle.findByName('cool-grey')
+
+        log.info "Apply map style ${mapStyle?.name}"
+
         [
                 lat: lat,
                 lon: lon,
                 zoom: zoom,
-                categories: categoryService.list(channel)
+                categories: categoryService.list(channel),
+                mapStyleContent: mapStyle.content
         ]
     }
 

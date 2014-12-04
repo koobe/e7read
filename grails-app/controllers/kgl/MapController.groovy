@@ -16,6 +16,10 @@ class MapController {
 	def welcome() {
 	}
 
+    def listStyles() {
+        [ styles: MapStyle.list()]
+    }
+
     def explore() {
 
         String channel = getChannelName(params)

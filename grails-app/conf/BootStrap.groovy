@@ -6,6 +6,8 @@ class BootStrap {
 
     def elasticSearchAdminService
 
+    def mapStyleService
+
     def init = { servletContext ->
 
         // Create default s3 bucket
@@ -15,6 +17,14 @@ class BootStrap {
         if (!s3Service.doesBucketExist()) {
             s3Service.createBucket()
         }
+
+
+        log.info 'Load some map styles from SnazzyMaps'
+
+        mapStyleService.loadAllFromSnazzyMapsFeed(5)
+
+
+        // process for different environments
 
         environments {
             development {

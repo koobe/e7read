@@ -136,11 +136,13 @@ $( document ).on( "pageinit", "#map-page", function() {
         }
     }
 
+    var mapStyle = ${raw(kgl.MapStyle.get(1)?.content)};
+
     var mapOptions = {
         center: myLatlng,
         zoom: ${zoom},
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: GOOGLE_MAPS_STYLES.Cool_Grey,
+        styles: mapStyle,
         mapTypeControl: true,
         mapTypeControlOptions: {
             style: google.maps.MapTypeControlStyle.DROPDOWN_MENU

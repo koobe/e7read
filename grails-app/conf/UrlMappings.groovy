@@ -39,5 +39,10 @@ class UrlMappings {
         "/explore/$channel?" (controller: 'map', action: 'explore')
 
         "/mapStyleFromSnazzy/$id/$name?" (controller: 'mapStyle', action: 'snazzy')
-	}
+
+        "/mapStyle/$id?.json" (controller: 'mapStyle', action: 'json')
+
+        "/mapStyle/$id?.png" (controller: 'mapStyle', action: 'image')
+
+    }
 }

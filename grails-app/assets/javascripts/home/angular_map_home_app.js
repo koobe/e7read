@@ -1,30 +1,31 @@
-var channel = getQueryVariable("channel");
-var categoryName = getQueryVariable("c");
-var s = $.spinner();
 
+/**
+ * 
+ */
 
-var mapOptions = {
-    zoom: 8,
-    center: new google.maps.LatLng(-34.397, 150.644)
-};
+var mapHomeApp = angular.module('MapHomeApp', ['userService', 'mapService', 'searchService', 'googleMapService']);
 
 var onCall = false;
 var eof = false;
 var isGeoReady = false;
 
 var defaultDistance = 10000;
-var defaultZoom = 14;
 
 var scopeContentFlowController;
 
-var mapHomeApp = angular.module('MapHomeApp', ['userService', 'mapService', 'searchService']);
-
-mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userService', '$searchService', 
-                                                function($scope, $mapService, $userService, $searchService) {
+mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userService', '$searchService', '$googleMapService',
+                                                function($scope, $mapService, $userService, $searchService, $googleMapService) {
+	
+	var channel = getQueryVariable("channel");
+	var categoryName = getQueryVariable("c");
+	var s = $.spinner();
 	
 	scopeContentFlowController = $scope;
 	
-	$scope.googlemap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);;
+	$googleMapService.createMap('map-canvas', {});
+	$googleMapService.addMapListener('dragend', function() {
+		
+	});
 	
 	$scope.colXs = 12;
 	$scope.colSm = 6;
@@ -93,16 +94,15 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				}
 				$scope.contents.push(content);
 				
-				var myLatlng = new google.maps.LatLng(content.location.lat, content.location.lon);
+//				var myLatlng = new google.maps.LatLng(content.location.lat, content.location.lon);
+//				var iconUrl = content.iconUrl? content.iconUrl: content.channel.iconUrl
+//				var marker = new google.maps.Marker({
+//				      position: myLatlng,
+//				      map: $scope.googlemap,
+//				      title: content.cropTitle,
+//				      icon: iconUrl
+//				});
 				
-				var iconUrl = content.iconUrl? content.iconUrl: content.channel.iconUrl
-				
-				var marker = new google.maps.Marker({
-				      position: myLatlng,
-				      map: $scope.googlemap,
-				      title: content.cropTitle,
-				      icon: iconUrl
-				});
 			});
 			onCall = false;
 			s.done();
@@ -120,7 +120,8 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 			var lat = position.coords.latitude;
 			var lon = position.coords.longitude;
 			
-			moveToLocation(lat, lon, defaultZoom);
+			$googleMapService.moveTo(lat, lon);
+			$googleMapService.setZoom(13);
 			
 			$mapService.geocoding(lat, lon, function(name) {
 				
@@ -159,7 +160,8 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				$scope.myLocation.lon = lon;
 				$scope.myLocation.name = name;
 				
-				moveToLocation(lat, lon, defaultZoom);
+				$googleMapService.moveTo(lat, lon);
+				$googleMapService.setZoom(13);
 				
 				s.done();
 				$scope.searchLocation = $scope.myLocation;
@@ -195,12 +197,8 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	}
 	
 	
-	
-	
-	function moveToLocation(lat, lng, zoom){
-	    var center = new google.maps.LatLng(lat, lng);
-	    $scope.googlemap.panTo(center);
-	    $scope.googlemap.setZoom(zoom);
+	function setGoogleMapCenter(lat, lon) {
+		
 	}
 	
 }]);

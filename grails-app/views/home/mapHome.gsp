@@ -11,6 +11,7 @@
 		<asset:javascript src="service/angular_map_service.js"/>
 		<asset:javascript src="service/angular_user_service.js"/>
 		<asset:javascript src="service/angular_search_service.js"/>
+		<asset:javascript src="service/angular_googlemap_service.js"/>
 		
 		<asset:javascript src="jquery.messagemanager.js"/>
 		<asset:stylesheet src="gototop.css"/>

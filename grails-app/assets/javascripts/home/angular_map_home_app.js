@@ -32,6 +32,12 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	$scope.lastSearchLocation = {};
 	
 	$scope.keyword = null;
+	$scope.category = categoryName;
+	
+	if (categoryName) {
+		var target = $("a[data-category-name='" + categoryName + "']");
+		$scope.categoryName = target.html().trim();
+	}
 	
 	$scope.size = 12;
 	$scope.page = 0;
@@ -138,6 +144,34 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 		}
 	};
 	
+	/**
+	 * trigger search action by Enter key
+	 */
+	$scope.search = function(e) {
+		if (e.keyCode == 13) {
+			var target = angular.element(e.target);
+			searchInput = target;
+			
+			if (target.val() == null || target.val().trim() == '') {
+				$scope.keyword = null;
+			} else {
+				$scope.keyword = target.val().trim();
+			}
+			
+			$scope.loadContents(true);
+			target.blur();
+		}
+	}
+	
+	/**
+	 * remove search keyword
+	 */
+	$scope.removeKeyword = function() {
+		$('.fulltext-searchbox').val(null);
+		$scope.keyword = null;
+		$scope.loadContents(true);
+	}
+	
 	$scope.setLocationBySensor = function() {
 		
 		s.loading('正在取得位置資訊...');
@@ -243,7 +277,31 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 		$googleMapService.openInfoWindow(contentId);
 	};
 	
+	$scope.setFullMap = function() {
+		$('#map-canvas').removeClass('col-xs-5');
+		$('#map-canvas').addClass('col-xs-12');
+		google.maps.event.trigger($googleMapService.getMap(), 'resize');
+		$('#content-canvas').hide();
+		$('#full-map').hide();
+		$('#half-map').show();
+	}
 	
+	$scope.setHalfMap = function() {
+		
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+			$('#map-canvas').hide();
+			$('#content-canvas').removeClass('col-xs-7');
+			$('#content-canvas').addClass('col-xs-12');
+			$('#content-canvas').show();
+		} else {
+			$('#map-canvas').addClass('col-xs-5');
+			$('#map-canvas').removeClass('col-xs-12');
+			google.maps.event.trigger($googleMapService.getMap(), 'resize');
+			$('#content-canvas').show();
+			$('#full-map').show();
+			$('#half-map').hide();
+		}
+	}
 	
 	/**
 	 * Google map
@@ -254,7 +312,8 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	$googleMapService.addSearchBox('pac-input', {});
 	$googleMapService.addMapControl('get-my', google.maps.ControlPosition.RIGHT_TOP);
 	$googleMapService.addMapControl('get-current', google.maps.ControlPosition.RIGHT_TOP);
-	
+	$googleMapService.addMapControl('full-map', google.maps.ControlPosition.RIGHT_BOTTOM);
+	$googleMapService.addMapControl('half-map', google.maps.ControlPosition.RIGHT_BOTTOM);
 	
 	
 	$googleMapService.addSearchBoxListener('place_changed', function() {
@@ -262,9 +321,11 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	});
 	
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-		$googleMapService.addMapListener('bounds_changed', function() {
+		$googleMapService.addMapListener('center_changed', function() {
 			triggerMapReload();
 		});
+		
+		$scope.setFullMap();
 	} else {
 		$googleMapService.addMapListener('dragend', function() {
 			triggerMapReload();
@@ -295,8 +356,11 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 		
 		var infoContainer = $('<div class="info-window-info" />');
 		
-		var author = $('<div><i class="fa fa-user"></i> <span>Cloude Lin</span><div/>');
-		var date = $('<div><i class="fa fa-clock-o"></i> <span>12/31</span></div>');
+		var author = $('<div><i class="fa fa-user"></i> <span>' + content.user.fullName + '</span><div/>');
+		
+		var milliseconds = Date.parse(content.datePosted);
+		var datePosted = new Date(milliseconds);
+		var date = $('<div><i class="fa fa-clock-o"></i> <span>' + (datePosted.getMonth()+1) + '/' + datePosted.getDate() + '</span></div>');
 		
 		infoContainer.append(author).append(date);
 		

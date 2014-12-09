@@ -53,6 +53,10 @@ class HomeController {
 			}
 		}
 		
+		if (myChannel.name == 'trade') {
+			redirect (uri: '/maphome/trade')
+		}
+		
 		[
 			params: params, 
 			channel: myChannel, 

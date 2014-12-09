@@ -31,6 +31,7 @@ class UrlMappings {
         }
 		
 		"/$channel?" (controller: 'home', action: 'index')
+		"/maphome/$channel?" (controller: 'home', action: 'mapHome')
 		
 		"/content/create/$channel?" (controller: 'content', action: 'create')
 		"/content/personal/$channel?" (controller: 'content', action: 'personal')

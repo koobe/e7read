@@ -4,7 +4,7 @@
 
 	.header {
 		/*box-shadow: 0 1px 2px 1px #ccc;*/
-		padding: 0px 0px 5px 0px;
+		padding: 0px 0px 2px 0px;
 	}
 
 	.header-inline-element {
@@ -64,7 +64,7 @@
 		        		<span class="input-group-addon koobe-bg-color">
 					        <i class="fa fa-search"></i>
 					    </span>
-					    <input type="text" class="form-control" ng-keypress="search($event);" />
+					    <input type="text" class="form-control fulltext-searchbox" ng-keypress="search($event);" />
 				    </div>
 				</div>
 			</g:if>
@@ -82,7 +82,7 @@
 	        		<span class="input-group-addon koobe-bg-color">
 				        <i class="fa fa-search"></i>
 				    </span>
-				    <input type="text" class="form-control" ng-keypress="search($event);" />
+				    <input type="text" class="form-control fulltext-searchbox" ng-keypress="search($event);" />
 			    </div>
 			</div>
 		</g:if>

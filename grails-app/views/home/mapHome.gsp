@@ -107,22 +107,33 @@
 				<sec:ifLoggedIn>
 					<i id="get-my" class="fa fa-user control-position" ng-click="returnMyLocation()"></i>
 				</sec:ifLoggedIn>
-				<i id="get-current" class="fa fa-dot-circle-o control-position" ng-click="setLocationBySensor()"></i>
+				<i id="get-current" class="fa fa-crosshairs control-position" ng-click="setLocationBySensor()"></i>
 				
-				<div class="col-xs-7 container-content-flow" style="box-shadow: -2px 0px 2px 0px #ccc; height:100%; overflow-y: auto; margin:0; padding:0;" scrolling>
+				<i id="full-map" class="fa fa-search-plus control-position" ng-click="setFullMap()"></i>
+				<i id="half-map" class="fa fa-search-minus control-position" style="display:none;" ng-click="setHalfMap()"></i>
+				<!-- map controls -->
+				
+				<div id="content-canvas" class="col-xs-7 container-content-flow" style="box-shadow: -2px 0px 2px 0px #ccc; height:100%; overflow-y: auto; margin:0; padding:0;" scrolling>
 				
 					<div class="content-pane">
-						<div class="container-fluid" style="padding:0px 10px 5px 0px;">
-							
-							<div style="display:inline-block; float:right; vertical-align: middle; margin-top: 10px;">
+						<div class="container-fluid" style="padding:0px 10px 5px 10px;">
+						
+							<div style="display:inline-block; vertical-align: middle; margin-top: 10px;">
 								<div style="display:inline-block; padding-right: 5px;" ng-if="category">
+									<span>類別：</span>
 									<span class="btn btn-default" style="
 										padding-top: 1px;
 										padding-bottom: 1px;
 										border-radius: 12px;
+										margin-left: -3px;
 									">{{ categoryName }}</span>
 								</div>
+							</div>
+							
+							<div style="display:inline-block; float:right; vertical-align: middle; margin-top: 10px;">
+								
 								<div style="display:inline-block; padding-right: 10px;" ng-if="keyword">
+									<span>搜尋：</span>
 									<span ng-click="removeKeyword();" class="btn btn-default" style="
 										padding-top: 1px;
 										padding-bottom: 1px;

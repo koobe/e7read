@@ -73,16 +73,16 @@
         </div>
 
         <div class="form-group">
-            <label for="contact.lineId" class="col-sm-2 control-label">LINE:</label>
+            <label for="contact.lineId" class="col-sm-2 control-label">Line:</label>
             <div class="col-sm-10">
-                <g:textField name="contact.lineId" value="${user.contact?.lineId}" class="form-control" placeholder=""/>
+                <g:textField name="contact.lineId" value="${user.contact?.lineId}" class="form-control" placeholder="Line ID" />
             </div>
         </div>
 
         <div class="form-group">
             <label for="contact.skypeId" class="col-sm-2 control-label">Skype:</label>
             <div class="col-sm-10">
-                <g:textField name="contact.skypeId" value="${user.contact?.skypeId}" class="form-control" placeholder=""/>
+                <g:textField name="contact.skypeId" value="${user.contact?.skypeId}" class="form-control" placeholder="Skype ID" />
             </div>
         </div>
 

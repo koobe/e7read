@@ -13,6 +13,16 @@ class AdminController {
     def index() {
     }
 
+    def dashboard() {
+
+    }
+
+    def channel() {
+        [
+                channels: Channel.list()
+        ]
+    }
+
     def coverFiles() {
         [
                 files: S3File.findAllByRemark('DEFAULT-COVER-IMAGE')

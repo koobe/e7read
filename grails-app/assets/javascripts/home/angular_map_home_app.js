@@ -22,11 +22,6 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	
 	scopeContentFlowController = $scope;
 	
-	$googleMapService.createMap('map-canvas', {});
-	$googleMapService.addMapListener('dragend', function() {
-		
-	});
-	
 	$scope.colXs = 12;
 	$scope.colSm = 6;
 	$scope.colMd = 4;
@@ -73,6 +68,9 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 			$scope.lastSearchLocation.lat = lat;
 			$scope.lastSearchLocation.lon = lon;
 			$scope.lastSearchLocation.name = $scope.searchLocation.name;
+			
+			$('#btnSortByDistance').addClass('active');
+			$('#btnSortByNewest').removeClass('active');
 		} else {
 			$scope.locationName = lastName;
 		}
@@ -94,19 +92,50 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				}
 				$scope.contents.push(content);
 				
-//				var myLatlng = new google.maps.LatLng(content.location.lat, content.location.lon);
-//				var iconUrl = content.iconUrl? content.iconUrl: content.channel.iconUrl
-//				var marker = new google.maps.Marker({
-//				      position: myLatlng,
-//				      map: $scope.googlemap,
-//				      title: content.cropTitle,
-//				      icon: iconUrl
-//				});
+				var iconUrl;
+				
+				if (content.iconUrl) {
+					iconUrl = content.iconUrl;
+				} else if (content.categories && content.categories[0]) {
+					iconUrl = content.categories[0].iconUrl;
+				} else {
+					iconUrl = content.channel.iconUrl;
+				}
+						
+				$googleMapService.addMarker(content.location.lat, content.location.lon, {
+					contentId: content.id,
+					title: content.cropTitle,
+					icon: iconUrl
+				});
+				
+				setTimeout(function(){
+					var html = getInfoWindowHTML(content);
+					
+					$googleMapService.setInfoWindow({
+						contentId: content.id,
+						content: html,
+						maxWidth: 125
+					});
+				}, 300);
 				
 			});
 			onCall = false;
 			s.done();
 		});
+	};
+	
+	$scope.orderByDate = function() {
+		if (isGeoReady) {
+			$scope.searchLocation = {};
+			$scope.loadContents(true);
+		}
+	};
+	
+	$scope.orderByNear = function() {
+		if (isGeoReady) {
+			$scope.searchLocation = $scope.lastSearchLocation;
+			$scope.loadContents(true);
+		}
 	};
 	
 	$scope.setLocationBySensor = function() {
@@ -122,6 +151,7 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 			
 			$googleMapService.moveTo(lat, lon);
 			$googleMapService.setZoom(13);
+			$googleMapService.showCenterCircle();
 			
 			$mapService.geocoding(lat, lon, function(name) {
 				
@@ -162,6 +192,7 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				
 				$googleMapService.moveTo(lat, lon);
 				$googleMapService.setZoom(13);
+				$googleMapService.showCenterCircle();
 				
 				s.done();
 				$scope.searchLocation = $scope.myLocation;
@@ -169,9 +200,14 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				isGeoReady = true;
 			} else {
 				if ($scope.sensorLocation.lat) {
+					
+					$googleMapService.moveTo($scope.sensorLocation.lat, $scope.sensorLocation.lon);
+					$googleMapService.showCenterCircle();
+					
 					s.done();
 					$scope.searchLocation = $scope.sensorLocation;
 					$scope.loadContents(true);
+					
 					isGeoReady = true;
 				} else {
 					// set location by sensor
@@ -179,9 +215,16 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				}
 			}
 		});
-		
-		$('#btnSortByDistance').addClass('active');
-		$('#btnSortByNewest').removeClass('active');
+	};
+	
+	$scope.returnMyLocation = function() {
+		if (isGeoReady) {
+			$scope.setLocationByUserProfile();
+		}
+	};
+	
+	$scope.openContent = function(contentId) {
+		showContent(contentId);
 	};
 	
 	$scope.initLocation = function() {
@@ -196,16 +239,75 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 		eof = false;
 	}
 	
+	$scope.openMapInfoWindow = function(contentId) {
+		$googleMapService.openInfoWindow(contentId);
+	};
 	
-	function setGoogleMapCenter(lat, lon) {
+	
+	
+	/**
+	 * Google map
+	 */
+	
+	
+	$googleMapService.createMap('map-canvas', {});
+	$googleMapService.addSearchBox('pac-input', {});
+	$googleMapService.addMapControl('get-my', google.maps.ControlPosition.RIGHT_TOP);
+	$googleMapService.addMapControl('get-current', google.maps.ControlPosition.RIGHT_TOP);
+	
+	
+	
+	$googleMapService.addSearchBoxListener('place_changed', function() {
+		triggerMapReload();
+	});
+	
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		$googleMapService.addMapListener('bounds_changed', function() {
+			triggerMapReload();
+		});
+	} else {
+		$googleMapService.addMapListener('dragend', function() {
+			triggerMapReload();
+		});
+	}
+	
+	function triggerMapReload() {
+		var lat = $googleMapService.getMap().getCenter().k;
+		var lon = $googleMapService.getMap().getCenter().B;
+		defaultDistance = $googleMapService.getBoundDistance();
+		$scope.searchLocation = {lat: lat, lon: lon, name: ''};
+		$scope.loadContents(true);
+		$googleMapService.showCenterCircle();
+		$googleMapService.closeCurrentInfoWindow();
+	}
+	
+	function getInfoWindowHTML(content) {
+		var container = $('<div class="container"/>');
 		
+		var imgContainer = $('<div class="div-bg-thumbnail-cover info-window-image"/>');
+		imgContainer.css('background-image', 'url(' + content.coverUrl + ')');
+		
+		var titleContainer = $('<div class="info-window-title" />');
+		var title = $('<span/>').html(content.cropTitle);
+		titleContainer.append(title);
+		
+		var separator = $('<div class="info-window-separator" />');
+		
+		var infoContainer = $('<div class="info-window-info" />');
+		
+		var author = $('<div><i class="fa fa-user"></i> <span>Cloude Lin</span><div/>');
+		var date = $('<div><i class="fa fa-clock-o"></i> <span>12/31</span></div>');
+		
+		infoContainer.append(author).append(date);
+		
+		container.append(titleContainer).append(separator).append(imgContainer).append(infoContainer);
+		return container.html();
 	}
 	
 }]);
 
 
 mapHomeApp.directive('scrolling', function() {
-	
 	/**
 	 * determine if load more data
 	 */
@@ -217,9 +319,7 @@ mapHomeApp.directive('scrolling', function() {
 	return {
 		restrict: 'A',
 		link: function(scope, element, attrs) {
-			
 			var contentPane = $('.content-pane', element);
-			
 			element.scroll(function() {
 					if (shouldLoadMore(element, contentPane) && !onCall && !eof) {
 						scopeContentFlowController.loadContents();

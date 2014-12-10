@@ -100,7 +100,10 @@ mapHomeApp.controller('ContentFlowController',
 			angular.forEach(contents, function(content){
 				if (geo != null) {
 					content.distance = $mapService.distance(lat, lon, content.location.lat, content.location.lon, 'K');
+				} else if ($scope.lastSearchLocation.lat && $scope.lastSearchLocation.lon) {
+					content.distance = $mapService.distance($scope.lastSearchLocation.lat, $scope.lastSearchLocation.lon, content.location.lat, content.location.lon, 'K');
 				}
+				
 				$scope.contents.push(content);
 				
 				var iconUrl;

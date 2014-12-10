@@ -279,19 +279,29 @@ mapHomeApp.controller('ContentFlowController',
 	}
 	
 	$scope.openMapInfoWindow = function(contentId) {
+		$googleMapService.openInfoWindow(contentId);
 		if (isMobile) {
 			$scope.setFullMap();
 		}
-		$googleMapService.openInfoWindow(contentId);
 	};
 	
 	$scope.setFullMap = function() {
+		if (isMobile) {
+			$('#map-canvas').show();
+			if ($googleMapService.dontloadTimeout) {
+				clearTimeout($googleMapService.dontloadTimeout);
+			}
+			$googleMapService.dontLoad = true;
+			$googleMapService.dontloadTimeout = setTimeout(function() {
+				$googleMapService.dontLoad = false;
+			}, 1000);
+		}
 		$('#map-canvas').removeClass('col-xs-5');
 		$('#map-canvas').addClass('col-xs-12');
-		google.maps.event.trigger($googleMapService.getMap(), 'resize');
 		$('#content-canvas').hide();
 		$('#full-map').hide();
 		$('#half-map').show();
+		google.maps.event.trigger($googleMapService.getMap(), 'resize');
 	}
 	
 	$scope.setHalfMap = function() {
@@ -301,6 +311,13 @@ mapHomeApp.controller('ContentFlowController',
 			$('#content-canvas').removeClass('col-xs-7');
 			$('#content-canvas').addClass('col-xs-12');
 			$('#content-canvas').show();
+			if ($googleMapService.dontloadTimeout) {
+				clearTimeout($googleMapService.dontloadTimeout);
+			}
+			$googleMapService.dontLoad = true;
+			$googleMapService.dontloadTimeout = setTimeout(function() {
+				$googleMapService.dontLoad = false;
+			}, 1000);
 		} else {
 			$('#map-canvas').addClass('col-xs-5');
 			$('#map-canvas').removeClass('col-xs-12');

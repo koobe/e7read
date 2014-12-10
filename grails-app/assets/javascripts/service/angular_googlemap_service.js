@@ -167,16 +167,7 @@
 						this.markerInfoWindow[options.contentId] = infoWindow;
 						
 						google.maps.event.addListener(attachMarker, 'click', function() {
-							
-							if (me.dontloadTimeout) {
-								clearTimeout(me.dontloadTimeout);
-							}
-							
-							me.dontLoad = true;
 							me.openInfoWindow(options.contentId);
-							me.dontloadTimeout = setTimeout(function() {
-								me.dontLoad = false;
-							}, 1000);
 		                });
 					}
 				}
@@ -186,6 +177,16 @@
 			 * open info window by contentId
 			 */
 			Service.prototype.openInfoWindow = function(contentId) {
+				
+				var me = this;
+				if (me.dontloadTimeout) {
+					clearTimeout(this.dontloadTimeout);
+				}
+				me.dontLoad = true;
+				me.dontloadTimeout = setTimeout(function() {
+					me.dontLoad = false;
+				}, 1000);
+				
 				var marker = this.markerMap[contentId];
 				this.markerInfoWindow[contentId].open(this.map, marker);
 				marker.setAnimation(google.maps.Animation.BOUNCE);

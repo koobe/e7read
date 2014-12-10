@@ -10,7 +10,4 @@ $(function() {
 		var pageContainer = $(window).height() - $('nav').height() - $('footer').height();
 		$(selector).height(pageContainer);
 	}
-	
-	
-	var elm = $('<input id="pac-input" class="controls" type="text" placeholder="Search Box" style="">');
 });

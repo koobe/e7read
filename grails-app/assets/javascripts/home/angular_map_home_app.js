@@ -13,8 +13,11 @@ var defaultDistance = 10000;
 
 var scopeContentFlowController;
 
-mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userService', '$searchService', '$googleMapService',
-                                                function($scope, $mapService, $userService, $searchService, $googleMapService) {
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+
+mapHomeApp.controller('ContentFlowController', 
+		['$scope', '$mapService', '$userService', '$searchService', '$googleMapService',
+		 function($scope, $mapService, $userService, $searchService, $googleMapService) {
 	
 	var channel = getQueryVariable("channel");
 	var categoryName = getQueryVariable("c");
@@ -290,7 +293,7 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	
 	$scope.setHalfMap = function() {
 		
-		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		if(isMobile) {
 			$('#map-canvas').hide();
 			$('#content-canvas').removeClass('col-xs-7');
 			$('#content-canvas').addClass('col-xs-12');
@@ -331,7 +334,7 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 		triggerMapReload();
 	});
 	
-	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+	if(isMobile) {
 		$googleMapService.addMapListener('idle', function() {
 			if (!$googleMapService.dontLoad) {
 				if ($scope.isMapSearch) {
@@ -346,7 +349,6 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				triggerMapReload();
 			}
 		});
-		
 	}
 	
 	function triggerMapReload() {

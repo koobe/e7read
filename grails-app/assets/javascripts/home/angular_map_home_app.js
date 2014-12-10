@@ -279,6 +279,9 @@ mapHomeApp.controller('ContentFlowController',
 	}
 	
 	$scope.openMapInfoWindow = function(contentId) {
+		if (isMobile) {
+			$scope.setFullMap();
+		}
 		$googleMapService.openInfoWindow(contentId);
 	};
 	

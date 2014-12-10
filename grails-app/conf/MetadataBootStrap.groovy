@@ -44,7 +44,8 @@ class MetadataBootStrap {
 							canAnonymous: node.canAnonymous,
 							themeType: node.themeType,
 							showInPanel: node.showInPanel,
-							order: node.order);
+							iconUrl: node.iconUrl,
+							order: node.order)
 					} else {
 						channel.isDefault = node.isDefault
 						channel.logoImg = node.logoImg
@@ -53,22 +54,23 @@ class MetadataBootStrap {
 						channel.smallLogoUrl = node.smallLogoUrl
 						channel.showInPanel = node.showInPanel
 						channel.order = node.order
+						channel.iconUrl = node.iconUrl
 					}
 
-                    if (node.iconUrl) {
-                        if (node.iconUrl.startsWith('http://') || node.iconUrl.startsWith('https://')) {
-                            channel.iconUrl = node.iconUrl
-                        }
-                        else {
-                            channel.iconUrl = grailsLinkGenerator.asset(src: "marker-32/${node.iconUrl}", absolute: true)
-                        }
-                    }
-                    else {
-                        // use default icon
-                        channel.iconUrl = grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
-                    }
-
-                    log.info "channel.iconUrl = ${channel.iconUrl}"
+//                    if (node.iconUrl) {
+//                        if (node.iconUrl.startsWith('http://') || node.iconUrl.startsWith('https://')) {
+//                            channel.iconUrl = node.iconUrl
+//                        }
+//                        else {
+//                            channel.iconUrl = grailsLinkGenerator.asset(src: "marker-32/${node.iconUrl}", absolute: true)
+//                        }
+//                    }
+//                    else {
+//                        // use default icon
+//                        channel.iconUrl = grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
+//                    }
+//
+//                    log.info "channel.iconUrl = ${channel.iconUrl}"
 					
 					channel.save flush: true
 				}
@@ -95,6 +97,7 @@ class MetadataBootStrap {
 					log.info 'Create category, parent: ' + parent + "; category-name: " + node.name
 					
 					def category = Category.findByName(node.name)
+					
 					if (!category) {
 						category = new Category(name: node.name);
 					}
@@ -116,21 +119,23 @@ class MetadataBootStrap {
 						def channel = Channel.findByName(node.channel)
 						category.channel = channel
 					}
+					
+					category.iconUrl = node.iconUrl
 
-                    if (node.iconUrl) {
-                        if (node.iconUrl.startsWith('http://') || node.iconUrl.startsWith('https://')) {
-                            category.iconUrl = node.iconUrl
-                        }
-                        else {
-                            category.iconUrl = grailsLinkGenerator.asset(src: "marker-32/${node.iconUrl}", absolute: true)
-                        }
-                    }
-                    else {
-                        // use default icon
-                        category.iconUrl = grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
-                    }
-
-                    log.info "Icon URL: ${category.iconUrl}"
+//                    if (node.iconUrl) {
+//                        if (node.iconUrl.startsWith('http://') || node.iconUrl.startsWith('https://')) {
+//                            category.iconUrl = node.iconUrl
+//                        }
+//                        else {
+//                            category.iconUrl = grailsLinkGenerator.asset(src: "marker-32/${node.iconUrl}", absolute: true)
+//                        }
+//                    }
+//                    else {
+//                        // use default icon
+//                        category.iconUrl = grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
+//                    }
+//
+//                    log.info "Icon URL: ${category.iconUrl}"
 					
 					category.save flush: true
 					owner.call(node.name, node.child)

@@ -249,6 +249,12 @@ $( document ).on( "pageinit", "#map-page", function() {
 
                 var content = data[i];
 
+                var markerIcon = {
+					url: content.iconUrl?content.iconUrl:$('meta[name=e7read-default-icon]').attr('content'),
+					size: new google.maps.Size(38, 38),
+					scaledSize: new google.maps.Size(38, 38)
+				};
+
                 var config = {
                     position: new google.maps.LatLng(
                             content.location.lat, /* + (Math.random()/500), */
@@ -258,7 +264,7 @@ $( document ).on( "pageinit", "#map-page", function() {
                     title: content.cropTitle,
                     draggable: false,
                     /*animation: google.maps.Animation.DROP,*/
-                    icon: content.iconUrl?content.iconUrl:$('meta[name=e7read-default-icon]').attr('content'),
+                    icon: markerIcon,
                     labelContent: content.cropTitle,
                     labelAnchor: new google.maps.Point(-10, 15),
                     labelClass: "labels",

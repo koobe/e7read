@@ -47,7 +47,7 @@
 		        padding: 0 6px 0 6px;
 				
 				margin-top: 7px;
-		        margin-left: -12px;
+		        margin-left: -1px;
 		        
 		        width: 60%;
 		        font-size: 15px;
@@ -86,7 +86,7 @@
 					padding: 3px 9px 3px 9px;					
 					right: 9px !important;
 					box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-					margin-bottom: 7px;
+					margin: 4px 0px 4px 0px;
 		      }
 		
 		</style>
@@ -111,6 +111,12 @@
 				
 				<i id="full-map" class="fa fa-search-plus control-position" ng-click="setFullMap()"></i>
 				<i id="half-map" class="fa fa-search-minus control-position" style="display:none;" ng-click="setHalfMap()"></i>
+				
+				<div id="is-search" class="checkbox control-position" style="width: 110px; font-size: 1.2em; margin-top: 7px;">
+				    <label>
+				      <input type="checkbox" ng-checked="isMapSearch" ng-model="isMapSearch" />移動時搜尋
+				    </label>
+				  </div>
 				<!-- map controls -->
 				
 				<div id="content-canvas" class="col-xs-7 container-content-flow" style="box-shadow: -2px 0px 2px 0px #ccc; height:100%; overflow-y: auto; margin:0; padding:0;" scrolling>

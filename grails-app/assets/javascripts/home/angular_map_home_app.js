@@ -26,6 +26,8 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	$scope.colSm = 6;
 	$scope.colMd = 4;
 	
+	$scope.isMapSearch = true;
+	
 	$scope.myLocation = {};
 	$scope.sensorLocation = {};
 	$scope.searchLocation = {};
@@ -308,12 +310,21 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	 */
 	
 	
-	$googleMapService.createMap('map-canvas', {});
+	$googleMapService.createMap('map-canvas', {
+		maxZoom: 16,
+		minZoom: 5,
+		panControl: false,
+		streetViewControl: false,
+		mapTypeControl: false,
+		zoomControlOptions: {style:google.maps.ZoomControlStyle.SMALL},
+		
+	});
 	$googleMapService.addSearchBox('pac-input', {});
 	$googleMapService.addMapControl('get-my', google.maps.ControlPosition.RIGHT_TOP);
 	$googleMapService.addMapControl('get-current', google.maps.ControlPosition.RIGHT_TOP);
 	$googleMapService.addMapControl('full-map', google.maps.ControlPosition.RIGHT_BOTTOM);
 	$googleMapService.addMapControl('half-map', google.maps.ControlPosition.RIGHT_BOTTOM);
+	$googleMapService.addMapControl('is-search', google.maps.ControlPosition.TOP_RIGHT);
 	
 	
 	$googleMapService.addSearchBoxListener('place_changed', function() {
@@ -321,15 +332,21 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	});
 	
 	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-		$googleMapService.addMapListener('center_changed', function() {
-			triggerMapReload();
+		$googleMapService.addMapListener('idle', function() {
+			if (!$googleMapService.dontLoad) {
+				if ($scope.isMapSearch) {
+					triggerMapReload();
+				}
+			}
 		});
-		
 		$scope.setFullMap();
 	} else {
 		$googleMapService.addMapListener('dragend', function() {
-			triggerMapReload();
+			if ($scope.isMapSearch) {
+				triggerMapReload();
+			}
 		});
+		
 	}
 	
 	function triggerMapReload() {

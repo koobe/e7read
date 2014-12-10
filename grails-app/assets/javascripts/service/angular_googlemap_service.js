@@ -15,6 +15,7 @@
 				this.markerMap = {};
 				this.markerInfoWindow = {};
 				this.markerInitZIndex = 5;
+				this.dontLoad = false;
 			}
 			
 			Service.prototype.defaultMapOption = {
@@ -164,9 +165,18 @@
 						
 						var infoWindow = new google.maps.InfoWindow(options);
 						this.markerInfoWindow[options.contentId] = infoWindow;
-							
+						
 						google.maps.event.addListener(attachMarker, 'click', function() {
+							
+							if (me.dontloadTimeout) {
+								clearTimeout(me.dontloadTimeout);
+							}
+							
+							me.dontLoad = true;
 							me.openInfoWindow(options.contentId);
+							me.dontloadTimeout = setTimeout(function() {
+								me.dontLoad = false;
+							}, 1000);
 		                });
 					}
 				}

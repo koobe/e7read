@@ -55,8 +55,6 @@
 		.menu-expend-button {
 			display: inline-block;
 		}
-		
-		.hidden-xs
 	}
 </style>
 
@@ -84,7 +82,7 @@
 		
 		<div class="header-inline-element" style="float:right;">
 			
-			<div class="menu-expend-button hidden-max hidden-sm">
+			<div class="menu-expend-button visible-xs-*">
 				<a href="#" style="font-size: 1.1em;" class="koobe-btn koobe-btn-normal">
 					<i class="fa fa-caret-down"></i>
 				</a>

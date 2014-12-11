@@ -1,5 +1,4 @@
 <style type="text/css">
-	
 
 	.header-inline-element {
 		display:inline-block; 
@@ -82,7 +81,7 @@
 		
 		<div class="header-inline-element" style="float:right;">
 			
-			<div class="menu-expend-button visible-xs-*">
+			<div class="menu-expend-button">
 				<a href="#" style="font-size: 1.1em;" class="koobe-btn koobe-btn-normal">
 					<i class="fa fa-caret-down"></i>
 				</a>

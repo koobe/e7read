@@ -10,6 +10,10 @@
 		padding: 2px 0px 0px 5px;
 	}
 	
+	.header-usermenu {
+		display:inline-block;
+	}
+	
 	@media screen and (min-width: 769px) {
 		.header {
 			/*box-shadow: 0 1px 2px 1px #ccc;*/
@@ -98,7 +102,7 @@
 				</div>
 			</g:if>
 				
-			<div class="hidden-xs hidden-min" style="display:inline-block;">
+			<div class="hidden-xs hidden-min header-usermenu" style="">
 				<g:render template="/home/usermenu" />
 			</div>
 		</div>

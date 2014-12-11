@@ -234,8 +234,8 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 	$scope.searchSelectedLocation = function(details) {
 		console.log(details);
 		
-		$scope.searchLocation.lat = details.geometry.location.k;
-		$scope.searchLocation.lon = details.geometry.location.B;
+		$scope.searchLocation.lat = details.geometry.location.lat();
+		$scope.searchLocation.lon = details.geometry.location.lng();
 		$scope.searchLocation.name = details.name;
 		$scope.loadContents(true);
 		

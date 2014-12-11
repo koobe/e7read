@@ -2,20 +2,21 @@ $(function() {
 	
 //	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
 	
-	var isIPad = /iPad/i.test(navigator.userAgent);
+	var isIPad = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 	
 	$('.menu-expend-button').addClass('visible-xs-*');
 	
-	$('nav').css("position", "absolute");
-	$('nav').css("top", "0px");
-	$('nav').css("left", "0px");
-	$('nav').css("width", "100%");
-	$('nav').css("background-color", "#FAF8F5");
-	$('nav').css("z-index", "10");
-	
 	var after = $('<div/>');
-	after.height($('nav').height());
-	$('nav').after(after);
+	if (!isIPad) {
+		$('nav').css("position", "absolute");
+		$('nav').css("top", "0px");
+		$('nav').css("left", "0px");
+		$('nav').css("width", "100%");
+		$('nav').css("background-color", "#FAF8F5");
+		$('nav').css("z-index", "10");
+		after.height($('nav').height());
+		$('nav').after(after);
+	}
 	
 	if (isIPad) {
 		$('.menu-expend-button').css("display", "none");
@@ -26,10 +27,8 @@ $(function() {
 	}
 	
 	$('.menu-expend-button').click(function() {
-		
 		$('.menu-expend-button').addClass('hidden-xs');
 		$('.hidden-min').removeClass('hidden-xs');
-		
 		$(window).trigger('resize');
 		after.height($('nav').height());
 	});

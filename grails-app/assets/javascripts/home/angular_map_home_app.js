@@ -375,9 +375,9 @@ mapHomeApp.controller('ContentFlowController',
 	}
 	
 	function triggerMapReload() {
-		var lat = $googleMapService.getMap().getCenter().k;
-		var lon = $googleMapService.getMap().getCenter().B;
-		defaultDistance = $googleMapService.getBoundDistance();
+		var lat = $googleMapService.getMap().getCenter().lat();
+		var lon = $googleMapService.getMap().getCenter().lng();
+//		defaultSearchParams.distance = $googleMapService.getBoundDistance();
 		$scope.searchLocation = {lat: lat, lon: lon, name: ''};
 		$scope.loadContents(true);
 		$googleMapService.showCenterCircle();

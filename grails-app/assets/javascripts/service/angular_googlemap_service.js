@@ -50,8 +50,10 @@
 				google.maps.event.addListener(autocomplete, 'place_changed', function() {
 					var place = autocomplete.getPlace();
 					if (place && place.geometry && place.geometry.location) {
-						me.moveTo(place.geometry.location.k, place.geometry.location.B);
-						me.setPlaceMarker(place.geometry.location.k, place.geometry.location.B, {});
+						var lat = place.geometry.location.lat();
+						var lon = place.geometry.location.lng();
+						me.moveTo(lat, lon);
+						me.setPlaceMarker(lat, lon, {});
 					}
 				});
 			};
@@ -90,7 +92,7 @@
 				var bounds = this.map.getBounds();
 				var northEast = bounds.getNorthEast();
 				var southWest = bounds.getSouthWest();
-				return $mapService.distance(northEast.k, northEast.B, southWest.k, southWest.B, 'K');
+				return $mapService.distance(northEast.lat(), northEast.lng(), southWest.lat(), southWest.lng(), 'K');
 			}
 			
 			/**

@@ -19,7 +19,7 @@ class AdminController {
 
     }
 
-    def channel(id) {
+    def channel() {
         [
                 channels: Channel.list()
         ]
@@ -43,13 +43,17 @@ class AdminController {
         redirect action: 'channel'
     }
 
-    def channelUpdate(id) {
+    def channelUpdate() {
         [
-                channel: Channel.get(id)
+                channel: Channel.get(params.id)
         ]
     }
 
-    def channelUpdateSave() {
+    def channelUpdateSave(Channel channel) {
+
+        if (params.boolean('delete', false)) {
+            channel.delete flush: true
+        }
         redirect action: 'channel'
     }
 

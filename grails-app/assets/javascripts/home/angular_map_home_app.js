@@ -207,6 +207,26 @@ mapHomeApp.controller('ContentFlowController',
 				$scope.searchLocation = $scope.sensorLocation;
 				$scope.loadContents(true);
 			});
+		}, function(err) {
+			console.log(err);
+			var lat = 25.032823891547377;
+			var lon = 121.54367807495123;
+			
+			$googleMapService.moveTo(lat, lon);
+			$googleMapService.setZoom(13);
+			$googleMapService.showCenterCircle();
+			
+			$mapService.geocoding(lat, lon, function(name) {
+				$scope.sensorLocation.lat = lat;
+				$scope.sensorLocation.lon = lon;
+				$scope.sensorLocation.name = name;
+				
+				s.done();
+				isGeoReady = true;
+				
+				$scope.searchLocation = $scope.sensorLocation;
+				$scope.loadContents(true);
+			});
 		});
 		
 		$('#btnSortByDistance').addClass('active');

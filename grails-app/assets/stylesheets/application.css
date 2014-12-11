@@ -12,6 +12,7 @@
 *= require bootstrap
 *= require_self
 *= require application_menu
+*= require tipmessage
 */
 
 * {

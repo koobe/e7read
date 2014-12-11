@@ -60,7 +60,7 @@
 			"enable": true,
 			"order": 1,
 			"channel": "trade",
-			"iconUrl": "digital.png"
+			"iconUrl": "/assets/map/category/digital.png"
 		},
 		{
 			"name" : "clothes",
@@ -69,7 +69,7 @@
 			"enable": true,
 			"order": 2,
 			"channel": "trade",
-            "iconUrl": "clothes.png"
+            "iconUrl": "/assets/map/category/clothes.png"
 		},
 		{
 			"name" : "makeup",
@@ -78,7 +78,7 @@
 			"enable": true,
 			"order": 3,
 			"channel": "trade",
-			"iconUrl": "cosmtic.png"
+			"iconUrl": "/assets/map/category/cosmtic.png"
 		},
 		{
 			"name" : "food",
@@ -86,7 +86,7 @@
 			"enable": true,
 			"order": 4,
 			"channel": "trade",
-			"iconUrl": "food.png"
+			"iconUrl": "/assets/map/category/food.png"
 		},
 		{
 			"name" : "living",
@@ -94,7 +94,7 @@
 			"enable": true,
 			"order": 5,
 			"channel": "trade",
-			"iconUrl": "home.png"
+			"iconUrl": "/assets/map/category/home.png"
 		},
 		{
 			"name" : "books",
@@ -102,7 +102,7 @@
 			"enable": true,
 			"order": 6,
 			"channel": "trade",
-            "iconUrl": "book.png"
+            "iconUrl": "/assets/map/category/book.png"
 		},
 		{
 			"name" : "sports",
@@ -110,7 +110,7 @@
 			"enable": true,
 			"order": 7,
 			"channel": "trade",
-            "iconUrl": "sport.png"
+            "iconUrl": "/assets/map/category/sport.png"
 		},
 		{
 			"name" : "collection",
@@ -118,7 +118,7 @@
 			"enable": true,
 			"order": 8,
 			"channel": "trade",
-            "iconUrl": "collection.png"
+            "iconUrl": "/assets/map/category/collection.png"
 		},
 		{
 			"name" : "others",
@@ -126,7 +126,7 @@
 			"enable": true,
 			"order": 9,
 			"channel": "trade",
-            "iconUrl": "others.png"
+            "iconUrl": "/assets/map/category/others.png"
 		},
 		
 		{

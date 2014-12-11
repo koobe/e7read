@@ -13,8 +13,11 @@ var defaultDistance = 10000;
 
 var scopeContentFlowController;
 
-mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userService', '$searchService', '$googleMapService',
-                                                function($scope, $mapService, $userService, $searchService, $googleMapService) {
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+
+mapHomeApp.controller('ContentFlowController', 
+		['$scope', '$mapService', '$userService', '$searchService', '$googleMapService',
+		 function($scope, $mapService, $userService, $searchService, $googleMapService) {
 	
 	var channel = getQueryVariable("channel");
 	var categoryName = getQueryVariable("c");
@@ -22,14 +25,11 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	
 	scopeContentFlowController = $scope;
 	
-	$googleMapService.createMap('map-canvas', {});
-	$googleMapService.addMapListener('dragend', function() {
-		
-	});
-	
 	$scope.colXs = 12;
 	$scope.colSm = 6;
 	$scope.colMd = 4;
+	
+	$scope.isMapSearch = true;
 	
 	$scope.myLocation = {};
 	$scope.sensorLocation = {};
@@ -37,6 +37,12 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 	$scope.lastSearchLocation = {};
 	
 	$scope.keyword = null;
+	$scope.category = categoryName;
+	
+	if (categoryName) {
+		var target = $("a[data-category-name='" + categoryName + "']");
+		$scope.categoryName = target.html().trim();
+	}
 	
 	$scope.size = 12;
 	$scope.page = 0;
@@ -73,6 +79,9 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 			$scope.lastSearchLocation.lat = lat;
 			$scope.lastSearchLocation.lon = lon;
 			$scope.lastSearchLocation.name = $scope.searchLocation.name;
+			
+			$('#btnSortByDistance').addClass('active');
+			$('#btnSortByNewest').removeClass('active');
 		} else {
 			$scope.locationName = lastName;
 		}
@@ -91,23 +100,85 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 			angular.forEach(contents, function(content){
 				if (geo != null) {
 					content.distance = $mapService.distance(lat, lon, content.location.lat, content.location.lon, 'K');
+				} else if ($scope.lastSearchLocation.lat && $scope.lastSearchLocation.lon) {
+					content.distance = $mapService.distance($scope.lastSearchLocation.lat, $scope.lastSearchLocation.lon, content.location.lat, content.location.lon, 'K');
 				}
+				
 				$scope.contents.push(content);
 				
-//				var myLatlng = new google.maps.LatLng(content.location.lat, content.location.lon);
-//				var iconUrl = content.iconUrl? content.iconUrl: content.channel.iconUrl
-//				var marker = new google.maps.Marker({
-//				      position: myLatlng,
-//				      map: $scope.googlemap,
-//				      title: content.cropTitle,
-//				      icon: iconUrl
-//				});
+				var iconUrl;
+				
+				if (content.iconUrl) {
+					iconUrl = content.iconUrl;
+				} else if (content.categories && content.categories[0]) {
+					iconUrl = content.categories[0].iconUrl;
+				} else {
+					iconUrl = content.channel.iconUrl;
+				}
+						
+				$googleMapService.addMarker(content.location.lat, content.location.lon, {
+					contentId: content.id,
+					title: content.cropTitle,
+					icon: iconUrl
+				});
+				
+				setTimeout(function(){
+					var html = getInfoWindowHTML(content);
+					
+					$googleMapService.setInfoWindow({
+						contentId: content.id,
+						content: html,
+						maxWidth: 125
+					});
+				}, 300);
 				
 			});
 			onCall = false;
 			s.done();
 		});
 	};
+	
+	$scope.orderByDate = function() {
+		if (isGeoReady) {
+			$scope.searchLocation = {};
+			$scope.loadContents(true);
+		}
+	};
+	
+	$scope.orderByNear = function() {
+		if (isGeoReady) {
+			$scope.searchLocation = $scope.lastSearchLocation;
+			$scope.loadContents(true);
+		}
+	};
+	
+	/**
+	 * trigger search action by Enter key
+	 */
+	$scope.search = function(e) {
+		if (e.keyCode == 13) {
+			var target = angular.element(e.target);
+			searchInput = target;
+			
+			if (target.val() == null || target.val().trim() == '') {
+				$scope.keyword = null;
+			} else {
+				$scope.keyword = target.val().trim();
+			}
+			
+			$scope.loadContents(true);
+			target.blur();
+		}
+	}
+	
+	/**
+	 * remove search keyword
+	 */
+	$scope.removeKeyword = function() {
+		$('.fulltext-searchbox').val(null);
+		$scope.keyword = null;
+		$scope.loadContents(true);
+	}
 	
 	$scope.setLocationBySensor = function() {
 		
@@ -122,9 +193,30 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 			
 			$googleMapService.moveTo(lat, lon);
 			$googleMapService.setZoom(13);
+			$googleMapService.showCenterCircle();
 			
 			$mapService.geocoding(lat, lon, function(name) {
 				
+				$scope.sensorLocation.lat = lat;
+				$scope.sensorLocation.lon = lon;
+				$scope.sensorLocation.name = name;
+				
+				s.done();
+				isGeoReady = true;
+				
+				$scope.searchLocation = $scope.sensorLocation;
+				$scope.loadContents(true);
+			});
+		}, function(err) {
+			console.log(err);
+			var lat = 25.032823891547377;
+			var lon = 121.54367807495123;
+			
+			$googleMapService.moveTo(lat, lon);
+			$googleMapService.setZoom(13);
+			$googleMapService.showCenterCircle();
+			
+			$mapService.geocoding(lat, lon, function(name) {
 				$scope.sensorLocation.lat = lat;
 				$scope.sensorLocation.lon = lon;
 				$scope.sensorLocation.name = name;
@@ -162,6 +254,7 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				
 				$googleMapService.moveTo(lat, lon);
 				$googleMapService.setZoom(13);
+				$googleMapService.showCenterCircle();
 				
 				s.done();
 				$scope.searchLocation = $scope.myLocation;
@@ -169,9 +262,14 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				isGeoReady = true;
 			} else {
 				if ($scope.sensorLocation.lat) {
+					
+					$googleMapService.moveTo($scope.sensorLocation.lat, $scope.sensorLocation.lon);
+					$googleMapService.showCenterCircle();
+					
 					s.done();
 					$scope.searchLocation = $scope.sensorLocation;
 					$scope.loadContents(true);
+					
 					isGeoReady = true;
 				} else {
 					// set location by sensor
@@ -179,9 +277,16 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 				}
 			}
 		});
-		
-		$('#btnSortByDistance').addClass('active');
-		$('#btnSortByNewest').removeClass('active');
+	};
+	
+	$scope.returnMyLocation = function() {
+		if (isGeoReady) {
+			$scope.setLocationByUserProfile();
+		}
+	};
+	
+	$scope.openContent = function(contentId) {
+		showContent(contentId);
 	};
 	
 	$scope.initLocation = function() {
@@ -196,16 +301,139 @@ mapHomeApp.controller('ContentFlowController', ['$scope', '$mapService', '$userS
 		eof = false;
 	}
 	
+	$scope.openMapInfoWindow = function(contentId) {
+		$googleMapService.openInfoWindow(contentId);
+		if (isMobile) {
+			$scope.setFullMap();
+		}
+	};
 	
-	function setGoogleMapCenter(lat, lon) {
+	$scope.setFullMap = function() {
+		if (isMobile) {
+			$('#map-canvas').show();
+			if ($googleMapService.dontloadTimeout) {
+				clearTimeout($googleMapService.dontloadTimeout);
+			}
+			$googleMapService.dontLoad = true;
+			$googleMapService.dontloadTimeout = setTimeout(function() {
+				$googleMapService.dontLoad = false;
+			}, 1000);
+		}
+		$('#map-canvas').removeClass('col-xs-5');
+		$('#map-canvas').addClass('col-xs-12');
+		$('#content-canvas').hide();
+		$('#full-map').hide();
+		$('#half-map').show();
+		google.maps.event.trigger($googleMapService.getMap(), 'resize');
+	}
+	
+	$scope.setHalfMap = function() {
 		
+		if(isMobile) {
+			$('#map-canvas').hide();
+			$('#content-canvas').removeClass('col-xs-7');
+			$('#content-canvas').addClass('col-xs-12');
+			$('#content-canvas').show();
+			if ($googleMapService.dontloadTimeout) {
+				clearTimeout($googleMapService.dontloadTimeout);
+			}
+			$googleMapService.dontLoad = true;
+			$googleMapService.dontloadTimeout = setTimeout(function() {
+				$googleMapService.dontLoad = false;
+			}, 1000);
+		} else {
+			$('#map-canvas').addClass('col-xs-5');
+			$('#map-canvas').removeClass('col-xs-12');
+			google.maps.event.trigger($googleMapService.getMap(), 'resize');
+			$('#content-canvas').show();
+			$('#full-map').show();
+			$('#half-map').hide();
+		}
+	}
+	
+	/**
+	 * Google map
+	 */
+	
+	
+	$googleMapService.createMap('map-canvas', {
+		maxZoom: 16,
+		minZoom: 5,
+		panControl: false,
+		streetViewControl: false,
+		mapTypeControl: false,
+		zoomControlOptions: {style:google.maps.ZoomControlStyle.SMALL},
+		
+	});
+	$googleMapService.addSearchBox('pac-input', {});
+	$googleMapService.addMapControl('get-my', google.maps.ControlPosition.RIGHT_TOP);
+	$googleMapService.addMapControl('get-current', google.maps.ControlPosition.RIGHT_TOP);
+	$googleMapService.addMapControl('full-map', google.maps.ControlPosition.RIGHT_BOTTOM);
+	$googleMapService.addMapControl('half-map', google.maps.ControlPosition.RIGHT_BOTTOM);
+	$googleMapService.addMapControl('is-search', google.maps.ControlPosition.TOP_RIGHT);
+	
+	
+	$googleMapService.addSearchBoxListener('place_changed', function() {
+		triggerMapReload();
+	});
+	
+	if(isMobile) {
+		$googleMapService.addMapListener('idle', function() {
+			if (!$googleMapService.dontLoad) {
+				if ($scope.isMapSearch) {
+					triggerMapReload();
+				}
+			}
+		});
+		$scope.setFullMap();
+	} else {
+		$googleMapService.addMapListener('dragend', function() {
+			if ($scope.isMapSearch) {
+				triggerMapReload();
+			}
+		});
+	}
+	
+	function triggerMapReload() {
+		var lat = $googleMapService.getMap().getCenter().lat();
+		var lon = $googleMapService.getMap().getCenter().lng();
+//		defaultSearchParams.distance = $googleMapService.getBoundDistance();
+		$scope.searchLocation = {lat: lat, lon: lon, name: ''};
+		$scope.loadContents(true);
+		$googleMapService.showCenterCircle();
+		$googleMapService.closeCurrentInfoWindow();
+	}
+	
+	function getInfoWindowHTML(content) {
+		var container = $('<div class="container"/>');
+		
+		var imgContainer = $('<div class="div-bg-thumbnail-cover info-window-image"/>');
+		imgContainer.css('background-image', 'url(' + content.coverUrl + ')');
+		
+		var titleContainer = $('<div class="info-window-title" />');
+		var title = $('<span/>').html(content.cropTitle);
+		titleContainer.append(title);
+		
+		var separator = $('<div class="info-window-separator" />');
+		
+		var infoContainer = $('<div class="info-window-info" />');
+		
+		var author = $('<div><i class="fa fa-user"></i> <span>' + content.user.fullName + '</span><div/>');
+		
+		var milliseconds = Date.parse(content.datePosted);
+		var datePosted = new Date(milliseconds);
+		var date = $('<div><i class="fa fa-clock-o"></i> <span>' + (datePosted.getMonth()+1) + '/' + datePosted.getDate() + '</span></div>');
+		
+		infoContainer.append(author).append(date);
+		
+		container.append(titleContainer).append(separator).append(imgContainer).append(infoContainer);
+		return container.html();
 	}
 	
 }]);
 
 
 mapHomeApp.directive('scrolling', function() {
-	
 	/**
 	 * determine if load more data
 	 */
@@ -217,9 +445,7 @@ mapHomeApp.directive('scrolling', function() {
 	return {
 		restrict: 'A',
 		link: function(scope, element, attrs) {
-			
 			var contentPane = $('.content-pane', element);
-			
 			element.scroll(function() {
 					if (shouldLoadMore(element, contentPane) && !onCall && !eof) {
 						scopeContentFlowController.loadContents();

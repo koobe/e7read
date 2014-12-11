@@ -1,0 +1,34 @@
+.tipmsg {position: relative;}
+.tipmsg::before {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #94E6DA;
+    height: 0;
+    width: 0;
+    position: absolute;
+    left: 0%;
+    bottom: 90%;
+    content: "";
+    opacity: 0;
+    margin:0 0 20px 15px;
+    transition: all 0.4s ease;
+}
+.tipmsg::after {
+    border-radius: 5px;
+    background: #94E6DA;
+    box-shadow: 1px 1px 1px 0px #ccc;
+    font-size: 0.8em;
+    color: #FFF;
+    white-space: nowrap;
+    content: attr(data-tipmsg);
+    padding: 3px 10px;
+    margin-bottom: 15px;
+    position: absolute;
+    left: 0%;
+    bottom: 130%;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+.tipmsg:hover::before {bottom: 0%;}
+.tipmsg:hover::after {bottom: 70%;}
+.tipmsg:hover::after, .tipmsg:hover::before {opacity: 1;}

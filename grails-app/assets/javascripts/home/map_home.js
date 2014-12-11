@@ -10,4 +10,8 @@ $(function() {
 		var pageContainer = $(window).height() - $('nav').height() - $('footer').height();
 		$(selector).height(pageContainer);
 	}
+	
+	setTimeout(function(){
+		$(window).trigger('resize');
+	}, 5000);
 });

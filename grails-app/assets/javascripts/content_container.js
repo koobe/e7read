@@ -18,10 +18,11 @@ $(function() {
 	var c = getQueryVariable("c");
 	var u = getQueryVariable("u");
 	var channel = getQueryVariable("channel");
+	var q = getQueryVariable("q");
 
-	if ($('#text-search').val() != '') {
-	    var searchString = $('#text-search').val();
-	    data = {'q': searchString};
+	if (q) {
+	    data = {'q': decodeURIComponent(q)};
+	    $('.fulltext-searchbox').val(decodeURIComponent(q));
 	} else if (c) {
 	    data = {'c': c};
 	} else if (u) {
@@ -45,6 +46,13 @@ $(function() {
 			$('.content-author-name', dataobj).click(onAuthorClick);
 	        $('.content-category-name', dataobj).click(onCategoryTagClick);
 			s.done();
+		}
+	});
+	
+	$('.fulltext-searchbox').keypress(function(e) {
+		if (e.keyCode == 13) {
+			var target = $(e.target);
+			location.href = "?q=" + target.val();
 		}
 	});
 });

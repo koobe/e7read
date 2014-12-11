@@ -141,7 +141,22 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 			var lon = position.coords.longitude;
 			
 			$mapService.geocoding(lat, lon, function(name) {
+				$scope.sensorLocation.lat = lat;
+				$scope.sensorLocation.lon = lon;
+				$scope.sensorLocation.name = name;
 				
+				s.done();
+				isGeoReady = true;
+				
+				$scope.searchLocation = $scope.sensorLocation;
+				$scope.loadContents(true);
+			});
+		}, function(err) {
+			console.log(err);
+			var lat = 25.04791;
+			var lon = 121.42712;
+			
+			$mapService.geocoding(lat, lon, function(name) {
 				$scope.sensorLocation.lat = lat;
 				$scope.sensorLocation.lon = lon;
 				$scope.sensorLocation.name = name;
@@ -167,10 +182,14 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 		isGeoReady = false;
 		resetContent();
 		
+		console.log('a');
+		
 		$userService.getLocation(function(location) {
 			var lat = location.lat;
 			var lon = location.lon;
 			var name = location.name;
+			
+			console.log('b' + location);
 			
 			if (lat != null && lon != null) {
 				$scope.myLocation.lat = lat;
@@ -182,6 +201,9 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 				$scope.loadContents(true);
 				isGeoReady = true;
 			} else {
+				
+				console.log('c');
+				
 				if ($scope.sensorLocation.lat) {
 					s.done();
 					$scope.searchLocation = $scope.sensorLocation;
@@ -234,8 +256,8 @@ coverFlowApp.controller('CoverFlowController', ['$scope', '$mapService', '$userS
 	$scope.searchSelectedLocation = function(details) {
 		console.log(details);
 		
-		$scope.searchLocation.lat = details.geometry.location.k;
-		$scope.searchLocation.lon = details.geometry.location.B;
+		$scope.searchLocation.lat = details.geometry.location.lat();
+		$scope.searchLocation.lon = details.geometry.location.lng();
 		$scope.searchLocation.name = details.name;
 		$scope.loadContents(true);
 		

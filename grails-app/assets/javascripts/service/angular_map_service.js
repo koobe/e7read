@@ -12,10 +12,10 @@
 			
 			function Service() {}
 			
-			Service.prototype.getCurrentPosition = function(callback) {
+			Service.prototype.getCurrentPosition = function(callback, errorCallback) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					callback(position);
-				});
+				}, errorCallback, {timeout:7000});
 			};
 			
 			Service.prototype.geocoding = function(lat, lon, callback) {

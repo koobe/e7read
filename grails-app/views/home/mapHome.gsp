@@ -119,7 +119,7 @@
 				  </div>
 				<!-- map controls -->
 				
-				<div id="content-canvas" class="col-xs-7 container-content-flow" style="box-shadow: -2px 0px 2px 0px #ccc; height:100%; overflow-y: auto; margin:0; padding:0;" scrolling>
+				<div id="content-canvas" class="col-xs-7 container-content-flow" style="box-shadow: -2px 0px 2px 0px #ccc; height:100%; overflow-y: auto; margin:0; padding:0; -webkit-overflow-scrolling: touch;" scrolling>
 				
 					<div class="content-pane">
 						<div class="container-fluid" style="padding:0px 10px 5px 10px;">

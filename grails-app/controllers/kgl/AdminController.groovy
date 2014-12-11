@@ -6,6 +6,8 @@ import grails.transaction.Transactional
 @Secured(["ROLE_ADMIN"])
 class AdminController {
 
+    def grailsLinkGenerator
+
     def s3Service
 
     def springSecurityService
@@ -17,10 +19,38 @@ class AdminController {
 
     }
 
-    def channel() {
+    def channel(id) {
         [
                 channels: Channel.list()
         ]
+    }
+
+    def channelAdd() {
+        def channel = new Channel(
+                name: params.channelName,
+                isDefault: false,
+                logoImg: "/assets/logo_e7read.png",
+                smallLogoUrl: "/assets/trans_logo_e7read.png",
+                canAnonymous: true,
+                themeType: "article",
+                showInPanel: true,
+                order: Channel.count(),
+                iconUrl: grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
+        )
+
+        channel.save flush: true
+
+        redirect action: 'channel'
+    }
+
+    def channelUpdate(id) {
+        [
+                channel: Channel.get(id)
+        ]
+    }
+
+    def channelUpdateSave() {
+        redirect action: 'channel'
     }
 
     def coverFiles() {

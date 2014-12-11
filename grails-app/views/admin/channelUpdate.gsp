@@ -2,22 +2,17 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <title>管理介面</title>
+    <title>頻道資料維護</title>
 </head>
 
 <body>
-
 <div class="container">
 
     <div class="page-header">
         <div class="btn-group pull-right" role="group">
-            <button type="button" id="btnChannelAdd" class="btn btn-default">
-                <i class="fa fa-plus"></i>
-                新增
-            </button>
             <g:link controller="admin" action="dashboard" class="btn btn-default">返回</g:link>
         </div>
-        <h2>頻道管理</h2>
+        <h2>頻道資料維護</h2>
     </div>
 
     <g:form controller="admin" action="channelAdd" method="post" role="form" class="well" name="formChannelAdd" style="display: none">

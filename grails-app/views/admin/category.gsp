@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>管理介面</title>
+    <title>分類管理</title>
 </head>
 
 <body>
@@ -11,22 +11,22 @@
 
     <div class="page-header">
         <div class="btn-group pull-right" role="group">
-            <button type="button" id="btnChannelAdd" class="btn btn-default">
+            <button type="button" id="btnCategoryAdd" class="btn btn-default">
                 <i class="fa fa-plus"></i>
                 新增
             </button>
             <g:link controller="admin" action="dashboard" class="btn btn-default">返回</g:link>
         </div>
 
-        <h2>頻道管理</h2>
+        <h2>分類管理</h2>
     </div>
 
-    <g:form controller="admin" action="channelAdd" method="post" role="form" class="well" name="formChannelAdd"
+    <g:form controller="admin" action="CategoryAdd" method="post" role="form" class="well" name="formCategoryAdd"
             style="display: none">
         <div class="form-group">
-            <label for="channelName">Channel Name</label>
-            <input type="text" class="form-control" id="channelName" name="channelName"
-                   placeholder="Enter Channel Name"/>
+            <label for="CategoryName">Category Name</label>
+            <input type="text" class="form-control" id="CategoryName" name="CategoryName"
+                   placeholder="Enter Category Name"/>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
         <button type="submit" class="btn btn-default" id="btnFormCancel">Cancel</button>
@@ -36,35 +36,35 @@
         <thead>
             <tr>
                 <th width="32">Icon</th>
+                <th>Category Name</th>
                 <th>Channel Name</th>
-                <th>Is Default?</th>
-                <th>Show In Panel?</th>
-                <th>Allow Anonymous?</th>
-                <th>Posts</th>
+                <th>Enabled?</th>
+                <th>Order</th>
+                <th>Rank On Top</th>
             </tr>
         </thead>
         <tbody>
-        <g:each in="${channels}" var="channel">
+        <g:each in="${categories}" var="category">
             <tr>
                 <td>
-                    <img src="${channel.iconUrl}" class="img-responsive" />
+                    <img src="${category.iconUrl}" class="img-responsive" />
                 </td>
                 <td>
-                    <g:link controller="admin" action="channelUpdate" id="${channel.id}">
-                        ${channel.name}
+                    <g:link controller="admin" action="CategoryUpdate" id="${category.id}">
+                        ${category.name}
                     </g:link>
                 </td>
                 <td>
-                    ${channel.isDefault}
+                    ${category.channel?.name}
                 </td>
                 <td>
-                    ${channel.showInPanel}
+                    ${category.enable}
                 </td>
                 <td>
-                    ${channel.canAnonymous}
+                    ${category.order}
                 </td>
                 <td>
-                    ${kgl.Content.countByChannel(channel)}
+                    ${category.rankOnTop}
                 </td>
             </tr>
         </g:each>
@@ -74,13 +74,13 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#btnChannelAdd').click(function () {
-            $('#formChannelAdd').show('slow');
-            $('#channelName').focus();
+        $('#btnCategoryAdd').click(function () {
+            $('#formCategoryAdd').show('slow');
+            $('#CategoryName').focus();
         });
 
         $('#btnFormCancel').click(function () {
-            $('#formChannelAdd').hide('slow');
+            $('#formCategoryAdd').hide('slow');
         });
     });
 </script>

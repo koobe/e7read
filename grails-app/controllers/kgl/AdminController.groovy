@@ -57,6 +57,44 @@ class AdminController {
         redirect action: 'channel'
     }
 
+    def category() {
+        [
+                categories: Category.list()
+        ]
+    }
+
+    def categoryAdd() {
+        def category = new Category(
+                name: params.channelName,
+                isDefault: false,
+                logoImg: "/assets/logo_e7read.png",
+                smallLogoUrl: "/assets/trans_logo_e7read.png",
+                canAnonymous: true,
+                themeType: "article",
+                showInPanel: true,
+                order: Channel.count(),
+                iconUrl: grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
+        )
+
+        category.save flush: true
+
+        redirect action: 'category'
+    }
+
+    def categoryUpdate() {
+        [
+                channel: Category.get(params.id)
+        ]
+    }
+
+    def categoryUpdateSave(Category category) {
+
+        if (params.boolean('delete', false)) {
+            category.delete flush: true
+        }
+        redirect action: 'category'
+    }
+
     def coverFiles() {
         [
                 files: S3File.findAllByRemark('DEFAULT-COVER-IMAGE')

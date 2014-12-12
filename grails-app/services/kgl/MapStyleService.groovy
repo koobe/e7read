@@ -19,19 +19,24 @@ class MapStyleService {
         def style = MapStyle.findByName(name)
 
         if (!style) {
-            String b64image = new URL("https://az594329.vo.msecnd.net/assets/${id}-${name}.png").getBytes().encodeBase64().toString()
+            try {
+                String b64image = new URL("https://az594329.vo.msecnd.net/assets/${id}-${name}.png").getBytes().encodeBase64().toString()
 
-            String url = "https://snazzymaps.com/style/${id}/${name}"
+                String url = "https://snazzymaps.com/style/${id}/${name}"
 
-            log.info "Parse SnazzyMaps URL: ${url}"
+                log.info "Parse SnazzyMaps URL: ${url}"
 
-            String jsonObject = Jsoup.connect(url).userAgent(USER_AGENT).referrer('https://snazzymaps.com/').get().select('#style-json').text()
+                String jsonObject = Jsoup.connect(url).userAgent(USER_AGENT).referrer('https://snazzymaps.com/').get().select('#style-json').text()
 
-            log.info "plain => ${jsonObject}"
+                log.info "plain => ${jsonObject}"
 
-            style = new MapStyle(name: name, content: jsonObject, previewImageType: 'image/png', previewImageContent: b64image)
+                style = new MapStyle(name: name, content: jsonObject, previewImageType: 'image/png', previewImageContent: b64image)
 
-            style.save flush: true
+                style.save flush: true
+            }
+            catch (e) {
+                //ignore
+            }
         }
 
         return style

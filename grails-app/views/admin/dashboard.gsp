@@ -22,7 +22,7 @@
             <i class="fa fa-magnet"></i>
             頻道管理
         </g:link>
-        <g:link uri="#" class="list-group-item">
+        <g:link controller="admin" action="category" class="list-group-item">
             <i class="fa fa-list-ul"></i>
             分類管理
         </g:link>

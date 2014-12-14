@@ -23,7 +23,27 @@
 
         <div class="form-group">
             <label for="name">Channel Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Channel Name" value="${channel.name}" />
+            <g:textField name="name" value="${channel.name}" class="form-control" placeholder="Enter Channel Name" />
+        </div>
+
+        <div class="form-group">
+            <label for="iconUrl">Icon URL</label>
+            <g:textField name="iconUrl" value="${channel.iconUrl}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="smallLogoUrl">Small Logo URL</label>
+            <g:textField name="smallLogoUrl" value="${channel.smallLogoUrl}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="logoImg">Logo Image</label>
+            <g:textField name="logoImg" value="${channel.logoImg}" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label for="themeType">Theme Type</label>
+            <g:textField name="themeType" value="${channel.themeType}" class="form-control" />
         </div>
 
         <div class="form-group">
@@ -65,23 +85,15 @@
             </label>
         </div>
 
-
         <button type="submit" class="btn btn-default">Update</button>
-        <button type="submit" class="btn btn-default" id="btnFormCancel">Cancel</button>
+        <g:link controller="admin" action="channel" class="btn btn-default">Cancel</g:link>
     </g:form>
 
 </div>
 
 <script type="text/javascript">
 $(function() {
-    $('#btnChannelAdd').click(function() {
-        $('#formChannelAdd').show('slow');
-        $('#channelName').focus();
-    });
 
-    $('#btnFormCancel').click(function() {
-        $('#formChannelAdd').hide('slow');
-    });
 });
 </script>
 </body>

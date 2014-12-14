@@ -83,7 +83,7 @@ class AdminController {
 
     def categoryUpdate() {
         [
-                channel: Category.get(params.id)
+                category: Category.get(params.id)
         ]
     }
 

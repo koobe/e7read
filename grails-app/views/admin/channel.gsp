@@ -37,6 +37,7 @@
             <tr>
                 <th width="32">Icon</th>
                 <th>Channel Name</th>
+                <th>Theme Type</th>
                 <th>Is Default?</th>
                 <th>Show In Panel?</th>
                 <th>Allow Anonymous?</th>
@@ -53,6 +54,9 @@
                     <g:link controller="admin" action="channelUpdate" id="${channel.id}">
                         ${channel.name}
                     </g:link>
+                </td>
+                <td>
+                    ${channel.themeType}
                 </td>
                 <td>
                     ${channel.isDefault}

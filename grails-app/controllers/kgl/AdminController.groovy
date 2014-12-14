@@ -59,21 +59,22 @@ class AdminController {
 
     def category() {
         [
-                categories: Category.list()
+                categories: Category.list(sort: 'channel', order: 'desc')
         ]
     }
 
     def categoryAdd() {
+
+        def channel = Channel.findByName(params.channelName)?:Channel.findByIsDefault(true)
+
         def category = new Category(
-                name: params.channelName,
-                isDefault: false,
-                logoImg: "/assets/logo_e7read.png",
-                smallLogoUrl: "/assets/trans_logo_e7read.png",
-                canAnonymous: true,
-                themeType: "article",
-                showInPanel: true,
-                order: Channel.count(),
-                iconUrl: grailsLinkGenerator.asset(src: 'e7logo-marker-icon1-32x32.png', absolute: true)
+                name: params.categoryName,
+                rankOnTop: null,
+                enable: true,
+                order: Category.countByChannel(channel) + 1,
+                category: null,
+                channel: channel,
+                iconUrl: null
         )
 
         category.save flush: true

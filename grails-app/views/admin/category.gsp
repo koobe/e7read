@@ -21,13 +21,19 @@
         <h2>分類管理</h2>
     </div>
 
-    <g:form controller="admin" action="CategoryAdd" method="post" role="form" class="well" name="formCategoryAdd"
+    <g:form controller="admin" action="categoryAdd" method="post" role="form" class="well" name="formCategoryAdd"
             style="display: none">
+
         <div class="form-group">
-            <label for="CategoryName">Category Name</label>
-            <input type="text" class="form-control" id="CategoryName" name="CategoryName"
-                   placeholder="Enter Category Name"/>
+            <label for="categoryName">Category Name</label>
+            <g:textField name="categoryName" class="form-control" placeholder="Enter Category Name"/>
         </div>
+
+        <div class="form-group">
+            <label for="channelName">Channel Name</label>
+            <g:textField name="channelName" class="form-control" placeholder="Enter Channel Name"/>
+        </div>
+
         <button type="submit" class="btn btn-default">Submit</button>
         <button type="submit" class="btn btn-default" id="btnFormCancel">Cancel</button>
     </g:form>

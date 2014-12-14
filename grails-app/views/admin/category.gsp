@@ -35,7 +35,7 @@
         </div>
 
         <button type="submit" class="btn btn-default">Submit</button>
-        <button type="submit" class="btn btn-default" id="btnFormCancel">Cancel</button>
+        <button class="btn btn-default" id="btnFormCancel">Cancel</button>
     </g:form>
 
     <table class="table table-striped table-bordered table-hover table-responsive">
@@ -87,6 +87,7 @@
 
         $('#btnFormCancel').click(function () {
             $('#formCategoryAdd').hide('slow');
+            return false;
         });
     });
 </script>

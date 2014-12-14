@@ -96,6 +96,21 @@ class AdminController {
         redirect action: 'category'
     }
 
+    def locale() {
+        [
+                locales: Localization.list()
+        ]
+    }
+
+    def localeAdd() {
+
+        def locale = new Localization(params)
+
+        locale.save flush: true
+
+        redirect action: 'locale'
+    }
+
     def coverFiles() {
         [
                 files: S3File.findAllByRemark('DEFAULT-COVER-IMAGE')

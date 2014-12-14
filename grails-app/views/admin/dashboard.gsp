@@ -26,9 +26,13 @@
             <i class="fa fa-list-ul"></i>
             分類管理
         </g:link>
-        <g:link uri="#" class="list-group-item">
+        <g:link controller="admin" action="locale"  class="list-group-item">
             <i class="fa fa-globe"></i>
             翻譯管理
+        </g:link>
+        <g:link controller="map" action="listStyles" class="list-group-item">
+            <i class="fa fa-map-marker"></i>
+            地圖樣式清單
         </g:link>
     </div>
 </div>

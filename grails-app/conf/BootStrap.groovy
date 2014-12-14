@@ -8,6 +8,8 @@ class BootStrap {
 
     def mapStyleService
 
+    def messageSource
+
     def init = { servletContext ->
 
         // Create default s3 bucket
@@ -51,6 +53,10 @@ class BootStrap {
                 }
             }
         }
+
+
+        //messageSource
+
     }
 
     def destroy = {

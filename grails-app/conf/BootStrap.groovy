@@ -21,9 +21,13 @@ class BootStrap {
 
         log.info 'Load some map styles from SnazzyMaps'
 
-        mapStyleService.loadAllFromSnazzyMapsFeed(5)
-        mapStyleService.loadFromSnazzyMaps(80, 'cool-grey') //default
-
+		// prevent from the failed startup
+		try {
+			mapStyleService.loadAllFromSnazzyMapsFeed(5)
+			mapStyleService.loadFromSnazzyMaps(80, 'cool-grey') //default
+		} catch (Exception e) {
+			e.printStackTrace()
+		}
 
         // process for different environments
 

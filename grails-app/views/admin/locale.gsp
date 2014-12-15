@@ -36,7 +36,7 @@
 
         <div class="form-group">
             <label for="lang">Language</label>
-            <g:textField name="lang" class="form-control" />
+            <g:select name="lang" from="${availableLocales}" optionKey="tag" optionValue="display" class="form-control" />
         </div>
 
         <div class="form-group">

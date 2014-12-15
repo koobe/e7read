@@ -97,7 +97,22 @@ class AdminController {
     }
 
     def locale() {
+
+        def availableLocales = []
+
         [
+                Locale.ENGLISH,
+                Locale.TRADITIONAL_CHINESE,
+                Locale.SIMPLIFIED_CHINESE,
+                Locale.KOREAN,
+                Locale.JAPANESE,
+                Locale.FRENCH
+        ].each { l ->
+            availableLocales << [tag: l.toLanguageTag(), display: "${l.toLanguageTag()} - ${l.displayName}"]
+        }
+
+        [
+                availableLocales: availableLocales,
                 locales: Localization.list()
         ]
     }

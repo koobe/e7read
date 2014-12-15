@@ -6,11 +6,7 @@ class BootStrap {
 
     def grailsApplication
 
-    def elasticSearchAdminService
-
     def mapStyleService
-
-    def messageSource
 
     def init = { servletContext ->
 
@@ -55,12 +51,6 @@ class BootStrap {
                 }
             }
         }
-
-
-        //messageSource
-
-        //messageSource.get
-
     }
 
     def destroy = {

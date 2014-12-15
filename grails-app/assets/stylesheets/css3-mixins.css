@@ -55,23 +55,5 @@
 /* TRANSFORM  */
 /* TRANSITION */
 /* TRIPLE BORDERS */
-@import url(http://fonts.googleapis.com/earlyaccess/cwtexkai.css);
-@import url(http://fonts.googleapis.com/earlyaccess/cwtexfangsong.css);
-.show-header {
-  background-color: #F8F8F8;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 4px;
-  text-shadow: 1px 1px 2px #aaaaaa;
-  font-size: 14px; }
 
-p {
-  font-family: 'cwTeXFangSong', serif;
-  font-size: 17px;
-  /* @include text-shadow(1px, 1px, 1px, #aaaaaa); */ }
-
-.button-margin {
-  padding: 3px;
-  margin: 3px; }
-
-/*# sourceMappingURL=content_show.css.map */
+/*# sourceMappingURL=css3-mixins.css.map */

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="">
+
+<!-- Compile .scss and .sass files in the public/sass directory using SASS -->
+<target name="sass.compile">
+  <property name="sass.dir" value="grails-app/assets/stylesheets" />
+  <property name="css.dir" value="grails-app/assets/stylesheets" />
+
+  <apply executable="sass" dest="${css.dir}" verbose="true" force="true" failonerror="true">
+    <arg value="--unix-newline" />
+    <arg value="--compass" />
+    <srcfile />
+    <targetfile />
+    <fileset dir="${sass.dir}" includes="**/*.scss,**/*.sass" excludes="**/_*" />
+    <firstmatchmapper>
+      <globmapper from="*.sass" to="*.css" />
+      <globmapper from="*.scss" to="*.css" />
+    </firstmatchmapper>
+  </apply>
+  <eclipse.refreshLocal resource="xa/public" depth="infinite"/>
+</target>
+
+<!-- Compile .scss files in the public/sass directory using Compass -->
+  <target name="compass.compile">
+    <exec executable="compass" dir="${basedir}/public/sass">
+      <arg value="compile" />
+    </exec>
+    <eclipse.refreshLocal resource="xa/public" depth="infinite"/>
+  </target>
+</project>

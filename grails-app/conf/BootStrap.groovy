@@ -1,3 +1,5 @@
+import org.springframework.context.MessageSource
+
 class BootStrap {
 
     def s3Service
@@ -56,6 +58,8 @@ class BootStrap {
 
 
         //messageSource
+
+        //messageSource.get
 
     }
 

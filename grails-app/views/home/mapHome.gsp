@@ -47,7 +47,7 @@
 		        padding: 0 6px 0 6px;
 				
 				margin-top: 7px;
-		        margin-left: -1px;
+		        margin-left: 0px;
 		        
 		        width: 60%;
 		        font-size: 15px;
@@ -79,7 +79,7 @@
 		      }
 		      
 		      .control-position {
-		      		font-size: 1.3em;
+		      		font-size: 1.5em;
 					color: #666;
 					cursor: pointer;
 					background-color: #fff;
@@ -108,6 +108,7 @@
 					<i id="get-my" class="fa fa-user control-position" ng-click="returnMyLocation()"></i>
 				</sec:ifLoggedIn>
 				<i id="get-current" class="fa fa-crosshairs control-position" ng-click="setLocationBySensor()"></i>
+				<i id="return-last" class="fa fa-undo control-position" ng-click="moveToSearchPoint()"></i>
 				
 				<i id="full-map" class="fa fa-search-plus control-position" ng-click="setFullMap()"></i>
 				<i id="half-map" class="fa fa-search-minus control-position" style="display:none;" ng-click="setHalfMap()"></i>

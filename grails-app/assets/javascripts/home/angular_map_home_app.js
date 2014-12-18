@@ -351,6 +351,12 @@ mapHomeApp.controller('ContentFlowController',
 		}
 	}
 	
+	$scope.moveToSearchPoint = function() {
+		if ($scope.lastSearchLocation.lat) {
+			$googleMapService.moveTo($scope.lastSearchLocation.lat, $scope.lastSearchLocation.lon);
+		}
+	};
+	
 	/**
 	 * Google map
 	 */
@@ -368,10 +374,10 @@ mapHomeApp.controller('ContentFlowController',
 	$googleMapService.addSearchBox('pac-input', {});
 	$googleMapService.addMapControl('get-my', google.maps.ControlPosition.RIGHT_TOP);
 	$googleMapService.addMapControl('get-current', google.maps.ControlPosition.RIGHT_TOP);
+	$googleMapService.addMapControl('return-last', google.maps.ControlPosition.RIGHT_TOP);
 	$googleMapService.addMapControl('full-map', google.maps.ControlPosition.RIGHT_BOTTOM);
 	$googleMapService.addMapControl('half-map', google.maps.ControlPosition.RIGHT_BOTTOM);
 	$googleMapService.addMapControl('is-search', google.maps.ControlPosition.TOP_RIGHT);
-	
 	
 	$googleMapService.addSearchBoxListener('place_changed', function() {
 		triggerMapReload();

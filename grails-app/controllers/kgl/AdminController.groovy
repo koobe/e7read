@@ -96,6 +96,12 @@ class AdminController {
         redirect action: 'category'
     }
 
+    def user() {
+        [
+                users: User.list()
+        ]
+    }
+
     def locale() {
 
         def availableLocales = []

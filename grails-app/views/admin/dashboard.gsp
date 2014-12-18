@@ -26,6 +26,10 @@
             <i class="fa fa-list-ul"></i>
             分類管理
         </g:link>
+        <g:link controller="admin" action="user" class="list-group-item">
+            <i class="fa fa-list-ul"></i>
+            使用者管理
+        </g:link>
         <g:link controller="admin" action="locale"  class="list-group-item">
             <i class="fa fa-globe"></i>
             翻譯管理

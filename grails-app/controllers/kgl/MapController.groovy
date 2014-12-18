@@ -5,7 +5,10 @@ import grails.plugin.geocode.Point
 import grails.plugin.springsecurity.annotation.Secured
 
 class MapController {
-	
+
+    final double DEFAULT_LAT = 25.0835017
+    final double DEFAULT_LON = 121.5903754
+
 	def geocodingService
 
     def categoryService
@@ -31,8 +34,14 @@ class MapController {
         def zoom = 15
 
         if (lat == null || lon == null) {
-            lat = message(code: 'default.location.lat').toDouble()
-            lon = message(code: 'default.location.lon').toDouble()
+            try {
+                lat = message(code: 'default.location.lat').toDouble()
+                lon = message(code: 'default.location.lon').toDouble()
+            }
+            catch (ex) {
+                lat = DEFAULT_LAT
+                lon = DEFAULT_LON
+            }
             zoom = 12
         }
 

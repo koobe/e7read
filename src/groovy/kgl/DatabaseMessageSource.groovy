@@ -15,6 +15,10 @@ class DatabaseMessageSource extends AbstractMessageSource {
 
         Localization loc = Localization.findByCodeAndLang(code, locale.toLanguageTag())
 
+        if (!loc) {
+            loc = Localization.findByCodeAndLang(code, Locale.ENGLISH.toLanguageTag())
+        }
+
         if (loc) {
             return new MessageFormat(loc.content, Locale.forLanguageTag(loc.lang))
         }

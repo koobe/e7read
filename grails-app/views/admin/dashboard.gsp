@@ -16,7 +16,7 @@
     <div class="list-group">
         <g:link controller="admin" action="coverFiles" class="list-group-item">
             <i class="fa fa-file-image-o"></i>
-            預設封面圖片
+            封面圖片管理
         </g:link>
         <g:link controller="admin" action="channel" class="list-group-item">
             <i class="fa fa-magnet"></i>

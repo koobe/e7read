@@ -119,7 +119,31 @@ class AdminController {
 
         [
                 availableLocales: availableLocales,
-                locales: Localization.list()
+                locales: Localization.list().unique { it.group + '.' + it.code }
+        ]
+    }
+
+    def localeUpdate() {
+        def locales = []
+
+        [
+                Locale.ENGLISH,
+                Locale.TRADITIONAL_CHINESE,
+                Locale.SIMPLIFIED_CHINESE,
+                Locale.KOREAN,
+                Locale.JAPANESE,
+                Locale.FRENCH
+        ].each { l ->
+            locales << [
+                    tag: l.toLanguageTag(),
+                    display: "${l.displayName}",
+                    locale: Localization.findByLangAndCode(l.toLanguageTag(), params.code)
+            ]
+        }
+
+        [
+                code: params.code,
+                locales: locales
         ]
     }
 

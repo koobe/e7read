@@ -53,8 +53,7 @@
             <tr>
                 <th>Group</th>
                 <th>Code</th>
-                <th>Language</th>
-                <th>Content</th>
+                <th>Example</th>
             </tr>
         </thead>
         <tbody>
@@ -64,13 +63,10 @@
                     ${locale.group}
                 </td>
                 <td>
-                    ${locale.code}
+                    <g:link controller="admin" action="localeUpdate" params="[code: locale.code]">${locale.code}</g:link>
                 </td>
                 <td>
-                    ${locale.lang}
-                </td>
-                <td>
-                    ${locale.content}
+                    <g:message code="${locale.code}" />
                 </td>
             </tr>
         </g:each>

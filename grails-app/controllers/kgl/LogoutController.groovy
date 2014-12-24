@@ -22,7 +22,8 @@ class LogoutController {
 				userId: springSecurityService.currentUser.id,
 				loginType: 'logout',
 				timestamp: new Date(),
-				userAgent: agent
+				userAgent: agent,
+				sessionId: session.id? session.id:null
 			)
 			
 			loginLog.save flush: true

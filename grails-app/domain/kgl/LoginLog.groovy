@@ -10,10 +10,13 @@ class LoginLog {
 	
 	Date timestamp
 	
+	String sessionId
+	
 	String userAgent
 
     static constraints = {
 		loginMethod nullable: true
 		userAgent nullable: true
+		sessionId nullable: true
     }
 }

@@ -82,7 +82,8 @@ class FacebookController {
 			loginType: 'login',
 			loginMethod: 'facebook',
 			timestamp: new Date(),
-			userAgent: agent
+			userAgent: agent,
+			sessionId: session.id? session.id:null
 		)
 		loginLog.save flush: true
 		log.info loginLog.errors

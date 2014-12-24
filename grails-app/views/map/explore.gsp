@@ -115,7 +115,7 @@ body { overflow: hidden; }
                 <li>
                     <a href="#" class="category-menu-item" data-category="${category.name}">
                         <i class="fa fa-map-marker"></i>&nbsp;&nbsp;
-                        <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+                        <g:message code="category|${category.name}" default="${category.name}" />
                     </a>
                 </li>
             </g:each>

@@ -38,7 +38,15 @@ class LocalizationBootStrap {
             def loc = Localization.findByGroupAndCodeAndLang('messages', code, locale.toLanguageTag())
 
             if (!loc) {
-                loc = new Localization(group: 'messages', code: code, lang: locale.toLanguageTag(), content: content)
+
+                def group = 'messages'
+
+                if (code.indexOf('|') >= 0) {
+                    group = code.substring(0, code.indexOf('|'))
+                    code = code.substring(code.indexOf('|') + 1)
+                }
+
+                loc = new Localization(group: group, code: code, lang: locale.toLanguageTag(), content: content)
                 loc.save flush: true
             }
         }

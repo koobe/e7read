@@ -2,6 +2,7 @@ package kgl
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import org.apache.tomcat.jni.Local
 
 @Secured(["ROLE_ADMIN"])
 class AdminController {
@@ -104,6 +105,8 @@ class AdminController {
 
     def locale() {
 
+        def group = params.group?:'messages'
+
         def availableLocales = []
 
         [
@@ -119,17 +122,12 @@ class AdminController {
 
         def locales
 
-        if (params.group) {
-            locales = Localization.findAllByGroup(params.group).unique { it.group + '.' + it.code }
-        }
-        else {
-            locales = Localization.list().unique { it.group + '.' + it.code }
-        }
+        locales = Localization.findAllByGroup(group).sort {it.code}.unique { it.group + '.' + it.code }
 
         //TODO: unique closure is not efficiency
 
         [
-                group: params.group,
+                group: group,
                 groups: ['messages', 'channel', 'category'],
                 availableLocales: availableLocales,
                 locales: locales
@@ -159,6 +157,35 @@ class AdminController {
                 group: params.group,
                 locales: locales
         ]
+    }
+
+    def localeUpdateSave() {
+
+        def group = params.group
+        def code = params.code
+
+        def langs = params.list('lang[]')
+        def contents = params.list('content[]')
+
+
+        if (params.boolean('delete', false)) {
+            Localization.findAllByGroupAndCode(group, code).each {
+                it.delete flush: true
+            }
+        }
+        else {
+            for (def i=0; i < langs.size(); i++) {
+                def lang = langs[i]
+                def content = contents[i]
+
+                def locale = Localization.findOrCreateByGroupAndCodeAndLang(group, code, lang)
+                locale.content = content
+                locale.save flush: true
+            }
+        }
+
+
+        redirect action: 'locale', params: [group: group]
     }
 
     def localeAdd() {

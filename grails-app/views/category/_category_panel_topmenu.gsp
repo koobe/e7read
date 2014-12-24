@@ -4,7 +4,7 @@
 			<g:each in="${categorys}" var="category">
 				<li class="topmenu-li ${active?.equals(category.name)? 'active': ''}">
                     <g:link controller="home" action="index" params="${[c: category.name]}" class="topmenu-topitem">
-                        <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+                        <g:message code="category|${category.name}" default="${category.name}" />
                     </g:link>
 					<g:if test="${category.categorys}">
 						<g:render template="/category/category_panel_topmenu_item" model="[categorys: category.categorys]" />

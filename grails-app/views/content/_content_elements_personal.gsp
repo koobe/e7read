@@ -21,7 +21,7 @@
 							<div>
 								<a class="content-category-name" data-categoryName="${category.name}">
 									<span data-categoryName="${category.name}" class="label">
-										<g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+										<g:message code="category|${category.name}" default="${category.name}" />
 									</span>
 								</a>
 							</div>

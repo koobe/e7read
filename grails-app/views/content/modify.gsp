@@ -70,7 +70,7 @@
 
             <g:each in="${contentInstance.categories}" var="category">
                 <div id="category-${category.name}" class="category-item" data-category-name="${category.name}">
-                    <g:message code="category.name.i18n.${category.name}" default="${category.name}" />
+                    <g:message code="category|${category.name}" default="${category.name}" />
                 </div>
             </g:each>
 

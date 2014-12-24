@@ -11,7 +11,7 @@
 		</div>
 		<div class="category-status-indicator">
 			<span class="">&nbsp;<g:message code="category.currentat" default="current at" />:</span>
-			<span class="category-status-category-name"><g:message code="category.name.i18n.${params.c}" default="${params.c}" /></span>
+			<span class="category-status-category-name"><g:message code="category|${params.c}" default="${params.c}" /></span>
 		</div>
 		
 		<div>

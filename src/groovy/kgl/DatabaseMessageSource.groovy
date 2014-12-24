@@ -5,6 +5,8 @@ import java.text.MessageFormat
 
 class DatabaseMessageSource extends AbstractMessageSource {
 
+    def messageBundleMessageSource
+
     /**
      *
      * @param code
@@ -13,17 +15,24 @@ class DatabaseMessageSource extends AbstractMessageSource {
      */
     protected MessageFormat resolveCode(String code, Locale locale) {
 
-        Localization loc = Localization.findByCodeAndLang(code, locale.toLanguageTag())
+        def group = 'messages'
+
+        if (code.indexOf('|') >= 0) {
+            group = code.substring(0, code.indexOf('|'))
+            code = code.substring(code.indexOf('|') + 1)
+        }
+
+        Localization loc = Localization.findByGroupAndCodeAndLang(group, code, locale.toLanguageTag())
 
         if (!loc) {
-            loc = Localization.findByCodeAndLang(code, Locale.ENGLISH.toLanguageTag())
+            loc = Localization.findByGroupAndCodeAndLang(group, code, Locale.ENGLISH.toLanguageTag())
         }
 
         if (loc) {
             return new MessageFormat(loc.content, Locale.forLanguageTag(loc.lang))
         }
         else {
-            return new MessageFormat(code, locale)
+            return messageBundleMessageSource.resolveCode(code, locale) //new MessageFormat(code, locale)
         }
     }
 }

@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <label for="group">Group</label>
-            <g:textField name="group" class="form-control" />
+            <g:textField name="group" class="form-control" readonly="readonly" value="${group?group:'messages'}" />
         </div>
 
         <div class="form-group">
@@ -83,7 +83,12 @@
                     <g:link controller="admin" action="localeUpdate" params="[group: locale.group, code: locale.code]">${locale.code}</g:link>
                 </td>
                 <td>
-                    <g:message code="${locale.code}" />
+                    <g:if test="${group=='messages'}">
+                        <g:message code="${locale.code}" />
+                    </g:if>
+                    <g:else>
+                        <g:message code="${group}|${locale.code}" />
+                    </g:else>
                 </td>
             </tr>
         </g:each>

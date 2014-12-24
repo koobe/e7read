@@ -1,22 +1,33 @@
 package kgl
 
-import javax.swing.text.html.HTML;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler
-
-import grails.plugin.springsecurity.SpringSecurityUtils;
-import groovyx.net.http.HTTPBuilder
 
 class LogoutController {
 	
 	def grailsApplication
+	
+	def springSecurityService
 
     def index() {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth) {
+			
+			def agent = request.getHeader("User-Agent")
+			
+			log.info "User logout: ${springSecurityService.currentUser.id}, user agent: ${agent}"
+			def loginLog = new LoginLog(
+				userId: springSecurityService.currentUser.id,
+				loginType: 'logout',
+				timestamp: new Date(),
+				userAgent: agent
+			)
+			
+			loginLog.save flush: true
+			log.info loginLog.errors
+			
 			new SecurityContextLogoutHandler().logout(request, response, auth)
 		}
 		SecurityContextHolder.getContext().setAuthentication(null)

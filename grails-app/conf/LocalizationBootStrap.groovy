@@ -18,6 +18,9 @@ class LocalizationBootStrap {
     }
 
     private readPropertiesToDatabase(Locale locale) {
+		
+		log.info "Load locale message file for ${locale.toLanguageTag()}"
+		
         Properties props = new Properties()
 
         def propsFile = getPropsFile(locale)

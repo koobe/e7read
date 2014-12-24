@@ -76,6 +76,17 @@ class FacebookController {
 
         springSecurityService.reauthenticate user.username
 		
+		def agent = request.getHeader("User-Agent")
+		def loginLog = new LoginLog(
+			userId: springSecurityService.currentUser.id,
+			loginType: 'login',
+			loginMethod: 'facebook',
+			timestamp: new Date(),
+			userAgent: agent
+		)
+		loginLog.save flush: true
+		log.info loginLog.errors
+		
 		// if redirect to...
 		if (session['redirect_logged']) {
 			def uri = session['redirect_logged']

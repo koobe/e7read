@@ -10,12 +10,29 @@
 <div class="container">
 
     <div class="page-header">
-        <div class="btn-group pull-right" role="group">
-            <button type="button" id="btnLocaleAdd" class="btn btn-default">
-                <i class="fa fa-plus"></i>
-                新增
-            </button>
-            <g:link controller="admin" action="dashboard" class="btn btn-default">返回</g:link>
+
+        <div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <g:if test="${group}">
+                        Group: ${group}
+                    </g:if>
+                    <g:else>
+                        Group
+                    </g:else>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <g:each in="${groups}"><li><g:link action="locale" params="[group: it]">${it}</g:link></li></g:each>
+                </ul>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" id="btnLocaleAdd" class="btn btn-default">
+                    <i class="fa fa-plus"></i>
+                    新增
+                </button>
+                <g:link controller="admin" action="dashboard" class="btn btn-default">返回</g:link>
+            </div>
         </div>
 
         <h2>翻譯管理</h2>
@@ -63,7 +80,7 @@
                     ${locale.group}
                 </td>
                 <td>
-                    <g:link controller="admin" action="localeUpdate" params="[code: locale.code]">${locale.code}</g:link>
+                    <g:link controller="admin" action="localeUpdate" params="[group: locale.group, code: locale.code]">${locale.code}</g:link>
                 </td>
                 <td>
                     <g:message code="${locale.code}" />

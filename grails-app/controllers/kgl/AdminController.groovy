@@ -117,9 +117,22 @@ class AdminController {
             availableLocales << [tag: l.toLanguageTag(), display: "${l.toLanguageTag()} - ${l.displayName}"]
         }
 
+        def locales
+
+        if (params.group) {
+            locales = Localization.findAllByGroup(params.group).unique { it.group + '.' + it.code }
+        }
+        else {
+            locales = Localization.list().unique { it.group + '.' + it.code }
+        }
+
+        //TODO: unique closure is not efficiency
+
         [
+                group: params.group,
+                groups: ['messages', 'channel', 'category'],
                 availableLocales: availableLocales,
-                locales: Localization.list().unique { it.group + '.' + it.code }
+                locales: locales
         ]
     }
 
@@ -137,12 +150,13 @@ class AdminController {
             locales << [
                     tag: l.toLanguageTag(),
                     display: "${l.displayName}",
-                    locale: Localization.findByLangAndCode(l.toLanguageTag(), params.code)
+                    locale: Localization.findByLangAndGroupAndCode(l.toLanguageTag(), params.group, params.code)
             ]
         }
 
         [
                 code: params.code,
+                group: params.group,
                 locales: locales
         ]
     }

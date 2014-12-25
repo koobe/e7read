@@ -22,6 +22,10 @@ mapHomeApp.controller('ContentFlowController',
 	var channel = getQueryVariable("channel");
 	var categoryName = getQueryVariable("c");
 	var s = $.spinner();
+	var tip = $.spinner({
+		bgColor: 'rgba(148, 230, 218, 0.7)', 
+		showIcon: false,
+		defaultMsg: '沒有資料了'});
 	
 	scopeContentFlowController = $scope;
 	
@@ -47,6 +51,7 @@ mapHomeApp.controller('ContentFlowController',
 	$scope.size = 12;
 	$scope.page = 0;
 	$scope.contents = [];
+	$scope.contentIdList = [];
 	
 	// default search parameters
 	var defaultSearchParams = {};
@@ -56,7 +61,7 @@ mapHomeApp.controller('ContentFlowController',
 		defaultSearchParams.c = categoryName
 	}
 	
-	$scope.loadContents = function(reset) {
+	$scope.loadContents = function(reset, handler) {
 		
 		onCall = true;
 		s.loading();
@@ -92,11 +97,13 @@ mapHomeApp.controller('ContentFlowController',
 		var data = {size: $scope.size, offset: offset, geo: geo, q: $scope.keyword};
 		angular.extend(data, defaultSearchParams);
 		
-		$searchService.searchContent(data, function(contents){
+		$searchService.searchContent(data, function(contents) {
+			
 			if (contents.length == 0) {
 				console.log('eof');
 				eof = true;
 			}
+			
 			angular.forEach(contents, function(content){
 				if (geo != null) {
 					content.distance = $mapService.distance(lat, lon, content.location.lat, content.location.lon, 'K');
@@ -105,6 +112,7 @@ mapHomeApp.controller('ContentFlowController',
 				}
 				
 				$scope.contents.push(content);
+				$scope.contentIdList.push(content.id);
 				
 				var iconUrl;
 				
@@ -122,19 +130,23 @@ mapHomeApp.controller('ContentFlowController',
 					icon: iconUrl
 				});
 				
-				setTimeout(function(){
+//				setTimeout(function(){
 					var html = getInfoWindowHTML(content);
 					
 					$googleMapService.setInfoWindow({
 						contentId: content.id,
 						content: html,
-						maxWidth: 125
+						maxWidth: 130
 					});
-				}, 300);
-				
+//				}, 300);
 			});
+			
 			onCall = false;
 			s.done();
+			
+			if (handler) {
+				handler();
+			}
 		});
 	};
 	
@@ -184,7 +196,6 @@ mapHomeApp.controller('ContentFlowController',
 		
 		s.loading('正在取得位置資訊...');
 		isGeoReady = false;
-		resetContent();
 		
 		$mapService.getCurrentPosition(function(position) {
 			
@@ -297,6 +308,7 @@ mapHomeApp.controller('ContentFlowController',
 	
 	function resetContent() {
 		$scope.contents = [];
+		$scope.contentIdList = [];
 		$scope.page = 0;
 		eof = false;
 	}
@@ -400,21 +412,67 @@ mapHomeApp.controller('ContentFlowController',
 		});
 	}
 	
+	$scope.nextInfoWindow = function() {
+		var idx = $scope.contentIdList.indexOf($googleMapService.getLastOpenContentId());
+		var nextIdx = idx + 1;
+		if (nextIdx == $scope.contentIdList.length) {
+			if (!eof) {
+				$scope.loadContents(false, function() {
+					console.log(eof);
+					if (!eof) {
+						var nextContentId = $scope.contentIdList[nextIdx];
+						$googleMapService.openInfoWindow(nextContentId);
+					} else {
+						tip.show();
+						setTimeout(function() {
+							tip.hide();
+						}, 2000);
+					}
+				});
+			} else {
+				tip.show();
+				setTimeout(function() {
+					tip.hide();
+				}, 2000);
+			}
+		} else {
+			var nextContentId = $scope.contentIdList[nextIdx];
+			$googleMapService.openInfoWindow(nextContentId);
+		}
+	};
+	
+	$scope.prevInfoWindow = function() {
+		var idx = $scope.contentIdList.indexOf($googleMapService.getLastOpenContentId());
+		var prevIdx = idx - 1;
+		if (prevIdx == -1) {
+			tip.show();
+			setTimeout(function() {
+				tip.hide();
+			}, 2000);
+		} else {
+			var prevContentId = $scope.contentIdList[prevIdx];
+			$googleMapService.openInfoWindow(prevContentId);
+		}
+	};
+	
 	function triggerMapReload() {
-		var lat = $googleMapService.getMap().getCenter().lat();
-		var lon = $googleMapService.getMap().getCenter().lng();
-//		defaultSearchParams.distance = $googleMapService.getBoundDistance();
-		$scope.searchLocation = {lat: lat, lon: lon, name: ''};
-		$scope.loadContents(true);
-		$googleMapService.showCenterCircle();
-		$googleMapService.closeCurrentInfoWindow();
+		if (isGeoReady) {
+			var lat = $googleMapService.getMap().getCenter().lat();
+			var lon = $googleMapService.getMap().getCenter().lng();
+//			defaultSearchParams.distance = $googleMapService.getBoundDistance();
+			$scope.searchLocation = {lat: lat, lon: lon, name: ''};
+			$scope.loadContents(true);
+			$googleMapService.showCenterCircle();
+			$googleMapService.closeCurrentInfoWindow();
+		}
 	}
 	
 	function getInfoWindowHTML(content) {
 		var container = $('<div class="container"/>');
 		
-		var imgContainer = $('<div class="div-bg-thumbnail-cover info-window-image"/>');
+		var imgContainer = $('<div class="div-bg-thumbnail-cover info-window-image" onclick="showContent(\'' + content.id + '\')"/>');
 		imgContainer.css('background-image', 'url(' + content.coverUrl + ')');
+		imgContainer.css('cursor', 'pointer');
 		
 		var titleContainer = $('<div class="info-window-title" />');
 		var title = $('<span/>').html(content.cropTitle);
@@ -428,11 +486,25 @@ mapHomeApp.controller('ContentFlowController',
 		
 		var milliseconds = Date.parse(content.datePosted);
 		var datePosted = new Date(milliseconds);
-		var date = $('<div><i class="fa fa-clock-o"></i> <span>' + (datePosted.getMonth()+1) + '/' + datePosted.getDate() + '</span></div>');
+		var date = $('<div><i class="fa fa-clock-o"></i> <span>' + datePosted.getFullYear() + '/' + (datePosted.getMonth()+1) + '/' + datePosted.getDate() + '</span></div>');
 		
-		infoContainer.append(author).append(date);
+//		var distance = $('<div><i class="fa fa-car"></i> <span>' + (Math.round(content.distance*100)/100) + ' 公里</span><div/>');
 		
-		container.append(titleContainer).append(separator).append(imgContainer).append(infoContainer);
+		infoContainer.append(author).append(date); //.append(distance);
+		
+		var separatorDashed = $('<div class="info-window-separator-dashed" />');
+		
+		var navigatorDiv = $('<div/>');
+		navigatorDiv.css('padding-top', '3px');
+		
+		var leftBtn = $('<a href="javascript: openedWindowPrevContent();" class="btn btn-default btn-circle"><i class="fa fa-caret-left"></i></a>');
+		var rightBtn = $('<a href="javascript: openedWindowNextContent();" class="btn btn-default btn-circle"><i class="fa fa-caret-right"></i></a>');
+		rightBtn.css('float', 'right');
+		
+		navigatorDiv.append(leftBtn).append(rightBtn);
+		
+		container.append(imgContainer).append(titleContainer).append(separator).append(infoContainer).append(navigatorDiv);
+		
 		return container.html();
 	}
 	
@@ -467,3 +539,11 @@ mapHomeApp.directive('scrolling', function() {
 		}
 	};
 });
+
+function openedWindowNextContent() {
+	scopeContentFlowController.nextInfoWindow();
+}
+
+function openedWindowPrevContent() {
+	scopeContentFlowController.prevInfoWindow();
+}

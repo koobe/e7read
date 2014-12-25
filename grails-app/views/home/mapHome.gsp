@@ -75,7 +75,10 @@
 		      
 		      .info-window-separator {
 		      	border-top: 1px solid #94E6DA;
-		      	padding-bottom: 4px;
+		      }
+		      
+		      .info-window-separator-dashed {
+		     	 border-top: 1px dashed #94E6DA;
 		      }
 		      
 		      .control-position {
@@ -88,6 +91,18 @@
 					box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 					margin: 4px 0px 4px 0px;
 		      }
+		      
+		      
+		      .btn-circle {
+				  width: 28px;
+					height: 24px;
+				  
+				  text-align: center;
+				  padding: 3px 2px 2px 3px;
+					font-size: 1em;
+				  
+				  border-radius: 13px;
+				}
 		
 		</style>
 	</head>

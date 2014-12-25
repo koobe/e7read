@@ -16,6 +16,7 @@
 				this.markerInfoWindow = {};
 				this.markerInitZIndex = 5;
 				this.dontLoad = false;
+				this.lastOpenWindowContentId = null;
 			}
 			
 			Service.prototype.defaultMapOption = {
@@ -180,6 +181,8 @@
 			 */
 			Service.prototype.openInfoWindow = function(contentId) {
 				
+				this.lastOpenWindowContentId = contentId;
+				
 				var me = this;
 				if (me.dontloadTimeout) {
 					clearTimeout(this.dontloadTimeout);
@@ -202,6 +205,13 @@
 				}
 				
 				this.topMarkerZIndex(contentId);
+			};
+			
+			/**
+			 * Get the content id of last opened info window
+			 */
+			Service.prototype.getLastOpenContentId = function() {
+				return this.lastOpenWindowContentId;
 			};
 			
 			Service.prototype.closeCurrentInfoWindow = function() {

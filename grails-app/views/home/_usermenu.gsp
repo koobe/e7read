@@ -39,11 +39,13 @@
 	            left: -16px;
 	            ">0</div>
 	    </div>
+	    <!-- 
         <div class="header-menu-map" >
             <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">
-                <i class="fa fa-map-marker"></i> <!-- Explore in Map  -->
+                <i class="fa fa-map-marker"></i>
             </g:link>
-        </div>
+        </div> -->
+        
         <div class="header-menu-logout" >
             <g:link uri="javascript: confirmLogout();" class="koobe-btn koobe-btn-normal">
                 <i class="fa fa-sign-out"></i> <!-- Logout -->
@@ -70,11 +72,14 @@
 	            </g:link>
 	        </div>
         </g:if>
+        
+        <!-- 
         <div class="header-menu-map">
             <g:link controller="map" action="explore" params="[channel: channel.name]" class="koobe-btn koobe-btn-normal">
-                <i class="fa fa-map-marker"></i> <!-- Explore in Map  -->
+                <i class="fa fa-map-marker"></i>
             </g:link>
-        </div>
+        </div> -->
+        
 		<div class="header-menu-login">
 			<!-- 
 			<oauth:connect provider="facebook" id="facebook-connect-link" class="koobe-btn koobe-btn-normal">

@@ -8,9 +8,9 @@
 
 (function($) {
 	
-	var ontopclickHandler = function(settings, scrollContainerId, alink) {
+	var ontopclickHandler = function(settings, scrollContainer, alink) {
 		
-		var scrollContainer = $('#' + scrollContainerId);
+//		var scrollContainer = $('#' + scrollContainerId);
 		console.log('container scroll position: ' + scrollContainer.scrollTop());
 		scrollContainer.scrollTop(0);
 		
@@ -47,16 +47,25 @@
 		
 		var settings = $.extend({
             auto_hide: true,
-            z_index: 333
+            z_index: 333,
+            containerId: null,
+            containerSelector: null
         }, options );
 		
 		$(this).append(alink.append(totop));
 		
-		var scrollContainer = $('#' + settings.containerId);
+		var scrollContainer;
+		if (settings.containerId) {
+			scrollContainer = $('#' + settings.containerId);
+		} else {
+			scrollContainer = $(settings.containerSelector);
+		}
+		
+//		var scrollContainer = $('#' + settings.containerId);
 		alink.css('z-index', settings.z_index);
 		
 		$(alink).click(function(e) {
-			ontopclickHandler(settings, settings.containerId, alink);
+			ontopclickHandler(settings, scrollContainer, alink);
 			e.stopPropagation();
 		});
 		

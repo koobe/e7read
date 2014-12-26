@@ -7,6 +7,8 @@
 	    
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-resource.min.js"></script>
+	    
+	    <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
 		
 		<asset:javascript src="service/angular_map_service.js"/>
 		<asset:javascript src="service/angular_user_service.js"/>
@@ -21,6 +23,7 @@
 		<asset:javascript src="image.view.msghandler.js"/>
 		<asset:javascript src="jquery.hashmanager.js"/>
 		<asset:javascript src="jquery.fullframe.js"/>
+		<asset:javascript src="jquery.loadingspinner.js"/>
 		
 		<asset:javascript src="e7read.contentloading.js"/>
 		<asset:javascript src="content_show.js"/>
@@ -28,6 +31,9 @@
 		<asset:javascript src="home/map_home.js"/>
 		
 		<asset:stylesheet src="content/content_cover_block_square.css"/>
+		
+		<asset:stylesheet src="default_template.css"/>
+		<asset:stylesheet src="content/content_view.css"/>
 		
 		<style type="text/css">
 		
@@ -107,6 +113,9 @@
 		</style>
 	</head>
 	<body>
+		
+		<fb:init/>
+		
 		<div ng-app="MapHomeApp" ng-controller="ContentFlowController">
 		
 			<g:render template="header_v2" model="[showcategorymenu: true, showsearchbar: true, showChannelButton: true]" />

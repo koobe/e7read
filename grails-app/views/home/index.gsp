@@ -6,6 +6,8 @@
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-resource.min.js"></script>
 	    
+	    <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
+	    
 	    <asset:javascript src="jquery.messagemanager.js"/>
 		<asset:stylesheet src="gototop.css"/>
 		<asset:javascript src="jquery.gototop.js"/>
@@ -14,6 +16,7 @@
 		<asset:javascript src="image.view.msghandler.js"/>
 		<asset:javascript src="jquery.hashmanager.js"/>
 		<asset:javascript src="jquery.fullframe.js"/>
+		<asset:javascript src="jquery.loadingspinner.js"/>
 		
 		<asset:javascript src="e7read.contentloading.js"/>
 		<asset:javascript src="content_show.js"/>
@@ -21,8 +24,14 @@
 		<asset:javascript src="service/angular_map_service.js"/>
 		<asset:javascript src="service/angular_user_service.js"/>
 		<asset:javascript src="service/angular_search_service.js"/>
+		
+		<asset:stylesheet src="default_template.css"/>
+		<asset:stylesheet src="content/content_view.css"/>
+		
 	</head>
 	<body>
+	
+		<fb:init/>
 		
 		<div id="display-container" onclick="hideCategoryMenu()" ${(channel.themeType == 'square')? 'ng-app=coverFlowApp scrolling': ''}>
 			<div class="content-pane" ${(channel.themeType == 'square')? 'ng-controller=CoverFlowController': ''}>
@@ -70,5 +79,7 @@
 				z_index: 300
 			});
 		</script>
+		
+		
 	</body>
 </html>

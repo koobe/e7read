@@ -35,6 +35,7 @@ class ContentController {
 		def id = params.id;
 		def content = Content.get(id);
 		
+		JSON.use("deep")
 		if (checkContent(content)) {
 			render [:] as JSON
 		} else {
@@ -1132,4 +1133,18 @@ class ContentController {
 
         render content.location as JSON
     }
+	
+	
+	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+	def getContentViewHTML() {
+		
+		def id = params.id;
+		def content = Content.get(id);
+		
+		if (params.channel == 'e7read') {
+			render template: "/content/view/content_view_traditional", model: [content: content]
+		} else {
+			render template: "/content/view/content_view_trading", model: [content: content]
+		}
+	}
 }

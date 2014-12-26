@@ -1,0 +1,15 @@
+.content_view_ontheair {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: auto;
+  width: 100%;
+  z-index: 400;
+  background-color: #faf8f5; }
+  .content_view_ontheair .content_view_container {
+    max-width: 900px;
+    padding: 20px 10px 10px 20px;
+    margin: 0 auto; }
+
+/*# sourceMappingURL=content_view.css.map */

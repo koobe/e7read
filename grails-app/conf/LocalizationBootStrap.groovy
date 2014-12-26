@@ -6,12 +6,16 @@ class LocalizationBootStrap {
 
     def init = { servletContext ->
 
-        readPropertiesToDatabase(Locale.ENGLISH)
-        readPropertiesToDatabase(Locale.TRADITIONAL_CHINESE)
-        readPropertiesToDatabase(Locale.SIMPLIFIED_CHINESE)
-        readPropertiesToDatabase(Locale.JAPANESE)
-        readPropertiesToDatabase(Locale.KOREAN)
-        readPropertiesToDatabase(Locale.FRENCH)
+		if (grailsApplication.config.grails.application.bootstrap_meta) {
+			
+			readPropertiesToDatabase(Locale.ENGLISH)
+			readPropertiesToDatabase(Locale.TRADITIONAL_CHINESE)
+			readPropertiesToDatabase(Locale.SIMPLIFIED_CHINESE)
+			readPropertiesToDatabase(Locale.JAPANESE)
+			readPropertiesToDatabase(Locale.KOREAN)
+			readPropertiesToDatabase(Locale.FRENCH)
+		}
+        
     }
 
     def destroy = {

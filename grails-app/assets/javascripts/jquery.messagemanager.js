@@ -16,6 +16,8 @@
         var handlers = this.actionHandlers;
         
         this.$msgListenHandler = function(event) {
+        	
+        	if (event.data && event.data.action) {
         		var data = event.data;
         		console.log('execute message handler: ' + data.action);
         		try {
@@ -25,6 +27,7 @@
         			console.log('no action handler found: ' + data.action);
         			console.log(err);
         		}
+        	}
         };
     };
     

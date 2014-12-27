@@ -16,6 +16,10 @@ var currentContentViewObj;
 var channel = getQueryVariable("channel");
 
 var spinner = $.spinner();
+var logopanel = $.logopanel({
+	logoIconUrl: '/assets/trans_logo_' + channel + '.png', 
+	channel: channel
+});
 
 var viewContentHandler = function(data) {
 	
@@ -58,6 +62,7 @@ var viewContentOnTheAirHandler = function(data) {
 	});
     
     
+    
     $('#display-container').css('display', 'none');
 	scrollTop = $(window).scrollTop();
     
@@ -72,11 +77,12 @@ var viewContentOnTheAirHandler = function(data) {
         	if (data == "") {
         		console.log('No content view html can show');
         	} else {
-        		
         		addHandlers(dataobj);
         		
         		$('body').append(dataobj);
         		$('body').css('overflow', 'auto');
+        		
+        		logopanel.show();
         		
         		FB.XFBML.parse(document.getElementById('fb-comments'));
         		
@@ -104,6 +110,8 @@ var closeIframeHandler = function() {
 	}
 	
 	backlink.remove();
+	
+	logopanel.hide();
 	
 	if (currentContentViewObj) {
 		currentContentViewObj.remove();

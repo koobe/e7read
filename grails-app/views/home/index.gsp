@@ -18,6 +18,9 @@
 		<asset:javascript src="jquery.fullframe.js"/>
 		<asset:javascript src="jquery.loadingspinner.js"/>
 		
+		<asset:javascript src="jquery.e7read.smalllogopanel.js"/>
+		<asset:stylesheet src="e7read_categorystatus.css" />
+		
 		<asset:javascript src="e7read.contentloading.js"/>
 		<asset:javascript src="content_show.js"/>
 		
@@ -70,8 +73,6 @@
 		<g:include controller="category" action="addCategoryPanel" params="[btnaction: 'home', channel: params.channel]" />
 		
 		<g:include controller="channel" action="addChannelPanel" params="" />
-		
-		<g:render template="/category/category_status_panel" />
 		
 		<script type="text/javascript">
 			$('body').gototop({

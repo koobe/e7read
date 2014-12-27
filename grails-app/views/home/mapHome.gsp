@@ -25,6 +25,9 @@
 		<asset:javascript src="jquery.fullframe.js"/>
 		<asset:javascript src="jquery.loadingspinner.js"/>
 		
+		<asset:javascript src="jquery.e7read.smalllogopanel.js"/>
+		<asset:stylesheet src="e7read_categorystatus.css" />
+		
 		<asset:javascript src="e7read.contentloading.js"/>
 		<asset:javascript src="content_show.js"/>
 		

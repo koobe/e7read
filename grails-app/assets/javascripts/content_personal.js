@@ -25,7 +25,7 @@ $(function() {
 			s.loading();
 		},
 		afterLoad: function(data) {
-			addHandlers();
+			addHandlersOfContent();
 			s.done();
 		}
 	});
@@ -82,7 +82,7 @@ var updateShowContact = function() {
     return false;
 };
 
-function addHandlers() {
+function addHandlersOfContent() {
 
 	$('.hovercontent').unbind('hover').hover(
 	    function () {
@@ -140,7 +140,7 @@ function switchPrivacy(contentid) {
 function refreshButtons(data, contentid) {
 	$("div[contentid='"+ contentid +"']").html(data);
 	// need to concern about performance
-	addHandlers();
+	addHandlersOfContent();
 }
 
 $(function() {

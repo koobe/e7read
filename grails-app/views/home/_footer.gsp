@@ -1,15 +1,17 @@
 <style>
 <!--
 	@media screen and (min-width: 769px) {
-	
+		.koobe-footer {
+			margin-top: 15px !important;
+		}
 	}
 	
 	@media screen and (max-width: 768px) {
 		.koobe-footer {
-			padding: 0 !important;
-			margin: 0 !important;
+			padding: 5px 0 !important;
+			margin: 15px 0 0 0 !important;
 		}
-		
+
 		.koobe-footer > h6 {
 			padding: 2px 0px 2px 0px !important;
 			margin: 0 !important;

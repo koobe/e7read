@@ -211,7 +211,7 @@ function addHandlers(contentViewObject) {
     		img.attr('src', href);
     		$(img).insertBefore(this);
     		$('<br/>').insertBefore(this);
-    		this.remove();
+    		try{this.remove();}catch(err){}
         }
     });
 }

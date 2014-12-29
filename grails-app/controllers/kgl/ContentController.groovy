@@ -23,6 +23,7 @@ class ContentController {
     def s3Service
     def contentService
     def elasticSearchService
+	def loggingService
 
     static allowedMethods = [get: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -68,6 +69,13 @@ class ContentController {
 				render view: 'haslocked', model: [channel: contentInstance.channel]
 			}
 		} else {
+		
+			loggingService.addReadingLog(
+				session? session.id: null,
+				request.getHeader("User-Agent"),
+				springSecurityService.currentUser? springSecurityService.currentUser.id: null,
+				contentInstance.channel.id,
+				contentInstance.id)
 		
 			def template = OriginalTemplate.get(params.template?.id)
 			def output
@@ -220,6 +228,14 @@ class ContentController {
 				render view: 'haslocked', model: [channel: contentInstance.channel]
 			}
 		} else {
+		
+			loggingService.addReadingLog(
+				session? session.id: null,
+				request.getHeader("User-Agent"),
+				springSecurityService.currentUser? springSecurityService.currentUser.id: null,
+				contentInstance.channel.id,
+				contentInstance.id)
+		
 			render contentType: 'text/html', text: templateService.render(contentInstance)
 		}
     }
@@ -1140,6 +1156,15 @@ class ContentController {
 		
 		def id = params.id;
 		def content = Content.get(id);
+		
+		
+		loggingService.addReadingLog(
+			session? session.id: null, 
+			request.getHeader("User-Agent"), 
+			springSecurityService.currentUser? springSecurityService.currentUser.id: null, 
+			content.channel.id, 
+			content.id)
+		
 		
 		if (params.channel == 'e7read') {
 			render template: "/content/view/content_view_traditional", model: [content: content]

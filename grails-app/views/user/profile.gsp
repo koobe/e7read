@@ -111,7 +111,7 @@
         <div class="col-md-4">
             <div style="padding-top: 20px;">
                 <g:link controller="user" action="modify" class="koobe-text-btn koobe-text-btn-inverse" style="width:100%">
-                    編輯 Modify
+                    修改資料
                 </g:link>
             </div>
             <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_SUPERVISOR">

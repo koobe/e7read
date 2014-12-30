@@ -61,10 +61,10 @@ var viewContentOnTheAirHandler = function(data) {
 		auto_hide: false
 	});
     
-    
-    
     $('#display-container').css('display', 'none');
 	scrollTop = $(window).scrollTop();
+	
+	$('body').css('overflow', 'auto');
     
     $.ajax({
         type: 'GET',
@@ -105,6 +105,8 @@ var closeIframeHandler = function() {
 //		try {gototop.remove();} catch (err) {console.log(err);}
 //	}
 		
+	$('body').css('overflow', 'hidden');
+		
 	if (gototop) {
 		gototop.remove();
 	}
@@ -128,7 +130,7 @@ hashmanager.registerHandler('hashmanager_defaulthandler', closeIframeHandler);
 
 $(function() {
     // Use container scrollbar instead of full page scrollbar
-    $('body').css('height', '100%'); //.css('overflow', 'hidden');
+    $('body').css('height', '100%').css('overflow', 'hidden');
     $('#display-container').css('height', '100%').css('overflow-y', 'scroll').css('-webkit-overflow-scrolling', 'touch');
 });
 

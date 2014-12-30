@@ -36,9 +36,11 @@ class LoggingService {
 			readingLog.save flush: true
 		}
 	}
+	
+	def defer = { c -> logginPool.submit(c as Callable) }
 
     def addReadingLog(sessionId, userAgent, userId, channelId, contentId) {
 		
-		logginPool.submit(runnableAddReadingLog(sessionId, userAgent, userId, channelId, contentId) as Callable)
+		defer{ runnableAddReadingLog(sessionId, userAgent, userId, channelId, contentId) }
     }
 }

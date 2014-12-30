@@ -3,19 +3,24 @@ package kgl
 
 import grails.transaction.Transactional
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors
+
 @Transactional
 class LoggingService {
-
-    def addReadingLog(sessionId, userAgent, userId, channelId, contentId) {
-
+	
+	def logginPool = Executors.newFixedThreadPool(50)
+	
+	def runnableAddReadingLog = { sessionId, userAgent, userId, channelId, contentId ->
+		
 		def dateStart = new Date().clearTime()
 		def dateEnd = dateStart.plus(1)
 		
 		def rowCnt = ReadingLog.countByChannelIdAndContentIdAndSessionIdAndTimestampBetween(
 			channelId,
 			contentId,
-			sessionId, 
-			dateStart, 
+			sessionId,
+			dateStart,
 			dateEnd);
 		
 		if (rowCnt == 0) {
@@ -30,5 +35,10 @@ class LoggingService {
 			
 			readingLog.save flush: true
 		}
+	}
+
+    def addReadingLog(sessionId, userAgent, userId, channelId, contentId) {
+		
+		logginPool.submit(runnableAddReadingLog(sessionId, userAgent, userId, channelId, contentId) as Callable)
     }
 }

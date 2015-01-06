@@ -14,6 +14,7 @@ class Content {
 		
 		
 		channel parent: true, component: true
+		tradingContentAttribute component: true
 		user component: true
 		categories component: true
 		location geoPoint: true, component: true
@@ -67,6 +68,10 @@ class Content {
 		categories: Category
 	]
 	
+	static hasOne = [
+		tradingContentAttribute :TradingContentAttribute	
+	]
+	
 	static belongsTo = [
 		user: User,
 		template: OriginalTemplate,
@@ -93,6 +98,7 @@ class Content {
         ownerEmail nullable: true
         location nullable: true
         iconUrl nullable: true, blank: true
+		tradingContentAttribute nullable: true
     }
 
     def beforeValidate() {

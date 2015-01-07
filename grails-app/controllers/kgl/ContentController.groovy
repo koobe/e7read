@@ -699,13 +699,11 @@ class ContentController {
 	@Transactional
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def postContent() {
-		
-		//TODO send channel parameter
 
-        log.info "Content ID: ${params.id}"
-		log.info "The id list of files: ${params.s3fileId}"
-		log.info "User input text: ${params.contentText}"
-		log.info "References: ${params.references}"
+//		log.info "Content ID: ${params.id}"
+//		log.info "The id list of files: ${params.s3fileId}"
+//		log.info "User input text: ${params.contentText}"
+//		log.info "References: ${params.references}"
 		
 		// new content instance for persistence
 
@@ -768,21 +766,11 @@ class ContentController {
 				dataIdx++
 			}
 		}
-		
-		if (params.tradingValue) {
-			if (contentInstance.tradingContentAttribute) {
-				contentInstance.tradingContentAttribute.price = params.tradingValue as double
-			} else {
-				def tradingContentAttribute = new TradingContentAttribute(price: params.tradingValue as double)
-				contentInstance.tradingContentAttribute = tradingContentAttribute
-			}
-		}
 
         pendingRemoves = []
         pendingRemoves.addAll contentInstance.pictureSegments
         pendingRemoves.each {
             PictureSegment pictureSegment ->
-                //pictureSegment.delete flush: true
                 contentInstance.removeFromPictureSegments(pictureSegment)
                 pictureSegment.delete flush: true
         }
@@ -826,7 +814,6 @@ class ContentController {
         pendingRemoves.addAll contentInstance.categories
         pendingRemoves.each {
             contentInstance.removeFromCategories it
-            //it.delete flush: true
         }
 
 		// add multi-category
@@ -872,18 +859,15 @@ class ContentController {
         // Set cover image
 		if (contentInstance.pictureSegments) {
             def firstImage = contentInstance.pictureSegments.first()
-
-			contentInstance.coverUrl = firstImage.thumbnailUrl?firstImage.thumbnailUrl:firstImage.originalUrl
-
+			contentInstance.coverUrl = firstImage.thumbnailUrl? firstImage.thumbnailUrl: firstImage.originalUrl
             log.info "Set coverUrl = ${contentInstance.coverUrl}"
-
         }
 
 		contentInstance.hasPicture = contentInstance.pictureSegments? true: false
 
         //TODO set as anonymous user if not logged in
         if (!contentInstance.user) {
-            contentInstance.user = springSecurityService.isLoggedIn()?springSecurityService.currentUser:User.findByUsername('anonymous')
+            contentInstance.user = springSecurityService.isLoggedIn()? springSecurityService.currentUser: User.findByUsername('anonymous')
         }
 
 		contentInstance.template = matchTemplate(contentInstance)
@@ -893,10 +877,22 @@ class ContentController {
         }
 
         contentInstance.isShowLocation = params.getBoolean('isShowLocation')
+		
+		// set trading value for the content of trade channel
+		if (params.tradingValue) {
+			if (contentInstance.tradingContentAttribute) {
+				contentInstance.tradingContentAttribute.price = params.tradingValue as double
+			} else {
+				log.info 'Adding new trading attribute object'
+				def tradingContentAttribute = new TradingContentAttribute(price: params.tradingValue as double)
+				contentInstance.tradingContentAttribute = tradingContentAttribute
+			}
+		}
 
 		contentInstance.validate()
 		log.info contentInstance.errors
 		
+		// save content
 		contentInstance.save flush: true
 
         session.setAttribute(KglConstant.SESSION_KEY_LATEST_CONTENT_ID, contentInstance.id)

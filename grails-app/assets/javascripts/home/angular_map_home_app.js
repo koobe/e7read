@@ -29,7 +29,7 @@ mapHomeApp.controller('ContentFlowController',
 	
 	scopeContentFlowController = $scope;
 	
-	$scope.colXs = 12;
+	$scope.colXs = 6;
 	$scope.colSm = 6;
 	$scope.colMd = 4;
 	
@@ -48,10 +48,14 @@ mapHomeApp.controller('ContentFlowController',
 		$scope.categoryName = target.html().trim();
 	}
 	
+	$scope.sortBy = 'distance';
+	$scope.extraSortParam = {};
+	
 	$scope.size = 12;
 	$scope.page = 0;
 	$scope.contents = [];
 	$scope.contentIdList = [];
+	
 	
 	// default search parameters
 	var defaultSearchParams = {};
@@ -95,7 +99,7 @@ mapHomeApp.controller('ContentFlowController',
 		var offset = ($scope.page * $scope.size) - $scope.size;
 		
 		var data = {size: $scope.size, offset: offset, geo: geo, q: $scope.keyword};
-		angular.extend(data, defaultSearchParams);
+		angular.extend(data, defaultSearchParams, $scope.extraSortParam);
 		
 		$searchService.searchContent(data, function(contents) {
 			
@@ -150,17 +154,39 @@ mapHomeApp.controller('ContentFlowController',
 		});
 	};
 	
-	$scope.orderByDate = function() {
-		if (isGeoReady) {
-			$scope.searchLocation = {};
-			$scope.loadContents(true);
-		}
-	};
+//	$scope.orderByDate = function() {
+//		if (isGeoReady) {
+//			$scope.searchLocation = {};
+//			$scope.loadContents(true);
+//		}
+//	};
 	
-	$scope.orderByNear = function() {
+//	$scope.orderByNear = function() {
+//		if (isGeoReady) {
+//			$scope.searchLocation = $scope.lastSearchLocation;
+//			$scope.loadContents(true);
+//		}
+//	};
+	
+	$scope.changeSort = function() {
 		if (isGeoReady) {
-			$scope.searchLocation = $scope.lastSearchLocation;
-			$scope.loadContents(true);
+			if ($scope.sortBy == 'distance') {
+				$scope.extraSortParam = {};
+				$scope.searchLocation = $scope.lastSearchLocation;
+				$scope.loadContents(true);
+			} else if ($scope.sortBy == 'newest') {
+				$scope.extraSortParam = {};
+				$scope.searchLocation = {};
+				$scope.loadContents(true);
+			} else {
+				if ($scope.sortBy == 'price_asc') {
+					$scope.extraSortParam = {order: '-price'};
+				} else if ($scope.sortBy == 'price_desc') {
+					$scope.extraSortParam = {order: 'price'};
+				} else {}
+				$scope.searchLocation = {};
+				$scope.loadContents(true);
+			}
 		}
 	};
 	

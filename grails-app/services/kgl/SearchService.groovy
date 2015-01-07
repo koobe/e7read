@@ -22,6 +22,8 @@ class SearchService {
     def elasticSearchService
 
     def grailsApplication
+	
+	def SORT_DATEPOSTED = SortBuilders.fieldSort("datePosted").order(SortOrder.DESC)
 
     /**
      * Search content by given parameters
@@ -36,7 +38,7 @@ class SearchService {
     def searchContent(String channelName, String categoryName, String queryString, GeoPoint geoPoint, Double distance, params) {
 
         // default sort by datePosted
-        def sortByPostDate = SortBuilders.fieldSort("datePosted").order(SortOrder.DESC)
+//        def sortByPostDate = SortBuilders.fieldSort("datePosted").order(SortOrder.DESC)
 
         // setup geo search sorter
         def sortByNear = null
@@ -49,6 +51,17 @@ class SearchService {
                     unit(DistanceUnit.KILOMETERS).
                     order(SortOrder.ASC)
         }
+		
+		def sortByPrice
+		
+		if (params.order && (params.order.equals("price") || params.order.equals("-price"))) {
+			log.info "sort by price: ${params.order}"
+			if (params.order.equals("price")) {
+				sortByPrice = SortBuilders.fieldSort("tradingContentAttribute.price").order(SortOrder.DESC)
+			} else {
+				sortByPrice = SortBuilders.fieldSort("tradingContentAttribute.price").order(SortOrder.ASC)
+			}
+		}
 
         // must have channel name
         def query = QueryBuilders.boolQuery()
@@ -91,12 +104,14 @@ class SearchService {
         source.size(params.size ? params.size as int : 100)
 
         source.query(query)
-
-        if (sortByNear) {
+		
+		if (sortByPrice) {
+			source.sort(sortByPrice)
+		} else if (sortByNear) {
             source.sort(sortByNear)
         }
 
-        source.sort(sortByPostDate)
+        source.sort(SORT_DATEPOSTED)
 
         // setup post filters
         if (filters) {

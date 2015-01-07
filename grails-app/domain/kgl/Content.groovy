@@ -9,7 +9,7 @@ class Content {
 			'user', 
 			'cropTitle', 'cropText', 'lastUpdated', 'datePosted', 
 			'location', 'channel', 'categories', 
-			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation'
+			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation', 'tradingContentAttribute'
 		]
 		
 		

@@ -176,6 +176,15 @@
 								</div>
 								<div style="display:inline-block;">
 									<span>排序：</span>
+									
+									<select name="data.sort" id="data.sort" ng-model="sortBy" ng-change="changeSort($event)">
+										<option value="distance">距離</option>
+										<option value="newest">最新</option>
+										<option value="price_asc">價值 (低→高)</option>
+										<option value="price_desc">價值 (高→低)</option>
+									</select>
+									
+									<!-- 		
 									<div class="btn-group" data-toggle="buttons" >
 							            <label id="btnSortByDistance" class="btn btn-default active" style="padding: 2px 11px 2px 11px;" ng-click="orderByNear()">
 							                <input type="radio" name="sorting" id="sortByDistance" value="true" autocomplete="off" checked>
@@ -185,7 +194,8 @@
 							                <input type="radio" name="sorting" id="sortByNewest" value="false" autocomplete="off" >
 							                最新
 							            </label>
-							        </div>
+							        </div> -->
+							        
 								</div>
 					        </div>
 					        

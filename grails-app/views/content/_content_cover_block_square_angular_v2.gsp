@@ -22,7 +22,7 @@
 		<div style="padding-top: 3px;">
 			<div style="display:inline-block;" class="tipmsg" data-tipmsg="在地圖中檢視">
 				<span class="fa fa-map-marker" style="cursor:pointer;" ng-click="openMapInfoWindow(content.id); $event.stopPropagation();"></span>
-				<span style="cursor:pointer;" ng-click="openMapInfoWindow(content.id); $event.stopPropagation();">
+				<span style="cursor:pointer; color: #337ab7;" ng-click="openMapInfoWindow(content.id); $event.stopPropagation();">
 					{{ content.distance? (content.distance | number : 2) + '公里' : '' }}
 				</span>
 			</div>

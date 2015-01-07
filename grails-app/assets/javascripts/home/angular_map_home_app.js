@@ -29,7 +29,7 @@ mapHomeApp.controller('ContentFlowController',
 	
 	scopeContentFlowController = $scope;
 	
-	$scope.colXs = 12;
+	$scope.colXs = 6;
 	$scope.colSm = 6;
 	$scope.colMd = 4;
 	

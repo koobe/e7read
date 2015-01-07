@@ -126,7 +126,7 @@
 
     
     <div>
-    	<img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location?.lat},${user.location?.lon}&zoom=14&size=960x250&scale=2&sensor=false" alt="google map" border="0" class="img-thumbnail" style="width:100%;"/>
+    	<img src="http://maps.googleapis.com/maps/api/staticmap?center=${user.location?.lat},${user.location?.lon}&zoom=14&size=960x250&scale=2&sensor=false" width="960" height="250" alt="google map" border="0" class="img-thumbnail" style="width:100%;"/>
     </div>
 
 </div>

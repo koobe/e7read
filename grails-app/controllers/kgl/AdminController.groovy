@@ -97,6 +97,39 @@ class AdminController {
         redirect action: 'category'
     }
 
+    def config() {
+        [
+                configs: Configuration.list(sort: 'name', order: 'desc')
+        ]
+    }
+
+    def configAdd() {
+
+        def config = new Configuration(
+                name: params.configName,
+                content: params.configContent
+        )
+
+        config.save flush: true
+
+        redirect action: 'config'
+    }
+
+    def configUpdate() {
+        [
+                config: Configuration.get(params.id)
+        ]
+    }
+
+    def configUpdateSave(Configuration config) {
+
+        if (params.boolean('delete', false)) {
+            config.delete flush: true
+        }
+
+        redirect action: 'config'
+    }
+
     def user() {
         [
                 users: User.list()

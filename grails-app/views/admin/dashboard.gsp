@@ -38,6 +38,10 @@
             <i class="fa fa-map-marker"></i>
             地圖樣式清單
         </g:link>
+        <g:link controller="admin" action="config" class="list-group-item">
+            <i class="fa fa-wrench"></i>
+            系統組態管理
+        </g:link>
     </div>
 </div>
 

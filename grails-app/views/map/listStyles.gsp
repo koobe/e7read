@@ -7,6 +7,14 @@
 <body>
 
 <div class="container">
+
+    <div class="page-header">
+        <div class="btn-group pull-right" role="group">
+            <g:link controller="admin" action="dashboard" class="btn btn-default">返回</g:link>
+        </div>
+        <h2>地圖樣式清單</h2>
+    </div>
+
     <g:each in="${styles}" var="style">
         <div class="row">
             <div class="col-md-6">

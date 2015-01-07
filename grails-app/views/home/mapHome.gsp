@@ -181,7 +181,7 @@
 										<option value="distance">距離</option>
 										<option value="newest">最新</option>
 										<option value="price_asc">價值 (低→高)</option>
-										<option value="price_desc">價格 (高→低)</option>
+										<option value="price_desc">價值 (高→低)</option>
 									</select>
 									
 									<!-- 		

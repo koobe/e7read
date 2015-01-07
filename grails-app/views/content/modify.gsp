@@ -51,6 +51,28 @@
 
 <g:render template="editing_tips" />
 
+	<g:if test="${params.channel == 'trade'}">
+    	<div style="padding: 10px 0px 0px 0px; ">
+			<div style="display:table;">
+				<div style="display:table-cell;">
+					<span>價值：</span>
+				</div>
+				<div style="display:table-cell;">
+					<input id="trading-value" type="text" class="form-control" placeholder="請輸入金額" value="${contentInstance.tradingContentAttribute?.price}" />
+				</div>
+			</div>
+			<!-- 
+			<div style="display:table;">
+				<div style="display:table-cell;">
+					<span>數量：</span>
+				</div>
+				<div style="display:table-cell;">
+					<input type="email" class="form-control" placeholder="數量">
+				</div>
+			</div> -->
+		</div>
+	</g:if>
+
     <div id="PictureContainer" class="content-editing-picture">
         <div class="picture-cell">
 

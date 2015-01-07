@@ -22,6 +22,7 @@
 <sec:ifNotLoggedIn>
     <meta name="url2redirect" content="${createLink(controller: 'content', action: 'shorten')}">
 </sec:ifNotLoggedIn>
+
 <style type="text/css">
 .location-link {
     color: #888888;
@@ -53,6 +54,28 @@
     <g:textArea id="content-editing-textarea" class="content-editing-textarea form-control" name="text" placeholder="Write something here..." rows="15"></g:textArea>
 
     <g:render template="editing_tips" />
+    
+    <g:if test="${params.channel == 'trade'}">
+    	<div style="padding: 10px 0px 0px 0px; ">
+			<div style="display:table;">
+				<div style="display:table-cell;">
+					<span>價值：</span>
+				</div>
+				<div style="display:table-cell;">
+					<input id="trading-value" type="text" class="form-control" placeholder="請輸入金額" />
+				</div>
+			</div>
+			<!-- 
+			<div style="display:table;">
+				<div style="display:table-cell;">
+					<span>數量：</span>
+				</div>
+				<div style="display:table-cell;">
+					<input type="email" class="form-control" placeholder="數量">
+				</div>
+			</div> -->
+		</div>
+	</g:if>
 
     <div id="PictureContainer" class="content-editing-picture">
         <div class="picture-cell">

@@ -98,15 +98,24 @@ function postContent(isPublish) {
 	if (isPost) {
 		return;
 	}
-	
 	isPost = true;
-	
-	loading();
 
     var contentText = $('#content-editing-textarea').val();
     if (!contentText || $.trim(contentText)=='') {
         alert("Please write some text in the editing area.");
+        isPost = false;
         return;
+    }
+    
+    var tradingValue = $('#trading-value').val();
+    if (!tradingValue || $.trim(tradingValue)=='') {
+    	tradingValue = null;
+    } else {
+    	if (isNaN(tradingValue)) {
+    		alert('價值請輸入數字');
+    		isPost = false;
+    		return;
+    	}
     }
     
     var locked = false;
@@ -127,6 +136,8 @@ function postContent(isPublish) {
 		categorysData = categorysData + value + ",";
 	});
 	
+	loading();
+	
 	$.ajax({
 		url: '/content/postContent',
 		type:'POST',
@@ -139,7 +150,8 @@ function postContent(isPublish) {
             references: $('input[name=references]').val(),
 			contentText: $('#content-editing-textarea').val(),
             isShowLocation: $('input[name=isShowLocation]:checked').val(),
-            isLocked: locked
+            isLocked: locked, 
+            tradingValue: tradingValue
 		},
 		success:function(data,textStatus){
 			var channel = getQueryVariable("channel");

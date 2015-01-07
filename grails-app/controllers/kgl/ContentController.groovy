@@ -291,12 +291,14 @@ class ContentController {
                 return
             }
         }
+		
+		params.channel = content.channel.name
 
 		def checkAction = checkContent(content)
 		if (checkAction) {
 			redirect action: checkAction
 		} else {
-			respond content
+			respond content, model: [params: params]
 		}
     }
 
@@ -747,8 +749,7 @@ class ContentController {
 			def contentList = params.contentText.trim().split("\n\n")
 			
 			contentList.each { segment ->
-				log.info '' + segment
-				
+//				log.info '' + segment
 				segment = segment.trim()
 				if (segment == "") { return }
 				
@@ -765,6 +766,15 @@ class ContentController {
 				contentInstance.textSegments << textSegment
 				fullText+= segment + "\n\n"
 				dataIdx++
+			}
+		}
+		
+		if (params.tradingValue) {
+			if (contentInstance.tradingContentAttribute) {
+				contentInstance.tradingContentAttribute.price = params.tradingValue as double
+			} else {
+				def tradingContentAttribute = new TradingContentAttribute(price: params.tradingValue as double)
+				contentInstance.tradingContentAttribute = tradingContentAttribute
 			}
 		}
 

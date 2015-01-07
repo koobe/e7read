@@ -79,6 +79,7 @@ class SearchController {
 		def queryString = params.q
 		GeoPoint geoPoint = null
 		def distance = params.distance
+		def order = params.order
 
 		if (params.geo) {
 			def latlon = params.geo.split(',')

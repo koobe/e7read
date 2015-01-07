@@ -171,9 +171,11 @@ mapHomeApp.controller('ContentFlowController',
 	$scope.changeSort = function() {
 		if (isGeoReady) {
 			if ($scope.sortBy == 'distance') {
+				$scope.extraSortParam = {};
 				$scope.searchLocation = $scope.lastSearchLocation;
 				$scope.loadContents(true);
 			} else if ($scope.sortBy == 'newest') {
+				$scope.extraSortParam = {};
 				$scope.searchLocation = {};
 				$scope.loadContents(true);
 			} else {

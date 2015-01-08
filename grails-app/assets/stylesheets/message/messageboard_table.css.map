@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,aAAc;EACb,KAAK,EAAE,GAAG;;AAGX,cAAe;EACd,QAAQ,EAAG,MAAM;EACjB,aAAa,EAAG,QAAQ;EACxB,WAAW,EAAG,MAAM;;AAGrB,kBAAmB;EAClB,MAAM,EAAE,OAAO",
+"sources": ["messageboard_table.scss"],
+"names": [],
+"file": "messageboard_table.css"
+}

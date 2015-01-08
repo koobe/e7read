@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": ";AAEQ,mCAA2B;AAEnC,cAAe;EACd,WAAW,EAAE,gGAAgG;EAC1G,SAAS,EAAE,IAAI;EACf,aAAa,EAAE,IAAI;EACnB,WAAW,EAAE,IAAI;EACjB,cAAc,EAAE,GAAG;EACnB,UAAU,EAAE,OAAO;EACnB,MAAM,EAAE,GAAG;;AAGf,GAAI;EACH,SAAS,EAAE,IAAI",
+"sources": ["pageviewdemo.scss"],
+"names": [],
+"file": "pageviewdemo.css"
+}

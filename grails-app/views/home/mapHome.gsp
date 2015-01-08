@@ -213,7 +213,7 @@
 					        
 					        <div style="clear:both;"></div>
 					        
-					        <div class="container-fluid extended-filter-panel" style="display: block; padding: 5px 5px 5px 5px; margin: 7px 0px 0px 0px; border: 1px solid #ccd6dd; border-radius: 4px; background-color: #EEE;">
+					        <div class="container-fluid extended-filter-panel" style="display: none; padding: 5px 5px 5px 5px; margin: 7px 0px 0px 0px; border: 1px solid #ccd6dd; border-radius: 4px; background-color: #EEE;">
 					        
 					        	<div style="">
 					        		<span>日期：</span>

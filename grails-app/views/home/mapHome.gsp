@@ -213,7 +213,7 @@
 					        
 					        <div style="clear:both;"></div>
 					        
-					        <div class="container-fluid extended-filter-panel" style="display: none; padding: 5px 5px 5px 5px; margin: 7px 0px 0px 0px; border: 1px solid #ccd6dd; border-radius: 4px; background-color: #EEE;">
+					        <div class="container-fluid extended-filter-panel" style="display: block; padding: 5px 5px 5px 5px; margin: 7px 0px 0px 0px; border: 1px solid #ccd6dd; border-radius: 4px; background-color: #EEE;">
 					        
 					        	<div style="">
 					        		<span>日期：</span>
@@ -225,13 +225,26 @@
 					        			<input id="end-date" style="background-color: white; cursor: pointer;"  type="text" class="form-control" placeholder="結束日期" readonly />
 					        		</div>
 					        		<div style="display:inline-block;" ng-click="clearDateFilter()">
-					        			<span style="cursor:pointer;"><i class="fa fa-times"></i></span>
+					        			<a style="padding: 1px 9px 0px 9px; font-size: 17px; cursor:pointer;"><i class="fa fa-times"></i></a>
 					        		</div>
 					        		<div style="display:inline-block;" ng-if="illegalDateSelected == true">
 					        			<span style="color: red; padding-left: 5px;">錯誤的區間</span>
 					        		</div>
 								</div>
-					        
+								
+								<div style="padding-top: 10px;">
+									<span>價值：</span>
+									<span ng-if="displayPriceFilter.min || displayPriceFilter.min == 0">
+										$ {{ displayPriceFilter.min }}
+									</span>
+									<div style="display:inline-block; width: 60%; margin: 0px 10px 0px 10px;" id="slider-price-range"></div>
+									<span ng-if="displayPriceFilter.max || displayPriceFilter.max == 0">
+										$ {{ displayPriceFilter.max }}
+									</span>
+									<div style="display:inline-block;" ng-click="clearPriceFilter()">
+					        			<a style="padding: 1px 9px 0px 9px; font-size: 17px; cursor:pointer;"><i class="fa fa-times"></i></a>
+					        		</div>
+								</div>
 					        </div>
 							
 						</div>	

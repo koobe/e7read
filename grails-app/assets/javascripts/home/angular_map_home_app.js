@@ -30,6 +30,8 @@ mapHomeApp.controller('ContentFlowController',
 		showIcon: false,
 		defaultMsg: '沒有資料了'});
 	
+	var priceSliderMax = 0;
+	
 	$scope.illegalDateSelected = false;
 	
 	scopeContentFlowController = $scope;
@@ -53,7 +55,11 @@ mapHomeApp.controller('ContentFlowController',
 		$scope.categoryName = target.html().trim();
 	}
 	
+	$scope.displayPriceFilter = {};
+	
 	$scope.extraDateFilter = {};
+	$scope.extraPriceFilter = {};
+//	$scope.extraPriceFilter = { minPrice:0, maxPrice:0 };
 	
 	$scope.sortBy = 'distance';
 	$scope.extraSortParam = {};
@@ -106,7 +112,7 @@ mapHomeApp.controller('ContentFlowController',
 		var offset = ($scope.page * $scope.size) - $scope.size;
 		
 		var data = {size: $scope.size, offset: offset, geo: geo, q: $scope.keyword};
-		angular.extend(data, defaultSearchParams, $scope.extraSortParam, $scope.extraDateFilter);
+		angular.extend(data, defaultSearchParams, $scope.extraSortParam, $scope.extraDateFilter, $scope.extraPriceFilter);
 		
 		$searchService.searchContent(data, function(contents) {
 			
@@ -150,7 +156,22 @@ mapHomeApp.controller('ContentFlowController',
 						maxWidth: 130
 					});
 //				}, 300);
+					
+				if (content.tradingContentAttribute) {
+					if (content.tradingContentAttribute.price > priceSliderMax) {
+						priceSliderMax = content.tradingContentAttribute.price;
+						$( "#slider-price-range" ).slider( "option", "max", priceSliderMax );
+						$( "#slider-price-range" ).slider( "option", "values", [0, priceSliderMax] );
+					}
+				}
+				
 			});
+			
+			console.log( $( "#slider-price-range" ).slider( "option", "values") );
+			
+//			if ($scope.extraPriceFilter.max == 0) {
+//				$scope.extraPriceFilter.max = $scope.filterPriceSliderMax;
+//			}
 			
 			onCall = false;
 			s.done();
@@ -343,6 +364,9 @@ mapHomeApp.controller('ContentFlowController',
 		$scope.contents = [];
 		$scope.contentIdList = [];
 		$scope.page = 0;
+//		priceSliderMax = 0;
+//		$scope.extraPriceFilter = {};
+//		$scope.displayPriceFilter = {};
 		eof = false;
 	}
 	
@@ -539,6 +563,29 @@ mapHomeApp.controller('ContentFlowController',
 	filterEndDatePicker = $('#end-date').datepicker({
 		onSelect: filterDatePickerHandler
 	});
+	
+	$scope.clearPriceFilter = function() {
+		$scope.displayPriceFilter = {};
+		$scope.extraPriceFilter = {};
+		$scope.loadContents(true);
+	};
+	
+	$( "#slider-price-range" ).slider({
+	      range: true,
+	      min: 0,
+	      max: 0,
+	      values: [ 0, 0 ],
+	      slide: function(event, ui) {
+	    	  $scope.displayPriceFilter.min = ui.values[0];
+	    	  $scope.displayPriceFilter.max = ui.values[1];
+	    	  $scope.$apply();
+	      },
+	      stop: function(event, ui) {
+	    	  $scope.extraPriceFilter = { minPrice: ui.values[0], maxPrice: ui.values[1] };
+	    	  $scope.loadContents(true);
+	      }
+    });
+	
 	
 	function getInfoWindowHTML(content) {
 		var container = $('<div class="container"/>');

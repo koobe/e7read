@@ -9,6 +9,9 @@
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-resource.min.js"></script>
 	    
 	    <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
+	    
+	    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  		<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 		
 		<asset:javascript src="service/angular_map_service.js"/>
 		<asset:javascript src="service/angular_user_service.js"/>
@@ -152,6 +155,8 @@
 					<div class="content-pane">
 						<div class="container-fluid" style="padding:0px 10px 5px 10px;">
 						
+							
+						
 							<div style="display:inline-block; vertical-align: middle; margin-top: 10px;">
 								<div style="display:inline-block; padding-right: 5px;" ng-if="category">
 									<span>類別：</span>
@@ -174,6 +179,7 @@
 										border-radius: 12px;
 									">{{ keyword }} <i class="fa fa-times"></i></span>
 								</div>
+								
 								<div style="display:inline-block;">
 									<span>排序：</span>
 									
@@ -195,11 +201,38 @@
 							                最新
 							            </label>
 							        </div> -->
-							        
 								</div>
+								
+								<div style="display:inline-block; vertical-align: middle; cursor:pointer;">
+									<a class="extended-filter-panel-click" style="padding: 1px 9px 0px 9px; font-size: 17px;">
+										<i id="icon-filter-toggle" class="fa fa-tasks"></i>
+									</a>
+								</div>
+								
 					        </div>
 					        
 					        <div style="clear:both;"></div>
+					        
+					        <div class="container-fluid extended-filter-panel" style="display: none; padding: 5px 5px 5px 5px; margin: 7px 0px 0px 0px; border: 1px solid #ccd6dd; border-radius: 4px; background-color: #EEE;">
+					        
+					        	<div style="">
+					        		<span>日期：</span>
+					        		<div style="display:inline-block; width: 100px;">
+					        			<input id="start-date" style="background-color: white; cursor: pointer;" type="text" class="form-control" placeholder="開始日期" readonly />
+					        		</div>
+					        		<span><i class="fa fa-caret-right"></i></span>
+					        		<div style="display:inline-block; width: 100px;">
+					        			<input id="end-date" style="background-color: white; cursor: pointer;"  type="text" class="form-control" placeholder="結束日期" readonly />
+					        		</div>
+					        		<div style="display:inline-block;" ng-click="clearDateFilter()">
+					        			<span style="cursor:pointer;"><i class="fa fa-times"></i></span>
+					        		</div>
+					        		<div style="display:inline-block;" ng-if="illegalDateSelected == true">
+					        			<span style="color: red; padding-left: 5px;">錯誤的區間</span>
+					        		</div>
+								</div>
+					        
+					        </div>
 							
 						</div>	
 						

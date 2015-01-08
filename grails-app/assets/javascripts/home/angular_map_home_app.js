@@ -15,6 +15,9 @@ var scopeContentFlowController;
 
 var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
 
+var filterStartDatePicker;
+var filterEndDatePicker;
+
 mapHomeApp.controller('ContentFlowController', 
 		['$scope', '$mapService', '$userService', '$searchService', '$googleMapService',
 		 function($scope, $mapService, $userService, $searchService, $googleMapService) {
@@ -26,6 +29,8 @@ mapHomeApp.controller('ContentFlowController',
 		bgColor: 'rgba(148, 230, 218, 0.7)', 
 		showIcon: false,
 		defaultMsg: '沒有資料了'});
+	
+	$scope.illegalDateSelected = false;
 	
 	scopeContentFlowController = $scope;
 	
@@ -47,6 +52,8 @@ mapHomeApp.controller('ContentFlowController',
 		var target = $("a[data-category-name='" + categoryName + "']");
 		$scope.categoryName = target.html().trim();
 	}
+	
+	$scope.extraDateFilter = {};
 	
 	$scope.sortBy = 'distance';
 	$scope.extraSortParam = {};
@@ -99,7 +106,7 @@ mapHomeApp.controller('ContentFlowController',
 		var offset = ($scope.page * $scope.size) - $scope.size;
 		
 		var data = {size: $scope.size, offset: offset, geo: geo, q: $scope.keyword};
-		angular.extend(data, defaultSearchParams, $scope.extraSortParam);
+		angular.extend(data, defaultSearchParams, $scope.extraSortParam, $scope.extraDateFilter);
 		
 		$searchService.searchContent(data, function(contents) {
 			
@@ -492,6 +499,46 @@ mapHomeApp.controller('ContentFlowController',
 			$googleMapService.closeCurrentInfoWindow();
 		}
 	}
+	
+	$scope.clearDateFilter = function() {
+		$("#start-date").datepicker( "setDate", null );
+		$("#end-date").datepicker( "setDate", null );
+		$scope.extraDateFilter = {};
+		$scope.loadContents(true);
+	};
+	
+	var filterDatePickerHandler = function() {
+		var startTime = $("#start-date").datepicker("getDate")? $("#start-date").datepicker("getDate").getTime(): null;
+		var endTime = $("#end-date").datepicker("getDate")? $("#end-date").datepicker("getDate").getTime(): null;
+		
+		if (startTime && endTime) {
+		
+			endTime = endTime + (24 * 60 * 60 * 1000);
+			
+			if (startTime < endTime) {
+				console.log("select start time: " + startTime);
+				console.log("select end time: " + endTime);
+				$scope.illegalDateSelected = false;
+				$scope.extraDateFilter = {
+					dateFilterStart: startTime,
+					dateFilterEnd: endTime
+				};
+				$scope.$apply();
+				$scope.loadContents(true);
+			} else {
+				console.log("Illegal selected date");
+				$scope.illegalDateSelected = true;
+				$scope.$apply();
+			}
+		}
+		
+	};
+	filterStartDatePicker = $('#start-date').datepicker({
+		onSelect: filterDatePickerHandler
+	});
+	filterEndDatePicker = $('#end-date').datepicker({
+		onSelect: filterDatePickerHandler
+	});
 	
 	function getInfoWindowHTML(content) {
 		var container = $('<div class="container"/>');

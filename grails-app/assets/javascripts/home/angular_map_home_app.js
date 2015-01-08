@@ -558,10 +558,20 @@ mapHomeApp.controller('ContentFlowController',
 		
 	};
 	filterStartDatePicker = $('#start-date').datepicker({
-		onSelect: filterDatePickerHandler
+		onSelect: filterDatePickerHandler,
+		beforeShow: function() {
+	        setTimeout(function(){
+	            $('.ui-datepicker').css('z-index', 399);
+	        }, 0);
+	    }
 	});
 	filterEndDatePicker = $('#end-date').datepicker({
-		onSelect: filterDatePickerHandler
+		onSelect: filterDatePickerHandler,
+		beforeShow: function() {
+	        setTimeout(function(){
+	            $('.ui-datepicker').css('z-index', 399);
+	        }, 0);
+	    }
 	});
 	
 	$scope.clearPriceFilter = function() {

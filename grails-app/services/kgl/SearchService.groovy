@@ -78,6 +78,8 @@ class SearchService {
 				.includeLower(true)
 				.includeUpper(true))
 		}
+		
+		
 
         // has a query string
         if (queryString) {
@@ -94,6 +96,18 @@ class SearchService {
 
             filters << FilterBuilders.nestedFilter("categories", categoryQuery)
         }
+		
+		if (params.minPrice && params.maxPrice) {
+			
+			def priceQuery = QueryBuilders.boolQuery()
+//					.must(QueryBuilders.rangeQuery("tradingContentAttribute.price").gt(params.minPrice as double))
+				.must(QueryBuilders.rangeQuery("tradingContentAttribute.price")
+				.from(params.minPrice as double).to(params.maxPrice as double)
+				.includeLower(true)
+				.includeUpper(true))
+				
+			filters << FilterBuilders.nestedFilter("tradingContentAttribute", priceQuery)
+		}
 
         // when give geoPoint than add distance filter
         if (geoPoint) {

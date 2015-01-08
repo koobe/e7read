@@ -17,6 +17,8 @@
     <meta name="application-name" content="${meta(name: 'app.name')}"/>
     <meta name="application-version" content="${meta(name: 'app.version')}"/>
     <meta name="grails-version" content="${meta(name: 'app.grails.version')}"/>
+    <meta name="grails-environment" content="${grails.util.Environment.current.name}" />
+
     <g:if test="${System.getenv('ENV')?.equals('development') || System.getProperty('ENV').equals('development')}">
 		<meta name="robots" content="noindex">
 	</g:if>
@@ -32,9 +34,11 @@
     <link rel="shortcut icon" href="${assetPath(src: 'webicon.png')}" type="image/x-icon">
     <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'webicon.png')}">
+
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
     <asset:stylesheet src="header.css"/>
+
     <g:layoutHead/>
 
     <!-- FontAwesome -->

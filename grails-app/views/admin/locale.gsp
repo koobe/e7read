@@ -3,8 +3,6 @@
 <head>
     <meta name="layout" content="main"/>
     <title>翻譯管理</title>
-
-    <asset:javascript src="grails.frontend.js" />
 </head>
 
 <body>

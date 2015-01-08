@@ -8,6 +8,7 @@
 //= require jquery
 //= require bootstrap
 //= require jquery.editable
+//= require grails.frontend
 //= require_self
 
 if (typeof jQuery !== 'undefined') {

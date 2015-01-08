@@ -37,9 +37,6 @@ class SearchService {
      */
     def searchContent(String channelName, String categoryName, String queryString, GeoPoint geoPoint, Double distance, params) {
 
-        // default sort by datePosted
-//        def sortByPostDate = SortBuilders.fieldSort("datePosted").order(SortOrder.DESC)
-
         // setup geo search sorter
         def sortByNear = null
         if (geoPoint) {
@@ -70,7 +67,16 @@ class SearchService {
 				.must(QueryBuilders.matchQuery("isDelete", false))
 				
 		if (geoPoint) {
-			query.must(QueryBuilders.matchQuery("isShowLocation", true))
+			query = query.must(QueryBuilders.matchQuery("isShowLocation", true))
+		}
+		
+		if (params.dateFilterStart && params.dateFilterEnd) {
+			def dateStart = new Date(params.dateFilterStart as long)
+			def dateEnd = new Date(params.dateFilterEnd as long)
+			query = query.must(QueryBuilders.rangeQuery("datePosted")
+				.from(dateStart).to(dateEnd)
+				.includeLower(true)
+				.includeUpper(true))
 		}
 
         // has a query string

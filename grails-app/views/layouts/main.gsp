@@ -35,6 +35,8 @@
     <link rel="apple-touch-icon" href="${assetPath(src: 'webicon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'webicon.png')}">
 
+    <script type="application/javascript" src="/locale/messages_${Locale.default.toLanguageTag()}.js"></script>
+
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
     <asset:stylesheet src="header.css"/>

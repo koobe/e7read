@@ -46,6 +46,8 @@ class UrlMappings {
         "/mapStyle/$id?.png" (controller: 'mapStyle', action: 'image')
 
         "/locale/$bundle?.json" (controller: 'locale', action: 'json')
+
+        "/locale/$bundle?.js" (controller: 'locale', action: 'javascript')
 //        "/locale/$group" (controller: 'locale', action: 'json')
     }
 }

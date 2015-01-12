@@ -3,14 +3,13 @@ var __IS_GRAILS_DEVELOPMENT_MODE = false;
 
 var g = {};
 
-var ___locale = {};
+//var ___locale = {};
 
 $(function() {
 
-
     __IS_GRAILS_DEVELOPMENT_MODE = $('meta[name=grails-environment]').attr('content')=='development';
 
-    $.ajax('/locale/messages_zh-TW.json', {
+    /*$.ajax('/locale/messages_zh-TW.json', {
         success: function(obj) {
             ___locale = obj;
 
@@ -28,7 +27,13 @@ $(function() {
 
             }
         }
-    });
+    });*/
+
+    // test
+    //console.log(g.message({code: 'group'}));
+    //console.log(g.message({code: 'default.blank.message', args: ['aaa', 'bbb']}));
+    //console.log(g.message('default.button.update.label'));
+    //console.log(g.message('default.updated.message', 'ccc', 'ddd'));
 });
 
 /**

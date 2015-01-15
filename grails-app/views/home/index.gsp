@@ -51,7 +51,7 @@
 				        	font-size: 0.9em;
 				        	color: #555;
 				        	float:right;">
-			        		您尚未設定個人位置，請<a href="/map/welcome">設定</a>
+			        		您尚未設定個人位置，請<a href="/map/welcome">設定</a>。
 			        	</div>
 		        	</div>
 		        </g:if>

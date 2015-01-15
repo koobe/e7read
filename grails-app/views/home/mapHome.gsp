@@ -159,7 +159,7 @@
 						
 							<div style="display:inline-block; vertical-align: middle; margin-top: 10px;">
 								<div style="display:inline-block; padding-right: 5px;" ng-if="category">
-									<span>類別：</span>
+									<span><g:message code="category.category" />：</span>
 									<span class="btn btn-default" style="
 										padding-top: 1px;
 										padding-bottom: 1px;
@@ -172,7 +172,7 @@
 							<div style="display:inline-block; float:right; vertical-align: middle; margin-top: 10px;">
 								
 								<div style="display:inline-block; padding-right: 10px;" ng-if="keyword">
-									<span>搜尋：</span>
+									<span><g:message code="dictionary|search" />：</span>
 									<span ng-click="removeKeyword();" class="btn btn-default" style="
 										padding-top: 1px;
 										padding-bottom: 1px;
@@ -181,13 +181,23 @@
 								</div>
 								
 								<div style="display:inline-block;">
-									<span>排序：</span>
+									<span><g:message code="dictionary|sort" />：</span>
 									
 									<select name="data.sort" id="data.sort" ng-model="sortBy" ng-change="changeSort($event)">
-										<option value="distance">距離</option>
-										<option value="newest">最新</option>
-										<option value="price_asc">價值 (低→高)</option>
-										<option value="price_desc">價值 (高→低)</option>
+										<option value="distance">
+											<g:message code="dictionary|distance" />
+										</option>
+										<option value="newest">
+											<g:message code="dictionary|latest" />
+										</option>
+										<option value="price_asc">
+											<g:message code="dictionary|price" />
+											(低→高)
+										</option>
+										<option value="price_desc">
+											<g:message code="dictionary|price" />
+											(高→低)
+										</option>
 									</select>
 									
 									<!-- 		
@@ -216,7 +226,8 @@
 					        <div class="container-fluid extended-filter-panel" style="display: none; padding: 5px 5px 5px 5px; margin: 7px 0px 0px 0px; border: 1px solid #ccd6dd; border-radius: 4px; background-color: #EEE;">
 					        
 					        	<div style="">
-					        		<span>日期：</span>
+					        		<span>
+										<g:message code="dictionary|date" />：</span>
 					        		<div style="display:inline-block; width: 100px;">
 					        			<input id="start-date" style="background-color: white; cursor: pointer;" type="text" class="form-control" placeholder="開始日期" readonly />
 					        		</div>

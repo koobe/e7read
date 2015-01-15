@@ -70,7 +70,8 @@
             <tr>
                 <th>Group</th>
                 <th>Code</th>
-                <th>Example</th>
+                <th>Example (en)</th>
+                <th>Example (current: ${Locale.default.toLanguageTag()})</th>
             </tr>
         </thead>
         <tbody>
@@ -84,10 +85,18 @@
                 </td>
                 <td>
                     <g:if test="${group=='messages'}">
-                        <g:message code="${locale.code}" />
+                        <small><g:message code="${locale.code}" locale="en" /></small>
                     </g:if>
                     <g:else>
-                        <g:message code="${group}|${locale.code}" />
+                        <small><g:message code="${group}|${locale.code}" locale="en" /></small>
+                    </g:else>
+                </td>
+                <td>
+                    <g:if test="${group=='messages'}">
+                        <small><g:message code="${locale.code}" /></small>
+                    </g:if>
+                    <g:else>
+                        <small><g:message code="${group}|${locale.code}" /></small>
                     </g:else>
                 </td>
             </tr>

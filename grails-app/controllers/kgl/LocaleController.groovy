@@ -50,7 +50,7 @@ class LocaleController {
 
         def json = new groovy.json.JsonBuilder(convertToMap(group, lang))
 
-        render text: "var ___locale = ${json.toPrettyString()};", contentType: 'application/javascript'
+        render text: "var ${params.var?:'___locale'} = ${json.toPrettyString()};", contentType: 'application/javascript'
     }
 
     private convertToMap(group, lang) {

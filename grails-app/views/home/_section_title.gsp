@@ -6,6 +6,6 @@
 		<span>${sectionTitle}</span>
 	</div>
 	<div class="" style="display:table-cell; vertical-align:middle;">
-		<img src="/assets/arrow_30.png">
+		<img alt="arrow" src="/assets/arrow_30.png" />
 	</div>
 </div>

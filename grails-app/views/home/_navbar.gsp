@@ -4,7 +4,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only"><g:message code="bootstrap.toggle.navigation" default="Toggle navigation" /></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -19,7 +19,7 @@
       	<li class="">
             <a href="/content/create">
                 <i class="fa fa-plus"></i>
-                Create
+                <g:message code="default.button.create.label" />
             </a>
         </li>
         <!-- 
@@ -43,7 +43,9 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">
+          <g:message code="default.button.submit.label" />
+        </button>
       </form>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

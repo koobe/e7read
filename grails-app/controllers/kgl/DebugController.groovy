@@ -14,6 +14,11 @@ class DebugController {
     //def whoisService
 
     def index() {
+
+        grailsApplication.config.flatten().entrySet().each {
+            log.info it
+        }
+
         [
                 actions: [
                         'aws',

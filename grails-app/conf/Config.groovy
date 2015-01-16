@@ -242,10 +242,15 @@ grails {
 }
 
 // TODO: Change this to default E7READ service email address
-grails.mail.default.from="kyle@koobe.com.tw"
+grails.mail.default.from = "kyle@koobe.com.tw"
 
 google {
     api {
         key = "AIzaSyC0mLGhDiBjkk2PK_spa_zRYmzCeIUiBso"
     }
 }
+
+/**
+// Following will be Configuration domain object
+google.analytics.account = 'UA-54038726-1'
+*/

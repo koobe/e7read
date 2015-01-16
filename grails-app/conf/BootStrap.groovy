@@ -1,3 +1,6 @@
+import groovy.json.JsonSlurper
+import kgl.Configuration
+import kgl.Localization
 import org.springframework.context.MessageSource
 
 class BootStrap {
@@ -55,6 +58,28 @@ class BootStrap {
                 }
             }
         }
+
+
+
+        log.info "Fetch runtime configuration and save to Configuration database"
+
+        def jsonText = grailsApplication.parentContext.getResource("classpath:json/configuration.json").file.text
+        def json = new JsonSlurper().parseText(jsonText)
+
+        json.keySet().each {
+            key ->
+                def value = json.get(key)
+
+                log.info "Check configuration: ${key} = ${value}"
+
+                def config = Configuration.findByName(key)
+
+                if (!config) {
+                    config = new Configuration(name: key, content: value)
+                    config.save flush: true
+                }
+        }
+
     }
 
     def destroy = {

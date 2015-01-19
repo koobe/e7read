@@ -5,6 +5,8 @@ import grails.transaction.Transactional
 @Transactional
 class LocaleService {
 
+    def grailsApplication
+
     def readPropertiesToDatabase(Locale locale, boolean rewrite = false) {
 
         log.info "Load locale message file for ${locale.toLanguageTag()}"
@@ -17,7 +19,7 @@ class LocaleService {
             return;
         }
 
-        props.load(propsFile.newInputStream())
+        props.load(propsFile.newReader('UTF-8'))
 
         if (!locale) {
             locale = Locale.ENGLISH
@@ -26,13 +28,9 @@ class LocaleService {
         props.keySet().each { code ->
             def content = props.get(code)
 
-            def loc = null
+            def loc = Localization.findByGroupAndCodeAndLang('messages', code, locale.toLanguageTag())
 
-            if (!rewrite) {
-                loc = Localization.findByGroupAndCodeAndLang('messages', code, locale.toLanguageTag())
-            }
-
-            if (!loc) {
+            if (!loc || rewrite) {
 
                 def group = 'messages'
 
@@ -41,6 +39,8 @@ class LocaleService {
                     code = code.substring(code.indexOf('|') + 1)
                 }
 
+                log.info "append locale: ${group}|${code}=${content}"
+
                 loc = new Localization(group: group, code: code, lang: locale.toLanguageTag(), content: content)
                 loc.save flush: true
             }
@@ -48,7 +48,7 @@ class LocaleService {
 
     }
 
-    private getPropsFile(Locale locale) {
+    private File getPropsFile(Locale locale) {
         def fileName
 
         if (!locale || locale.equals(Locale.ENGLISH)) {

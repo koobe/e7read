@@ -157,6 +157,7 @@ class AdminController {
 
         locales = Localization.findAllByGroup(group).sort {it.code}.unique { it.group + '.' + it.code }
 
+        log.info "${locales?.size()} locale messages found."
         //TODO: unique closure is not efficiency
 
         [

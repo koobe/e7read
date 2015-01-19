@@ -2,6 +2,8 @@ package kgl
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Environment
+import org.apache.tomcat.jni.Local
 
 class LocaleController {
 
@@ -72,7 +74,16 @@ class LocaleController {
         return result
     }
 
+    @Secured(["ROLE_ADMIN"])
     def reload() {
+
+        def result = [result: true, message: '']
+
+        if (Environment.current == Environment.DEVELOPMENT) {
+            Localization.list().each {
+                it.delete flush: true
+            }
+        }
 
         localeService.readPropertiesToDatabase(Locale.ENGLISH, true)
         localeService.readPropertiesToDatabase(Locale.TRADITIONAL_CHINESE, true)
@@ -81,6 +92,6 @@ class LocaleController {
         localeService.readPropertiesToDatabase(Locale.KOREAN, true)
         localeService.readPropertiesToDatabase(Locale.FRENCH, true)
 
-        render ([result: true]) as JSON
+        render result as JSON
     }
 }

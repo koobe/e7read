@@ -5,6 +5,8 @@ import grails.plugin.springsecurity.annotation.Secured
 
 class LocaleController {
 
+    def localeService
+
     def index() {}
 
     @Secured(["ROLE_USER"])
@@ -70,4 +72,15 @@ class LocaleController {
         return result
     }
 
+    def reload() {
+
+        localeService.readPropertiesToDatabase(Locale.ENGLISH, true)
+        localeService.readPropertiesToDatabase(Locale.TRADITIONAL_CHINESE, true)
+        localeService.readPropertiesToDatabase(Locale.SIMPLIFIED_CHINESE, true)
+        localeService.readPropertiesToDatabase(Locale.JAPANESE, true)
+        localeService.readPropertiesToDatabase(Locale.KOREAN, true)
+        localeService.readPropertiesToDatabase(Locale.FRENCH, true)
+
+        render ([result: true]) as JSON
+    }
 }

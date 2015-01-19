@@ -1,5 +1,6 @@
 {
   "google.analytics.account": "UA-54038726-1",
   "google.api.key": "AIzaSyC0mLGhDiBjkk2PK_spa_zRYmzCeIUiBso",
-  "mail.default.from": "kyle@koobe.com.tw"
+  "mail.default.from": "kyle@koobe.com.tw",
+  "kgl.editor.allow.paste.from.clipboard": "true"
 }

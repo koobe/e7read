@@ -84,14 +84,22 @@
 			<g:render template="/home/section_title" model="[sectionTitle: '我的位置', fontAwesome: '']"></g:render>
 			
 			<div>
-				<div class="title">Welcome to E7LIFE.</div>
-    			<div class="sub-title">-Share everything around your nearby locations</div>
+				<div class="title">
+					<g:message code="site.kgl.welcome.to.e7" />
+					<%--Welcome to E7LIFE.--%>
+				</div>
+    			<div class="sub-title">
+					-
+					<g:message code="site.kgl.slogan" /></div>
 			</div>
      		
-     		<div class="tips">您可以在生活周遭，分享您最喜愛的事物。為了更好的服務體驗，請提供您最常使用的地點、或地標，例如：捷運站、商家、建築物等。</div>
+     		<div class="tips">
+				<g:message code="map.welcome.tips" />
+				<%-- 您可以在生活周遭，分享您最喜愛的事物。為了更好的服務體驗，請提供您最常使用的地點、或地標，例如：捷運站、商家、建築物等。 --%>
+			</div>
      		
      		<div class="choice" ng-controller="GooglePlaceAutoCompleteController">
-     			輸入您的位置：
+				<g:message code="map.welcome.location.prompt" /><%--輸入您的位置--%>：
      			<div style="padding-top: 3px;">
 		     		<input id="place_input" type="text" class="gplaces-input form-control" id="Autocomplete" 
 		     			ng-autocomplete="result" 
@@ -99,8 +107,12 @@
 						options="options" ng-model="locationName" />
 				</div>
 				<div>
-	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="openPromptMap()">開啟地圖設定</a>
-	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="setLocationBySensor()">重新定位</a>
+	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="openPromptMap()">
+						<g:message code="map.welcome.button.enable.sensor" /><%--開啟地圖設定--%>
+					</a>
+	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="setLocationBySensor()">
+						<g:message code="map.welcome.button.reset.location" /><%--重新定位--%>
+					</a>
 	     		</div>
 	     		
 	     		<input style="display:none;" type="input" name="lat" ng-model="locationLat" />
@@ -109,14 +121,15 @@
      		</div>
      		
      		<div class="choice">
-     			您已選擇位置：
+				<g:message code="map.welcome.selected.location" /><%--您已選擇位置--%>：
      			<div class="choice-block" style="margin-top: 3px;">
-     				<div>經度：{{locationLon}}</div>
-     				<div>緯度：{{locationLat}}</div>
-     				<div>地點名稱：{{locationName}}</div>
+     				<div><g:message code="map.welcome.data.lon" />：{{locationLon}}</div>
+     				<div><g:message code="map.welcome.data.lat" />：{{locationLat}}</div>
+     				<div><g:message code="map.welcome.data.place.name" />：{{locationName}}</div>
      			</div>
      			<div class="tip">
-     				備註：您之後可以在個人檔案中修改位置資訊。
+					<g:message code="map.welcome.location.remark" />
+     				<%--備註：您之後可以在個人檔案中修改位置資訊。--%>
      			</div>
      		</div>
      		

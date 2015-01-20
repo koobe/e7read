@@ -6,6 +6,10 @@
   <link href="/jquery-mobile-theme/themes/e7read.min.css" rel="stylesheet" />
 
   <style>
+  .in, .out {
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-duration: 200ms !important;
+  }
     html, body,  {
       height: 100%;
     }
@@ -51,23 +55,13 @@
   </div>
 </g:each>
 
-<!--
-<div class="flipbook-viewport">
-  <div class="container">
-    <div class="flipbook">
-      <div class="page" style="background-image:url(${cover})"></div>
-
-      <g:each in="${pages}" var="page">
-        <div class="double" style="background-image:url(${page})"></div>
-      </g:each>
-
-    </div>
-  </div>
-</div>
--->
 
 <script type="text/javascript">
-
+$(function() {
+//  $('a.page-switcher').unbind('click').click(function() {
+//    $(this).hide();
+//  });
+});
 </script>
 
 </body>

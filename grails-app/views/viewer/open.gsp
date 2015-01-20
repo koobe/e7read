@@ -8,7 +8,7 @@
   <style>
   .in, .out {
     -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-duration: 200ms !important;
+    -webkit-animation-duration: 250ms !important;
   }
     html, body,  {
       height: 100%;
@@ -31,6 +31,15 @@
     .page-switcher-next {
       right: 0;
     }
+    .image-rendering {
+      /*image-rendering: optimizeQuality; -ms-interpolation-mode:bicubic;*/
+      /*image-rendering: -webkit-pixelated;*/
+      image-rendering: pixelated;
+      image-rendering: optimize-contrast;
+      /*image-resolution: 300dpi;*/
+      image-resolution: 72dpi;
+      /*image-rendering:-moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering:-webkit-optimize-contrast; -ms-interpolation-mode:nearest-neighbor;*/
+    }
   </style>
 </head>
 <body>
@@ -50,17 +59,28 @@
     <div role="main" class="ui-content book-cover">
       <a href="#page-${(i-1)<0?0:i-1}" class="page-switcher page-switcher-prev" data-transition="slide" data-direction="reverse">&nbsp;</a>
       <a href="#page-${i+1}" class="page-switcher page-switcher-next" data-transition="slide">&nbsp;</a>
-      <div style="width: 100%; height: 100%; background-image: url(${page}); background-repeat: no-repeat; background-size: contain; background-position: center"></div>
+      <div class="image-rendering" style="width: 100%; height: 100%; background-image: url(${page}); background-repeat: no-repeat; background-size: contain; background-position: center;"></div>
     </div>
   </div>
 </g:each>
 
 
 <script type="text/javascript">
+$.fn.preload = function() {
+  this.each(function(){
+    $('<img/>')[0].src = this;
+  });
+};
+
+
 $(function() {
 //  $('a.page-switcher').unbind('click').click(function() {
 //    $(this).hide();
 //  });
+
+  $(['${raw(pages.join("','"))}']).preload();
+
+
 });
 </script>
 

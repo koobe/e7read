@@ -31,7 +31,7 @@ class S3Service {
     String secretKey
     String bucket
     BasicAWSCredentials credentials
-	AmazonS3 s3client;
+	AmazonS3Client s3client;
 
     @PostConstruct
     void initialize() {
@@ -48,6 +48,22 @@ class S3Service {
 
     boolean doesBucketExist(bucket) {
         s3client.doesBucketExist(bucket)
+    }
+
+    def listBuckets() {
+        s3client.listBuckets().collect { it.name }
+    }
+
+    def listObjects(bucket, prefix) {
+        s3client.listObjects(bucket, prefix).objectSummaries.collect { it.key }
+    }
+
+    def getObject(String bucket, String key) {
+        s3client.getObject(bucket, key)?.objectContent
+    }
+
+    URL generatePresignedUrl(String bucket, String key) {
+        s3client.generatePresignedUrl(bucket, key, new Date()+15)
     }
 
     void createBucket() {

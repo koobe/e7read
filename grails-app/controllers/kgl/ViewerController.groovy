@@ -14,9 +14,13 @@ class ViewerController {
 
     def debug() {
 
-        def result = []
+//        def result = []
+//        result << [files: s3Service.listObjects('koobecloudepub', 'books-4x/epub/0/0/1/00163925-1a6f-4ca8-a5e2-a55ad6b331c6.epub/OEBPS/')]
+//        render result as JSON
 
-        render result as JSON
+        //render s3Service.getObject('koobecloudepub', 'books-2x/epub/unzip/0/0/1/00161d7a-ee45-4404-8bc3-8e51d0d769ab.epub/OEBPS/contents.xml').text
+
+        render s3Service.getObject('koobecloudepub', 'books-2x/epub/unzip/0/0/1/00161d7a-ee45-4404-8bc3-8e51d0d769ab.epub/OEBPS/content.opf').text
     }
 
     def open() {

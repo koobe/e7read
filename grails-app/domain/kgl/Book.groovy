@@ -1,8 +1,10 @@
 package kgl
 
+import java.util.Date;
+
 class Book {
 	
-	String id
+	String id = UUID.randomUUID().toString()
 	
 	String name
 	
@@ -13,6 +15,14 @@ class Book {
 	String isbn
 	
 	String ean
+	
+	Boolean unedited
+	
+	Boolean finishedUpload
+	
+	Date dateCreated
+	
+	Date lastUpdated
 	
 	static belongsTo = [
 		publisher: Publisher
@@ -27,11 +37,13 @@ class Book {
 		issn nullable: true
 		isbn nullable: true
 		ean nullable: true
+		unedited nullable: true
+		finishedUpload nullable: true
 		publisher nullable: true
     }
 	
 	static mapping = {
-		id generator: 'uuid'
+		id generator:'assigned'
 		pages sort: 'dataIndex'
 	}
 }

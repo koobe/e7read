@@ -2,6 +2,7 @@ package kgl
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import groovy.json.JsonParser
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -32,14 +33,24 @@ class UserController {
 		
         def user = springSecurityService.currentUser
 
-        [user: springSecurityService.currentUser, params: params, channel: session['channel']]
+        def avatar = null
+
+        if (user?.facebookId) {
+            log.info "user.facebookId = ${user.facebookId}"
+
+            avatar = "http://graph.facebook.com/${user.facebookId}/picture?type=large"
+
+            //avatar = Facebook
+        }
+
+        [user: user, params: params, channel: session['channel'], avatar: avatar]
     }
 
     @Secured(["ROLE_USER"])
     def modify() {
         def user = springSecurityService.currentUser
 
-        [user: springSecurityService.currentUser]
+        [user: user]
     }
 
     @Secured(["ROLE_USER"])

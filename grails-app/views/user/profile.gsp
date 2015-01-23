@@ -24,6 +24,16 @@
         <div class="col-md-8">
             <form class="form-horizontal" role="form">
 
+
+                <g:if test="${avatar}">
+                    <div class="form-group">
+                        <label class="col-xs-3 control-label">Avatar:</label>
+                        <div class="col-xs-9">
+                            <g:img uri="${avatar}" class="img-thumbnail" style="width:100px" />
+                        </div>
+                    </div>
+                </g:if>
+
                 <div class="form-group">
                     <label class="col-xs-3 control-label">Username:</label>
                     <div class="col-xs-9">

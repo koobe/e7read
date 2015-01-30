@@ -5,9 +5,9 @@ import java.util.Date;
 class Book {
 	
 	String id = UUID.randomUUID().toString()
-	
+
 	String name
-	
+
 	String description
 	
 	String issn

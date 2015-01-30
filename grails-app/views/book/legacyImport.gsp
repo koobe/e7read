@@ -6,26 +6,23 @@
 </head>
 <body>
 <div class="container">
-  <g:link action="legacyImport">Import</g:link>
+  <g:link action="legacy">List</g:link>
   <div class="page-header">
-    <h2>Legacy EPUB</h2>
+    <h2>Import EPUB</h2>
   </div>
   <table class="table table-bordered table-striped table-hover table-responsive">
     <tr>
       <th>#</th>
-      <th width="30%">Book Title</th>
-      <th>Description</th>
+      <th>EPUB File</th>
+      <th>Status</th>
       <th>Actions</th>
     </tr>
-    <g:each in="${legacies}" var="legacy" status="i">
+    <g:each in="${files}" var="file" status="i">
       <tr>
         <td>${i+1}</td>
+        <td><small>${file}</small></td>
         <td>
-          <small>${legacy.title}</small>
-        </td>
-        <td>
-          <p><small>${legacy.description}</small></p>
-          <p class="text-info"><small>${legacy.contributor} / ${legacy.date} / ${legacy.language} / ${legacy.subject}</small></p>
+          <span class="text-warning">Read XML First</span>
         </td>
         <td>
           <div class="btn-group btn-group-xs">

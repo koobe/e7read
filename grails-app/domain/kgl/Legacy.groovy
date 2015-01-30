@@ -8,9 +8,21 @@ class Legacy {
 
     String metadata
 
-    String name
+    String title
 
     String description
+
+    String opf
+
+    String creator
+
+    String contributor
+
+    String date
+
+    String language
+
+    String subject
 
     static constraints = {
     }

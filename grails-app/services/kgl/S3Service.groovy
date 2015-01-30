@@ -1,22 +1,14 @@
 package kgl
 
-import net.coobird.thumbnailator.Thumbnailator
-import net.coobird.thumbnailator.Thumbnails
-import net.coobird.thumbnailator.resizers.configurations.Rendering
-import org.springframework.web.multipart.commons.CommonsMultipartFile
-
-import java.util.logging.Logger;
-
 import com.amazonaws.auth.BasicAWSCredentials
-import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.CannedAccessControlList
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
-
+import com.amazonaws.services.s3.model.ListObjectsRequest
 import grails.transaction.Transactional
 import grails.util.Environment
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 import javax.annotation.PostConstruct
 
@@ -54,12 +46,24 @@ class S3Service {
         s3client.listBuckets().collect { it.name }
     }
 
-    def listObjects(bucket, prefix) {
+    def listObjects(String bucket, String prefix) {
         s3client.listObjects(bucket, prefix).objectSummaries.collect { it.key }
+    }
+
+    def listObjects(String bucket, String prefix, String delimiter) {
+        def request = new ListObjectsRequest()
+                .withBucketName(bucket)
+                .withPrefix(prefix)
+                .withDelimiter(delimiter)
+        s3client.listObjects(request).commonPrefixes.collect { it }
     }
 
     def getObject(String bucket, String key) {
         s3client.getObject(bucket, key)?.objectContent
+    }
+
+    String getObjectText(String bucket, String key) {
+        s3client.getObject(bucket, key)?.objectContent?.text
     }
 
     URL generatePresignedUrl(String bucket, String key) {

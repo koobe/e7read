@@ -14,6 +14,8 @@ class Page {
 	
 	AwsS3File thumbnailFile
 	
+	String fullText
+	
 	static belongsTo = [
 		book: Book
 	]
@@ -23,6 +25,7 @@ class Page {
 		thumbnailFileUrl nullable: true
 		imageFile nullable: true
 		thumbnailFile nullable: true
+		fullText nullable: true, maxSize: 1024 * 1024
     }
 	
 	static mapping = {

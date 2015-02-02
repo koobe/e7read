@@ -5,9 +5,9 @@ import java.util.Date;
 class Book {
 	
 	String id = UUID.randomUUID().toString()
-
+	
 	String name
-
+	
 	String description
 	
 	String issn
@@ -16,9 +16,17 @@ class Book {
 	
 	String ean
 	
+	AwsS3File pdfFile
+	
+	String pdfFileUrl
+	
+	String originalFileName
+	
 	Boolean unedited
 	
 	Boolean finishedUpload
+	
+	Boolean isDelete
 	
 	Date dateCreated
 	
@@ -37,8 +45,12 @@ class Book {
 		issn nullable: true
 		isbn nullable: true
 		ean nullable: true
+		pdfFile nullable: true
+		pdfFileUrl nullable: true
+		originalFileName nullable: true
 		unedited nullable: true
 		finishedUpload nullable: true
+		isDelete nullable: true
 		publisher nullable: true
     }
 	

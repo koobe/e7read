@@ -43,6 +43,15 @@
             系統組態管理
         </g:link>
     </div>
+
+    <hr />
+
+    <div class="list-group">
+        <g:link controller="book" action="legacy" class="list-group-item">
+            <i class="fa fa-book"></i>
+            KGL B2B 書籍匯入管理
+        </g:link>
+    </div>
 </div>
 
 

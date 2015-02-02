@@ -24,6 +24,13 @@ class Legacy {
 
     String subject
 
+    String publisher
+
+    static mapping = {
+        opf type: 'text'
+    }
+
     static constraints = {
+        description maxSize: 10 * 1024
     }
 }

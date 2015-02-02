@@ -38,7 +38,7 @@ class BookController {
     }
 
     def legacyFetchXML() {
-        def result = []
+        def result = [:]
         def file = params.file
 
         result << [file: file]
@@ -51,7 +51,6 @@ class BookController {
         def legacy = Legacy.findByKey(key)
 
         if (!legacy) {
-
 
             def opf = s3Service.getObject('koobecloudepub', "${file}OEBPS/content.opf").text
 
@@ -68,9 +67,10 @@ class BookController {
             legacy.key = key
             legacy.s3key = file
             legacy.metadata = ''
-            legacy.opf = ''
+            legacy.opf = opf
             legacy.title = xml.metadata.'dc:title'
             legacy.creator = xml.metadata.'dc:creator'
+            legacy.publisher = xml.metadata.'dc:publisher'
             legacy.contributor = xml.metadata.'dc:contributor'
             legacy.date = xml.metadata.'dc:date'
             legacy.language = xml.metadata.'dc:language'
@@ -82,7 +82,7 @@ class BookController {
 
         result << [legacy: legacy]
 
-        result << [message: '']
+        result << [message: "「${legacy.title}」已經匯入！"]
 
         render result as JSON
     }

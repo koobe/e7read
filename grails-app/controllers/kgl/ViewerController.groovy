@@ -14,14 +14,16 @@ class ViewerController {
 
     def debug() {
 
-        def result = []
-        result << [files: s3Service.listObjects('koobecloudepub', 'books-2x/epub/unzip/0/0/0/00027349-daf1-4bd9-b291-1babe3ed48fa.epub/OEBPS/')]
-        render result as JSON
+//        def result = []
+//        result << [files: s3Service.listObjects('koobecloudepub', 'books-2x/epub/unzip/0/0/0/00027349-daf1-4bd9-b291-1babe3ed48fa.epub/OEBPS/')]
+//        render result as JSON
 
-        //render s3Service.getObject('koobecloudepub', 'books-2x/epub/unzip/0/0/1/00161d7a-ee45-4404-8bc3-8e51d0d769ab.epub/OEBPS/contents.xml').text
+        render s3Service.getObject('koobecloudepub', 'books-2x/epub/unzip/0/0/1/00161d7a-ee45-4404-8bc3-8e51d0d769ab.epub/OEBPS/content.opf').text
 
         //render s3Service.getObject('koobecloudepub', 'books-2x/epub/unzip/0/0/0/0000f683-b28a-4ead-9dba-e39d5fcac10a.epub/OEBPS/content.opf').text
 
+        //render s3Service.getObject('koobecloudepub', 'books-2x/epub/unzip/0/0/0/00027349-daf1-4bd9-b291-1babe3ed48fa.epub/OEBPS/package.opf').text
+        //render s3Service.hasObject('koobecloudepub', 'books-2x/epub/unzip/0/0/0/00027349-daf1-4bd9-b291-1babe3ed48fa.epub/OEBPS/package.opf')
     }
 
     def open() {

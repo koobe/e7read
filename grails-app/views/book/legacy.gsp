@@ -33,13 +33,18 @@
       <tr>
         <td align="right">${i+1}</td>
         <td>
-          <small>${legacy.title}</small>
+          <p><small>${legacy.title}</small></p>
+          <p><g:link controller="legacy" action="opf" id="${legacy.id}">content.opf</g:link></p>
+          <g:if test="${legacy.coverKey}">
+            <img src="${createLink(controller: 'legacy', action: 'cover', id: legacy.id)}" alt="cover" class="img-thumbnail" style="max-width:150px" />
+          </g:if>
         </td>
         <td>
           <p><small>${legacy.description}</small></p>
           <p class="text-info"><small>${legacy.publisher} / ${legacy.date} / ${legacy.language} / ${legacy.subject}</small></p>
           <p><small><code>${legacy.s3key}</code></small></p>
           <%--<pre>${legacy.opf}</pre>--%>
+          <%--<pre>${legacy.imageItems}</pre>--%>
         </td>
         <td>
           <div class="btn-group btn-group-xs">

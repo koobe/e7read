@@ -2,6 +2,7 @@ package kgl
 
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3Client
+import com.amazonaws.services.s3.model.AmazonS3Exception
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
@@ -56,6 +57,16 @@ class S3Service {
                 .withPrefix(prefix)
                 .withDelimiter(delimiter)
         s3client.listObjects(request).commonPrefixes.collect { it }
+    }
+
+    def hasObject(String bucket, String key) {
+        try {
+            s3client.getObjectMetadata(bucket, key)
+        }
+        catch (ex) {
+            return false
+        }
+        return true
     }
 
     def getObject(String bucket, String key) {

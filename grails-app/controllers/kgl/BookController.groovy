@@ -71,7 +71,14 @@ class BookController {
         if (!legacy) {
 
             try {
-                def opf = s3Service.getObject('koobecloudepub', "${file}OEBPS/content.opf").text
+                def opf
+
+                if (s3Service.hasObject('koobecloudepub', "${file}OEBPS/content.opf")) {
+                    opf = s3Service.getObject('koobecloudepub', "${file}OEBPS/content.opf").text
+                }
+                else {
+                    opf = s3Service.getObject('koobecloudepub', "${file}OEBPS/package.opf").text
+                }
 
                 // remove BOM
                 if (opf.startsWith(UTF8_BOM)) {
@@ -95,6 +102,40 @@ class BookController {
                 legacy.language = xml.metadata.'dc:language'
                 legacy.subject = xml.metadata.'dc:subject'
                 legacy.description = xml.metadata.'dc:description'
+
+
+                def images = [:]
+                def imageItems = []
+                def max = 0
+                def min = 9999
+
+                xml.manifest[0].children().each {
+                    if (it.name() == 'item') {
+                        def itemId = it.'@id'.text()
+                        if (itemId?.startsWith('image_')) {
+                            def num = Integer.valueOf(itemId.replace('image_', ''))
+                            images[num] = it.'@href'.text()
+                            if (num > max) {
+                                max = num
+                            }
+                            if (num < min) {
+                                min = num
+                            }
+                        }
+                    }
+                }
+
+                (min..max).each { idx ->
+                    log.info "${images[idx]}"
+                    if ("${images[idx]}".indexOf('cover.') >= 0) {
+                        legacy.coverKey = images[idx]
+                    }
+                    else {
+                        imageItems << images[idx]
+                    }
+                }
+
+                legacy.imageItems = imageItems.join('\n')
 
                 legacy.save flush: true
 

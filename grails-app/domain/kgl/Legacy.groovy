@@ -26,11 +26,18 @@ class Legacy {
 
     String publisher
 
+    String coverKey
+
+    String imageItems
+
     static mapping = {
         opf type: 'text'
+        imageItems type: 'text'
     }
 
     static constraints = {
         description maxSize: 10 * 1024
+        coverKey nullable: true
+        imageItems nullable: true
     }
 }

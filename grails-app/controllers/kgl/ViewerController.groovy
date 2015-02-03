@@ -27,6 +27,7 @@ class ViewerController {
     }
 
     def open() {
+        def cover = null
         def pages = []
 
         //result << [bucket: s3Service.listBuckets()]
@@ -39,9 +40,21 @@ class ViewerController {
 
         //render s3Service.getObject('koobecloudepub', 'books-2x/epub/unzip/0/0/1/00161d7a-ee45-4404-8bc3-8e51d0d769ab.epub/OEBPS/contents.xml').text
 
+
+        if (params.legacy) {
+            def legacy = Legacy.get(params.legacy)
+            if (legacy) {
+                if (legacy.coverKey) {
+                    cover = s3Service.generatePresignedUrl('koobecloudepub', "${legacy.s3key}OEBPS/${legacy.coverKey}")
+                }
+
+                pages = legacy.imageItems?.split('\n').collect { s3Service.generatePresignedUrl('koobecloudepub', "${legacy.s3key}OEBPS/${it}") }
+            }
+        }
+
         [
-                cover: s3Service.generatePresignedUrl('koobecloudepub', "books-4x/epub/0/0/1/00163925-1a6f-4ca8-a5e2-a55ad6b331c6.epub/OEBPS/images/cover.jpg"),
-                pages: (1..132).collect { s3Service.generatePresignedUrl('koobecloudepub', "books-4x/epub/0/0/1/00163925-1a6f-4ca8-a5e2-a55ad6b331c6.epub/OEBPS/images/${it}.jpg") }
+                cover: cover,
+                pages: pages
         ]
     }
 }

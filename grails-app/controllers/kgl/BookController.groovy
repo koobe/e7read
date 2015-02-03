@@ -126,7 +126,7 @@ class BookController {
                 }
 
                 (min..max).each { idx ->
-                    log.info "${images[idx]}"
+                    //log.info "${images[idx]}"
                     if ("${images[idx]}".indexOf('cover.') >= 0) {
                         legacy.coverKey = images[idx]
                     }

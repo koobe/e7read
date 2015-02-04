@@ -142,28 +142,40 @@
         });
     };
 
+    var preload = function (page) {
+        var url = $('#p' + page).data('url');
+        $('#p' + page).css('background-image', url);
+    };
+
     var display = function (pageNum) {
+        console.log("display(" + pageNum + ");");
+
         $('.image-content').hide();
+
+        var maximum = parseInt($('input[name=maximum]').val());
+
+        if (pageNum < 0) {
+            pageNum = 0;
+        }
+        else if (pageNum > maximum) {
+            pageNum = maximum;
+        }
+
+        console.log("display page: " + pageNum + ', ' + maximum);
 
         var url = $('#p' + pageNum).data('url');
         $('#p' + pageNum).css('background-image', url).show();
 
+        for (var i = pageNum + 1; i < pageNum + 5; i++) {
+            preload(i);
+        }
 
         // Update current page num
         $('input[name=current]').val(pageNum);
         $('#textCurrentPageNum').text(pageNum + 1);
     };
 
-    var preload = function (page) {
-        var url = $('#p' + page).data('url');
-        $('#p' + page).css('background-image', url);
-    };
-
     display(0);
-
-    for (var i = 1; i < 5; i++) {
-        preload(i);
-    }
 
     $(function () {
 
@@ -198,28 +210,11 @@
         $('a.page-switcher').click(function () {
 
             var current = parseInt($('input[name=current]').val());
-            var maximum = parseInt($('input[name=maximum]').val());
-
             var offset = parseInt($(this).data('offset'));
 
             current += offset;
 
-            if (current < 0) {
-                current = 0;
-            }
-            else if (current > maximum) {
-                current = maximum;
-            }
-
-            console.log(current + ', ' + maximum + ', ' + offset);
-
             display(current);
-
-            for (var i = current + 1; i < current + 5; i++) {
-                preload(i);
-            }
-
-            //console.log(current);
 
             return false;
         });

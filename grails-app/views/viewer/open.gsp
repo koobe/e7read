@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 
+    <link href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
     <link href="//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" rel="stylesheet"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="/jquery-mobile-theme/themes/e7read.min.css" rel="stylesheet"/>
@@ -109,9 +110,8 @@
     </div>
 
     <div id="viewer-footer">
-        <div class="page-slider">
-            <input type="range" name="sliderPageNum" value="1" min="1" max="${pages.size()}" data-mini="true" style="display: none" />
-        </div>
+
+        <div id="slider" data-min="1" data-max="${pages.size()}"></div>
 
         <h1>${title}</h1>
 
@@ -133,6 +133,7 @@
 </div>
 
 <script type="application/javascript" src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="application/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script type="application/javascript" src="//labs.rampinteractive.co.uk/touchSwipe/jquery.touchSwipe.min.js"></script>
 <script type="text/javascript">
 
@@ -179,6 +180,16 @@
 
     $(function () {
 
+        $( "#slider" ).slider({
+            min: $('#slider').data('min'),
+            max: $('#slider').data('max'),
+            change: function( event, ui ) {
+                var pageNum = parseInt($(this).slider('value'));
+                console.log("(Slider) Open Page: " + pageNum);
+                display(pageNum - 1);
+            }
+        });
+
 //        $('#viewer-content').click(function() {
 //            $('#viewer-footer').toggle();
 //        });
@@ -202,17 +213,6 @@
             },
             threshold: 45
         });
-
-        $('input[name=sliderPageNum]').change(function() {
-            var pageNum = $('input[name=sliderPageNum]').val();
-            console.log("(Slider) Open Page: " + pageNum);
-            display(pageNum - 1);
-        });
-
-
-        //$(['${raw(pages.join("','"))}']).preload();
-
-        $('#p0').show();
 
         $('a.page-switcher').click(function () {
 

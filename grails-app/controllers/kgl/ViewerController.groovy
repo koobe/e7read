@@ -27,6 +27,7 @@ class ViewerController {
     }
 
     def open() {
+        def title = "Untitled"
         def cover = null
         def pages = []
 
@@ -44,6 +45,9 @@ class ViewerController {
         if (params.legacy) {
             def legacy = Legacy.get(params.legacy)
             if (legacy) {
+
+                title = legacy.title
+
                 if (legacy.coverKey) {
                     cover = s3Service.generatePresignedUrl('koobecloudepub', "${legacy.s3key}OEBPS/${legacy.coverKey}")
                 }
@@ -53,6 +57,7 @@ class ViewerController {
         }
 
         [
+                title: title,
                 cover: cover,
                 pages: pages
         ]

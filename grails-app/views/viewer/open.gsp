@@ -179,21 +179,28 @@
 
     $(function () {
 
-        $('#viewer-content').click(function() {
-            $('#viewer-footer').toggle();
-        });
+//        $('#viewer-content').click(function() {
+//            $('#viewer-footer').toggle();
+//        });
+
+        var swipeHandler = function(event, direction, distance, duration, fingerCount, fingerData) {
+            console.log('swipe direction: ' + direction);
+
+            var current = parseInt($('input[name=current]').val());
+            var pageNum = current + (direction=='left'?1:-1);
+            console.log("(Swipe) Open Page: " + pageNum);
+            display(pageNum);
+
+            $('#viewer-footer').hide();
+        };
 
         $('#viewer-content').swipe( {
-            swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-                console.log('swipe direction: ' + direction);
-
-                var current = parseInt($('input[name=current]').val());
-                var pageNum = current + (direction=='left'?1:-1);
-                console.log("(Swipe) Open Page: " + pageNum);
-                display(pageNum);
+            swipeLeft: swipeHandler,
+            swipeRight: swipeHandler,
+            tap: function(event, target) {
+                $('#viewer-footer').toggle();
             },
-            //Default is 75px, set to 0 for demo so any distance triggers swipe
-            threshold: 30
+            threshold: 45
         });
 
         $('input[name=sliderPageNum]').change(function() {

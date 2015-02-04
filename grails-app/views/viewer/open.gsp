@@ -109,15 +109,6 @@
         </g:each>
     </div>
 
-    <div id="viewer-footer">
-
-        <div id="slider" data-min="1" data-max="${pages.size()}"></div>
-
-        <h1>${title}</h1>
-
-        第 <span id="textCurrentPageNum">1</span> 頁 / 共 <span id="textTotalPageNum">${pages.size()}</span> 頁
-    </div>
-
     <a href="#" class="page-switcher page-switcher-prev" data-transition="slide"
        data-direction="reverse" data-target="0" data-offset="-1" data-maximum="${pages.size()}">
         <i class="fa fa-chevron-left"></i>
@@ -127,6 +118,15 @@
        data-maximum="${pages.size()}">
         <i class="fa fa-chevron-right"></i>
     </a>
+
+    <div id="viewer-footer">
+
+        <div id="slider" data-min="1" data-max="${pages.size()}"></div>
+
+        <h1>${title}</h1>
+
+        第 <span id="textCurrentPageNum">1</span> 頁 / 共 <span id="textTotalPageNum">${pages.size()}</span> 頁
+    </div>
 
     <input name="current" value="0" type="hidden"/>
     <input name="maximum" value="${pages.size() - 1}" type="hidden"/>
@@ -221,7 +221,7 @@
 
             current += offset;
 
-            display(current);
+            $('#slider').slider('value', current + 1);
 
             return false;
         });

@@ -49,12 +49,14 @@ class HomeController {
 					showSetLocationTip = true;
 				} else {
 					redirect (controller: 'map', action: 'welcome')
+					return
 				}
 			}
 		}
 		
 		if (myChannel.name == 'trade') {
 			redirect (uri: '/maphome/trade')
+			return
 		}
 		
 		[

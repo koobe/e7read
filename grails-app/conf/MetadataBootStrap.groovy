@@ -1,6 +1,7 @@
 import groovy.json.JsonSlurper
 import kgl.Category
 import kgl.Channel
+import kgl.VirtualHost
 
 /**
  * 
@@ -73,6 +74,18 @@ class MetadataBootStrap {
 //                    log.info "channel.iconUrl = ${channel.iconUrl}"
 					
 					channel.save flush: true
+
+					if (node.vhost) {
+						node.vhost.split(';').each {
+							host ->
+
+								log.info "(VirtualHost) create vhost ${host} -> channel[${channel.name}]"
+
+								def vhost = VirtualHost.findOrCreateByHostname(host)
+								vhost.channel = channel
+								vhost.save flush: true
+						}
+					}
 				}
 			}
 		}

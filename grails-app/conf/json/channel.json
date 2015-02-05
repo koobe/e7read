@@ -9,7 +9,8 @@
 			"themeType": "article",
 			"showInPanel": true,
 			"iconUrl": "/assets/map/e7marker-1.png",
-			"order": 1
+			"order": 1,
+		  	"vhost": "dev.e7read.com;e7read.com;www.e7read.com"
 		},
 		{
 			"name" : "trade",
@@ -20,7 +21,8 @@
 			"themeType": "square",
 			"showInPanel": true,
 			"iconUrl": "/assets/map/e7marker-2.png",
-			"order": 2
+			"order": 2,
+		  	"vhost": "trademuch.co.uk;dev.trademuch.co.uk"
 		},
 		{
 			"name" : "ewc",

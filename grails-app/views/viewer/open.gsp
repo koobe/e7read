@@ -83,7 +83,61 @@
         position: fixed;
         bottom: 0;
         width: 100%;
+        padding: 20px 10px;
     }
+
+    #viewer-footer .col-left, .col-center, .col-right {
+        display: inline-block;
+        width: 33%;
+    }
+
+    #viewer-footer .col-left {
+        float: left;
+    }
+
+    #viewer-footer .col-right {
+        float: right;
+    }
+
+    #viewer-footer h1 {
+        display: inline-block;
+        font-size: 11pt;
+        font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+    }
+
+    #slider {
+        border: none;
+        height: 9px;
+        margin-bottom: 10px;
+    }
+
+    #slider .ui-slider-handle {
+        border-radius: 25px;
+        width: 18px;
+        height: 18px;
+        top: -6px;
+    }
+
+    #slider .ui-slider-handle.ui-state-default {
+        border-color: #fff;
+        background-color: #fff !important;
+        background-image: none;
+    }
+
+    #slider .ui-slider-handle.ui-state-active {
+        border-color: #fff;
+        background-color: #e6e6e6 !important;
+        background-image: none;
+    }
+
+    .page-num-display {
+        font-size: 11px;
+        font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace;
+        display: inline-block;
+        width: 7em;
+        text-align: right;
+    }
+
     .page-slider .ui-slider-track.ui-mini {
         height: 6px;
         margin-left: 20px;
@@ -121,11 +175,32 @@
 
     <div id="viewer-footer">
 
-        <div id="slider" data-min="1" data-max="${pages.size()}"></div>
+        <div class="col-left">
+            <div style="display: table-cell; vertical-align: middle; padding-right: 5px; font-size: 160%">
+                <i class="fa fa-caret-left"></i>
+            </div>
+            <div style="display: table-cell;vertical-align: middle;">
+                <h1>${title}</h1>
+            </div>
+        </div>
 
-        <h1>${title}</h1>
+        <div class="col-right">
+            <div style="text-align: center; font-size: 160%">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-info-circle"></i>
+                <i class="fa fa-list"></i>
+            </div>
+        </div>
 
-        第 <span id="textCurrentPageNum">1</span> 頁 / 共 <span id="textTotalPageNum">${pages.size()}</span> 頁
+        <div class="col-center">
+            <div style="display: inline-block; width: 100%;">
+                <div id="slider" data-min="1" data-max="${pages.size()}"></div>
+                <div class="page-num-display">
+                    <span id="textCurrentPageNum">1</span> / <span id="textTotalPageNum">${pages.size()}</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <input name="current" value="0" type="hidden"/>
@@ -134,6 +209,7 @@
 
 <script type="application/javascript" src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script type="application/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script type="application/javascript" src="//raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
 <script type="application/javascript" src="//labs.rampinteractive.co.uk/touchSwipe/jquery.touchSwipe.min.js"></script>
 <script type="text/javascript">
 
@@ -183,10 +259,24 @@
         $( "#slider" ).slider({
             min: $('#slider').data('min'),
             max: $('#slider').data('max'),
-            change: function( event, ui ) {
+            change: function(event, ui) {
                 var pageNum = parseInt($(this).slider('value'));
                 console.log("(Slider) Open Page: " + pageNum);
                 display(pageNum - 1);
+            },
+            start: function(event, ui) {
+                var pageNum = parseInt($(this).slider('value'));
+                console.log("(Slider) Start Preview: " + pageNum);
+            },
+            slide: function(event, ui) {
+                var pageNum = parseInt($(this).slider('value'));
+                console.log("(Slider) Preview: " + pageNum);
+                display(pageNum - 1);
+            },
+            stop: function(event, ui) {
+                var pageNum = parseInt($(this).slider('value'));
+                console.log("(Slider) Stop Preview: " + pageNum);
+                //$('#slider').blur();
             }
         });
 

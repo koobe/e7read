@@ -43,7 +43,7 @@
             </div>
             <img src="/assets/arrow_30.png" class="">
             <sec:ifNotLoggedIn>
-                <span class="anonymous-tag">匿名模式</span>
+                <span class="anonymous-tag">Anonymous mode</span>
             </sec:ifNotLoggedIn>
         </div>
     </div>
@@ -59,10 +59,10 @@
     	<div style="padding: 10px 0px 0px 0px; ">
 			<div style="display:table;">
 				<div style="display:table-cell;">
-					<span>價值：</span>
+					<span>Price：</span>
 				</div>
 				<div style="display:table-cell;">
-					<input id="trading-value" type="text" class="form-control" placeholder="請輸入金額" />
+					<input id="trading-value" type="text" class="form-control" placeholder="Enter number" />
 				</div>
 			</div>
 			<!-- 
@@ -106,21 +106,21 @@
         <input type="hidden" name="geolocation" value="${lat},${lon}" />
         
     	<div style="display:inline-block; padding: 10px 0px 0px 0px;">
-			<span>所在位置</span>
+			<span>Location</span>
             &nbsp;
             <g:link controller="map" action="prompt" class="location-link" target="_blank">
                 <i class="fa fa-map-marker"></i>
-                <span id="locationDisplayName">${location?:'地點未設定'}</span>
+                <span id="locationDisplayName">${location?:'Not defined'}</span>
             </g:link>
             &nbsp;
             <div class="btn-group" data-toggle="buttons" style="display: inline-block">
                 <label class="btn btn-default active">
                     <input type="radio" name="isShowLocation" id="isShowLocation1" value="true" autocomplete="off" checked>
-                    顯示
+                    Enable
                 </label>
                 <label class="btn btn-default">
                     <input type="radio" name="isShowLocation" id="isShowLocation2" value="false" autocomplete="off">
-                    隱藏
+                    Disable
                 </label>
             </div>
 		</div>
@@ -130,7 +130,7 @@
 	        </div>
 	        <sec:ifLoggedIn>
 		        <div style="display:inline-block;" class="btn-item">
-		            <g:link id="button-post-locked" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent(false);">儲存但不發佈</g:link>
+		            <g:link id="button-post-locked" class="koobe-text-btn koobe-text-btn-default" uri="javascript: postContent(false);">Not published</g:link>
 		        </div>
 	        </sec:ifLoggedIn>
 	        <div style="display:inline-block;" class="btn-item">

@@ -36,6 +36,12 @@ class VirtualHostFilters {
 	
 					log.info "(VirtualHost) auto mapping to channel[${currentChannel.name}]"
 				}
+
+//				if (request.getParameter('SSO_FB_TOKEN')) {
+//					log.info "process sso fb token..."
+//
+//					def token = request.getParameter('SSO_FB_TOKEN')
+//				}
                 
             }
             after = { Map model ->

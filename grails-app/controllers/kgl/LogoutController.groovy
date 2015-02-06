@@ -16,21 +16,25 @@ class LogoutController {
 		if (auth) {
 			
 			def agent = request.getHeader("User-Agent")
-			
-			log.info "User logout: ${springSecurityService.currentUser.id}, user agent: ${agent}"
-			def loginLog = new LoginLog(
-				userId: springSecurityService.currentUser.id,
-				loginType: 'logout',
-				timestamp: new Date(),
-				userAgent: agent,
-				sessionId: session? session.id: null
-			)
-			
-			loginLog.save flush: true
-			log.info loginLog.errors
-			
+
+			if (springSecurityService.currentUser) {
+				log.info "User logout: ${springSecurityService.currentUser.id}, user agent: ${agent}"
+
+				def loginLog = new LoginLog(
+						userId: springSecurityService.currentUser.id,
+						loginType: 'logout',
+						timestamp: new Date(),
+						userAgent: agent,
+						sessionId: session? session.id: null
+				)
+
+				loginLog.save flush: true
+				log.info loginLog.errors
+			}
+
 			new SecurityContextLogoutHandler().logout(request, response, auth)
 		}
+
 		SecurityContextHolder.getContext().setAuthentication(null)
 		
 		// if redirect to...

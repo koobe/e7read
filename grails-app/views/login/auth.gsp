@@ -64,13 +64,17 @@
 	</div>
      
      <div class="login-block">
-     	<oauth:connect provider="facebook" id="facebook-connect-link" class="btn btn-default">
+     	<oauth:connect provider="facebook" id="facebook-connect-link" class="btn btn-default" redirectUrl="${redirect}">
 	        <i class="fa fa-facebook-square"></i> Sign in with Facebook
 	    </oauth:connect>
      
 	     <div class="tip">
 			Facebook帳號登入僅提供會員方便整合帳號，及會員之間的互動回應。若非經個人同意，不會在Facebook上留下足跡，亦不會自動發表分享。
 	    </div>
+
+		 <iframe src="${ssoUrl}"></iframe>
+
+		 <!-- after fb auth will redirect to  ${redirect} -->
      </div>
 
     <g:if test='${flash.message}'>

@@ -26,6 +26,8 @@ class User {
     String authType = "SYSTEM"        // SYSTEM, FACEBOOK
     String facebookId
 
+	String ssoToken
+
     UserContact contact = new UserContact()
 
     //TODO
@@ -56,6 +58,8 @@ class User {
 
         location nullable: true
         lastIPAddress nullable: true
+
+		ssoToken nullable: true
 	}
 
 	static mapping = {

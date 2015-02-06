@@ -161,9 +161,14 @@ class UserController {
 
     @Secured(["ROLE_USER"])
     def debug() {
-        def user = springSecurityService.currentUser
 
-        render user as JSON
+        def result = [:]
+
+        result << [user: springSecurityService.currentUser]
+
+        //result << [fbUser: FacebookUser.list()]
+
+        render result as JSON
     }
 
     @Secured(["ROLE_ADMIN"])

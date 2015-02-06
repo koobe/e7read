@@ -91,13 +91,16 @@ environments {
     development {
         grails.logging.jul.usebridge = true
 
-        grails.serverURL = "http://dev.e7read.com:8080"
+        // According to the following topic,
+        // remove serverURL and let grails server generate actual url.
+        // http://stackoverflow.com/questions/8933356/how-do-i-set-grails-serverurl-in-an-enterprise-environment-when-i-dont-know-the
+        //grails.serverURL = "http://dev.e7read.com:8080"
     }
     production {
         grails.logging.jul.usebridge = false
 
         //grails.serverURL = "http://dev.e7read.com:8080"
-        grails.serverURL = System.getenv('SERVER_URL')?:System.getProperty('SERVER_URL')
+        //grails.serverURL = System.getenv('SERVER_URL')?:System.getProperty('SERVER_URL')
     }
 }
 
@@ -173,8 +176,18 @@ oauth {
             secret = System.getenv('OAUTH_FACEBOOK_SECRET')?:System.getProperty('OAUTH_FACEBOOK_SECRET')
             successUri = '/facebook/success'
             //failureUri = '/oauth/facebook/error'
+
             //callback = "http://dev.e7read.com:8080/oauth/facebook/callback"
         }
+    }
+}
+
+environments {
+    development {
+        oauth.providers.facebook.callback = "http://dev.e7read.com:8080/oauth/facebook/callback"
+    }
+    production {
+        oauth.providers.facebook.callback = "http://e7read.com/oauth/facebook/callback"
     }
 }
 

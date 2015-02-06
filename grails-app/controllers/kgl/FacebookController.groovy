@@ -11,7 +11,13 @@ class FacebookController {
 
     private final static String FACEBOOK_API_URL = "https://graph.facebook.com/me"
 
-    private final static ADMIN_EMAILS = ['lyhcode@gmail.com', 'maxcloude@hotmail.com']
+    /**
+     * allow admin permissions for these email accounts
+     */
+    private final static ADMIN_EMAILS = [
+            'lyhcode@gmail.com',
+            'maxcloude@hotmail.com'
+    ]
 
     def index() {}
 
@@ -74,6 +80,13 @@ class FacebookController {
 //            user.save(flush: true)
 //        }
 
+        // Update sso token for user
+        if (session['sso_token']) {
+            user.ssoToken = session['sso_token']
+
+            user.save flush: true
+        }
+
         springSecurityService.reauthenticate user.username
 		
 		def agent = request.getHeader("User-Agent")
@@ -85,16 +98,38 @@ class FacebookController {
 			userAgent: agent,
 			sessionId: session? session.id: null
 		)
+
 		loginLog.save flush: true
-		log.info loginLog.errors
+
+        log.info loginLog.errors
 		
 		// if redirect to...
-		if (session['redirect_logged']) {
-			def uri = session['redirect_logged']
-			log.info "redirect to ${uri}"
+        if (session['sso_redirect']) {
+            def uri = session['sso_redirect']
+
+            session['sso_redirect'] = null
+
+            //log.info "${session['redirect2']}"
+
+            if ("${uri}".indexOf('[SSO_FB_TOKEN]') >= 0) {
+                uri = "${uri}".replace('[SSO_FB_TOKEN]', session['facebook:oasAccessToken']?.token)
+            }
+
+            log.info "sso redirect to ${uri}"
+
+            redirect uri: uri
+        }
+		else if (session['redirect_logged']) {
+
+            def uri = session['redirect_logged']
+
+            log.info "redirect to ${uri}"
+
 			session['redirect_logged'] = null
-			redirect uri: uri
-		} else {
+
+            redirect uri: uri
+		}
+        else {
 			redirect uri: "/"
 		}
         

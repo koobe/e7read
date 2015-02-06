@@ -65,10 +65,16 @@
 
 <nav>
 	<div class="header" style="">
+		
+		<!-- 
 		<div class="header-inline-element">
 			<a href="javascript:showChannelMenu();" style="font-size: 1.1em;" class="koobe-btn koobe-btn-normal">
 				<i class="fa fa-bars"></i>
 			</a>
+		</div> -->
+		
+		<div class="header-inline-element">
+			<div style="padding-left: 5px;"> </div>
 		</div>
 		
 		<div class="header-inline-element" >

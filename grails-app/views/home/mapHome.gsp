@@ -145,7 +145,7 @@
 				
 				<div id="is-search" class="checkbox control-position" style="width: 110px; font-size: 1.2em; margin-top: 7px;">
 				    <label>
-				      <input type="checkbox" ng-checked="isMapSearch" ng-model="isMapSearch" />移動時搜尋
+				      <input type="checkbox" ng-checked="isMapSearch" ng-model="isMapSearch" /><g:message code="message|map.move.search" />
 				    </label>
 				  </div>
 				<!-- map controls -->
@@ -192,11 +192,11 @@
 										</option>
 										<option value="price_asc">
 											<g:message code="dictionary|price" />
-											(低→高)
+											<g:message code="message|lowtohigh" />
 										</option>
 										<option value="price_desc">
 											<g:message code="dictionary|price" />
-											(高→低)
+											<g:message code="message|hightolow" />
 										</option>
 									</select>
 									
@@ -229,22 +229,22 @@
 					        		<span>
 										<g:message code="dictionary|date" />：</span>
 					        		<div style="display:inline-block; width: 100px;">
-					        			<input id="start-date" style="background-color: white; cursor: pointer;" type="text" class="form-control" placeholder="開始日期" readonly />
+					        			<input id="start-date" style="background-color: white; cursor: pointer;" type="text" class="form-control" placeholder="Start date" readonly />
 					        		</div>
 					        		<span><i class="fa fa-caret-right"></i></span>
 					        		<div style="display:inline-block; width: 100px;">
-					        			<input id="end-date" style="background-color: white; cursor: pointer;"  type="text" class="form-control" placeholder="結束日期" readonly />
+					        			<input id="end-date" style="background-color: white; cursor: pointer;"  type="text" class="form-control" placeholder="End date" readonly />
 					        		</div>
 					        		<div style="display:inline-block;" ng-click="clearDateFilter()">
 					        			<a style="padding: 1px 9px 0px 9px; font-size: 17px; cursor:pointer;"><i class="fa fa-times"></i></a>
 					        		</div>
 					        		<div style="display:inline-block;" ng-if="illegalDateSelected == true">
-					        			<span style="color: red; padding-left: 5px;">錯誤的區間</span>
+					        			<span style="color: red; padding-left: 5px;"><g:message code="message|illegal.interval" /></span>
 					        		</div>
 								</div>
 								
 								<div style="padding-top: 10px;">
-									<span>價值：</span>
+									<span><g:message code="dictionary|price" /></span>
 									<span ng-if="displayPriceFilter.min || displayPriceFilter.min == 0">
 										$ {{ displayPriceFilter.min }}
 									</span>

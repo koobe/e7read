@@ -80,8 +80,8 @@ grails.project.dependency.resolution = {
         runtime 'org.pegdown:pegdown:1.4.2'
 		
 		// There is a known issue in hibernate4:4.3.6.1 plugin with the auto-timestamping feature. The workaround is to add these dependencies to BuildConfig.groovy:
-		compile "javax.validation:validation-api:1.1.0.Final"
-		runtime "org.hibernate:hibernate-validator:5.0.3.Final"
+//		compile "javax.validation:validation-api:1.1.0.Final"
+//		runtime "org.hibernate:hibernate-validator:5.0.3.Final"
     }
 
     plugins {
@@ -94,7 +94,7 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:1.9.9"
 
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.15"
+        runtime ":hibernate4:4.3.5.5" // or ":hibernate:3.6.10.15"
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
 		
@@ -104,7 +104,7 @@ grails.project.dependency.resolution = {
             //exclude "scribe"
 
         // Spring Security
-        compile ":spring-security-core:2.0-SNAPSHOT"
+        compile ":spring-security-core:2.0-RC4"
         //compile "org.grails.plugins:spring-security-facebook:0.15.2-CORE2"
         compile ":spring-security-oauth:2.1.0-SNAPSHOT"
         compile ":spring-security-oauth-facebook:0.2"

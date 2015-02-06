@@ -1,5 +1,6 @@
 package kgl
 
+import org.codenarc.rule.braces.ElseBlockBracesAstVisitor;
 import org.hibernate.annotations.NotFound;
 
 import grails.plugin.springsecurity.annotation.Secured
@@ -13,7 +14,12 @@ class HomeController {
 
     def index(String channel) {
 		
-		log.info 'Content channel: ' + params.channel
+		if (session.vhostMapping) {
+			channel = session.vhostMapping.channelName
+		}
+		
+		log.info 'Content channel: ' + channel
+		
 		
 		def myChannel
 		if (channel) {
@@ -54,22 +60,30 @@ class HomeController {
 			}
 		}
 		
-		if (myChannel.name == 'trade') {
-			redirect (uri: '/maphome/trade')
-			return
-		}
-		
-		[
+		def model = [
 			params: params, 
 			channel: myChannel, 
 			unreadMsgCount: unreadCount, 
 			showSetLocationTip: showSetLocationTip
 		]
+		
+		if (myChannel.name == 'trade') {
+//			redirect uri: '/maphome', absolute: false
+//			forward controller: 'maphome', action: "trade"
+			render view: "mapHome", model: model
+		} else {
+			render view: "index", model: model
+		}
+		
 	}
 	
 	def mapHome(String channel) {
 		
-		log.info 'Content channel: ' + params.channel
+		if (session.vhostMapping) {
+			channel = session.vhostMapping.channelName
+		}
+		
+		log.info 'Content channel: ' + channel
 		
 		def myChannel
 		if (channel) {

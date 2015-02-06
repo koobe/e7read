@@ -187,7 +187,7 @@ environments {
         oauth.providers.facebook.callback = "http://dev.e7read.com:8080/oauth/facebook/callback"
     }
     production {
-        oauth.providers.facebook.callback = "http://e7read.com/oauth/facebook/callback"
+        oauth.providers.facebook.callback = "${System.getenv('SERVER_URL')?:System.getProperty('SERVER_URL')}/oauth/facebook/callback"
     }
 }
 

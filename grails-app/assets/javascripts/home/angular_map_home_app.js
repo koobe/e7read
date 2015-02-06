@@ -28,7 +28,7 @@ mapHomeApp.controller('ContentFlowController',
 	var tip = $.spinner({
 		bgColor: 'rgba(148, 230, 218, 0.7)', 
 		showIcon: false,
-		defaultMsg: '沒有資料了'});
+		defaultMsg: 'No more data'});
 	
 	var priceSliderMax = 0;
 	

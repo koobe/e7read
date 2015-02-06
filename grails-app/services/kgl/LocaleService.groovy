@@ -41,7 +41,15 @@ class LocaleService {
 
                 log.info "append locale: ${group}|${code}=${content}"
 
-                loc = new Localization(group: group, code: code, lang: locale.toLanguageTag(), content: content)
+				if (loc) {
+					loc.group = group
+					loc.code = code
+					loc.lang = locale.toLanguageTag()
+					loc.content = content
+				} else {
+					loc = new Localization(group: group, code: code, lang: locale.toLanguageTag(), content: content)
+				}
+                
                 loc.save flush: true
             }
         }

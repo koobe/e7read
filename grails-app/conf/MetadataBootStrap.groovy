@@ -83,6 +83,7 @@ class MetadataBootStrap {
 
 								def vhost = VirtualHost.findOrCreateByHostname(host)
 								vhost.channel = channel
+								vhost.webpageTitle = node.webpageTitle
 								vhost.save flush: true
 						}
 					}

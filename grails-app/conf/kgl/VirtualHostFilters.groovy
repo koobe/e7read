@@ -15,11 +15,13 @@ class VirtualHostFilters {
 					log.info "(VirtualHost) check server hostname ${request.serverName}"
 	
 					def vhost = VirtualHost.findByHostname(request.serverName)
-	
+					def webtitle
+					
 					def currentChannel
 	
 					if (vhost) {
 						currentChannel = vhost.channel
+						webtitle = vhost.webpageTitle
 					}
 					else {
 						currentChannel = Channel.findByIsDefault(true)
@@ -28,6 +30,7 @@ class VirtualHostFilters {
 					def vhostMapping = [:]
 					vhostMapping.hostName = request.serverName
 					vhostMapping.channelName = currentChannel.name
+					vhostMapping.webpageTitle = webtitle
 					
 					session.vhostMapping = vhostMapping
 					

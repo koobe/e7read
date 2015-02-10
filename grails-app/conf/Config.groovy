@@ -185,9 +185,11 @@ oauth {
 environments {
     development {
         oauth.providers.facebook.callback = "http://dev.e7read.com:8080/oauth/facebook/callback"
+        login.sso = "http://dev.e7read.com:8080/login/sso"
     }
     production {
         oauth.providers.facebook.callback = "${System.getenv('SERVER_URL')?:System.getProperty('SERVER_URL')}/oauth/facebook/callback"
+        login.sso = "${System.getenv('SERVER_URL')?:System.getProperty('SERVER_URL')}/login/sso"
     }
 }
 

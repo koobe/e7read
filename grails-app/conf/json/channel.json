@@ -10,7 +10,8 @@
 			"showInPanel": true,
 			"iconUrl": "/assets/map/e7marker-1.png",
 			"order": 1,
-		  	"vhost": "dev.e7read.com;e7read.com;www.e7read.com"
+		  	"vhost": "dev.e7read.com;e7read.com;www.e7read.com",
+		  	"webpageTitle": "E7READ - Convergence to a better world"
 		},
 		{
 			"name" : "trade",
@@ -22,7 +23,8 @@
 			"showInPanel": true,
 			"iconUrl": "/assets/map/e7marker-2.png",
 			"order": 2,
-		  	"vhost": "trademuch.co.uk;www.trademuch.co.uk;dev.trademuch.co.uk"
+		  	"vhost": "trademuch.co.uk;www.trademuch.co.uk;dev.trademuch.co.uk",
+		  	"webpageTitle": "Trade Much"
 		},
 		{
 			"name" : "ewc",

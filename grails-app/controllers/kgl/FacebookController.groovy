@@ -59,6 +59,7 @@ class FacebookController {
 
             UserRole.create(user, roleUser)
 
+            // todo: also for existing user entities
             if (ADMIN_EMAILS.contains(resource.email)) {
                 UserRole.create(user, roleAdmin)
             }

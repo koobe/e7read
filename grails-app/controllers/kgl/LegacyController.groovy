@@ -1,5 +1,6 @@
 package kgl
 
+import grails.converters.JSON
 import grails.converters.XML
 
 class LegacyController {
@@ -17,4 +18,9 @@ class LegacyController {
         response.characterEncoding = 'UTF-8'
         response << legacy.opf
     }
+
+    def debug() {
+        render Legacy.list() as JSON
+    }
+
 }

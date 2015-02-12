@@ -16,11 +16,7 @@ class Book {
 	
 	String ean
 	
-	AwsS3File pdfFile
-	
-	String pdfFileUrl
-	
-	String originalFileName
+	Boolean isChecked
 	
 	Boolean unedited
 	
@@ -31,6 +27,14 @@ class Book {
 	Date dateCreated
 	
 	Date lastUpdated
+	
+	AwsS3File pdfFile
+	
+	String bucket
+	
+	String pdfFileKey
+	
+	String originalFileName
 	
 	static belongsTo = [
 		publisher: Publisher
@@ -45,8 +49,10 @@ class Book {
 		issn nullable: true
 		isbn nullable: true
 		ean nullable: true
+		isChecked nullable: true
 		pdfFile nullable: true
-		pdfFileUrl nullable: true
+		bucket nullable: true
+		pdfFileKey nullable: true
 		originalFileName nullable: true
 		unedited nullable: true
 		finishedUpload nullable: true

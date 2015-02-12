@@ -6,9 +6,11 @@ class Page {
 	
 	Integer dataIndex
 	
-	String imageFileUrl
+	String bucket
 	
-	String thumbnailFileUrl
+	String imageKey
+	
+	String thumbnailKey
 	
 	AwsS3File imageFile
 	
@@ -21,8 +23,9 @@ class Page {
 	]
 
     static constraints = {
-		imageFileUrl nullable: true
-		thumbnailFileUrl nullable: true
+		bucket nullable: true
+		imageKey nullable: true
+		thumbnailKey nullable: true
 		imageFile nullable: true
 		thumbnailFile nullable: true
 		fullText nullable: true, maxSize: 1024 * 1024

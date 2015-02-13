@@ -155,4 +155,25 @@ class BookController {
 
         render result as JSON
     }
+	
+	def update(Book book) {
+		if (book) {
+			
+			def publishers = Publisher.list()
+			
+			if (book.pages?.getAt(0)) {
+				def coverUrl = s3Service.generatePresignedUrl(
+					book.pages.getAt(0).bucket, book.pages.getAt(0).thumbnailKey)
+				book.coverUrl = coverUrl
+			}
+			
+			if (book.hasErrors()) {
+				respond book.errors, view: '/bookAdmin/book', model: [book: book, publishers: publishers]
+				return
+			}
+			
+			book.save flush:true
+			respond book, view: '/bookAdmin/book', model: [book: book, publishers: publishers, success: true]
+		}
+	}
 }

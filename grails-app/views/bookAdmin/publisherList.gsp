@@ -8,7 +8,7 @@
 		
 		<div class="container" style="padding-top: 40px;">
 		    <div style="text-align: center;" class="alert alert-success">
-				<span>歡迎來到E7READ電子書管理，請點選上方選擇功能</span>
+				<span>出版社</span>
 		    </div>
 		</div>
 		

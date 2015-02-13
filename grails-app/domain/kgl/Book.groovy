@@ -16,6 +16,8 @@ class Book {
 	
 	String ean
 	
+	Date datePublish
+	
 	Boolean isChecked
 	
 	Boolean unedited
@@ -36,6 +38,8 @@ class Book {
 	
 	String originalFileName
 	
+	String coverUrl
+	
 	static belongsTo = [
 		publisher: Publisher
 	]
@@ -43,12 +47,15 @@ class Book {
 	static hasMany = [
 		pages: Page
 	]
+	
+	static transients = ['coverUrl']
 
     static constraints = {
 		description nullable: true, maxSize: 1024
 		issn nullable: true
 		isbn nullable: true
 		ean nullable: true
+		datePublish nullable: true
 		isChecked nullable: true
 		pdfFile nullable: true
 		bucket nullable: true
@@ -64,4 +71,5 @@ class Book {
 		id generator:'assigned'
 		pages sort: 'dataIndex'
 	}
+	
 }

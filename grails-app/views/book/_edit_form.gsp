@@ -26,26 +26,31 @@
 	</div>
 </div>
 
-<div class="form-group">
+<div class="form-group row">
 	<label class="col-sm-2 control-label">出版社</label>
-	<div class="col-sm-10">
+	<div class="col-sm-4">
 		<g:select class="form-control" name="publisher" from="${publishers}" optionKey="id" optionValue="name" value="${book?.publisher?.id}" />
 	</div>
-</div>
-
-<div class="form-group">
-	<label class="col-sm-2 control-label">ISBN</label>
-	<div class="col-sm-10">
-		<g:textField name="isbn" class="form-control" placeholder="ISBN" value="${book?.isbn}" />
+	<label class="col-sm-2 control-label">初版日期</label>
+	<div class="col-sm-4">
+		<g:datePicker name="datePublish" precision="day" noSelection="['':'選擇']" default="none" value="${book?.datePublish}"/>
 	</div>
 </div>
 
-<div class="form-group">
+<div class="form-group row">
+	<label class="col-sm-2 control-label">ISBN</label>
+	<div class="col-sm-4">
+		<g:textField name="isbn" class="form-control" placeholder="ISBN" value="${book?.isbn}" />
+	</div>
 	<label class="col-sm-2 control-label">ISSN</label>
-	<div class="col-sm-10">
+	<div class="col-sm-4">
 		<g:textField name="issn" class="form-control" placeholder="ISSN" value="${book?.issn}" />
 	</div>
 </div>
+
+
+
+
 
 <div class="form-group">
 	<label class="col-sm-2 control-label">EAN</label>
@@ -54,9 +59,11 @@
 	</div>
 </div>
 
-<div class="form-group">
-	<label class="col-sm-2 control-label">初版日期</label>
-	<div class="col-sm-10">
-		<g:datePicker name="datePublish" precision="day" value="${book?.datePublish}"/>
-	</div>
+<div class="form-group col-sm-6">
+	
 </div>
+
+<div class="form-group col-sm-6">
+	
+</div>
+

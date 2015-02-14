@@ -150,4 +150,32 @@ class SearchService {
         // get missing fields in search result
         results //.searchResults.collect { Content.get(it.id) }
     }
+	
+	def searchBook(String queryString, params) {
+		
+		def query = QueryBuilders.boolQuery()
+		
+		if (queryString) {
+			query = query.must(QueryBuilders.queryString(queryString))
+		}
+		
+		SearchSourceBuilder source = new SearchSourceBuilder()
+		
+		source.from(params.offset ? params.offset as int : 0)
+		source.size(params.size ? params.size as int : 100)
+
+		source.query(query)
+		
+		SearchRequest request = new SearchRequest()
+		request.searchType SearchType.DFS_QUERY_THEN_FETCH
+		request.source(source)
+
+		def results = elasticSearchService.search(request, [
+			indices: Book,
+			types  : Book
+		])
+		
+		results
+	}
+		
 }

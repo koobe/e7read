@@ -110,4 +110,16 @@ class SearchController {
 		JSON.use("deep")
 		render searchResult.searchResults as JSON
 	}
+	
+	def book() {
+		
+		log.info(params);
+		
+		def queryString = params.q
+		
+		def searchResult = searchService.searchBook(queryString, params);
+		
+		JSON.use("deep")
+		render searchResult as JSON
+	}
 }

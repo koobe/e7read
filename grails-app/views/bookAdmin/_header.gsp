@@ -18,12 +18,9 @@
 				<li class="new-book-list"><a href="/bookAdmin/newBookList">新書</a></li>
 				<li class="book-list"><a href="/bookAdmin/bookList">電子書</a></li>
 			</ul>
-			<form class="navbar-form navbar-right" role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-			</form>
-
+			<div class="navbar-form navbar-right">
+				<input type="text" class="form-control input-search" placeholder="搜尋">
+			</div>
 		</div> <!-- /.navbar-collapse -->
 
 	</div>

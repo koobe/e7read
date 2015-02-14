@@ -4,6 +4,7 @@ package kgl
 class BookAdminController {
 	
 	def s3Service
+	def searchService
 
     def index() { 
 	}
@@ -14,13 +15,25 @@ class BookAdminController {
 	
 	def newBookList() {
 		
+		def q = params.q
 		def max = params.max? params.max: 10
+		params.size = max
 		def offset = params.offset? params.offset: 0
 		
-		def bookCount = Book.countByIsCheckedAndIsDeleteAndFinishedUpload(false, false, true)
+		def bookCount
+		def books
 		
-		def books = Book.findAllByIsCheckedAndIsDeleteAndFinishedUpload(false, false, true, 
-			[max: max, offset: offset, sort: "dateCreated", order: "desc"])
+		if (q) {
+			
+			def searchResult = searchService.searchBook(q, params)
+			bookCount = searchResult.total
+			books = searchResult.searchResults
+			
+		} else {
+			bookCount = Book.countByIsCheckedAndIsDeleteAndFinishedUpload(false, false, true)
+			books = Book.findAllByIsCheckedAndIsDeleteAndFinishedUpload(false, false, true,
+				[max: max, offset: offset, sort: "dateCreated", order: "desc"])
+		}
 		
 		books.each { book ->
 			if (book.pages?.getAt(0)) {
@@ -43,14 +56,26 @@ class BookAdminController {
 	}
 	
 	def bookList() {
-		
+				
+		def q = params.q
 		def max = params.max? params.max: 10
+		params.size = max
 		def offset = params.offset? params.offset: 0
 		
-		def bookCount = Book.countByIsCheckedAndIsDeleteAndFinishedUpload(true, false, true)
+		def bookCount
+		def books
 		
-		def books = Book.findAllByIsCheckedAndIsDeleteAndFinishedUpload(true, false, true,
-			[max: max, offset: offset, sort: "dateCreated", order: "desc"])
+		if (q) {
+			
+			def searchResult = searchService.searchBook(q, params)
+			bookCount = searchResult.total
+			books = searchResult.searchResults
+			
+		} else {
+			bookCount = Book.countByIsCheckedAndIsDeleteAndFinishedUpload(true, false, true)
+			books = Book.findAllByIsCheckedAndIsDeleteAndFinishedUpload(true, false, true,
+				[max: max, offset: offset, sort: "dateCreated", order: "desc"])
+		}
 		
 		books.each { book ->
 			if (book.pages?.getAt(0)) {

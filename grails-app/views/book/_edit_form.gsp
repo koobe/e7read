@@ -48,10 +48,36 @@
 	</div>
 </div>
 
-<div class="form-group">
+<div class="form-group row">
 	<label class="col-sm-2 control-label">EAN</label>
-	<div class="col-sm-10">
+	<div class="col-sm-4">
 		<g:textField name="ean" class="form-control" placeholder="EAN" value="${book?.ean}" />
+	</div>
+	<label class="col-sm-2 control-label">定價</label>
+	<div class="col-sm-4">
+		<g:textField name="priced" class="form-control" placeholder="定價" value="${book?.priced}" />
+	</div>
+</div>
+
+<div class="form-group row">
+	<label class="col-sm-2 control-label">作者</label>
+	<div class="col-sm-4">
+		<g:textField name="author" class="form-control" placeholder="作者" value="${book?.author}" />
+	</div>
+	<label class="col-sm-2 control-label">原文作者</label>
+	<div class="col-sm-4">
+		<g:textField name="orginalAuthor" class="form-control" placeholder="原文作者" value="${book?.orginalAuthor}" />
+	</div>
+</div>
+
+<div class="form-group row">
+	<label class="col-sm-2 control-label">譯者</label>
+	<div class="col-sm-4">
+		<g:textField name="translator" class="form-control" placeholder="譯者" value="${book?.translator}" />
+	</div>
+	<label class="col-sm-2 control-label">繪者</label>
+	<div class="col-sm-4">
+		<g:textField name="illustrator" class="form-control" placeholder="繪者" value="${book?.illustrator}" />
 	</div>
 </div>
 

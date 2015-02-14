@@ -16,7 +16,7 @@
 				<tr class="book-row" style="cursor: pointer;" data-bookid="${book?.id}">
 					<td>
 						<div>
-							<img alt="" src="${book.coverUrl}" style="height: 50px" />
+							<img alt="" src="${book.coverUrl}" style="height: 70px" />
 						</div>
 					</td>
 					<td valign="middle" style="vertical-align:middle">
@@ -35,7 +35,9 @@
 						<g:formatDate date="${book.dateCreated}" format="MM/dd HH:mm" />
 					</td>
 					<td valign="middle" style="vertical-align:middle; text-align: center;">
-						<g:link uri="#">閱覽</g:link>
+						<div><g:link uri="#">閱覽書籍</g:link></div>
+						<div><g:link uri="#">管理章節</g:link></div>
+						<div><g:link uri="#">管理內容</g:link></div>
 					</td>
 				</tr>
 			</g:each>

@@ -16,7 +16,17 @@ class Book {
 	
 	String ean
 	
+	String author
+	
+	String orginalAuthor
+	
+	String translator
+	
+	String illustrator
+	
 	Date datePublish
+	
+	Double priced
 	
 	Boolean isChecked
 	
@@ -40,6 +50,25 @@ class Book {
 	
 	String coverUrl
 	
+	static searchable = {
+		only = [
+			'id', 'name', 
+			'publisher',
+			'author', 'orginalAuthor', 'translator', 'illustrator',
+			'bucket', 'pdfFileKey',
+			'datePublish', 'dateCreated', 'lastUpdated',
+			'isChecked', 'finishedUpload', 'isDelete'
+		]
+		
+		publisher component: true
+		
+		bucket index: "no"
+		pdfFileKey index: "no"
+		isChecked index: "not_analyzed"
+		finishedUpload index: "not_analyzed"
+		isDelete index: "not_analyzed"
+	}
+	
 	static belongsTo = [
 		publisher: Publisher
 	]
@@ -55,7 +84,12 @@ class Book {
 		issn nullable: true
 		isbn nullable: true
 		ean nullable: true
+		author nullable: true
+		orginalAuthor nullable: true
+		translator nullable: true
+		illustrator nullable: true
 		datePublish nullable: true
+		priced nullable: true
 		isChecked nullable: true
 		pdfFile nullable: true
 		bucket nullable: true

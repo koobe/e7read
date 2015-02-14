@@ -32,7 +32,7 @@
 		<g:select class="form-control" name="publisher" from="${publishers}" optionKey="id" optionValue="name" value="${book?.publisher?.id}" />
 	</div>
 	<label class="col-sm-2 control-label">初版日期</label>
-	<div class="col-sm-4">
+	<div class="col-sm-4 form-inline date-picker">
 		<g:datePicker name="datePublish" precision="day" noSelection="['':'選擇']" default="none" value="${book?.datePublish}"/>
 	</div>
 </div>
@@ -48,10 +48,6 @@
 	</div>
 </div>
 
-
-
-
-
 <div class="form-group">
 	<label class="col-sm-2 control-label">EAN</label>
 	<div class="col-sm-10">
@@ -59,11 +55,7 @@
 	</div>
 </div>
 
-<div class="form-group col-sm-6">
-	
-</div>
+<g:hiddenField name="isChecked" value="${book?.isChecked}" />
 
-<div class="form-group col-sm-6">
-	
-</div>
+<g:hiddenField name="isDelete" value="${book?.isDelete}" />
 

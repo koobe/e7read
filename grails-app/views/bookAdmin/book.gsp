@@ -21,6 +21,28 @@
 	    		font-weight: 700;
 	    	}
 	    </style>
+	    
+	    <script type="text/javascript">
+			$(function() {
+				$('.date-picker>select').addClass('form-control');
+
+				$('.confirm-button').click(function() {
+					var c = confirm("確認通過審核");
+					if (c) {
+						$('#isChecked').val('true');
+						$('.save-button').click();
+					}
+				});
+
+				$('.delete-button').click(function() {
+					var c = confirm("確認刪除");
+					if (c) {
+						$('#isDelete').val('true');
+						$('.save-button').click();
+					}
+				});
+			});
+	    </script>
 	</head>
 	<body>
 		<g:render template="/bookAdmin/header" />
@@ -28,26 +50,20 @@
 		<div class="container-fluid">
 		
 			<div class="nav-panel">
-				<g:if test="${session?.bookAdminNavigation?.prevPage == 'newBookList'}">
+				<g:if test="${session?.bookAdminNavigation?.prevAction}">
 					<div class="nav-link">
-						<g:link controller="bookAdmin" action="newBookList" 
-							params="[max: session?.bookAdminNavigation?.prevMax, offset: session?.bookAdminNavigation?.prevOffset]">
-							新書
+						<g:link controller="bookAdmin" action="${session?.bookAdminNavigation?.prevAction}" 
+							params="${session?.bookAdminNavigation?.params}">
+							<g:if test="${session?.bookAdminNavigation?.prevAction == 'newBookList'}">
+								新書
+							</g:if>
+							<g:if test="${session?.bookAdminNavigation?.prevAction == 'bookList'}">
+								電子書
+							</g:if>
 						</g:link>
 					</div>
 					<div class="nav-link"> &gt; </div>
 				</g:if>
-				
-				<g:if test="${session?.bookAdminNavigation?.prevPage == 'bookList'}">
-					<div class="nav-link">
-						<g:link controller="bookAdmin" action="bookList" 
-							params="[max: session?.bookAdminNavigation?.prevMax, offset: session?.bookAdminNavigation?.prevOffset]">
-							電子書
-						</g:link>
-					</div>
-					<div class="nav-link"> &gt; </div>
-				</g:if>
-				
 				<div class="nav-link">${book?.name}</div>
 			</div>
 			

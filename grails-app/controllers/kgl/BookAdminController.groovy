@@ -31,9 +31,8 @@ class BookAdminController {
 		}
 		
 		def bookAdminNavigation = [:]
-		bookAdminNavigation.prevPage = 'newBookList'
-		bookAdminNavigation.prevMax = max
-		bookAdminNavigation.prevOffset = offset
+		bookAdminNavigation.prevAction = 'newBookList'
+		bookAdminNavigation.params = params
 		session.bookAdminNavigation = bookAdminNavigation
 		
 		[
@@ -62,9 +61,8 @@ class BookAdminController {
 		}
 		
 		def bookAdminNavigation = [:]
-		bookAdminNavigation.prevPage = 'bookList'
-		bookAdminNavigation.prevMax = max
-		bookAdminNavigation.prevOffset = offset
+		bookAdminNavigation.prevAction = 'bookList'
+		bookAdminNavigation.params = params
 		session.bookAdminNavigation = bookAdminNavigation
 		
 		[

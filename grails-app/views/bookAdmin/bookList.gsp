@@ -7,6 +7,8 @@
 	    		$('.book-list').addClass('active');
 			});
 	    </script>
+	    
+	    <asset:javascript src="bookAdmin/book_list_table.js"/>
 	</head>
 	<body>
 		<g:render template="/bookAdmin/header" />

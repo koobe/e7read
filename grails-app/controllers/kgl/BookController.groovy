@@ -173,7 +173,28 @@ class BookController {
 			}
 			
 			book.save flush:true
-			respond book, view: '/bookAdmin/book', model: [book: book, publishers: publishers, success: true]
+			
+			if (book.isDelete) {
+				
+				def redirectAction = ""
+				if (session?.bookAdminNavigation?.prevAction) {
+					redirectAction = '/bookAdmin/' + session?.bookAdminNavigation?.prevAction
+				} else {
+					redirectAction = '/bookAdmin/index'
+				}
+				
+				def redirectParams = [:]
+				session?.bookAdminNavigation?.params.each { key, value ->
+					if (value) {
+						redirectParams[key] = value
+					}
+				}
+				
+				redirect uri: redirectAction, params: redirectParams
+			} else {
+				respond book, view: '/bookAdmin/book', model: [book: book, publishers: publishers, success: true]
+			}
+			
 		}
 	}
 }

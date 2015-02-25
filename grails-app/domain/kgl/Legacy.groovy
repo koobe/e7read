@@ -33,6 +33,9 @@ class Legacy {
     static mapping = {
         opf type: 'text'
         imageItems type: 'text'
+
+        //date column: '`date`'
+        key column: '`key`'
     }
 
     static constraints = {

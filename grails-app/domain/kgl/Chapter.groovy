@@ -8,6 +8,10 @@ class Chapter {
 	
 	String description
 	
+	Page pageStart
+	
+	Page pageEnd
+	
 	Integer dataIndex
 	
 	static belongsTo = [
@@ -15,7 +19,11 @@ class Chapter {
 	]
 
     static constraints = {
+		title nullable: true
 		description nullable: true, maxSize: 1024
+		pageStart nullable: true
+		pageEnd nullable: true
+		dataIndex nullable: true
     }
 	
 	static mapping = {

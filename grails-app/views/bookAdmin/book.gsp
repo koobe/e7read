@@ -29,23 +29,7 @@
 		
 		<div class="container-fluid">
 		
-			<div class="nav-panel">
-				<g:if test="${session?.bookAdminNavigation?.prevAction}">
-					<div class="nav-link">
-						<g:link controller="bookAdmin" action="${session?.bookAdminNavigation?.prevAction}" 
-							params="${session?.bookAdminNavigation?.params}">
-							<g:if test="${session?.bookAdminNavigation?.prevAction == 'newBookList'}">
-								新書
-							</g:if>
-							<g:if test="${session?.bookAdminNavigation?.prevAction == 'bookList'}">
-								電子書
-							</g:if>
-						</g:link>
-					</div>
-					<div class="nav-link"> &gt; </div>
-				</g:if>
-				<div class="nav-link">${book?.name}</div>
-			</div>
+			<g:render template="/bookAdmin/nav_panel" model="['displayName': book?.name]"></g:render>
 			
 			<div class="container">
 				<g:if test="${success}">
@@ -60,7 +44,7 @@
 		
 		    <g:form class="form-horizontal" url="[action:'update', controller:'bookAdmin', resource:book]" method="PUT">
 		    	<g:render template="/book/edit_form"></g:render>
-		    	<g:render template="/bookAdmin/edit_button"></g:render>
+		    	<g:render template="/bookAdmin/book_edit_button"></g:render>
 		    </g:form>
 		    
 		</div>

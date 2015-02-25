@@ -1,7 +1,8 @@
 <div>
 	<table class="table table-hover">
 		<tr>
-			<th align="center" class="table-header" style="width: 100px;"><i class="fa fa-file-image-o"></i>&nbsp;封面</th>
+			<th align="center" class="table-header" style="width: 80px;"><i class="fa fa-file-image-o"></i>&nbsp;封面</th>
+			<th align="center" class="table-header" style="width: 150px;"><i class="fa fa-book"></i>&nbsp;書號</th>
 			<th align="center" class="table-header"><i class="fa fa-book"></i>&nbsp;書名</th>
 			<th align="center" class="table-header"><i class="fa fa-building"></i>&nbsp;出版社</th>
 			<th align="center" class="table-header" style="width: 100px; vertical-align:middle; text-align: center;"><i class="fa fa-calendar"></i>&nbsp;初版日期</th>
@@ -14,10 +15,13 @@
 			<g:each in="${books}" var="book">
 				
 				<tr class="book-row" style="cursor: pointer;" data-bookid="${book?.id}">
-					<td>
+					<td valign="middle" style="vertical-align:middle; text-align: center;">
 						<div>
 							<img alt="" src="${book.coverUrl}" style="height: 70px" />
 						</div>
+					</td>
+					<td valign="middle" style="vertical-align:middle; color: #888; font-size: 0.8em;">
+						<div contenteditable="true">${book.id}</div>
 					</td>
 					<td valign="middle" style="vertical-align:middle">
 						${book.name}
@@ -36,8 +40,10 @@
 					</td>
 					<td valign="middle" style="vertical-align:middle; text-align: center;">
 						<div><g:link uri="#">閱覽書籍</g:link></div>
-						<div><g:link uri="#">管理章節</g:link></div>
-						<div><g:link uri="#">管理內容</g:link></div>
+						<div><g:link controller="bookAdmin" action="chapterList" id="${book?.id}">管理章節</g:link></div>
+						<!-- 
+						<div><g:link controller="bookAdmin" action="chapters" id="${book?.id}">管理內容</g:link></div>
+						 -->
 					</td>
 				</tr>
 			</g:each>

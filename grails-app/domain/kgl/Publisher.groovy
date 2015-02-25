@@ -1,10 +1,16 @@
 package kgl
 
+import java.util.Date;
+
 class Publisher {
 	
 	String id
 	
 	String name
+	
+	Date dateCreated
+	
+	Date lastUpdated
 	
 	static searchable = {
 		only = [

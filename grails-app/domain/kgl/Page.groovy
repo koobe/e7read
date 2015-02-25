@@ -18,6 +18,12 @@ class Page {
 	
 	String fullText
 	
+	String imageUrl
+	
+	String thumbnailUrl
+	
+	static transients = ['imageUrl', 'thumbnailUrl']
+	
 	static belongsTo = [
 		book: Book
 	]

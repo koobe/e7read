@@ -1,12 +1,15 @@
 package kgl
 
-import java.util.Date;
 
 class Publisher {
 	
 	String id
 	
 	String name
+	
+	String description
+	
+	String websiteUrl
 	
 	Date dateCreated
 	
@@ -19,6 +22,8 @@ class Publisher {
 	}
 
     static constraints = {
+		description nullable:true
+		websiteUrl nullable:true
     }
 	
 	static mapping = {

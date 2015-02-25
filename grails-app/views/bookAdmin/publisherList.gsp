@@ -1,15 +1,31 @@
 <html>
 	<head>
 	    <meta name="layout" content="main"/>
-	    <title>E7READ - Book Admin</title>
+	    
+	    <style type="text/css">
+	   		.edit-button {
+	    		display: inline-block;
+	    	}
+	    </style>
+	    
+	    <script type="text/javascript">
+	    	$(function() {
+	    		$('.publisher-list').addClass('active');
+			});
+	    </script>
+	    
+	    <asset:javascript src="bookAdmin/publisher_list_table.js"/>
 	</head>
 	<body>
 		<g:render template="/bookAdmin/header" />
 		
-		<div class="container" style="padding-top: 40px;">
-		    <div style="text-align: center;" class="alert alert-success">
-				<span>出版社</span>
-		    </div>
+		<div class="container-fuild" style="">
+		    
+		    <g:render template="/publisher/function_button" />
+		    
+		    <g:render template="/publisher/list_table" />
+		    
+		    
 		</div>
 		
 		<g:render template="/home/footer" />

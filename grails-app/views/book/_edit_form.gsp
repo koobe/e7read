@@ -29,7 +29,7 @@
 <div class="form-group row">
 	<label class="col-sm-2 control-label">出版社</label>
 	<div class="col-sm-4">
-		<g:select class="form-control" name="publisher" from="${publishers}" optionKey="id" optionValue="name" value="${book?.publisher?.id}" />
+		<g:select class="form-control" name="publisher" from="${publishers}" optionKey="id" optionValue="name" noSelection="['':'選擇']" value="${book?.publisher?.id}" />
 	</div>
 	<label class="col-sm-2 control-label">初版日期</label>
 	<div class="col-sm-4 form-inline date-picker">

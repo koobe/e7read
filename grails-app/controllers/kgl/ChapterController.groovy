@@ -16,6 +16,7 @@ class ChapterController {
 		}
 		
 		chapter.save flush: true
+		log.info chapter.errors
 		
 		redirect uri: '/bookAdmin/chapterList/' + chapter?.book?.id
 	}

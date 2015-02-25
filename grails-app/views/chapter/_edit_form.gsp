@@ -2,7 +2,7 @@
 <div class="form-group row">
 	<label class="col-sm-2 control-label">書籍</label>
 	<div class="col-sm-4">
-		<g:select class="form-control" name="book" from="${books}" optionKey="id" optionValue="name" value="${chapter?.book?.id}" disabled="disabled" />
+		<g:select class="form-control" name="book" from="${books}" optionKey="id" optionValue="name" value="${chapter?.book?.id}" />
 	</div>
 </div>
 

@@ -25,6 +25,21 @@ class BookAdminController {
 		]
 	}
 	
+	def publisher() {
+		
+		def publisher
+		
+		if (params.id) {
+			publisher = Publisher.get(params.id)
+		} else {
+			publisher = new Publisher()
+		}
+		
+		[
+			publisher: publisher
+		]
+	}
+	
 	def newBookList() {
 		
 		def q = params.q

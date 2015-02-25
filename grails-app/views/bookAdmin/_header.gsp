@@ -14,9 +14,10 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class=""><a href="/bookAdmin/publisherList">出版社<span class="sr-only">(current)</span></a></li>
+				<li class="publisher-list"><a href="/bookAdmin/publisherList">出版社<span class="sr-only">(current)</span></a></li>
 				<li class="new-book-list"><a href="/bookAdmin/newBookList">新書</a></li>
 				<li class="book-list"><a href="/bookAdmin/bookList">電子書</a></li>
+				<li class="book-delivery"><a href="#">配書</a></li>
 			</ul>
 			<div class="navbar-form navbar-right">
 				<input type="text" class="form-control input-search" placeholder="搜尋">

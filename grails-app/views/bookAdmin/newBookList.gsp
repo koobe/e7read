@@ -8,6 +8,8 @@
 			});
 	    </script>
 	    
+	    <asset:javascript src="bookAdmin/search.js"/>
+	    
 	    <asset:javascript src="bookAdmin/book_list_table.js"/>
 	</head>
 	<body>

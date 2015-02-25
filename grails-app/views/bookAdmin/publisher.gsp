@@ -3,7 +3,9 @@
 	    <meta name="layout" content="main"/>
 	    
 	    <style type="text/css">
+	   		
 	   		.button-group {
+	   			
 	    	}
 	    	
 	    	.edit-button {
@@ -21,18 +23,15 @@
 	    	}
 	    </style>
 	    
-	    <asset:javascript src="bookAdmin/chapter.js"/>
 	</head>
 	<body>
 		<g:render template="/bookAdmin/header" />
 		
 		<div class="container-fluid">
 		
-			<g:render template="/bookAdmin/nav_panel" model="['displayName': (chapter?.title? chapter?.title: '新增/編輯'), 'middlePageUri': '/bookAdmin/chapterList/'+chapter?.book?.id, 'middlePageLinkName': chapter?.book?.name+' (章節管理)' ]"></g:render>
-		
-		    <g:form class="form-horizontal" url="[resource:chapter, action:'save']">
-		    	<g:render template="/chapter/edit_button"></g:render>
-		    	<g:render template="/chapter/edit_form"></g:render>
+		    <g:form class="form-horizontal" url="[resource:publisher, action:'save']">
+		    	<g:render template="/publisher/edit_button"></g:render>
+		    	<g:render template="/publisher/edit_form"></g:render>
 		    </g:form>
 		    
 		</div>

@@ -25,6 +25,9 @@
 		    
 		    <g:render template="/publisher/list_table" />
 		    
+		    <div style="text-align: center;">
+				<g:paginate next="&raquo;" prev="&laquo;" total="${publisherCount}" params="${params}" />
+			</div>
 		    
 		</div>
 		

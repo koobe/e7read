@@ -21,7 +21,9 @@ class BookAdminController {
 		publishers = Publisher.list(max: max, offset: offset, sort: "name", order: "asc")
 		
 		[
-			publishers: publishers
+			publishers: publishers,
+			publisherCount: Publisher.count(),
+			params: params
 		]
 	}
 	

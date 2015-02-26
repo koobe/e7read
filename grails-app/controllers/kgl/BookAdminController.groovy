@@ -186,22 +186,31 @@ class BookAdminController {
 			chapter.book = book
 		}
 		
+		if (chapter.pageStart) {
+			def imageUrl = s3Service.generatePresignedUrl(chapter.pageStart.bucket, chapter.pageStart.imageKey)
+			def thumbnailUrl = s3Service.generatePresignedUrl(chapter.pageStart.bucket, chapter.pageStart.thumbnailKey)
+			chapter.pageStart.imageUrl = imageUrl
+			chapter.pageStart.thumbnailUrl = thumbnailUrl
+		}
+		
+		if (chapter.pageEnd) {
+			def imageUrl = s3Service.generatePresignedUrl(chapter.pageEnd.bucket, chapter.pageEnd.imageKey)
+			def thumbnailUrl = s3Service.generatePresignedUrl(chapter.pageEnd.bucket, chapter.pageEnd.thumbnailKey)
+			chapter.pageEnd.imageUrl = imageUrl
+			chapter.pageEnd.thumbnailUrl = thumbnailUrl
+		}
+		
 		def books = []
 		books.push(book)
+		
+//		def pages = Page.findAllByBook(book, [sort: 'dataIndex'])
 				
 		[
 			books: books,
+//			pages: pages,
 			chapter: chapter
 		]
 	}
 	
-	def pageSelector() {
-		
-		def bookId = params.bookId
-		
-		def book = Book.get(bookId)
-		
-		def pages = Page.findAllByBook(book, [sort: 'dataIndex', order: 'asc'])
-		
-	}
+	
 }

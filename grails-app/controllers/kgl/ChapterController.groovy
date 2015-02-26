@@ -5,6 +5,8 @@ class ChapterController {
     def index() { }
 	
 	def save(Chapter chapter) {
+		
+		log.info params
 
 		if (!chapter.dataIndex) {
 			def lastChapter = Chapter.findByBook(chapter.book, [sort: 'dataIndex', order: 'desc'])

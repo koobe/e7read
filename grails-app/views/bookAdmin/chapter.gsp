@@ -21,7 +21,11 @@
 	    	}
 	    </style>
 	    
-	    <asset:javascript src="bookAdmin/chapter.js"/>
+	    <asset:stylesheet src="bookAdmin/page_range_selector.css"/>
+	    <asset:stylesheet src="bookAdmin/image_full_view.css"/>
+	    
+	    <asset:javascript src="bookAdmin/chapter.js" />
+	    <asset:javascript src="bookAdmin/page_range_selector.js" />
 	</head>
 	<body>
 		<g:render template="/bookAdmin/header" />
@@ -36,6 +40,9 @@
 		    </g:form>
 		    
 		</div>
+		
+		<g:render template="/bookAdmin/page_range_selector" />
+		<g:render template="/bookAdmin/image_full_view" />
 		
 		<g:render template="/home/footer" />
 	</body>

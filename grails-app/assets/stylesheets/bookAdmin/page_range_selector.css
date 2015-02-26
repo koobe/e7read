@@ -1,0 +1,48 @@
+.page-range-selector {
+
+	text-align: center;
+  	margin: 0 auto;
+	
+	width: 100%;
+	height: 100%;
+	
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	
+	background-color: rgba(25, 25, 25, 0.6);
+	
+	display: none;
+}
+
+.page-range-selector:before {
+	content: '';
+	display: inline-block;
+	vertical-align: middle ;
+	height: 100%;
+}
+
+.page-range-container {
+
+	display: inline-block;
+	vertical-align: middle;
+	
+	padding: 10px 50px 10px 50px;
+	
+	background-color: rgb(250, 248, 245);
+	border: 5px solid #FFF;
+	border-radius: 5px;
+	
+	width: 80%;
+	max-width: 400px;
+}
+
+.nopadding {
+	padding: 0 5 0 5 !important;
+	margin: 0 !important;
+}
+
+.page-range-message {
+	color: red;
+	font-weight: 700;
+}

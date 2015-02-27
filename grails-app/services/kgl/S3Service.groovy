@@ -77,8 +77,28 @@ class S3Service {
         s3client.getObject(bucket, key)?.objectContent?.text
     }
 
+    URL generatePresignedUrl(String key) {
+        generatePresignedUrl(bucket, key)
+    }
+
+    URL generatePresignedUrl(String key, Date validDate) {
+        generatePresignedUrl(bucket, key, validDate)
+    }
+
     URL generatePresignedUrl(String bucket, String key) {
-        s3client.generatePresignedUrl(bucket, key, new Date()+15)
+        generatePresignedUrl(bucket, key, new Date() + 15)
+    }
+
+    URL generatePresignedUrl(String bucket, String key, Date validDate) {
+        s3client.generatePresignedUrl(bucket, key, validDate)
+    }
+
+    URL getUrl(String key) {
+        s3client.getUrl(bucket, key)
+    }
+
+    URL getUrl(String bucket, String key) {
+        s3client.getUrl(bucket, key)
     }
 
     void createBucket() {

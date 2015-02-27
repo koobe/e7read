@@ -47,7 +47,7 @@
 
       console.log("Fetch XML: " + file);
 
-      $.ajax('/book/legacyFetchXML', {
+      $.ajax('/legacy/legacyFetchXML', {
         type: 'post',
         data: {
           file: file

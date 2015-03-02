@@ -136,6 +136,10 @@ class LegacyController {
                     }
                 }
 
+                if (min >= max) {
+                    min = 0
+                }
+
                 (min..max).each { idx ->
                     //log.info "${images[idx]}"
                     if ("${images[idx]}".indexOf('cover.') >= 0) {
@@ -146,7 +150,16 @@ class LegacyController {
                     }
                 }
 
-                legacy.imageItems = imageItems.join('\n')
+                if (imageItems) {
+                    legacy.imageItems = imageItems.join('\n')
+                }
+
+
+                // Create a book object mapping for legacy
+                legacy.makeBookObject()
+
+                // test add page
+                legacy.addPageObject()
 
                 legacy.save flush: true
 
@@ -171,4 +184,11 @@ class LegacyController {
         render Legacy.list() as JSON
     }
 
+    def cleanup() {
+        Legacy.list().each {
+            it.delete flush: true
+        }
+
+        render Legacy.list() as JSON
+    }
 }

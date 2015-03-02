@@ -4,6 +4,8 @@ import grails.converters.JSON
 import grails.plugin.geocode.Point
 import grails.plugin.springsecurity.annotation.Secured
 
+import javax.sql.DataSource
+
 @Secured(["ROLE_ADMIN"])
 class DebugController {
 
@@ -49,6 +51,17 @@ class DebugController {
                 RDS_HOSTNAME: System.getProperty("RDS_HOSTNAME"),
                 RDS_PORT: System.getProperty("RDS_PORT"),
                 JDBC_CONNECTION_STRING: System.getProperty("JDBC_CONNECTION_STRING")
+        ]
+
+        render result as JSON
+    }
+
+    def dataSource() {
+
+        DataSource dataSource = grailsApplication.mainContext.getBean('dataSource')
+
+        def result = [
+                dataSource: dataSource.properties
         ]
 
         render result as JSON

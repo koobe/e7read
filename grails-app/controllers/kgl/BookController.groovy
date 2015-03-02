@@ -50,4 +50,8 @@ class BookController {
 			
 		}
 	}
+
+	def debug() {
+		render Book.list() as JSON
+	}
 }

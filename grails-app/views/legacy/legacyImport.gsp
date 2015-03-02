@@ -9,7 +9,7 @@
 
   <div class="page-header">
     <div class="btn-group pull-right" role="group">
-      <g:link action="legacy" class="btn btn-default">返回</g:link>
+      <g:link action="index" class="btn btn-default">返回</g:link>
     </div>
 
     <h2>Import EPUB</h2>

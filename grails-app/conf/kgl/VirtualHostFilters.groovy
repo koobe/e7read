@@ -26,14 +26,14 @@ class VirtualHostFilters {
 					else {
 						currentChannel = Channel.findByIsDefault(true)
 					}
-	
-					def vhostMapping = [:]
-					vhostMapping.hostName = request.serverName
-					vhostMapping.channelName = currentChannel.name
-					vhostMapping.webpageTitle = webtitle
-					
-					session.vhostMapping = vhostMapping
-					
+
+					session.vhostMapping = [
+							hostName: request.serverName,
+							channelName: currentChannel?.name?:'e7read',
+							webpageTitle: webtitle?:'E7READ'  //default title
+					]
+
+
 //	                request.setAttribute('channel', currentChannel)
 //					session.channelName = currentChannel.name
 	

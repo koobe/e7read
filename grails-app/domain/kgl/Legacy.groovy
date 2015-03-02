@@ -54,6 +54,8 @@ class Legacy {
         book nullable: true
     }
 
+    static transients = ['s3Service', 'coverUrl']
+
     URL getCoverUrl() {
         s3Service.getUrl(bucket, "${s3key}OEBPS/${coverKey}")
     }
@@ -62,8 +64,26 @@ class Legacy {
         book = new Book()
         book.name = title
         book.author = creator
-        book.datePublish = date
+        //book.datePublish = date
         book.coverUrl = getCoverUrl().toString()
+        book.bucket = bucket
+        book.isChecked = false
+        book.isDelete = false
+
         book.save flush: true
+    }
+
+    /**
+     * Add pages after book object created
+     */
+    def addPageObject() {
+
+        def page = new Page()
+
+        page.bucket = bucket
+        page.book = book
+        page.imageKey = ""
+
+        book.pages << page
     }
 }

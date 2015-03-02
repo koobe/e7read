@@ -34,11 +34,13 @@ class FacebookTagLib {
     }
 	
 	def comments = { attr, body -> 
-		def serverUrl = grailsApplication.config.grails.serverURL;
-		out <<
-		"""
-			<div class="fb-comments" data-href="${serverUrl}/share/${attr.contentid}" data-width="100%" data-numposts="5" data-colorscheme="light"></div>
-		"""
+//		def serverUrl = grailsApplication.config.grails.serverURL;
+//		out <<
+//		"""
+//			<div class="fb-comments" data-href="${serverUrl}/share/${attr.contentid}" data-width="100%" data-numposts="5" data-colorscheme="light"></div>
+//		"""
+		
+		out << render(template: '/taglib/template/fb_comment_box', model: [contentId: attr.contentid])
 	}
 
 }

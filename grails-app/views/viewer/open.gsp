@@ -315,6 +315,21 @@
 
             return false;
         });
+
+        $("body").keydown(function(e) {
+            if(e.keyCode == 37) { // left
+                var current = parseInt($('input[name=current]').val());
+                current += -1;
+
+                $('#slider').slider('value', current + 1);
+            }
+            else if(e.keyCode == 39) { // right
+                var current = parseInt($('input[name=current]').val());
+                current += 1;
+
+                $('#slider').slider('value', current + 1);
+            }
+        });
     });
 </script>
 

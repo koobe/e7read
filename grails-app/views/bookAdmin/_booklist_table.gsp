@@ -39,7 +39,7 @@
 						<g:formatDate date="${book.dateCreated}" format="MM/dd HH:mm" />
 					</td>
 					<td valign="middle" style="vertical-align:middle; text-align: center;">
-						<div><g:link uri="#">閱覽書籍</g:link></div>
+						<div><g:link uri="/viewer/open?book=${book.id}" target="_blank">閱覽書籍</g:link></div>
 						<div><g:link controller="bookAdmin" action="chapterList" id="${book?.id}">管理章節</g:link></div>
 						<!-- 
 						<div><g:link controller="bookAdmin" action="chapters" id="${book?.id}">管理內容</g:link></div>

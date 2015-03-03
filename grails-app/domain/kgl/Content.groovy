@@ -6,7 +6,7 @@ class Content {
 
     static searchable = {
         only = [
-			'user', 
+			'user', 'type', 
 			'cropTitle', 'cropText', 'lastUpdated', 'datePosted', 
 			'location', 'channel', 'categories', 
 			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation', 'tradingContentAttribute'
@@ -19,6 +19,7 @@ class Content {
 		categories component: true
 		location geoPoint: true, component: true
 		
+		type index: "no"
 		coverUrl index: "no"
 		isPrivate index: "not_analyzed"
 		isDelete index: "not_analyzed"
@@ -62,6 +63,8 @@ class Content {
     // References (URLs) for the content.
     String references
 	
+	String type
+	
 	static hasMany = [
 		textSegments: TextSegment,
 		pictureSegments: PictureSegment,
@@ -99,6 +102,7 @@ class Content {
         location nullable: true
         iconUrl nullable: true, blank: true
 		tradingContentAttribute nullable: true
+		type nullable: true
     }
 
     def beforeValidate() {

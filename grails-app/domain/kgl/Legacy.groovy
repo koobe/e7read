@@ -60,7 +60,7 @@ class Legacy {
         s3Service.getUrl(bucket, "${s3key}OEBPS/${coverKey}")
     }
 
-    def makeBookObject() {
+    def createBook() {
         book = new Book()
         book.name = title
         book.author = creator
@@ -76,14 +76,27 @@ class Legacy {
     /**
      * Add pages after book object created
      */
-    def addPageObject() {
+    def addPage(String imageKey, int dataIndex) {
 
         def page = new Page()
 
         page.bucket = bucket
         page.book = book
-        page.imageKey = ""
+        page.imageKey = imageKey
+        page.dataIndex = dataIndex
+
+        page.save flush: true
+
+        if (page.hasErrors()) {
+            log.warn(page.errors)
+        }
+
+        if (!book.pages) {
+            book.pages = []
+        }
 
         book.pages << page
+
+        book.save flush: true
     }
 }

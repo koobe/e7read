@@ -156,10 +156,15 @@ class LegacyController {
 
 
                 // Create a book object mapping for legacy
-                legacy.makeBookObject()
+                legacy.createBook()
 
                 // test add page
-                legacy.addPageObject()
+                int c = 0
+                if (imageItems) {
+                    imageItems.each {
+                        legacy.addPage("${legacy.s3key}OEBPS/${it}", c++)
+                    }
+                }
 
                 legacy.save flush: true
 

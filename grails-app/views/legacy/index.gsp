@@ -34,7 +34,13 @@
         <td align="right">${i+1}</td>
         <td>
           <p><small>${legacy.title}</small></p>
-          <p><g:link controller="legacy" action="opf" id="${legacy.id}">content.opf</g:link> | <g:link controller="viewer" action="open" params="[legacy: legacy.id]">preview</g:link></p>
+          <p>
+            <g:link controller="legacy" action="opf" id="${legacy.id}">content.opf</g:link>
+            |
+            <g:link controller="viewer" action="open" params="[legacy: legacy.id]">preview</g:link>
+            |
+            <g:link controller="viewer" action="open" params="[book: legacy.bookId]">book</g:link>
+          </p>
           <g:if test="${legacy.coverKey}">
             <img src="${createLink(controller: 'legacy', action: 'cover', id: legacy.id)}" alt="cover" class="img-thumbnail" style="max-width:150px" />
           </g:if>

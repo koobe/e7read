@@ -48,11 +48,27 @@ class ViewerController {
 
                 title = legacy.title
 
+                def bucket = legacy.bucket
+
                 if (legacy.coverKey) {
-                    cover = s3Service.generatePresignedUrl('koobecloudepub', "${legacy.s3key}OEBPS/${legacy.coverKey}")
+                    cover = s3Service.generatePresignedUrl(bucket, "${legacy.s3key}OEBPS/${legacy.coverKey}")
                 }
 
-                pages = legacy.imageItems?.split('\n').collect { s3Service.generatePresignedUrl('koobecloudepub', "${legacy.s3key}OEBPS/${it}") }
+                pages = legacy.imageItems?.split('\n').collect { s3Service.generatePresignedUrl(bucket, "${legacy.s3key}OEBPS/${it}") }
+            }
+        }
+
+        if (params.book) {
+            def book = Book.get(params.book)
+            if (book) {
+
+                title = book.name
+
+                if (book.coverUrl) {
+                    cover = book.coverUrl
+                }
+
+                pages = book.pages?.collect { s3Service.generatePresignedUrl(it.bucket, it.imageKey) }
             }
         }
 

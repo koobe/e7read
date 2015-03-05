@@ -111,7 +111,19 @@ class S3Service {
     }
 
     @Transactional
-    S3File upload(owner, CommonsMultipartFile file, InputStream inputStream, boolean isPublic, String remark) {
+    S3File upload(User owner, File file, String name, String contentType, boolean isPublic, String remark) {
+        def s3file = new S3File()
+
+        s3file.owner = owner
+        s3file.setFile(file, name, contentType)
+        s3file.isPublic = isPublic
+        s3file.remark = remark
+
+        return uploadImpl(s3file, file.newInputStream(), file.newInputStream(), file.newInputStream())
+    }
+
+    @Transactional
+    S3File upload(User owner, CommonsMultipartFile file, boolean isPublic, String remark) {
 
         def s3file = new S3File()
 
@@ -120,6 +132,10 @@ class S3Service {
         s3file.isPublic = isPublic
         s3file.remark = remark
 
+        return uploadImpl(s3file, file.inputStream, file.inputStream, file.inputStream)
+    }
+
+    private S3File uploadImpl(S3File s3file, InputStream inputStream, InputStream inputStream1, InputStream inputStream2) {
         log.info "Upload S3File ${s3file.originalFilename} (Content-Type: ${s3file.contentType}, Content-Length: ${s3file.contentLength} bytes)"
 
         if (!s3file.bucket) {
@@ -145,9 +161,9 @@ class S3Service {
             request.setCannedAcl(CannedAccessControlList.PublicRead)
         }
 
-		// put object to s3
+        // put object to s3
         def result = s3client.putObject(request)
-		
+
         s3file.url = s3client.getUrl(s3file.bucket, s3file.objectKey).toString().replaceFirst("https://", "http://")
         s3file.resourceUrl = s3file.url
         s3file.hasBeenUploaded = true
@@ -159,7 +175,7 @@ class S3Service {
             //fromFile << inputStream
 
             ByteArrayOutputStream os = new ByteArrayOutputStream()
-            imageService.thumbnail(file.inputStream, os, KglConstant.THUMBNAIL_MAX_WIDTH, KglConstant.THUMBNAIL_MAX_HEIGHT)
+            imageService.thumbnail(inputStream1, os, KglConstant.THUMBNAIL_MAX_WIDTH, KglConstant.THUMBNAIL_MAX_HEIGHT)
             ByteArrayInputStream is = new ByteArrayInputStream(os.toByteArray())
 
             metadata = new ObjectMetadata()
@@ -186,13 +202,18 @@ class S3Service {
 
             // make smaller thumbnail for dataUrl
             os = new ByteArrayOutputStream()
-            imageService.thumbnail(file.inputStream, os, KglConstant.THUMBNAIL_TINY_MAX_WIDTH, KglConstant.THUMBNAIL_TINY_MAX_HEIGHT)
+            imageService.thumbnail(inputStream2, os, KglConstant.THUMBNAIL_TINY_MAX_WIDTH, KglConstant.THUMBNAIL_TINY_MAX_HEIGHT)
             s3file.dataUrl = "data:${s3file.contentType};base64,${os.toByteArray().encodeBase64().toString()}"
 
             log.info "Thumbnail URL: ${s3file.thumbnailUrl}"
         }
 
         s3file.save flush: true
+
+
+        if (s3file.errors) {
+            log.error( s3file.errors)
+        }
 
         return s3file
     }

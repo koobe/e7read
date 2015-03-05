@@ -10,7 +10,10 @@
 
 <asset:javascript src="jquery.loadingspinner.js"/>
 
+
+<asset:javascript src="jquery/jquery.paste_image_reader.js" />
 <asset:javascript src="content/content_create.js"/>
+
 <asset:javascript src="jquery.form.min.js"/>
 <asset:javascript src="category_menu.js"/>
 
@@ -79,7 +82,7 @@
 
     <div id="PictureContainer" class="content-editing-picture">
         <div class="picture-cell">
-            <div class="picture-add" >
+            <div class="picture-add target">
                 <span class="fa fa-plus" style="font-size:large;"></span>
             </div>
         </div>

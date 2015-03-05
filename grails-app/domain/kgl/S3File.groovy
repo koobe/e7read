@@ -76,6 +76,12 @@ class S3File {
         originalFilename = file.originalFilename
     }
 
+    void setFile(File file, String name, String type) {
+        contentType = type
+        contentLength = file.length()
+        originalFilename = name
+    }
+
 //    void attach(domain) {
 //        attachDomain = domain?.class?.name
 //        attachId = domain?.id

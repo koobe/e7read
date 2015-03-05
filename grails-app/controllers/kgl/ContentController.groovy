@@ -671,6 +671,42 @@ class ContentController {
 
         def currentUser = springSecurityService.isLoggedIn()?springSecurityService.currentUser:User.findByUsername('anonymous')
 
+		if (params.dataURL && params.filename) {
+			S3File s3file
+
+			String dataURL = params.dataURL
+
+			String filename = params.filename
+
+			String contentType = params.contentType
+
+			String b64data = dataURL.substring(dataURL.indexOf(',') + 1)
+
+			File tmpfile = File.createTempFile(params.filename, 's3file')
+
+			tmpfile.withOutputStream { os ->
+				os << b64data.decodeBase64()
+			}
+
+			s3file = s3Service.upload(
+					currentUser,
+					tmpfile,
+					filename,
+					contentType,
+					true,
+					'USER-UPLOAD-IMAGE'
+			)
+
+			tmpfile.delete()
+
+			log.info 'S3File id: ' + s3file.id
+			log.info 'S3File object key: ' + s3file.objectKey
+			log.info 'S3File url: ' + s3file.url
+
+			render s3file as JSON
+			return
+		}
+
 		List<CommonsMultipartFile> imageFiles = params.list("file")
 		imageFiles.each { imageFile ->
 			if (!imageFile.isEmpty()) {
@@ -680,7 +716,6 @@ class ContentController {
                 s3file = s3Service.upload(
                         currentUser,
                         imageFile,
-                        imageFile.inputStream,
                         true,
                         'USER-UPLOAD-IMAGE'
                 )
@@ -690,10 +725,13 @@ class ContentController {
 				log.info 'S3File url: ' + s3file.url
 				
 				render s3file as JSON
+				return
 			}
 		}
 
-		render ""
+		response.sendError(404)
+
+		//render ([] as JSON)
 	}
 	
 	@Transactional
@@ -780,10 +818,12 @@ class ContentController {
 		dataIdx = 0
 		fileidList.each { s3fileId ->
 			def s3ImageFile = S3File.get(s3fileId)
-			def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl, thumbnailUrl: s3ImageFile.thumbnailUrl)
-			contentInstance.pictureSegments << pictureSegment
-			// log.info 'Picture segment added. {' + pictureSegment + '}'
-			dataIdx++
+			if (s3ImageFile) {
+				def pictureSegment = new PictureSegment(content: contentInstance, s3File: s3ImageFile, dataIndex: dataIdx, originalUrl: s3ImageFile.unsecuredUrl, thumbnailUrl: s3ImageFile.thumbnailUrl)
+				contentInstance.pictureSegments << pictureSegment
+				// log.info 'Picture segment added. {' + pictureSegment + '}'
+				dataIdx++
+			}
 		}
 
         // Default Cover Pictures

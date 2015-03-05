@@ -250,7 +250,6 @@ class AdminController {
                 s3file = s3Service.upload(
                         springSecurityService.currentUser,
                         file,
-                        file.inputStream,
                         true,
                         'DEFAULT-COVER-IMAGE'
                 )

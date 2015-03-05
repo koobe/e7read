@@ -37,7 +37,7 @@ class VirtualHostFilters {
 //	                request.setAttribute('channel', currentChannel)
 //					session.channelName = currentChannel.name
 	
-					log.info "(VirtualHost) auto mapping to channel[${currentChannel.name}]"
+					log.info "(VirtualHost) auto mapping to channel[${currentChannel?.name?:'e7read'}]"
 				}
 
 //				if (request.getParameter('SSO_FB_TOKEN')) {

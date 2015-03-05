@@ -204,12 +204,9 @@ class BookAdminController {
 		
 		def books = []
 		books.push(book)
-		
-//		def pages = Page.findAllByBook(book, [sort: 'dataIndex'])
 				
 		[
 			books: books,
-//			pages: pages,
 			chapter: chapter
 		]
 	}

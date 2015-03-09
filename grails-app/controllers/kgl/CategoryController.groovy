@@ -113,6 +113,14 @@ class CategoryController {
         }
     }
 	
+	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+	def list() {
+		
+		def channelName = getChannelName(params)
+		def categoryList = categoryService.list(channelName)
+		
+		render categoryList as JSON
+	}
 	@Deprecated
 	@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 	def addCategoryMenu() {
@@ -161,4 +169,6 @@ class CategoryController {
 		
 		return channelName
 	}
+	
+	
 }

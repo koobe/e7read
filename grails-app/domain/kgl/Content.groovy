@@ -6,10 +6,12 @@ class Content {
 
     static searchable = {
         only = [
-			'user', 'type', 
+			'user', 
 			'cropTitle', 'cropText', 'lastUpdated', 'datePosted', 
 			'location', 'channel', 'categories', 
-			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation', 'tradingContentAttribute'
+			'type',
+			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation', 
+			'tradingContentAttribute'
 		]
 		
 		
@@ -72,7 +74,8 @@ class Content {
 	]
 	
 	static hasOne = [
-		tradingContentAttribute :TradingContentAttribute	
+		tradingContentAttribute :TradingContentAttribute,
+		bookContentAttribute: BookContentAttribute
 	]
 	
 	static belongsTo = [
@@ -102,6 +105,7 @@ class Content {
         location nullable: true
         iconUrl nullable: true, blank: true
 		tradingContentAttribute nullable: true
+		bookContentAttribute nullable: true
 		type nullable: true
     }
 

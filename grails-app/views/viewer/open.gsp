@@ -150,6 +150,17 @@
     .page-slider .ui-btn {
         background-color: #fff;
     }
+
+    .panzoom-container {
+        width:100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: 9999;
+        background-color: #FFFFFF;
+    }
+
     </style>
 </head>
 
@@ -159,7 +170,7 @@
 
     <div id="viewer-content">
         <g:each in="${pages}" var="page" status="i">
-            <div class="image-rendering image-content" id="p${i}" data-url="url(${page})"></div>
+            <div class="image-rendering image-content" id="p${i}" data-url="${page}"></div>
         </g:each>
     </div>
 
@@ -207,8 +218,12 @@
     <input name="maximum" value="${pages.size() - 1}" type="hidden"/>
 </div>
 
+
+
+
 <script type="application/javascript" src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script type="application/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script type="application/javascript" src="//timmywil.github.io/jquery.panzoom/dist/jquery.panzoom.js"></script>
 <script type="application/javascript" src="//raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
 <script type="application/javascript" src="//labs.rampinteractive.co.uk/touchSwipe/jquery.touchSwipe.min.js"></script>
 <script type="text/javascript">
@@ -221,13 +236,13 @@
 
     var preload = function (page) {
         var url = $('#p' + page).data('url');
-        $('#p' + page).css('background-image', url);
+        $('#p' + page).css('background-image', 'url(' + url + ')');
     };
 
     var display = function (pageNum) {
         console.log("display(" + pageNum + ");");
 
-        $('.image-content').hide();
+        $('.image-content').removeClass('active').hide();
 
         var maximum = parseInt($('input[name=maximum]').val());
 
@@ -241,7 +256,7 @@
         console.log("display page: " + pageNum + ', ' + maximum);
 
         var url = $('#p' + pageNum).data('url');
-        $('#p' + pageNum).css('background-image', url).show();
+        $('#p' + pageNum).css('background-image', 'url(' + url + ')').addClass('active').show();
 
         for (var i = pageNum + 1; i < pageNum + 5; i++) {
             preload(i);
@@ -295,11 +310,36 @@
             $('#viewer-footer').hide();
         };
 
-        $('#viewer-content').swipe( {
+        $('#viewer-content').swipe({
             swipeLeft: swipeHandler,
             swipeRight: swipeHandler,
             tap: function(event, target) {
                 $('#viewer-footer').toggle();
+            },
+            doubleTap: function(event, target) {
+                //alert('double tap');
+                //$('#panzoom-parent').show();
+
+                var imgSrc = $('.image-content.active').data('url');
+
+                var html = '<section id="panzoom-parent" class="panzoom-container">' +
+                    '<div class="panzoom">' +
+                    '<img src="'+imgSrc+'" />' +
+                    '</div>' +
+                    '</section>';
+
+                $(html).appendTo($('body'));
+
+                $(".panzoom").panzoom({
+                    minScale: 1
+                }).panzoom("zoom");
+
+                $(".panzoom").dblclick(function() {
+                    $('#panzoom-parent').remove();
+                });
+            },
+            pinchIn: function(event, direction, distance, duration, fingerCount, zoom, fingerData) {
+                alert('in');
             },
             threshold: 45
         });

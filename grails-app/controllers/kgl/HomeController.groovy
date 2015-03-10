@@ -72,9 +72,37 @@ class HomeController {
 //			forward controller: 'maphome', action: "trade"
 			render view: "mapHome", model: model
 		} else {
-			render view: "index", model: model
+			render view: "richIndex", model: model
 		}
 		
+	}
+	
+	def list() {
+		
+		def channel
+		if (session.vhostMapping) {
+			channel = session.vhostMapping.channelName
+		}
+		
+		def myChannel
+		if (channel) {
+			myChannel = Channel.findByName(channel)
+			if (!myChannel) {
+				return response.sendError(404)
+			}
+		} else {
+			myChannel = Channel.findByIsDefault(true)
+		}
+		
+		session['channel'] = myChannel
+		params.channel = myChannel.name
+		
+		def model = [
+			params: params,
+			channel: myChannel
+		]
+		
+		render view: "index", model: model
 	}
 	
 	def mapHome(String channel) {

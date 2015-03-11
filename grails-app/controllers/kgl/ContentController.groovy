@@ -694,7 +694,7 @@ class ContentController {
 					filename,
 					contentType,
 					true,
-					'USER-UPLOAD-IMAGE'
+					'USER-UPLOAD-IMAGE-BY-PASTE'
 			)
 
 			tmpfile.delete()
@@ -707,30 +707,27 @@ class ContentController {
 			return
 		}
 
-		List<CommonsMultipartFile> imageFiles = params.list("file")
-		imageFiles.each { imageFile ->
-			if (!imageFile.isEmpty()) {
+        if (params.file) {
+            CommonsMultipartFile imageFile = params.file
+            if (!imageFile.isEmpty()) {
 
-				S3File s3file
-
-                s3file = s3Service.upload(
+                S3File s3file = s3Service.upload(
                         currentUser,
                         imageFile,
                         true,
                         'USER-UPLOAD-IMAGE'
                 )
 
-				log.info 'S3File id: ' + s3file.id
-				log.info 'S3File object key: ' + s3file.objectKey
-				log.info 'S3File url: ' + s3file.url
-				
-				render s3file as JSON
-				return
-			}
-		}
+                log.info 'S3File id: ' + s3file.id
+                log.info 'S3File object key: ' + s3file.objectKey
+                log.info 'S3File url: ' + s3file.url
+
+                render s3file as JSON
+                return
+            }
+        }
 
 		response.sendError(404)
-
 		//render ([] as JSON)
 	}
 	

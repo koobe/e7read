@@ -170,11 +170,19 @@ function addHandlers(contentViewObject) {
 	$('.text-container p', contentViewObject).linkify();
 	
 	$('.author-click', contentViewObject).click(function() {
-    	window.open("/" + channel + "?u="+$(this).data('user-id'), '_top');
+    	if (channel == 'e7read') {
+    		window.open("/home/list" + "?u="+$(this).data('user-id'), '_top');
+    	} else {
+    		window.open("/" + channel + "?u="+$(this).data('user-id'), '_top');
+    	}
     });
 
     $('.content-category-name', contentViewObject).css('cursor', 'pointer').click(function() {
-    	window.open("/" + channel + "?c="+$(this).data('categoryname'), '_top');
+    	if (channel == 'e7read') {
+    		window.open("/home/list" + "?c="+$(this).data('categoryname'), '_top');
+    	} else {
+    		window.open("/" + channel + "?c="+$(this).data('categoryname'), '_top');
+    	}
     });
     
     

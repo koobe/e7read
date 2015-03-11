@@ -24,11 +24,19 @@ $(function() {
     }
     
     $('.author-click').click(function() {
-    	window.open("/" + channel + "?u="+$(this).data('user-id'), '_top');
+    	if (channel == 'e7read') {
+    		window.open("/home/list" + "?u="+$(this).data('user-id'), '_top');
+    	} else {
+    		window.open("/" + channel + "?u="+$(this).data('user-id'), '_top');
+    	}
     });
 
     $('.content-category-name').css('cursor', 'pointer').click(function() {
-    	window.open("/" + channel + "?c="+$(this).data('categoryname'), '_top');
+    	if (channel == 'e7read') {
+    		window.open("/home/list" + "?c="+$(this).data('categoryname'), '_top');
+    	} else {
+    		window.open("/" + channel + "?c="+$(this).data('categoryname'), '_top');
+    	}
     });
     
     $('.text-container p').linkify();

@@ -8,7 +8,9 @@
 <asset:stylesheet src="create.css"/>
 <asset:stylesheet src="category_sidemenu.css"/>
 
+<asset:javascript src="jquery/jquery.paste_image_reader.js" />
 <asset:javascript src="content/content_create.js"/>
+    
 <asset:javascript src="jquery.form.min.js"/>
 <asset:javascript src="category_menu.js"/>
 

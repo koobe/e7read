@@ -14,10 +14,9 @@
 				background-repeat: no-repeat;
 				background-size: cover;
 				width: 100%;
-				height: 100%;" ng-style="{ 'background-image': 'url(' + content.coverUrl + ')' }"></div>
+				height: 100%;" ng-style="{ 'background-image': 'url(' + content.pictureSegments[0].originalUrl + ')' }"></div>
 			<div class="carousel-caption" style="font-size: 2em;">{{ content.cropTitle }}</div>
 		</div>
-		
 	</div>
 
 	<!-- Controls -->

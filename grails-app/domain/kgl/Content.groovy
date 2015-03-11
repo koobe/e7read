@@ -11,6 +11,7 @@ class Content {
 			'location', 'channel', 'categories', 
 			'type',
 			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation', 
+			'pictureSegments',
 			'tradingContentAttribute'
 		]
 		
@@ -19,6 +20,7 @@ class Content {
 		tradingContentAttribute component: true
 		user component: true
 		categories component: true
+		pictureSegments component: true
 		location geoPoint: true, component: true
 		
 		type index: "no"

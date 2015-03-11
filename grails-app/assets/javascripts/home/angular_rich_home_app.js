@@ -43,13 +43,19 @@ richHomeApp.controller('RichHomeController',
 			$categoryService.list(function(categorys) {
 				
 				var categoryList = [];
+				var categoryCount = 0;
 				
 				angular.forEach(categorys, function(category) {
+					
+					categoryCount++;
 					
 					var displayName = $("a[data-category-name='"+category.name+"']").html();
 					category.displayName = displayName.trim();
 					category.headerBgColorIdx = Math.floor((Math.random() * 3));
-					
+					category.cols = 6;
+//					if ((categorys.length % 2) == 1 && categoryCount == categorys.length) {
+//						category.cols = 12;
+//					}
 					
 					var req_data = {
 						size: 6, 
@@ -102,14 +108,57 @@ richHomeApp.controller('RichHomeController',
 				$scope.categories = categoryList;
 			});
 			
-			$scope.mouseoverBlock = function(contentIdStamp) {
-				$('#marquee-' + contentIdStamp).css('display', 'block');
-				$('#title-' + contentIdStamp).css('display', 'none');
+			var timerMap = {};
+			
+			$scope.mouseoverBlock = function(categoryName, contentId, stamp) {
+				$('#marquee-' + contentId + stamp).css('display', 'block');
+				$('#title-' + contentId + stamp).css('display', 'none');
+				
+				
+				
+				if (!timerMap[contentId + stamp]) {
+					
+					var content;
+					var contentList = $scope.categoryContents[categoryName];
+					
+					angular.forEach(contentList, function(contentObj) {
+						if (contentObj.id == contentId) {
+							content = contentObj;
+						}
+					});
+					
+					var pictureSize = content.pictureSegments.length;
+					var idx = 0;
+					
+					var timer = setInterval(function() {
+						idx++;
+						if (idx >= pictureSize) {
+							idx = 0;
+						}
+						
+						var imageUrl = content.pictureSegments[idx].thumbnailUrl;
+						if (!imageUrl) {
+							imageUrl = content.pictureSegments[idx].originalUrl;
+						}
+						
+						$('.image-' + contentId + stamp).css('background-image', 'url(' + imageUrl + ')');
+						
+					}, 2000);
+					
+					timerMap[contentId + stamp] = timer;
+				}
+				
 			};
 			
-			$scope.mouseoverLeave = function(contentIdStamp) {
-				$('#marquee-' + contentIdStamp).css('display', 'none');
-				$('#title-' + contentIdStamp).css('display', 'block');
+			$scope.mouseoverLeave = function(categoryName, contentId, stamp) {
+				$('#marquee-' + contentId + stamp).css('display', 'none');
+				$('#title-' + contentId + stamp).css('display', 'block');
+				
+				if (timerMap[contentId + stamp] != null) {
+					clearInterval(timerMap[contentId + stamp]);
+					timerMap[contentId + stamp] = null;
+				}
+				
 			};
 			
 			$scope.openContent = function(contentId) {

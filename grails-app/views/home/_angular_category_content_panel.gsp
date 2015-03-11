@@ -1,4 +1,6 @@
-<div class="col-xs-12 col-sm-6 category-content-panel" ng-repeat="category in categories">
+<div class="col-xs-12 category-content-panel" 
+	ng-class="{ 'col-sm-{{ category.cols }}': true } "
+	ng-repeat="category in categories">
 	
 	<div class="category-content-panel-container" 
 		ng-style="{ 'border': '1px solid ' + defaultPanelColors[category.headerBgColorIdx] }" >

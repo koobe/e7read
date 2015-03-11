@@ -14,6 +14,15 @@ class PictureSegment {
 	String thumbnailUrl
 	String originalUrl
 	
+	static searchable = {
+		root false
+		only = ['id', 'dataIndex', 'thumbnailUrl', 'originalUrl']
+		
+		dataIndex index: "no"
+		thumbnailUrl index: "no"
+		originalUrl index: "no"
+	}
+	
 	static belongsTo = [
 		content: Content,
 		s3File: S3File

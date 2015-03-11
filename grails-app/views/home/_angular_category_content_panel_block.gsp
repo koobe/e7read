@@ -1,8 +1,8 @@
 <div class="col-xs-12 category-content-panel-block" 
 	ng-repeat="content in categoryContents[category.name]"
 	ng-class="{ 'col-sm-{{ content.cols}}': true } " 
-	ng-mouseover="mouseoverBlock(content.id + content.stamp);" 
-	ng-mouseleave="mouseoverLeave(content.id + content.stamp);"
+	ng-mouseover="mouseoverBlock(category.name, content.id, content.stamp);" 
+	ng-mouseleave="mouseoverLeave(category.name, content.id, content.stamp);"
 	ng-click="openContent(content.id);">
 	
 	<div style="display: table;
@@ -13,7 +13,9 @@
 		
 		<div style="display: table-row;">
 		
-			<div class="category-content-panel-block-image" ng-if="content.imageSide == 0"
+			<div class="category-content-panel-block-image"
+				ng-class="{ 'image-{{ content.id + content.stamp }}': true } " 
+				ng-if="content.imageSide == 0"
 				ng-style="{ 'background-image': 'url(' + content.coverUrl + ')' }">
 			</div>
 			
@@ -35,7 +37,9 @@
 				
 			</div>
 			
-			<div class="category-content-panel-block-image" ng-if="content.imageSide == 1"
+			<div class="category-content-panel-block-image"
+				ng-class="{ 'image-{{ content.id + content.stamp }}': true } " 
+				ng-if="content.imageSide == 1"
 				ng-style="{ 'background-image': 'url(' + content.coverUrl + ')' }">
 			</div>
 			

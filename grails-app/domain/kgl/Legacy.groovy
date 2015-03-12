@@ -57,7 +57,7 @@ class Legacy {
     static transients = ['s3Service', 'coverUrl']
 
     URL getCoverUrl() {
-        s3Service.getUrl(bucket, "${s3key}OEBPS/${coverKey}")
+        s3Service.generatePresignedUrl(bucket, "${s3key}OEBPS/${coverKey}")
     }
 
     def createBook() {

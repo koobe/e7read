@@ -68,11 +68,35 @@
 
     .image-content {
         display: none;
-        width: 100%;
         height: 100%;
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+
+    .single-page .image-content {
+        width: 100%;
+    }
+
+    .double-page .image-content {
+        width: 50%;
+    }
+
+    .double-page .image-content.left {
+        background-position: right center;
+        left: 0;
+    }
+
+    .double-page .image-content.right {
+        background-position: left center;
+        right: 0;
+    }
+
+    .single-page .image-content {
+        width: 100%;
     }
 
     #viewer-footer {
@@ -168,9 +192,12 @@
 
 <div id="viewer">
 
-    <div id="viewer-content">
+    <div id="viewer-content" class="double-page">
         <g:each in="${pages}" var="page" status="i">
             <div class="image-rendering image-content" id="p${i}" data-url="${page}"></div>
+            <g:if test="${i==0}">
+                <div class="image-rendering image-content" id="p${++i}" class="empty"></div>
+            </g:if>
         </g:each>
     </div>
 
@@ -218,13 +245,10 @@
     <input name="maximum" value="${pages.size() - 1}" type="hidden"/>
 </div>
 
-
-
-
 <script type="application/javascript" src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script type="application/javascript" src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script type="application/javascript" src="//timmywil.github.io/jquery.panzoom/dist/jquery.panzoom.js"></script>
-<script type="application/javascript" src="//raw.githubusercontent.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+<script type="application/javascript" src="//cdn.rawgit.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
 <script type="application/javascript" src="//labs.rampinteractive.co.uk/touchSwipe/jquery.touchSwipe.min.js"></script>
 <script type="text/javascript">
 
@@ -240,9 +264,14 @@
     };
 
     var display = function (pageNum) {
+
+        if (pageNum % 2 == 1) {
+            pageNum = pageNum - 1;
+        }
+
         console.log("display(" + pageNum + ");");
 
-        $('.image-content').removeClass('active').hide();
+        $('.image-content').removeClass('active').removeClass('right').hide();
 
         var maximum = parseInt($('input[name=maximum]').val());
 
@@ -256,7 +285,11 @@
         console.log("display page: " + pageNum + ', ' + maximum);
 
         var url = $('#p' + pageNum).data('url');
-        $('#p' + pageNum).css('background-image', 'url(' + url + ')').addClass('active').show();
+        $('#p' + pageNum).css('background-image', 'url(' + url + ')').addClass('active').addClass('right').show();
+
+        var url2 = $('#p' + (pageNum + 1)).data('url');
+        $('#p' + (pageNum + 1)).css('background-image', 'url(' + url + ')').addClass('left').show();
+
 
         for (var i = pageNum + 1; i < pageNum + 5; i++) {
             preload(i);
@@ -349,7 +382,7 @@
             var current = parseInt($('input[name=current]').val());
             var offset = parseInt($(this).data('offset'));
 
-            current += offset;
+            current += (offset * 2);
 
             $('#slider').slider('value', current + 1);
 

@@ -386,7 +386,7 @@
             console.log('swipe direction: ' + direction);
 
             var current = parseInt($('input[name=current]').val());
-            var pageNum = current + (direction=='left'?1:-1);
+            var pageNum = current + (direction=='left'?2:-2);
             console.log("(Swipe) Open Page: " + pageNum);
             display(pageNum);
 

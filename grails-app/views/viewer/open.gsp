@@ -2,9 +2,8 @@
 <html>
 <head>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-
-    <link href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
     <link href="//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" rel="stylesheet"/>
+    <link href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="/jquery-mobile-theme/themes/e7read.min.css" rel="stylesheet"/>
 
@@ -260,6 +259,9 @@
 
     var preload = function (page) {
         var url = $('#p' + page).data('url');
+        if (!url) {
+            url = '/images/transparent.png';
+        }
         $('#p' + page).css('background-image', 'url(' + url + ')');
     };
 
@@ -285,10 +287,16 @@
         console.log("display page: " + pageNum + ', ' + maximum);
 
         var url = $('#p' + pageNum).data('url');
+        if (!url) {
+            url = '/images/transparent.png';
+        }
         $('#p' + pageNum).css('background-image', 'url(' + url + ')').addClass('active').addClass('right').show();
 
         var url2 = $('#p' + (pageNum + 1)).data('url');
-        $('#p' + (pageNum + 1)).css('background-image', 'url(' + url + ')').addClass('left').show();
+        if (!url2) {
+            url2 = '/images/transparent.png';
+        }
+        $('#p' + (pageNum + 1)).css('background-image', 'url(' + url2 + ')').addClass('left').show();
 
 
         for (var i = pageNum + 1; i < pageNum + 5; i++) {
@@ -343,8 +351,31 @@
             $('#viewer-footer').hide();
         };
 
+        $('.image-content').dblclick(function() {
+            var imgSrc = $(this).data('url');
+
+            var html = '<section id="panzoom-parent" class="panzoom-container">' +
+                    '<div class="panzoom">' +
+                    '<img src="'+imgSrc+'" />' +
+                    '</div>' +
+                    '</section>';
+
+            $('body').append(html);
+
+            $(".panzoom").panzoom({
+                contain: 'invert',
+                minScale: 1,
+                transition: false
+            }).panzoom("zoom");
+
+            $(".panzoom").dblclick(function() {
+                $('#panzoom-parent').remove();
+            });
+        });
+
         $('#viewer-content').swipe({
             swipeLeft: swipeHandler,
+            swipeRight: swipeHandler,
             swipeRight: swipeHandler,
             tap: function(event, target) {
                 $('#viewer-footer').toggle();
@@ -353,23 +384,7 @@
                 //alert('double tap');
                 //$('#panzoom-parent').show();
 
-                var imgSrc = $('.image-content.active').data('url');
-
-                var html = '<section id="panzoom-parent" class="panzoom-container">' +
-                    '<div class="panzoom">' +
-                    '<img src="'+imgSrc+'" />' +
-                    '</div>' +
-                    '</section>';
-
-                $(html).appendTo($('body'));
-
-                $(".panzoom").panzoom({
-                    minScale: 1
-                }).panzoom("zoom");
-
-                $(".panzoom").dblclick(function() {
-                    $('#panzoom-parent').remove();
-                });
+                // do nothing
             },
             pinchIn: function(event, direction, distance, duration, fingerCount, zoom, fingerData) {
                 alert('in');

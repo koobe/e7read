@@ -251,10 +251,42 @@
 <script type="application/javascript" src="//labs.rampinteractive.co.uk/touchSwipe/jquery.touchSwipe.min.js"></script>
 <script type="text/javascript">
 
+    var ___PRELOAD_SIZE = 2 * 2;
+
     $.fn.preload = function () {
         this.each(function () {
             $('<img/>')[0].src = this;
         });
+    };
+
+    var jobStack = new Array();
+
+    var pushJobStack = function(job) {
+
+        // 丟掉一些過多的老JOB
+        if (jobStack.length > (2 * 2)) {
+            for (var i = 0; i < jobStack.length - (2 * 2); i++) {
+                jobStack.shift();
+            }
+        }
+
+        jobStack.push(job)
+
+        window.setTimeout(jobExecutor, 500 + (jobStack.length * 500));
+    };
+
+    var runCount = 0;
+
+    var jobExecutor = function() {
+
+        runCount++;
+
+        console.log('run #' + runCount + ', jobs remain ' + jobStack.length);
+
+        if (jobStack.length > 0) {
+            var job = jobStack.pop();
+            job();
+        }
     };
 
     var preload = function (page) {
@@ -262,7 +294,19 @@
         if (!url) {
             url = '/images/transparent.png';
         }
-        $('#p' + page).css('background-image', 'url(' + url + ')');
+        var target = $('#p' + page);
+        if (! target.hasClass('loaded')) {
+            target.addClass('loaded');
+            pushJobStack(function() {
+                target.css('background-image', 'url(' + url + ')');
+            });
+        }
+    };
+
+    var startPreload = function(pageNum) {
+        for (var i = pageNum + 1; i < pageNum + (2 * 2); i++) {
+            preload(i);
+        }
     };
 
     var display = function (pageNum) {
@@ -299,9 +343,7 @@
         $('#p' + (pageNum + 1)).css('background-image', 'url(' + url2 + ')').addClass('left').show();
 
 
-        for (var i = pageNum + 1; i < pageNum + 5; i++) {
-            preload(i);
-        }
+        startPreload(pageNum);
 
         // Update current page num
         $('input[name=current]').val(pageNum);

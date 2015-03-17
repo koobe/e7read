@@ -252,6 +252,7 @@
 <script type="text/javascript">
 
     var ___PRELOAD_SIZE = 2 * 2;
+    var ___DIRECTION_MODE = 1;
 
     $.fn.preload = function () {
         this.each(function () {
@@ -330,17 +331,28 @@
 
         console.log("display page: " + pageNum + ', ' + maximum);
 
+        // direction: rtl or ltr
+        var direction = new Array();
+        if (___DIRECTION_MODE) {
+            direction[0] = 'left';
+            direction[1] = 'right';
+        }
+        else {
+            direction[0] = 'right';
+            direction[1] = 'left';
+        }
+
         var url = $('#p' + pageNum).data('url');
         if (!url) {
             url = '/images/transparent.png';
         }
-        $('#p' + pageNum).css('background-image', 'url(' + url + ')').addClass('active').addClass('right').show();
+        $('#p' + pageNum).css('background-image', 'url(' + url + ')').addClass('active').addClass(direction[0]).show();
 
         var url2 = $('#p' + (pageNum + 1)).data('url');
         if (!url2) {
             url2 = '/images/transparent.png';
         }
-        $('#p' + (pageNum + 1)).css('background-image', 'url(' + url2 + ')').addClass('left').show();
+        $('#p' + (pageNum + 1)).css('background-image', 'url(' + url2 + ')').addClass(direction[1]).show();
 
 
         startPreload(pageNum);
@@ -449,13 +461,13 @@
         $("body").keydown(function(e) {
             if(e.keyCode == 37) { // left
                 var current = parseInt($('input[name=current]').val());
-                current += -1;
+                current += -2;
 
                 $('#slider').slider('value', current + 1);
             }
             else if(e.keyCode == 39) { // right
                 var current = parseInt($('input[name=current]').val());
-                current += 1;
+                current += 2;
 
                 $('#slider').slider('value', current + 1);
             }

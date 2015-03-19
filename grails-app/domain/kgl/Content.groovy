@@ -67,6 +67,10 @@ class Content {
     // References (URLs) for the content.
     String references
 	
+	/**
+	 * null: Normal content
+	 * EBOOK: Ebook content 
+	 */
 	String type
 	
 	static hasMany = [

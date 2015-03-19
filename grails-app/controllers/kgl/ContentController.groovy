@@ -25,7 +25,7 @@ class ContentController {
     def elasticSearchService
 	def loggingService
 
-    static allowedMethods = [get: "GET", save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [get: "GET", save: ['POST', 'PUT'], update: "PUT", delete: "DELETE"]
 
     def index() {
 		[]
@@ -144,64 +144,74 @@ class ContentController {
 
     @Transactional
     def save(Content contentInstance) {
-
-        log.info "Save content ${contentInstance.cropText}. ${new Date()}"
-
-        if (contentInstance == null) {
-            notFound()
-            return
-        }
-
-        contentInstance.images = []
-        List<CommonsMultipartFile> imageFiles = params.list("imageFiles")
-
-        imageFiles.each { imageFile ->
-            if (!imageFile.isEmpty()) {
-                log.info "Receive image file: ${imageFile.originalFilename} (Content-Type: ${imageFile.contentType})"
-
-                def s3file = new S3File()
-
-                s3file.owner = springSecurityService.currentUser
-                s3file.file = imageFile
-                s3file.isPublic = true
-                s3file.remark = 'USER-UPLOAD-IMAGE'
-
-                // use auto-create objectKey instead
-                //s3file.objectKey = "${imageFile.originalFilename}"
-
-                s3Service.upload(s3file, imageFile.inputStream)
-
-                s3file.save flush: true
-
-                contentInstance.images << s3file
-            }
-        }
-
-        // Use the first line of full text as crop text
-        contentInstance.cropTitle = contentInstance.fullText?.split("\n")?.first()?.take(30)
-        contentInstance.cropText = contentInstance.fullText?.split("\n")?.first()
-
-        if (contentInstance.images) {
-            contentInstance.coverUrl = contentInstance.images.first().unsecuredUrl
-        }
-
-        contentInstance.hasPicture = contentInstance.images?true:false
-		contentInstance.isDelete = false
-		contentInstance.isPrivate = false
-
-        contentInstance.user = springSecurityService.currentUser
-        contentInstance.originalTemplate = OriginalTemplate.defaultTemplate
-
-        contentInstance.validate()
-
-        if (contentInstance.hasErrors()) {
-            respond contentInstance.errors, view:'create'
-            return
-        }
-
-        contentInstance.save flush: true
-
-		redirect controller: 'content', action: 'personal'
+		
+		if (request.method == 'POST') {
+			
+			log.info "Save content ${contentInstance.cropText}. ${new Date()}"
+			
+			if (contentInstance == null) {
+				notFound()
+				return
+			}
+	
+			contentInstance.images = []
+			List<CommonsMultipartFile> imageFiles = params.list("imageFiles")
+	
+			imageFiles.each { imageFile ->
+				if (!imageFile.isEmpty()) {
+					log.info "Receive image file: ${imageFile.originalFilename} (Content-Type: ${imageFile.contentType})"
+	
+					def s3file = new S3File()
+	
+					s3file.owner = springSecurityService.currentUser
+					s3file.file = imageFile
+					s3file.isPublic = true
+					s3file.remark = 'USER-UPLOAD-IMAGE'
+	
+					// use auto-create objectKey instead
+					//s3file.objectKey = "${imageFile.originalFilename}"
+	
+					s3Service.upload(s3file, imageFile.inputStream)
+	
+					s3file.save flush: true
+	
+					contentInstance.images << s3file
+				}
+			}
+	
+			// Use the first line of full text as crop text
+			contentInstance.cropTitle = contentInstance.fullText?.split("\n")?.first()?.take(30)
+			contentInstance.cropText = contentInstance.fullText?.split("\n")?.first()
+	
+			if (contentInstance.images) {
+				contentInstance.coverUrl = contentInstance.images.first().unsecuredUrl
+			}
+	
+			contentInstance.hasPicture = contentInstance.images?true:false
+			contentInstance.isDelete = false
+			contentInstance.isPrivate = false
+	
+			contentInstance.user = springSecurityService.currentUser
+			contentInstance.originalTemplate = OriginalTemplate.defaultTemplate
+	
+			contentInstance.validate()
+	
+			if (contentInstance.hasErrors()) {
+				respond contentInstance.errors, view:'create'
+				return
+			}
+	
+			contentInstance.save flush: true
+	
+			redirect controller: 'content', action: 'personal'
+			
+		} else if (request.method == 'PUT') {
+		
+			log.info params
+			log.info contentInstance
+		
+		}
+        
 		
 //        request.withFormat {
 //            form multipartForm {
@@ -1214,5 +1224,57 @@ class ContentController {
 		} else {
 			render template: "/content/view/content_view_trading", model: [content: content]
 		}
+	}
+	
+	def distributeBookContent() {
+		
+		log.info params
+
+		def categoryId = params.categoryId		
+		def cropTitle = params.cropTitle
+		def cropText = params.cropText
+		def fullText = params.cropText
+		
+		def bookId = params.bookId
+		def book
+		
+		if (bookId) {
+			book = Book.get(bookId)
+		}
+		
+		if (book) {
+			
+			def content = new Content()
+			
+			content.bookContentAttribute = new BookContentAttribute()
+			content.bookContentAttribute.book = book
+			content.type = 'EBOOK'
+			
+			content.cropTitle = cropTitle
+			content.cropText = cropText
+			
+			content.hasPicture = false
+			content.isPrivate = false
+			content.isDelete = false
+			content.isShowContact = false
+			content.isShowLocation = false
+			
+			// distribute content to default channel
+			content.channel = Channel.findByIsDefault(true)
+			content.categories = []
+			
+			if (springSecurityService.currentUser) {
+				content.user = springSecurityService.currentUser
+			} else {
+				content.user = User.findByUsername('admin')
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
 	}
 }

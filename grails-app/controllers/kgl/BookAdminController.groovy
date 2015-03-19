@@ -1,10 +1,14 @@
 package kgl
 
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(["ROLE_ADMIN"])
 class BookAdminController {
 	
 	def s3Service
 	def searchService
+	def springSecurityService
+	def categoryService
 
     def index() { 
 	}
@@ -211,5 +215,18 @@ class BookAdminController {
 		]
 	}
 	
-	
+	def distribute() {
+		
+		def bookId = params.id
+		def book
+		
+		if (bookId) {
+			book = Book.get(bookId)
+		}
+		
+		[
+			categories: categoryService.list(Channel.findByIsDefault(true).name),
+			book: book
+		]
+	}
 }

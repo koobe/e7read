@@ -7,7 +7,7 @@ class Content {
     static searchable = {
         only = [
 			'user', 
-			'cropTitle', 'cropText', 'lastUpdated', 'datePosted', 
+			'cropTitle', 'cropText', 'dateCreated', 'lastUpdated', 'datePosted', 
 			'location', 'channel', 'categories', 
 			'type',
 			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation', 
@@ -23,7 +23,7 @@ class Content {
 		pictureSegments component: true
 		location geoPoint: true, component: true
 		
-		type index: "no"
+		type index: "not_analyzed"
 		coverUrl index: "no"
 		isPrivate index: "not_analyzed"
 		isDelete index: "not_analyzed"

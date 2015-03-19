@@ -66,6 +66,10 @@ class SearchService {
 				.must(QueryBuilders.matchQuery("isPrivate", false))
 				.must(QueryBuilders.matchQuery("isDelete", false))
 				
+		if (params.type) {
+			query = query.must(QueryBuilders.matchQuery("type", params.type))
+		}
+				
 		if (geoPoint) {
 			query = query.must(QueryBuilders.matchQuery("isShowLocation", true))
 		}

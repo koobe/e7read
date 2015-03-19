@@ -41,7 +41,9 @@
 					<td valign="middle" style="vertical-align:middle; text-align: center;">
 						<div><g:link uri="/viewer/open?book=${book.id}" target="_blank">閱覽書籍</g:link></div>
 						<div><g:link controller="bookAdmin" action="chapterList" id="${book?.id}">管理章節</g:link></div>
-						<div><g:link controller="bookAdmin" action="distribute" id="${book?.id}">分配</g:link></div>
+						<g:if test="${book?.isChecked}">
+							<div><g:link controller="bookAdmin" action="distribute" id="${book?.id}">分配</g:link></div>
+						</g:if>
 						<!-- 
 						<div><g:link controller="bookAdmin" action="chapters" id="${book?.id}">管理內容</g:link></div>
 						 -->

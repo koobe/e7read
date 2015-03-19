@@ -74,7 +74,7 @@ class BookAdminController {
 				select page from Page as page where page.book.id = :bookId order by dataIndex
 			"""
 		
-			def pages = Content.executeQuery(hql, [bookId: book.id], [max: 1, offset: 0])
+			def pages = Page.executeQuery(hql, [bookId: book.id], [max: 1, offset: 0])
 			if (pages.size() == 1) {
 				def page = pages.getAt(0)
 				def coverUrl = s3Service.generatePresignedUrl(page.bucket, page.thumbnailKey)
@@ -122,7 +122,7 @@ class BookAdminController {
 				select page from Page as page where page.book.id = :bookId order by dataIndex
 			"""
 			
-			def pages = Content.executeQuery(hql, [bookId: book.id], [max: 1, offset: 0])
+			def pages = Page.executeQuery(hql, [bookId: book.id], [max: 1, offset: 0])
 			if (pages.size() == 1) {
 				def page = pages.getAt(0)
 				def coverUrl = s3Service.generatePresignedUrl(page.bucket, page.thumbnailKey)
@@ -219,14 +219,55 @@ class BookAdminController {
 		
 		def bookId = params.id
 		def book
+		def contents
 		
 		if (bookId) {
 			book = Book.get(bookId)
+			
+			String hql = """
+				select content from Content as content 
+				where content.type = :type and content.bookContentAttribute.book.id = :bookId 
+				order by dateCreated
+			"""
+			contents = Content.executeQuery(hql, [bookId: bookId, type: 'EBOOK'])
 		}
 		
 		[
-			categories: categoryService.list(Channel.findByIsDefault(true).name),
-			book: book
+			categories: categoryService.list(grailsApplication.config.grails.application.default_channel),
+			book: book,
+			contents: contents
 		]
+	}
+	
+	def distributionList() {
+		
+		def q = params.q
+		def max = params.max? params.max: 10
+		params.size = max
+		def offset = params.offset? params.offset: 0
+		
+		def contentCount = 0
+		def contents = []
+		
+		if (q) {
+			
+			String channelName = params.channel?: grailsApplication.config.grails.application.default_channel
+			params.type = 'EBOOK'
+			
+			def searchResult = searchService.searchContent(channelName, null, q, null, 50000, params)
+			contentCount = searchResult.total
+			contents = searchResult.searchResults
+		} else {
+			contentCount = Content.countByType('EBOOK')
+			contents = Content.findAllByType('EBOOK', 
+				[max: max, offset: offset, sort: "dateCreated", order: "desc"])
+		}
+		
+		[
+			contents: contents,
+			contentCount: contentCount,
+			params: params
+		]
+		
 	}
 }

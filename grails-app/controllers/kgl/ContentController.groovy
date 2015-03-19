@@ -1252,6 +1252,7 @@ class ContentController {
 			
 			content.cropTitle = cropTitle
 			content.cropText = cropText
+			content.fullText = fullText
 			
 			content.hasPicture = false
 			content.isPrivate = false
@@ -1263,18 +1264,46 @@ class ContentController {
 			content.channel = Channel.findByIsDefault(true)
 			content.categories = []
 			
+			content.categories << Category.get(categoryId)
+			
 			if (springSecurityService.currentUser) {
 				content.user = springSecurityService.currentUser
 			} else {
 				content.user = User.findByUsername('admin')
 			}
 			
+			def hql = """
+				select page from Page as page where page.book.id = :bookId order by dataIndex
+			"""
+			def pages = Page.executeQuery(hql, [bookId: bookId], [max: 1, offset: 0])
+			if (pages.size() == 1) {
+				def page = pages.getAt(0)
+				content.coverUrl = s3Service.generatePresignedUrl(page.bucket, page.imageKey)
+			}
+			
+			content.save flush: true
+			
+			def redirectAction = ""
+			if (session?.bookAdminNavigation?.prevAction) {
+				redirectAction = '/bookAdmin/' + session?.bookAdminNavigation?.prevAction
+			} else {
+				redirectAction = '/bookAdmin/index'
+			}
+			
+			def redirectParams = [:]
+			session?.bookAdminNavigation?.params.each { key, value ->
+				if (value) {
+					redirectParams[key] = value
+				}
+			}
+			
+			redirect uri: redirectAction, params: redirectParams
+			
+		} else {
+		
+			return response.sendError(404)
 		}
-		
-		
-		
-		
-		
-		
 	}
+	
+	
 }

@@ -35,6 +35,12 @@
 		    	<g:render template="/bookAdmin/distribute_edit_form"></g:render>
 		    </g:form>
 		    
+		    <div style="font-size: 1.2em; font-weight: 700; padding-bottom: 10px;">
+		    	此書已分配列表：
+		    </div>
+		    
+		    <g:render template="contentlist_table"></g:render>
+		    
 		</div>
 		
 		<g:render template="/home/footer" />

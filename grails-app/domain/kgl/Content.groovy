@@ -12,12 +12,13 @@ class Content {
 			'type',
 			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation', 
 			'pictureSegments',
-			'tradingContentAttribute'
+			'tradingContentAttribute', 'bookContentAttribute'
 		]
 		
 		
 		channel parent: true, component: true
 		tradingContentAttribute component: true
+		bookContentAttribute component: true
 		user component: true
 		categories component: true
 		pictureSegments component: true

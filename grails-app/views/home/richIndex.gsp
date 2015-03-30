@@ -51,7 +51,7 @@
 				<g:render template="angular_slideshow"></g:render>
 				
 				<div class="container-fliud">
-					<div class="row" style="padding: 0px 20px 0px 20px;">
+					<div class="row panel-row">
 						<g:render template="angular_category_content_panel"></g:render>
 					</div>
 				</div>

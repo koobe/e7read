@@ -57,3 +57,7 @@
 	-webkit-box-orient: vertical;
 	word-break: break-all;
 }
+
+.panel-row {
+	margin: 0;
+}

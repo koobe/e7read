@@ -41,7 +41,7 @@
 					</td>
 					<td valign="middle" style="vertical-align:middle; text-align: center;">
 						<div><g:link uri="/viewer/open?book=${content.bookContentAttribute?.book?.id}" target="_blank">閱覽書籍</g:link></div>
-						<div><g:link uri="javascript:void(0);">刪除分配</g:link></div>
+						<div><g:link uri="/bookAdmin/deleteDistribution?id=${content.id}&redirectUrl=${request.forwardURI}">刪除分配</g:link></div>
 					</td>
 				</tr>
 			</g:each>

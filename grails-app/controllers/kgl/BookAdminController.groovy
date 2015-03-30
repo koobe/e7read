@@ -270,4 +270,23 @@ class BookAdminController {
 		]
 		
 	}
+	
+	def deleteDistribution() {
+		
+		def contentId = params.id
+		def redirectUrl = params.redirectUrl
+		
+		if (contentId) {
+			def content = Content.get(contentId)
+			if (content) {
+				content.delete flush: true
+			}
+		}
+		
+		if (redirectUrl) {
+			redirect uri: redirectUrl
+		} else {
+			redirect uri: '/bookAdmin/distributionList'
+		}
+	}
 }

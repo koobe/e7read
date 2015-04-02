@@ -6,9 +6,7 @@
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 		<script src="//code.angularjs.org/1.3.2/angular-resource.min.js"></script>
 	    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
-	    
-	    
-	    
+
 	    <style type="text/css">
 	    	body {
 	    		background-color: #FAF8F5;
@@ -99,20 +97,29 @@
 			</div>
      		
      		<div class="choice" ng-controller="GooglePlaceAutoCompleteController">
-				<g:message code="map.welcome.location.prompt" /><%--輸入您的位置--%>：
+				<g:message code="map.welcome.location.prompt" />
+				<%--輸入您的位置--%>：
      			<div style="padding-top: 3px;">
 		     		<input id="place_input" type="text" class="gplaces-input form-control" id="Autocomplete" 
 		     			ng-autocomplete="result" 
 						details="details" 
-						options="options" ng-model="locationName" />
+						options="options" ng-model="locationName"
+						style="color: blue" />
 				</div>
+
+				&nbsp;<br/>
+
 				<div>
-	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="openPromptMap()">
-						<g:message code="map.welcome.button.enable.sensor" /><%--開啟地圖設定--%>
-					</a>
-	     			<a href="javascript:void(0);" style="white-space: nowrap; padding-left: 5px;" ng-click="setLocationBySensor()">
-						<g:message code="map.welcome.button.reset.location" /><%--重新定位--%>
-					</a>
+	     			<button class="btn btn-default" ng-click="openPromptMap()">
+						<i class="fa fa-map-marker"></i>
+						<g:message code="map.welcome.button.enable.sensor" />
+						<%--開啟地圖設定--%>
+					</button>
+					<button class="btn btn-default" ng-click="setLocationBySensor()">
+						<i class="fa fa-refresh"></i>
+						<g:message code="map.welcome.button.reset.location" />
+						<%--重新定位--%>
+					</button>
 	     		</div>
 	     		
 	     		<input style="display:none;" type="input" name="lat" ng-model="locationLat" />
@@ -145,7 +152,9 @@
      		</div>
      		
 		</div>
-		
+
+		&nbsp;<br/>
+
 		<g:render template="/home/footer" />
 		
 		<asset:javascript src="service/angular_map_service.js"/>

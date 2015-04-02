@@ -128,9 +128,8 @@
 		
 			<div class="page-container container-fluid" style="margin:0; padding:0; box-shadow: 0px -1px 3px 0px #ccc;">
 				
-				<div id="map-canvas" class="col-xs-5 container-map" style="height:100%; margin:0; padding:0;">
-				</div>
-				
+				<div id="map-canvas" class="col-sm-5 hidden-xs container-map" style="height:100%; margin:0; padding:0;"></div>
+
 				<!-- map controls -->
 				<input id="pac-input" class="controls" type="text" />
 				
@@ -150,7 +149,7 @@
 				  </div>
 				<!-- map controls -->
 				
-				<div id="content-canvas" class="col-xs-7 container-content-flow" style="box-shadow: -2px 0px 2px 0px #ccc; height:100%; overflow-y: auto; margin:0; padding:0; -webkit-overflow-scrolling: touch;" scrolling>
+				<div id="content-canvas" class="col-sm-7 col-xs-12 container-content-flow" style="box-shadow: -2px 0px 2px 0px #ccc; height:100%; overflow-y: auto; margin:0; padding:0; -webkit-overflow-scrolling: touch;" scrolling>
 				
 					<div class="content-pane">
 						<div class="container-fluid" style="padding:0px 10px 5px 10px;">

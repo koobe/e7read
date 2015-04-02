@@ -31,13 +31,14 @@
         top: 50%;
         transform: translateY(-50%);
         display: inline-block;
-        color: #bcbcbc;
         opacity: .2;
+        color: #bcbcbc;
+        text-shadow: 0px 0px 2px #FFF;
     }
 
     .page-switcher:hover i {
         color: #bcbcbc;
-        opacity: 1;
+        opacity: .6;
     }
 
     .page-switcher-prev {
@@ -408,6 +409,10 @@
         $('.image-content').dblclick(function() {
             var imgSrc = $(this).data('url');
 
+            if (!imgSrc) {
+                return;
+            }
+
             var html = '<section id="panzoom-parent" class="panzoom-container">' +
                     '<div class="panzoom">' +
                     '<img src="'+imgSrc+'" />' +
@@ -470,6 +475,9 @@
                 current += 2;
 
                 $('#slider').slider('value', current + 1);
+            }
+            else if (e.keyCode == 27) { // esc
+                $('#panzoom-parent').remove();
             }
         });
     });

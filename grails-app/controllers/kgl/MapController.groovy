@@ -86,7 +86,8 @@ class MapController {
         [
                 lat: lat,
                 lon: lon,
-                zoom: zoom
+                zoom: zoom,
+                defaultIconURL: asset.assetPath(src: 'e7logo-marker-icon1-48x48.png', absolute: true)
         ]
     }
 

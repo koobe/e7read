@@ -180,6 +180,19 @@
 								</div>
 								
 								<div style="display:inline-block;">
+
+									<!--
+
+									<div class="btn-group" data-toggle="buttons">
+										<label class="btn btn-default">
+											<input type="checkbox" autocomplete="off"> 買
+										</label>
+										<label class="btn btn-default">
+											<input type="checkbox" autocomplete="off"> 賣
+										</label>
+									</div>
+-->
+
 									<span><g:message code="dictionary|sort" />：</span>
 									
 									<select name="data.sort" id="data.sort" ng-model="sortBy" ng-change="changeSort($event)">

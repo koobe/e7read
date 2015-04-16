@@ -38,12 +38,28 @@
 		
 		
 		<div>
+
 			<div ng-if="content.tradingContentAttribute.price">
 				<i class="fa fa-usd"></i>
 				<span>{{ content.tradingContentAttribute.price }}</span>
 			</div>
 			<div ng-if="!content.tradingContentAttribute.price">
 				<span>　</span>
+			</div>
+
+			<div ng-if="content.jsonAttrs.tradeType">
+				<div ng-if="content.jsonAttrs.tradeType=='buy'">
+					<span class="label label-success">
+						<i class="fa fa-shopping-cart"></i>
+						Buy
+					</span>
+				</div>
+				<div ng-if="content.jsonAttrs.tradeType=='sell'">
+					<span class="label label-success">
+						<i class="fa fa-tag"></i>
+						Sell
+					</span>
+				</div>
 			</div>
 			
 			<div style="float:right;">

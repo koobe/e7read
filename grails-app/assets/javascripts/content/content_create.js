@@ -155,7 +155,8 @@ function postContent(isPublish) {
 			contentText: $('#content-editing-textarea').val(),
             isShowLocation: $('input[name=isShowLocation]:checked').val(),
             isLocked: locked, 
-            tradingValue: tradingValue
+            tradingValue: tradingValue,
+			'option.tradeType': $('input[name="option.tradeType"]:checked').val()
 		},
 		success:function(data,textStatus){
 			var channel = getQueryVariable("channel");

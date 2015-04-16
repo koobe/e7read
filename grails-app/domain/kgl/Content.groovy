@@ -1,5 +1,8 @@
 package kgl
 
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
 class Content {
 
     private static final Date NULL_DATE = new Date(0)
@@ -12,7 +15,8 @@ class Content {
 			'type',
 			'coverUrl', 'iconUrl', 'isPrivate', 'isDelete', 'isShowLocation', 
 			'pictureSegments',
-			'tradingContentAttribute', 'bookContentAttribute'
+			'tradingContentAttribute', 'bookContentAttribute',
+			'jsonAttrs'
 		]
 		
 		
@@ -56,6 +60,11 @@ class Content {
 
     String editableHashcode
 
+	/**
+	 * Store string type attributes in JSON format
+	 */
+	String jsonAttrs = '{}'
+
     /**
      * Kepp owner email for anonymous post
      */
@@ -96,6 +105,8 @@ class Content {
 		textSegments sort: 'dataIndex'
 		
 		references column: '`references`'
+
+		jsonAttrs type: 'text'
     }
 
     static constraints = {
@@ -136,4 +147,19 @@ class Content {
             isShowLocation = true
         }
     }
+
+	def getJsonAttr(String key) {
+		def object = new JsonSlurper().parseText(jsonAttrs)
+		object[key]
+	}
+
+	def getJsonAttr(String key, Object defaultValue) {
+		getJsonAttr(key)?:defaultValue
+	}
+
+	void setJsonAttr(String key, Object value) {
+		def object = new JsonSlurper().parseText(jsonAttrs)
+		object[key] = value
+		jsonAttrs = new JsonOutput().toJson(object)
+	}
 }

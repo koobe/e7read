@@ -156,6 +156,10 @@ mapHomeApp.controller('ContentFlowController',
 						maxWidth: 130
 					});
 //				}, 300);
+
+				console.log('--- debug ---');
+				content.jsonAttrs = angular.fromJson(content.jsonAttrs);
+				console.log(content.jsonAttrs);
 					
 				if (content.tradingContentAttribute) {
 					if (content.tradingContentAttribute.price > priceSliderMax) {

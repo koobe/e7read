@@ -54,6 +54,24 @@
     <div id="content-editing-textarea" class="content-editing-textarea form-control" placeholder="Write something here..." contenteditable="true"></div>
      -->
 
+    <!-- trademuch buy/sell options -->
+    <g:if test="${enableTradeOption}">
+        <div style="text-align: left; padding: 10px 0">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input type="radio" name="option.tradeType" value="buy" id="option1" autocomplete="off" checked>
+                    <i class="fa fa-shopping-cart"></i>
+                    Post to Buy ...
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="option.tradeType" value="sell" id="option2" autocomplete="off">
+                    <i class="fa fa-tag"></i>
+                    Post to Sell ...
+                </label>
+            </div>
+        </div>
+    </g:if>
+
     <g:textArea id="content-editing-textarea" class="content-editing-textarea form-control" name="text" placeholder="Write something here..." rows="15"></g:textArea>
 
     <g:render template="editing_tips" />

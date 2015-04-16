@@ -138,7 +138,8 @@ class ContentController {
 
 		[
                 location: location,
-                lat: lat, lon: lon
+                lat: lat, lon: lon,
+				enableTradeOption: getChannelName(params).equals('trade')
         ]
     }
 
@@ -935,6 +936,13 @@ class ContentController {
 				contentInstance.tradingContentAttribute = tradingContentAttribute
 			}
 		}
+
+		// set attrs
+		if (params['option.tradeType']) {
+			contentInstance.setJsonAttr('tradeType', params['option.tradeType'])
+		}
+
+		// check errors
 
 		contentInstance.validate()
 		log.info contentInstance.errors

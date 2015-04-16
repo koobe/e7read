@@ -11,6 +11,8 @@ class BootStrap {
 
     def mapStyleService
 
+    def customMailService
+
     def init = { servletContext ->
 
         // Create default s3 bucket
@@ -66,19 +68,30 @@ class BootStrap {
         def jsonText = grailsApplication.parentContext.getResource("classpath:json/configuration.json").file.text
         def json = new JsonSlurper().parseText(jsonText)
 
-        json.keySet().each {
-            key ->
-                def value = json.get(key)
+        json.keySet().each {  key ->
+            def value = json.get(key)
 
-                log.info "Check configuration: ${key} = ${value}"
+            log.info "Check configuration: ${key} = ${value}"
 
-                def config = Configuration.findByName(key)
+            def config = Configuration.findByName(key)
 
-                if (!config) {
-                    config = new Configuration(name: key, content: value)
-                    config.save flush: true
-                }
+            if (!config) {
+                config = new Configuration(name: key, content: value)
+                config.save flush: true
+            }
         }
+
+
+
+        log.info "Send E-Mail notifications."
+
+        environments {
+            development {
+
+                customMailService.serverStartupNotification('kyle@koobe.com.tw')
+            }
+        }
+
 
     }
 

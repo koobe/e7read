@@ -47,18 +47,21 @@
 				<span>　</span>
 			</div>
 
-			<div ng-if="content.jsonAttrs.tradeType">
-				<div ng-if="content.jsonAttrs.tradeType=='buy'">
+			<div ng-switch on="content.jsonAttrs.tradeType">
+				<div ng-switch-when="buy">
 					<span class="label label-success">
 						<i class="fa fa-shopping-cart"></i>
 						Buy
 					</span>
 				</div>
-				<div ng-if="content.jsonAttrs.tradeType=='sell'">
+				<div ng-switch-when="sell">
 					<span class="label label-success">
 						<i class="fa fa-tag"></i>
 						Sell
 					</span>
+				</div>
+				<div ng-switch-default>
+					&nbsp;
 				</div>
 			</div>
 			

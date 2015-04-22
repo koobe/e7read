@@ -33,6 +33,17 @@
 .location-link:hover {
     color: #000000;
 }
+
+    .apply-theme-style .btn-primary {
+        border: none;
+        border-radius: 10px;
+    }
+    .apply-theme-style .btn-primary {
+        background-color: #bcbcbc;
+    }
+    .apply-theme-style .btn-primary.active {
+        background-color: #89E2D5;
+    }
 </style>
 </head>
 <body>
@@ -57,7 +68,7 @@
     <!-- trademuch buy/sell options -->
     <g:if test="${enableTradeOption}">
         <div style="text-align: left; padding: 10px 0">
-            <div class="btn-group" data-toggle="buttons">
+            <div class="btn-group apply-theme-style" data-toggle="buttons">
                 <label class="btn btn-primary active">
                     <input type="radio" name="option.tradeType" value="buy" id="option1" autocomplete="off" checked>
                     <i class="fa fa-shopping-cart"></i>

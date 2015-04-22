@@ -122,6 +122,26 @@ mapHomeApp.controller('ContentFlowController',
 			}
 			
 			angular.forEach(contents, function(content){
+
+				//console.log('--- debug ---');
+				content.jsonAttrs = angular.fromJson(content.jsonAttrs);
+				//console.log(content.jsonAttrs);
+
+				if (content.jsonAttrs && content.jsonAttrs.tradeType) {
+					if (content.jsonAttrs.tradeType == 'buy') {
+						if (!$('input[name=tradeType][value=buy]').is(':checked')) {
+							return;
+						}
+					}
+					else if (content.jsonAttrs.tradeType == 'sell') {
+						if (!$('input[name=tradeType][value=sell]').is(':checked')) {
+							return;
+						}
+					}
+				}
+				console.log();
+
+
 				if (geo != null) {
 					content.distance = $mapService.distance(lat, lon, content.location.lat, content.location.lon, 'K');
 				} else if ($scope.lastSearchLocation.lat && $scope.lastSearchLocation.lon) {
@@ -148,18 +168,14 @@ mapHomeApp.controller('ContentFlowController',
 				});
 				
 //				setTimeout(function(){
-					var html = getInfoWindowHTML(content);
-					
-					$googleMapService.setInfoWindow({
-						contentId: content.id,
-						content: html,
-						maxWidth: 130
-					});
-//				}, 300);
+				var html = getInfoWindowHTML(content);
 
-				console.log('--- debug ---');
-				content.jsonAttrs = angular.fromJson(content.jsonAttrs);
-				console.log(content.jsonAttrs);
+				$googleMapService.setInfoWindow({
+					contentId: content.id,
+					content: html,
+					maxWidth: 130
+				});
+//				}, 300);
 					
 				if (content.tradingContentAttribute) {
 					if (content.tradingContentAttribute.price > priceSliderMax) {
@@ -221,6 +237,11 @@ mapHomeApp.controller('ContentFlowController',
 			}
 		}
 	};
+
+	 $scope.refreshAll = function() {
+		 console.log('refresh all...');
+		 $scope.loadContents(true);
+	 };
 	
 	/**
 	 * trigger search action by Enter key
@@ -239,7 +260,7 @@ mapHomeApp.controller('ContentFlowController',
 			$scope.loadContents(true);
 			target.blur();
 		}
-	}
+	};
 	
 	/**
 	 * remove search keyword
@@ -248,7 +269,7 @@ mapHomeApp.controller('ContentFlowController',
 		$('.fulltext-searchbox').val(null);
 		$scope.keyword = null;
 		$scope.loadContents(true);
-	}
+	};
 	
 	$scope.setLocationBySensor = function() {
 		
@@ -602,6 +623,9 @@ mapHomeApp.controller('ContentFlowController',
 	
 	
 	function getInfoWindowHTML(content) {
+
+		console.log(content);
+
 		var container = $('<div class="container"/>');
 		
 		var imgContainer = $('<div class="div-bg-thumbnail-cover info-window-image" onclick="showContent(\'' + content.id + '\')"/>');
@@ -611,7 +635,7 @@ mapHomeApp.controller('ContentFlowController',
 		var titleContainer = $('<div class="info-window-title" />');
 		var title = $('<span/>').html(content.cropTitle);
 		titleContainer.append(title);
-		
+
 		var separator = $('<div class="info-window-separator" />');
 		
 		var infoContainer = $('<div class="info-window-info" />');
@@ -625,11 +649,24 @@ mapHomeApp.controller('ContentFlowController',
 //		var distance = $('<div><i class="fa fa-car"></i> <span>' + (Math.round(content.distance*100)/100) + ' 公里</span><div/>');
 		
 		infoContainer.append(author).append(date); //.append(distance);
-		
+
+
+		if (content.jsonAttrs && content.jsonAttrs.tradeType) {
+			//console.log('----mmmmmm-----');
+			//console.log(content.jsonAttrs.tradeType);
+			if (content.jsonAttrs.tradeType == 'sell') {
+				infoContainer.append('<div style="text-align: center"><span class="label label-success">\n<i class="fa fa-tag"></i>\nSell</span></div>');
+			}
+			else if (content.jsonAttrs.tradeType == 'buy') {
+				infoContainer.append('<div style="text-align: center"><span class="label label-success">\n<i class="fa fa-shopping-cart"></i>\nBuy</span></div>');
+			}
+		}
+
+
 		var separatorDashed = $('<div class="info-window-separator-dashed" />');
 		
 		var navigatorDiv = $('<div/>');
-		navigatorDiv.css('padding-top', '3px');
+		navigatorDiv.css('padding-top', '5px');
 		
 		var leftBtn = $('<a href="javascript: openedWindowPrevContent();" class="btn btn-default btn-circle"><i class="fa fa-caret-left"></i></a>');
 		var rightBtn = $('<a href="javascript: openedWindowNextContent();" class="btn btn-default btn-circle"><i class="fa fa-caret-right"></i></a>');

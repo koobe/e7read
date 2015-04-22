@@ -181,17 +181,14 @@
 								
 								<div style="display:inline-block;">
 
-									<!--
-
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-default">
-											<input type="checkbox" autocomplete="off"> 買
+										<label class="btn btn-default active" ng-click="refreshAll($event)">
+											<input name="tradeType" value="buy" type="checkbox" autocomplete="off" checked /> Buy
 										</label>
-										<label class="btn btn-default">
-											<input type="checkbox" autocomplete="off"> 賣
+										<label class="btn btn-default active" ng-click="refreshAll($event)">
+											<input name="tradeType" value="sell" type="checkbox" autocomplete="off" checked /> Sell
 										</label>
 									</div>
--->
 
 									<span><g:message code="dictionary|sort" />：</span>
 									

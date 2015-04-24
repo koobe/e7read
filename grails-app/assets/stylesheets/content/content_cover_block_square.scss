@@ -12,8 +12,7 @@ body {
 	background-color: #FAF8F5;
 }
 
-.div-bg-thumbnail-cover {
-	border-radius: 5px;
+.thumbnail-cover {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -27,11 +26,14 @@ body {
 	
 		border-radius: 5px;
 		border: 1px solid #AAA;
-		padding: 8px 8px 8px 8px;
 		cursor: pointer;
 		
-		/*background-color: #FAF8F5;*/
-		
+		background-color: #FFFFFF;
+
+	  	.block-inner {
+		  padding: 0 8px 8px 8px;
+		}
+
 		.block-title-image {
 			text-align: center;
 			

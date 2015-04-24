@@ -45,8 +45,10 @@ class AdminController {
     }
 
     def channelUpdate() {
+        def channel = Channel.get(params.id)
         [
-                channel: Channel.get(params.id)
+                channel: channel,
+                hosts: VirtualHost.findAllByChannel(channel)
         ]
     }
 

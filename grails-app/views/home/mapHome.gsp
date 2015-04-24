@@ -127,28 +127,29 @@
 			<g:render template="header_v2" model="[showcategorymenu: true, showsearchbar: true, showChannelButton: true]" />
 		
 			<div class="page-container container-fluid" style="margin:0; padding:0; box-shadow: 0px -1px 3px 0px #ccc;">
-				
+
 				<div id="map-canvas" class="col-sm-5 hidden-xs container-map" style="height:100%; margin:0; padding:0;"></div>
 
-				<!-- map controls -->
+				<!--Google Map Controls-->
 				<input id="pac-input" class="controls" type="text" />
-				
+
 				<sec:ifLoggedIn>
 					<i id="get-my" class="fa fa-user control-position" ng-click="returnMyLocation()"></i>
 				</sec:ifLoggedIn>
+
 				<i id="get-current" class="fa fa-crosshairs control-position" ng-click="setLocationBySensor()"></i>
 				<i id="return-last" class="fa fa-undo control-position" ng-click="moveToSearchPoint()"></i>
-				
+
 				<i id="full-map" class="fa fa-search-plus control-position" ng-click="setFullMap()"></i>
 				<i id="half-map" class="fa fa-search-minus control-position" style="display:none;" ng-click="setHalfMap()"></i>
-				
+
 				<div id="is-search" class="checkbox control-position" style="width: 110px; font-size: 1.2em; margin-top: 7px;">
-				    <label>
-				      <input type="checkbox" ng-checked="isMapSearch" ng-model="isMapSearch" /><g:message code="message|map.move.search" />
-				    </label>
-				  </div>
-				<!-- map controls -->
-				
+					<label>
+						<input type="checkbox" ng-checked="isMapSearch" ng-model="isMapSearch" /><g:message code="message|map.move.search" />
+					</label>
+				</div>
+				<!--/Google Map Controls-->
+
 				<div id="content-canvas" class="col-sm-7 col-xs-12 container-content-flow" style="box-shadow: -2px 0px 2px 0px #ccc; height:100%; overflow-y: auto; margin:0; padding:0; -webkit-overflow-scrolling: touch;" scrolling>
 				
 					<div class="content-pane">
@@ -178,17 +179,27 @@
 										border-radius: 12px;
 									">{{ keyword }} <i class="fa fa-times"></i></span>
 								</div>
+
+
 								
 								<div style="display:inline-block;">
 
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-default active" ng-click="refreshAll($event)">
-											<input name="tradeType" value="buy" type="checkbox" autocomplete="off" checked /> Buy
+										<label class="btn btn-default btn-sm active" ng-click="refreshAll($event)">
+											<input name="tradeType" value="buy" type="checkbox" autocomplete="off" checked />
+											<i class="fa fa-shopping-cart"></i>
+											Buy
 										</label>
-										<label class="btn btn-default active" ng-click="refreshAll($event)">
-											<input name="tradeType" value="sell" type="checkbox" autocomplete="off" checked /> Sell
+										<label class="btn btn-default btn-sm active" ng-click="refreshAll($event)">
+											<input name="tradeType" value="sell" type="checkbox" autocomplete="off" checked />
+											<i class="fa fa-tag"></i>
+											Sell
 										</label>
 									</div>
+
+								</div>
+
+								<div style="display:inline-block;">
 
 									<span><g:message code="dictionary|sort" />：</span>
 									

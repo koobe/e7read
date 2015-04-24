@@ -413,11 +413,13 @@ mapHomeApp.controller('ContentFlowController',
 				$googleMapService.dontLoad = false;
 			}, 1000);
 		}
-		$('#map-canvas').removeClass('col-xs-5');
-		$('#map-canvas').addClass('col-xs-12');
+
+		$('#map-canvas').removeClass('col-sm-5').removeClass('hidden-xs').addClass('col-xs-12');
+
 		$('#content-canvas').hide();
 		$('#full-map').hide();
 		$('#half-map').show();
+
 		google.maps.event.trigger($googleMapService.getMap(), 'resize');
 	}
 	
@@ -435,10 +437,13 @@ mapHomeApp.controller('ContentFlowController',
 			$googleMapService.dontloadTimeout = setTimeout(function() {
 				$googleMapService.dontLoad = false;
 			}, 1000);
-		} else {
-			$('#map-canvas').addClass('col-xs-5');
-			$('#map-canvas').removeClass('col-xs-12');
+		}
+		else {
+
+			$('#map-canvas').addClass('col-sm-5').addClass('hidden-xs').removeClass('col-xs-12');
+
 			google.maps.event.trigger($googleMapService.getMap(), 'resize');
+
 			$('#content-canvas').show();
 			$('#full-map').show();
 			$('#half-map').hide();

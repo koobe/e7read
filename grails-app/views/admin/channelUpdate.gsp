@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            <label for="isDefault">Show In Panel?</label>
+            <label for="showInPanel">Show In Panel?</label>
             <div>
                 <g:radioGroup values="[true,false]" value="${channel.showInPanel}" labels="['Yes','No']" name="showInPanel">
                     <label>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="form-group">
-            <label for="isDefault">Allow Anonymous?</label>
+            <label for="canAnonymous">Allow Anonymous?</label>
             <div>
                 <g:radioGroup values="[true,false]" value="${channel.canAnonymous}" labels="['Yes','No']" name="canAnonymous">
                     <label>
@@ -79,13 +79,27 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label>Virtual Hosts</label>
+            <div>
+
+                <select style="height:10em" class="form-control" multiple>
+                    <g:each in="${hosts}" var="host">
+                        <option>${host.hostname}</option>
+                    </g:each>
+                </select>
+
+            </div>
+        </div>
+
+
         <div class="form-group text-right">
             <label>
                 <g:checkBox name="delete" /> <span class="text-danger">Delete this channel (be careful)!</span>
             </label>
         </div>
 
-        <button type="submit" class="btn btn-default">Update</button>
+        <button type="submit" class="btn btn-primary">Update</button>
         <g:link controller="admin" action="channel" class="btn btn-default">Cancel</g:link>
     </g:form>
 

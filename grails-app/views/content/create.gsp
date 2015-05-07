@@ -88,16 +88,17 @@
     <g:render template="editing_tips" />
     
     <g:if test="${params.channel == 'trade'}">
-    	<div style="padding: 10px 0px 0px 0px; ">
-			<div style="display:table;">
-				<div style="display:table-cell;">
-					<span>Price：</span>
-				</div>
-				<div style="display:table-cell;">
-					<input id="trading-value" type="text" class="form-control" placeholder="Enter number" />
-				</div>
-			</div>
-			<!-- 
+        <div class="row">
+            <div class="col-xs-6" style="padding: 10px 0px 0px 0px; ">
+                <div style="display:table;">
+                    <div style="display:table-cell;">
+                        <span>Price：</span>
+                    </div>
+                    <div style="display:table-cell;">
+                        <input id="trading-value" type="text" class="form-control" placeholder="Enter number" />
+                    </div>
+                </div>
+                <!--
 			<div style="display:table;">
 				<div style="display:table-cell;">
 					<span>數量：</span>
@@ -106,7 +107,25 @@
 					<input type="email" class="form-control" placeholder="數量">
 				</div>
 			</div> -->
-		</div>
+            </div>
+
+            <div class="col-xs-6" style="padding: 10px 0px 0px 0px; ">
+                <div style="display:table;">
+                    <div style="display:table-cell;">
+                        <span>Post date from：</span>
+                    </div>
+                    <div style="display:table-cell;">
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div style="display:table-cell;">
+                        to
+                    </div>
+                    <div style="display:table-cell;">
+                        <input type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
 	</g:if>
 
     <div id="PictureContainer" class="content-editing-picture">

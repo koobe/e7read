@@ -42,7 +42,24 @@
 		<asset:stylesheet src="content/content_view.css"/>
 		
 		<style type="text/css">
-		
+
+			.label-success {
+				background-color: #94E6DA;
+			}
+
+			.apply-theme-style .btn-primary {
+				border: none;
+				border-radius: 10px;
+			}
+
+			.apply-theme-style .btn-primary {
+				background-color: #bcbcbc;
+			}
+
+			.apply-theme-style .btn-primary.active {
+				background-color: #89E2D5;
+			}
+
 			.controls {
 		       
 		        border: 1px solid transparent;
@@ -131,7 +148,7 @@
 				<div id="map-canvas" class="col-sm-5 hidden-xs container-map" style="height:100%; margin:0; padding:0;"></div>
 
 				<!--Google Map Controls-->
-				<input id="pac-input" class="controls" type="text" />
+				<input id="pac-input" class="controls" type="text" placeholder="What are you looking for ... locations/items?" />
 
 				<sec:ifLoggedIn>
 					<i id="get-my" class="fa fa-user control-position" ng-click="returnMyLocation()"></i>
@@ -184,13 +201,13 @@
 								
 								<div style="display:inline-block;">
 
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-default btn-sm active" ng-click="refreshAll($event)">
+									<div class="btn-group apply-theme-style" data-toggle="buttons">
+										<label class="btn btn-primary btn-sm active" ng-click="refreshAll($event)">
 											<input name="tradeType" value="buy" type="checkbox" autocomplete="off" checked />
 											<i class="fa fa-shopping-cart"></i>
 											Buy
 										</label>
-										<label class="btn btn-default btn-sm active" ng-click="refreshAll($event)">
+										<label class="btn btn-primary btn-sm active" ng-click="refreshAll($event)">
 											<input name="tradeType" value="sell" type="checkbox" autocomplete="off" checked />
 											<i class="fa fa-tag"></i>
 											Sell

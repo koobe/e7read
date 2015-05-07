@@ -421,7 +421,7 @@ mapHomeApp.controller('ContentFlowController',
 		$('#half-map').show();
 
 		google.maps.event.trigger($googleMapService.getMap(), 'resize');
-	}
+	};
 	
 	$scope.setHalfMap = function() {
 		
@@ -448,7 +448,7 @@ mapHomeApp.controller('ContentFlowController',
 			$('#full-map').show();
 			$('#half-map').hide();
 		}
-	}
+	};
 	
 	$scope.moveToSearchPoint = function() {
 		if ($scope.lastSearchLocation.lat) {

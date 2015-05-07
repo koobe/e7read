@@ -19,6 +19,9 @@
 </style>
 <footer>
 	<div class="koobe-footer container-fluid " style="background-color: #D1D1D1">
+
+
+
 		<h6 style="text-align: center;">
 			<g:link uri="/" class="copyright-text" style="color: #FFFFFF; font-size: 0.8em; font-weight: 600;">
 				<g:message code="site.footer.copyright" default="E7READ.com, 2014" />

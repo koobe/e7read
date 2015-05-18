@@ -57,6 +57,8 @@ class Content {
     Date lastUpdated
 	
 	Date datePosted
+	Date validateDateBegin
+	Date validateDateEnd
 
     String editableHashcode
 
@@ -140,6 +142,15 @@ class Content {
         if (datePosted == null) {
             datePosted = new Date()
         }
+
+		if (validateDateBegin == null) {
+			validateDateBegin = new Date()
+		}
+
+		if (validateDateEnd == null) {
+			validateDateEnd = new Date() + 7
+		}
+
         if (isShowContact == null) {
             isShowContact = false
         }

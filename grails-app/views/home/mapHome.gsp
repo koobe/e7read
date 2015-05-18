@@ -49,7 +49,9 @@
 
 			.apply-theme-style .btn-primary {
 				border: none;
-				border-radius: 10px;
+				border-radius: 3px !important;
+				box-shadow: none;
+				margin-right: 5px;
 			}
 
 			.apply-theme-style .btn-primary {
@@ -197,7 +199,6 @@
 									">{{ keyword }} <i class="fa fa-times"></i></span>
 								</div>
 
-
 								
 								<div style="display:inline-block;">
 
@@ -216,6 +217,14 @@
 
 								</div>
 
+
+								<div style="display:inline-block; vertical-align: middle; cursor:pointer;">
+									<a class="extended-filter-panel-click" style="padding: 1px 9px 0px 9px; font-size: 17px;">
+										<i id="icon-filter-toggle" class="fa fa-tasks" style="color: #fff; background-color: #89E2D5; display:inline-block; padding: 5px; border-radius: 3px; text-align: center; width: 40px"></i>
+									</a>
+								</div>
+
+								
 								<div style="display:inline-block;">
 
 									<span><g:message code="dictionary|sort" />：</span>
@@ -249,13 +258,7 @@
 							            </label>
 							        </div> -->
 								</div>
-								
-								<div style="display:inline-block; vertical-align: middle; cursor:pointer;">
-									<a class="extended-filter-panel-click" style="padding: 1px 9px 0px 9px; font-size: 17px;">
-										<i id="icon-filter-toggle" class="fa fa-tasks"></i>
-									</a>
-								</div>
-								
+
 					        </div>
 					        
 					        <div style="clear:both;"></div>

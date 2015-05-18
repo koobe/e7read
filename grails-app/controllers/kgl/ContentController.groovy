@@ -942,6 +942,18 @@ class ContentController {
 			contentInstance.setJsonAttr('tradeType', params['option.tradeType'])
 		}
 
+
+		if (params.validateDateBegin) {
+			contentInstance.validateDateBegin = Date.parse('yyyy-MM-dd', params.validateDateBegin)
+		}
+
+		if (params.validateDateEnd) {
+			contentInstance.validateDateEnd = Date.parse('yyyy-MM-dd', params.validateDateEnd)
+		}
+
+		log.info "params: ${params.validateDateBegin} --- ${params.validateDateEnd}"
+		log.info "content: ${contentInstance.validateDateBegin} --- ${contentInstance.validateDateEnd}"
+
 		// check errors
 
 		contentInstance.validate()

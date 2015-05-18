@@ -36,7 +36,9 @@
 
     .apply-theme-style .btn-primary {
         border: none;
-        border-radius: 10px;
+        border-radius: 10px !important;
+        box-shadow: none;
+        margin-right: 5px;
     }
     .apply-theme-style .btn-primary {
         background-color: #bcbcbc;
@@ -89,15 +91,14 @@
     
     <g:if test="${params.channel == 'trade'}">
         <div class="row">
-            <div class="col-xs-6" style="padding: 10px 0px 0px 0px; ">
-                <div style="display:table;">
-                    <div style="display:table-cell;">
-                        <span>Price：</span>
-                    </div>
-                    <div style="display:table-cell;">
+            <div class="col-sm-4">
+                <form class="form-inline text-left">
+                    <div class="form-group">
+                        <label>Price：</label>
                         <input id="trading-value" type="text" class="form-control" placeholder="Enter number" />
                     </div>
-                </div>
+                </form>
+            </div>
                 <!--
 			<div style="display:table;">
 				<div style="display:table-cell;">
@@ -107,23 +108,17 @@
 					<input type="email" class="form-control" placeholder="數量">
 				</div>
 			</div> -->
-            </div>
-
-            <div class="col-xs-6" style="padding: 10px 0px 0px 0px; ">
-                <div style="display:table;">
-                    <div style="display:table-cell;">
-                        <span>Post date from：</span>
+            <div class="col-sm-8">
+                <form class="form-inline text-left">
+                    <div class="form-group">
+                        <label>Post date from：</label>
+                        <input id="validateDateBegin" type="text" class="form-control" value="${formatDate(date: new Date(), format: 'yyyy-MM-dd')}" />
                     </div>
-                    <div style="display:table-cell;">
-                        <input type="text" class="form-control" />
+                    <div class="form-group">
+                        <label>to</label>
+                        <input id="validateDateEnd" type="text" class="form-control" value="${formatDate(date: new Date()+7, format: 'yyyy-MM-dd')}" />
                     </div>
-                    <div style="display:table-cell;">
-                        to
-                    </div>
-                    <div style="display:table-cell;">
-                        <input type="text" class="form-control" />
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
 	</g:if>

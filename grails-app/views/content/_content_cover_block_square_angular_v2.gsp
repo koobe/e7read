@@ -44,30 +44,33 @@
 
 			<div>
 
+				<div ng-if="content.tradingContentAttribute.price" class="pull-left">
+					<i class="fa fa-usd"></i>
+					<span>{{ content.tradingContentAttribute.price }}</span>
+				</div>
+				<div ng-if="!content.tradingContentAttribute.price" class="pull-left">
+					<span>　</span>
+				</div>
+
 				<div ng-switch on="content.jsonAttrs.tradeType">
-					<div ng-switch-when="buy">
-						<span class="label label-success pull-right">
+					<div ng-switch-when="buy" class="text-right">
+						<span class="label label-success">
 							<i class="fa fa-shopping-cart"></i>
 							Buy
 						</span>
 					</div>
-					<div ng-switch-when="sell">
-						<span class="label label-success pull-right">
+					<div ng-switch-when="sell" class="text-right">
+						<span class="label label-success">
 							<i class="fa fa-tag"></i>
 							Sell
 						</span>
 					</div>
-					<div ng-switch-default>
-						&nbsp;
+					<div ng-switch-default class="text-right">
+						<span class="label label-success">
+							<i class="fa fa-tag"></i>
+							Sell
+						</span>
 					</div>
-				</div>
-
-				<div ng-if="content.tradingContentAttribute.price">
-					<i class="fa fa-usd"></i>
-					<span>{{ content.tradingContentAttribute.price }}</span>
-				</div>
-				<div ng-if="!content.tradingContentAttribute.price">
-					<span>　</span>
 				</div>
 
 				<div style="float:right;">

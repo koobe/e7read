@@ -53,27 +53,30 @@
 
 <g:render template="editing_tips" />
 
-	<g:if test="${params.channel == 'trade'}">
-    	<div style="padding: 10px 0px 0px 0px; ">
-			<div style="display:table;">
-				<div style="display:table-cell;">
-					<span>價值：</span>
-				</div>
-				<div style="display:table-cell;">
-					<input id="trading-value" type="text" class="form-control" placeholder="請輸入金額" value="${contentInstance.tradingContentAttribute?.price}" />
-				</div>
-			</div>
-			<!-- 
-			<div style="display:table;">
-				<div style="display:table-cell;">
-					<span>數量：</span>
-				</div>
-				<div style="display:table-cell;">
-					<input type="email" class="form-control" placeholder="數量">
-				</div>
-			</div> -->
-		</div>
-	</g:if>
+    <g:if test="${params.channel == 'trade'}">
+        <div class="row">
+            <div class="col-sm-4">
+                <form class="form-inline text-left">
+                    <div class="form-group">
+                        <label>Price：</label>
+                        <input id="trading-value" type="text" class="form-control" placeholder="Enter number" value="${contentInstance.tradingContentAttribute?.price}" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-8">
+                <form class="form-inline text-left">
+                    <div class="form-group">
+                        <label>Post date from：</label>
+                        <input id="validateDateBegin" type="text" class="form-control" value="${formatDate(date: contentInstance.validateDateBegin, format: 'yyyy-MM-dd')}" />
+                    </div>
+                    <div class="form-group">
+                        <label>to</label>
+                        <input id="validateDateEnd" type="text" class="form-control" value="${formatDate(date: contentInstance.validateDateEnd, format: 'yyyy-MM-dd')}" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </g:if>
 
     <div id="PictureContainer" class="content-editing-picture">
         <div class="picture-cell">

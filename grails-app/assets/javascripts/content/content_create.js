@@ -156,6 +156,8 @@ function postContent(isPublish) {
             isShowLocation: $('input[name=isShowLocation]:checked').val(),
             isLocked: locked, 
             tradingValue: tradingValue,
+			validateDateBegin: $('input#validateDateBegin').val(),
+			validateDateEnd: $('input#validateDateEnd').val(),
 			'option.tradeType': $('input[name="option.tradeType"]:checked').val()
 		},
 		success:function(data,textStatus){

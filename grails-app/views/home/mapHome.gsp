@@ -149,6 +149,8 @@
 
 				<div id="map-canvas" class="col-sm-5 hidden-xs container-map" style="height:100%; margin:0; padding:0;"></div>
 
+				<!--<div id="map-canvas-toggle" class="hidden-xs" style="height:100%;position:relative;">&gt;</div>-->
+
 				<!--Google Map Controls-->
 				<input id="pac-input" class="controls" type="text" placeholder="What are you looking for ... locations/items?" />
 

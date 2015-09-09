@@ -38,9 +38,11 @@ $(function() {
     		window.open("/" + channel + "?c="+$(this).data('categoryname'), '_top');
     	}
     });
-    
-    $('.text-container p').linkify();
-	
+
+    if ($.linkify) {
+        $('.text-container p').linkify();
+    }
+
 	$('.text-container a').each(function() {
     	
     	console.log('process link');

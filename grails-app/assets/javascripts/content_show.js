@@ -166,9 +166,11 @@ function addHandlers(contentViewObject) {
     $('.main-gallery, .pictures-container, .imagetitle-container, .image-gallery', contentViewObject).imageview({
         attrOfUrl: 'data-imageurl'
     });
-	
-	$('.text-container p', contentViewObject).linkify();
-	
+
+	if ($.linkify) {
+		$('.text-container p', contentViewObject).linkify();
+	}
+
 	$('.author-click', contentViewObject).click(function() {
     	if (channel == 'e7read') {
     		window.open("/home/list" + "?u="+$(this).data('user-id'), '_top');

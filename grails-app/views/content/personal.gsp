@@ -3,7 +3,7 @@
 	    <meta name="layout" content="main"/>
 	    <title></title>
 	    
-	    <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
+	    <asset:javascript src="jquery.linkify.min.js"/>
 	    
 	    <asset:javascript src="jquery.messagemanager.js"/>
 	    <asset:javascript src="jquery.loadingspinner.js"/>

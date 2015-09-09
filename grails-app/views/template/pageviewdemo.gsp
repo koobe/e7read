@@ -10,7 +10,7 @@
 		
 		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 		
-		<script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
+		<asset:javascript src="jquery.linkify.min.js"/>
 		
 		<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
 		

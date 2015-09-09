@@ -4,6 +4,8 @@
 
 grails.config.locations = [ "classpath:${appName}-config.properties",
                             "classpath:${appName}-config.groovy",
+                            "classpath:${appName}-config-secrets.properties",
+                            "classpath:${appName}-config-secrets.groovy",
                             "file:${userHome}/.grails/${appName}-config.properties",
                             "file:${userHome}/.grails/${appName}-config.groovy"]
 
@@ -219,7 +221,7 @@ elasticSearch {
     defaultExcludedProperties = ["password"]
     disableAutoIndex = false
     bulkIndexOnStartup = true
-    maxBulkRequest = 500
+    maxBulkRequest = 10
     searchableProperty.name = 'searchable'
 }
 
@@ -236,6 +238,7 @@ environments {
     production {
         //elasticSearch.client.mode = 'node'
         elasticSearch.client.mode = 'local'
+        index.store.type = 'memory'
     }
 }
 

@@ -6,7 +6,7 @@
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-resource.min.js"></script>
 	    
-	    <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
+	    <asset:javascript src="jquery.linkify.min.js"/>
 	    
 	    <asset:javascript src="jquery.messagemanager.js"/>
 		<asset:stylesheet src="gototop.css"/>

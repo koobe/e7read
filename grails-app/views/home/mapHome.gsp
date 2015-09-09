@@ -8,7 +8,7 @@
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.js"></script>
 	    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-resource.min.js"></script>
 	    
-	    <script src="//soapbox.github.io/jQuery-linkify/dist/jquery.linkify.min.js"></script>
+	    <asset:javascript src="jquery.linkify.min.js"/>
 	    
 	    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   		<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
